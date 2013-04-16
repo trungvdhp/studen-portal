@@ -44,6 +44,5 @@ c:\users\thethao\documents\visual studio 2012\Projects\StudentPortal\StudentPort
 c:\users\thethao\documents\visual studio 2012\Projects\StudentPortal\StudentPortal\bin\DotNetOpenAuth.OAuth.xml
 c:\users\thethao\documents\visual studio 2012\Projects\StudentPortal\StudentPortal\bin\DotNetOpenAuth.OpenId.xml
 c:\users\thethao\documents\visual studio 2012\Projects\StudentPortal\StudentPortal\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
-c:\users\thethao\documents\visual studio 2012\Projects\StudentPortal\StudentPortal\obj\Debug\StudentPortal.csprojResolveAssemblyReference.cache
 c:\users\thethao\documents\visual studio 2012\Projects\StudentPortal\StudentPortal\obj\Debug\StudentPortal.dll
 c:\users\thethao\documents\visual studio 2012\Projects\StudentPortal\StudentPortal\obj\Debug\StudentPortal.pdb
