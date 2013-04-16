@@ -4,12 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace StudentPortal.Controllers.Admin
+namespace StudentPortal.Areas.Admin.Controllers
 {
     public class DashboardController : Controller
     {
         //
-        // GET: /Dashboard/
+        // GET: /Admin/Dashboard/
 
         public ActionResult Index()
         {
