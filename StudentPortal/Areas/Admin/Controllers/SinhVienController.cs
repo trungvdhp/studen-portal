@@ -6,17 +6,12 @@ using System.Web.Mvc;
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
-    public class LopHocPhanController : Controller
+    public class SinhVienController : Controller
     {
         //
-        // GET: /Admin/LopHocPhan/
+        // GET: /Admin/SinhVien/
 
         public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult Read()
         {
             return View();
         }
