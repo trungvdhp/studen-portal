@@ -163,7 +163,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GiangVienController.cs" />
     <Compile Include="Areas\Admin\Controllers\LopHocPhanController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SinhVienController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -372,6 +374,8 @@
     <Content Include="Content\themes\assets\font-awesome\font\fontawesome-webfont.woff" />
     <Content Include="Content\themes\assets\font-awesome\font\fontawesome-webfont_162a16fe.eot" />
     <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\LopHocPhan\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_PageHeader.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -431,7 +435,6 @@
     <Content Include="Areas\Admin\Views\Shared\_Header.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Footer.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Sidebar.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Page.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
