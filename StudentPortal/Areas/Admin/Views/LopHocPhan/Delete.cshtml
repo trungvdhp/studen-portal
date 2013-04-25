@@ -1,0 +1,137 @@
+﻿@model StudentPortal.PLAN_LopTinChi_TC
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>PLAN_LopTinChi_TC</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_lop_tc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_lop_tc)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_lop_lt)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_lop_lt)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PLAN_MonTinChi_TC.Ky_hieu_lop_tc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PLAN_MonTinChi_TC.Ky_hieu_lop_tc)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.STT_lop)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.STT_lop)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.So_sv_min)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.So_sv_min)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.So_sv_max)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.So_sv_max)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Tu_ngay)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Tu_ngay)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Den_ngay)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Den_ngay)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ca_hoc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ca_hoc)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.So_tiet_tuan)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.So_tiet_tuan)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_phong)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_phong)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_cb)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_cb)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Huy_lop)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Huy_lop)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ly_do)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ly_do)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nhom_dang_ky)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nhom_dang_ky)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ngay_thi)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ngay_thi)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Cho_trong)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Cho_trong)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

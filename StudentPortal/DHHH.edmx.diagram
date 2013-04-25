@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="31e25d8d55aa474ea7207949332b2108" Name="Diagram1">
+        <EntityTypeShape EntityType="DHHHModel.PLAN_GiaoVien" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DHHHModel.MARK_MonHoc" Width="1.5" PointX="10.266446548638141" PointY="2.5522880566084236" />
+        <EntityTypeShape EntityType="DHHHModel.PLAN_LopTinChi_TC" Width="1.5" PointX="5.87340749328649" PointY="13.324908963090232" />
+        <EntityTypeShape EntityType="DHHHModel.PLAN_MonTinChi_TC" Width="1.5" PointX="4.0984339174341571" PointY="31.2773627933475" />
+        <AssociationConnector Association="DHHHModel.FK_PLAN_MonTinChi_TC_MARK_MonHoc" />
+        <AssociationConnector Association="DHHHModel.FK_PLAN_LopTinChi_TC_PLAN_MonTinChi_TC" />
+        <EntityTypeShape EntityType="DHHHModel.PLAN_PhongHoc" Width="1.5" PointX="5.7901736524841629" PointY="4.035035477967484" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -44,6 +44,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -163,7 +165,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
-    <Compile Include="Areas\Admin\Controllers\GiangVienController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GiaoVienController.cs" />
     <Compile Include="Areas\Admin\Controllers\LopHocPhanController.cs" />
     <Compile Include="Areas\Admin\Controllers\SinhVienController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -172,7 +174,37 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MARK_MonHoc.cs">
+      <DependentUpon>DHHH.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="DHHH.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DHHH.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DHHH.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DHHH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DHHH.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DHHH.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="PLAN_GiaoVien.cs">
+      <DependentUpon>DHHH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PLAN_LopTinChi_TC.cs">
+      <DependentUpon>DHHH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PLAN_MonTinChi_TC.cs">
+      <DependentUpon>DHHH.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PLAN_PhongHoc.cs">
+      <DependentUpon>DHHH.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -374,8 +406,34 @@
     <Content Include="Content\themes\assets\font-awesome\font\fontawesome-webfont.woff" />
     <Content Include="Content\themes\assets\font-awesome\font\fontawesome-webfont_162a16fe.eot" />
     <Content Include="Areas\Admin\Views\Web.config" />
-    <Content Include="Areas\Admin\Views\LopHocPhan\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_PageHeader.cshtml" />
+    <EntityDeploy Include="DHHH.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DHHH.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DHHH.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DHHH.edmx</DependentUpon>
+      <LastGenOutput>DHHH.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DHHH.edmx.diagram">
+      <DependentUpon>DHHH.edmx</DependentUpon>
+    </Content>
+    <Content Include="DHHH.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DHHH.edmx</DependentUpon>
+      <LastGenOutput>DHHH.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Admin\Views\GiaoVien\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\LopHocPhan\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\LopHocPhan\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\LopHocPhan\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\LopHocPhan\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\LopHocPhan\Delete.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -391,7 +449,9 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -429,7 +489,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Header.cshtml" />
@@ -441,6 +503,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
