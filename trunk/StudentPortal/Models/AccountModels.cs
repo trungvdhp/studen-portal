@@ -11,7 +11,7 @@ namespace StudentPortal.Models
     public class UsersContext : DbContext
     {
         public UsersContext()
-            : base("DefaultConnection")
+            : base("DHHHConnection")
         {
         }
 
