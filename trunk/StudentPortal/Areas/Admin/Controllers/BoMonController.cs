@@ -26,7 +26,9 @@ namespace StudentPortal.Areas.Admin.Controllers
         public ActionResult Read(int page)
         {
             if(page<1) page=1;
-            return View(db.PLAN_BoMon.Skip((page-1)*10).Take(10).ToList());
+            JsonResult result = new JsonResult();
+            result.Data = db.PLAN_BoMon.Skip((page-1)*10).Take(10).ToList();
+            return result;
         }
 
         public ActionResult Details(int id = 0)
