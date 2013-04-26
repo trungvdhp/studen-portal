@@ -5,37 +5,42 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using StudentPortal.Models;
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
-    public class GiaoVienController : Controller
+    public class BoMonController : Controller
     {
         private DHHHContext db = new DHHHContext();
 
         //
-        // GET: /Admin/GiaoVien/
+        // GET: /Admin/BoMon/
 
         public ActionResult Index()
         {
-            return View(db.PLAN_GiaoVien.ToList());
+            return View(db.PLAN_BoMon.ToList());
         }
 
         //
-        // GET: /Admin/GiaoVien/Details/5
+        // GET: /Admin/BoMon/Details/5
+
+        public ActionResult Read(int page)
+        {
+            if(page<1) page=1;
+            return View(db.PLAN_BoMon.Skip((page-1)*10).Take(10).ToList());
+        }
 
         public ActionResult Details(int id = 0)
         {
-            PLAN_GiaoVien plan_giaovien = db.PLAN_GiaoVien.Find(id);
-            if (plan_giaovien == null)
+            PLAN_BoMon plan_bomon = db.PLAN_BoMon.Find(id);
+            if (plan_bomon == null)
             {
                 return HttpNotFound();
             }
-            return View(plan_giaovien);
+            return View(plan_bomon);
         }
 
         //
-        // GET: /Admin/GiaoVien/Create
+        // GET: /Admin/BoMon/Create
 
         public ActionResult Create()
         {
@@ -43,70 +48,70 @@ namespace StudentPortal.Areas.Admin.Controllers
         }
 
         //
-        // POST: /Admin/GiaoVien/Create
+        // POST: /Admin/BoMon/Create
 
         [HttpPost]
-        public ActionResult Create(PLAN_GiaoVien plan_giaovien)
+        public ActionResult Create(PLAN_BoMon plan_bomon)
         {
             if (ModelState.IsValid)
             {
-                db.PLAN_GiaoVien.Add(plan_giaovien);
+                db.PLAN_BoMon.Add(plan_bomon);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(plan_giaovien);
+            return View(plan_bomon);
         }
 
         //
-        // GET: /Admin/GiaoVien/Edit/5
+        // GET: /Admin/BoMon/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            PLAN_GiaoVien plan_giaovien = db.PLAN_GiaoVien.Find(id);
-            if (plan_giaovien == null)
+            PLAN_BoMon plan_bomon = db.PLAN_BoMon.Find(id);
+            if (plan_bomon == null)
             {
                 return HttpNotFound();
             }
-            return View(plan_giaovien);
+            return View(plan_bomon);
         }
 
         //
-        // POST: /Admin/GiaoVien/Edit/5
+        // POST: /Admin/BoMon/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(PLAN_GiaoVien plan_giaovien)
+        public ActionResult Edit(PLAN_BoMon plan_bomon)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(plan_giaovien).State = EntityState.Modified;
+                db.Entry(plan_bomon).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(plan_giaovien);
+            return View(plan_bomon);
         }
 
         //
-        // GET: /Admin/GiaoVien/Delete/5
+        // GET: /Admin/BoMon/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            PLAN_GiaoVien plan_giaovien = db.PLAN_GiaoVien.Find(id);
-            if (plan_giaovien == null)
+            PLAN_BoMon plan_bomon = db.PLAN_BoMon.Find(id);
+            if (plan_bomon == null)
             {
                 return HttpNotFound();
             }
-            return View(plan_giaovien);
+            return View(plan_bomon);
         }
 
         //
-        // POST: /Admin/GiaoVien/Delete/5
+        // POST: /Admin/BoMon/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            PLAN_GiaoVien plan_giaovien = db.PLAN_GiaoVien.Find(id);
-            db.PLAN_GiaoVien.Remove(plan_giaovien);
+            PLAN_BoMon plan_bomon = db.PLAN_BoMon.Find(id);
+            db.PLAN_BoMon.Remove(plan_bomon);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
