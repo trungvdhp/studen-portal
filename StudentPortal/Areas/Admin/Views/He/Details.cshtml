@@ -1,0 +1,71 @@
+﻿@model StudentPortal.STU_He
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>STU_He</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_he)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_he)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ma_he)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ma_he)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ten_he)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ten_he)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Quy_che)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Quy_che)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ten_he_en)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ten_he_en)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ten_bac_hoc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ten_bac_hoc)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Loai_dao_tao)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Loai_dao_tao)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Loai_dao_tao_en)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Loai_dao_tao_en)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
