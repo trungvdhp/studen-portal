@@ -1,0 +1,43 @@
+﻿@model StudentPortal.PLAN_BoMon
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>PLAN_BoMon</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_bm)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_bm)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ma_bo_mon)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ma_bo_mon)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Bo_mon)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Bo_mon)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.So_nhom)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.So_nhom)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

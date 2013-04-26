@@ -20,10 +20,10 @@ namespace StudentPortal
         public string Ho_ten { get; set; }
         public Nullable<int> ID_gioi_tinh { get; set; }
         public Nullable<System.DateTime> Ngay_sinh { get; set; }
-        public int ID_khoa { get; set; }
-        public int ID_hoc_ham { get; set; }
-        public int ID_hoc_vi { get; set; }
-        public int ID_chuc_danh { get; set; }
-        public int ID_chuc_vu { get; set; }
+        public Nullable<int> ID_khoa { get; set; }
+        public Nullable<int> ID_hoc_ham { get; set; }
+        public Nullable<int> ID_hoc_vi { get; set; }
+        public Nullable<int> ID_chuc_danh { get; set; }
+        public Nullable<int> ID_chuc_vu { get; set; }
     }
 }
