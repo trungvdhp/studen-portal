@@ -13,18 +13,34 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table ("STU_XetHocBong")]
     public partial class STU_XetHocBong
     {
         [Key]
         public int ID_phan_bo { get; set; }
+		
+		[Display(Name = "Phương án")]
         public int Phuong_an { get; set; }
+		
+		[Display(Name = "Lần xét")]
         public int Lan_xet { get; set; }
+		
+		[Display(Name = "Chọn phương án")]
         public bool Chon_phuong_an { get; set; }
+		
+		[Display(Name = "Mã dthb")]
         public string Ma_dt_hb { get; set; }
+		
+		[Display(Name = "Tên dthb")]
         public string Ten_dt_hb { get; set; }
+		
+		[Display(Name = "Điểm chuẩn")]
         public float Diem_chuan { get; set; }
+		
+		[Display(Name = "Số sinh viên")]
         public int So_sv { get; set; }
+		
+		[Display(Name = "Số tiền")]
         public int So_tien { get; set; }
     }
 }

@@ -13,18 +13,34 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("STU_DanhSach")]
     public partial class STU_DanhSach
     {
         [Key]
         public int ID_sv { get; set; }
+		
+		[Display(Name = "ID Lớp")]
         public int ID_lop { get; set; }
+		
+		[Display(Name = "Mật khẩu")]
         public string Mat_khau { get; set; }
+		
+		[Display(Name = "Active")]
         public bool Active { get; set; }
+		
+		[Display(Name = "Đã tốt nghiệp")]
         public bool Da_tot_nghiep { get; set; }
+		
+		[Display(Name = "Ngoài ngân sách")]
         public Nullable<bool> Ngoai_ngan_sach { get; set; }
+		
+		[Display(Name = "Lớp chất lượng cao")]
         public Nullable<bool> Lop_chat_luong_cao { get; set; }
+		
+		[Display(Name = "ID Xếp hạng học lực")]
         public Nullable<int> ID_xep_hang_hoc_luc { get; set; }
+		
+		[Display(Name = "Trạng thái")]
         public int Trang_thai { get; set; }
     }
 }

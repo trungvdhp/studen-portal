@@ -13,19 +13,37 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("STU_NoiNgoaiTru")]
     public partial class STU_NoiNgoaiTru
     {
         [Key]
         public int ID_sv { get; set; }
+		
+		[Display(Name = "Từ ngày")]
         public System.DateTime Tu_ngay { get; set; }
+		
+		[Display(Name = "Đến ngày")]
         public Nullable<System.DateTime> Den_ngay { get; set; }
+		
+		[Display(Name = "ID phòng KTX")]
         public Nullable<int> ID_phong_ktx { get; set; }
+		
+		[Display(Name = "Địa chỉ")]
         public string Dia_chi { get; set; }
+		
+		[Display(Name = "Điện thoại")]
         public string Dien_thoai { get; set; }
+		
+		[Display(Name = "Tên chủ hộ")]
         public string Ten_chu_ho { get; set; }
+		
+		[Display(Name = "Ghi chú")]
         public string Ghi_chu { get; set; }
+		
+		[Display(Name = "Trạng thái")]
         public bool Trang_thai { get; set; }
+		
+		[Display(Name = "ID phường")]
         public Nullable<int> ID_phuong { get; set; }
     }
 }

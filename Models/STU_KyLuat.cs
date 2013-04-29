@@ -13,17 +13,31 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("STU_KyLuat")]
     public partial class STU_KyLuat
     {
         [Key]
         public int ID_ky_luat { get; set; }
+		
+		[Display(Name = "Số qd")]
         public string So_qd { get; set; }
+		
+		[Display(Name = "Ngày qd")]
         public Nullable<System.DateTime> Ngay_qd { get; set; }
+		
+		[Display(Name = "Học kỳ")]
         public int Hoc_ky { get; set; }
+		
+		[Display(Name = "Năm học")]
         public string Nam_hoc { get; set; }
+		
+		[Display(Name = "ID Hành vi")]
         public int ID_hanh_vi { get; set; }
+		
+		[Display(Name = "ID Xử lý")]
         public int ID_xu_ly { get; set; }
+		
+		[Display(Name = "Nội dung")]
         public string Noi_dung { get; set; }
     }
 }
