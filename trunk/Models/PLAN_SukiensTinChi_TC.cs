@@ -13,18 +13,36 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("PLAN_SuKiensTinChi_TC")]
     public partial class PLAN_SukiensTinChi_TC
     {
         public int ID { get; set; }
+		
+		[Display(Name = "ID Lớp TC")]
         public int ID_lop_tc { get; set; }
+		
+		[Display(Name = "ID Phòng")]
         public int ID_phong { get; set; }
+		
+		[Display(Name = "ID_cb")]
         public int ID_cb { get; set; }
+		
+		[Display(Name = "Ca học")]
         public int Ca_hoc { get; set; }
+		
+		[Display(Name = "Thứ")]
         public int Thu { get; set; }
+		
+		[Display(Name = "Tiết")]
         public int Tiet { get; set; }
+		
+		[Display(Name = "Số tiết")]
         public int So_tiet { get; set; }
+		
+		[Display(Name = "Loại tiết")]
         public int Loai_tiet { get; set; }
+		
+		[Display(Name = "Đã xếp lịch")]
         public bool Da_xep_lich { get; set; }
     
         public virtual PLAN_LopTinChi_TC PLAN_LopTinChi_TC { get; set; }

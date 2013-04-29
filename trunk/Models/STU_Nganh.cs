@@ -13,7 +13,7 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("STU_Nganh")]
     public partial class STU_Nganh
     {
         public STU_Nganh()
@@ -22,8 +22,14 @@ namespace StudentPortal
         }
     
         public int ID_nganh { get; set; }
+		
+		[Display(Name = "Mã ngành")]
         public string Ma_nganh { get; set; }
+		
+		[Display(Name = "Tên ngành")]
         public string Ten_nganh { get; set; }
+		
+		[Display(Name = "Tên ngành EN")]
         public string Ten_nganh_En { get; set; }
     
         public virtual ICollection<STU_ChuyenNganh> STU_ChuyenNganh { get; set; }

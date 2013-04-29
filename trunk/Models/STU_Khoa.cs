@@ -13,7 +13,7 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("STU_Khoa")]
     public partial class STU_Khoa
     {
         public STU_Khoa()
@@ -22,8 +22,14 @@ namespace StudentPortal
         }
     
         public int ID_khoa { get; set; }
+		
+		[Display(Name = "Mã khoa")]
         public string Ma_khoa { get; set; }
+		
+		[Display(Name = "Tên khoa")]
         public string Ten_khoa { get; set; }
+		
+		[Display(Name = "Tên khoa EN")]
         public string Ten_khoa_en { get; set; }
     
         public virtual ICollection<PLAN_ChuongTrinhDaoTao> PLAN_ChuongTrinhDaoTao { get; set; }

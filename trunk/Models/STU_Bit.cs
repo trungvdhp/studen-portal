@@ -13,10 +13,13 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("STU_Bit")]
     public partial class STU_Bit
     {
+		[Key]
         public int ID { get; set; }
-        public string Gia_tri { get; set; }
+        
+		[Display(Name = "Giá trị")]
+		public string Gia_tri { get; set; }
     }
 }
