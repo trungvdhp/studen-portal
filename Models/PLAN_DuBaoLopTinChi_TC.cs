@@ -13,14 +13,25 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("PLAN_DuBaoLopTinChi_TC")]
     public partial class PLAN_DuBaoLopTinChi_TC
     {
+		[Display(Name = "Học kỳ")]
         public int Hoc_ky { get; set; }
+		
+		[Display(Name = "Năm học")]
         public string Nam_hoc { get; set; }
+		
+		[Display(Name = "ID Môn")]
         public int ID_mon { get; set; }
+		
+		[Display(Name = "Số tín chỉ")]
         public int So_tin_chi { get; set; }
+		
+		[Display(Name = "Số sv")]
         public int So_sv { get; set; }
+		
+		[Display(Name = "Số lớp")]
         public int So_lop { get; set; }
     }
 }

@@ -13,13 +13,22 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("PLAN_PLAN_KhungThoiGian_TC")]
     public partial class PLAN_PLAN_KhungThoiGian_TC
     {
+		[Key]
         public int ID { get; set; }
+		
+		[Display(Name = "Thứ")]
         public string Thu { get; set; }
+		
+		[Display(Name = "Ca")]
         public string Ca { get; set; }
+		
+		[Display(Name = "Tiết")]
         public string Tiet { get; set; }
+		
+		[Display(Name = "Số tiết")]
         public Nullable<int> So_tiet { get; set; }
     }
 }

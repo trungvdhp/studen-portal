@@ -13,11 +13,13 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("Mark_DanhSachThucTap")]
     public partial class Mark_DanhSachThuctap
     {
         [Key]
         public int ID_sv { get; set; }
+		
+		[Display(Name = "Nơi thực tập")]
         public string Noi_thuc_tap { get; set; }
     }
 }

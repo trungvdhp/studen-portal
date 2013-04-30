@@ -13,13 +13,19 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("MARK_XepLoaiHocTap")]
     public partial class MARK_XepLoaiHocTap
     {
         [Key]
         public int ID_xep_loai { get; set; }
+		
+		[Display(Name = "Xếp loại")]
         public string Xep_loai { get; set; }
+		
+		[Display(Name = "Từ điểm")]
         public float Tu_diem { get; set; }
+		
+		[Display(Name = "Đến điểm")]
         public float Den_diem { get; set; }
     }
 }

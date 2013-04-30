@@ -13,26 +13,58 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("PLAN_QuyDinhSoTinChiSom_TC")]
     public partial class PLAN_QuyDinhSoTinChiSom_TC
     {
         [Key]
         public int ID_he { get; set; }
+		
+		[Display(Name = "ID Khoa")]
         public int ID_khoa { get; set; }
+		
+		[Display(Name = "Khóa học")]
         public int Khoa_hoc { get; set; }
+		
+		[Display(Name = "Học kỳ")]
         public int Hoc_ky { get; set; }
+		
+		[Display(Name = "Năm học")]
         public string Nam_hoc { get; set; }
+		
+		[Display(Name = "Số học trình Min bt")]
         public Nullable<int> So_hoc_trinh_min_bt { get; set; }
+		
+		[Display(Name = "Số học trình Max bt")]
         public Nullable<int> So_hoc_trinh_max_bt { get; set; }
+		
+		[Display(Name = "Số học trình Option bt")]
         public Nullable<int> So_hoc_trinh_option_bt { get; set; }
+		
+		[Display(Name = "Check số học trình Min bt")]
         public Nullable<bool> Check_so_hoc_trinh_min_bt { get; set; }
+		
+		[Display(Name = "Check số học trình Max bt")]
         public Nullable<bool> Check_so_hoc_trinh_max_bt { get; set; }
+		
+		[Display(Name = "Số học trình Min yếu")]
         public Nullable<int> So_hoc_trinh_min_yeu { get; set; }
+		
+		[Display(Name = "Số học trình Max yếu")]
         public Nullable<int> So_hoc_trinh_max_yeu { get; set; }
+		
+		[Display(Name = "Số học trình Option yếu")]
         public Nullable<int> So_hoc_trinh_option_yeu { get; set; }
+		
+		[Display(Name = "Check số học trình Min yếu")]
         public Nullable<bool> Check_so_hoc_trinh_min_yeu { get; set; }
+		
+		[Display(Name = "Check số học trình Max yếu")]
         public Nullable<bool> Check_so_hoc_trinh_max_yeu { get; set; }
+		
+		[Display(Name = "Từ ngày")]
         public Nullable<System.DateTime> Tu_ngay { get; set; }
+		
+		[Display(Name = "Đến ngày")]
         public Nullable<System.DateTime> Den_ngay { get; set; }
     }
 }

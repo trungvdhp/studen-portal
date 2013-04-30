@@ -16,6 +16,7 @@ namespace StudentPortal
     [Table("STU_SuKienKhacPhongTinChi_TC")]
     public partial class PLAN_SuKienKhacPhongTinChi_TC
     {
+		[Key]
         public long ID { get; set; }
 		
 		[Display(Name = "ID Phòng")]

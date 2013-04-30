@@ -16,6 +16,8 @@ namespace StudentPortal
     [Table("PLAN_SuKiensTinChi_TC")]
     public partial class PLAN_SukiensTinChi_TC
     {
+	
+		[Key]
         public int ID { get; set; }
 		
 		[Display(Name = "ID Lớp TC")]

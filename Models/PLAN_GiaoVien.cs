@@ -13,20 +13,40 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("PLAN_GiaoVien")]
     public partial class PLAN_GiaoVien
     {
         [Key]
         public int ID_cb { get; set; }
+		
+		[Display(Name = "Mã cb")]
         public string Ma_cb { get; set; }
+		
+		[Display(Name = "Tên")]
         public string Ten { get; set; }
+		
+		[Display(Name = "Họ tên")]
         public string Ho_ten { get; set; }
+		
+		[Display(Name = "ID Giới tính")]
         public Nullable<int> ID_gioi_tinh { get; set; }
+		
+		[Display(Name = "Ngày sinh")]
         public Nullable<System.DateTime> Ngay_sinh { get; set; }
+		
+		[Display(Name = "ID Khoa")]
         public Nullable<int> ID_khoa { get; set; }
+		
+		[Display(Name = "ID Học hàm")]
         public Nullable<int> ID_hoc_ham { get; set; }
+		
+		[Display(Name = "ID Học vị")]
         public Nullable<int> ID_hoc_vi { get; set; }
+		
+		[Display(Name = "ID Chức danh")]
         public Nullable<int> ID_chuc_danh { get; set; }
+		
+		[Display(Name = "ID Chức vụ")]
         public Nullable<int> ID_chuc_vu { get; set; }
     }
 }

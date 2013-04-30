@@ -13,12 +13,19 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("PLAN_KeHoachKyHieu_TC")]
     public partial class PLAN_KeHoachKyHieu_TC
     {
+		[Key]
         public string Ky_hieu { get; set; }
+		
+		[Display(Name = "Tên ký hiệu")]
         public string Ten_ky_hieu { get; set; }
+		
+		[Display(Name = "BgColor")]
         public Nullable<int> bgColor { get; set; }
+		
+		[Display(Name = "TxtColor")]
         public Nullable<int> txtColor { get; set; }
     }
 }

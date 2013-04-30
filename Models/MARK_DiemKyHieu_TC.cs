@@ -13,12 +13,19 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("MARK_DiemKyHieu_TC")]
     public partial class MARK_DiemKyHieu_TC
     {
+		[Key]
         public string Ky_hieu { get; set; }
+		
+		[Display(Name = "Tên ký hiệu")]
         public string Ten_ky_hieu { get; set; }
+		
+		[Display(Name = "Học lại")]
         public bool Hoc_lai { get; set; }
+		
+		[Display(Name = "Có lý do")]
         public bool Co_ly_do { get; set; }
     }
 }

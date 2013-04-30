@@ -13,10 +13,13 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("PLAN_LoaiLop_TC")]
     public partial class PLAN_LoaiLop_TC
     {
+		[Key]
         public int Loai_lop { get; set; }
+		
+		[Display(Name = "Tên loại lớp")]
         public string Ten_loai_lop { get; set; }
     }
 }

@@ -13,19 +13,37 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("MARK_ToChucThiPhong_TC")]
     public partial class MARK_ToChucThiPhong_TC
     {
         [Key]
         public int ID_phong_thi { get; set; }
+		
+		[Display(Name = "ID Lớp TC")]
         public int ID_lop_tc { get; set; }
+		
+		[Display(Name = "ID Phòng")]
         public int ID_phong { get; set; }
+		
+		[Display(Name = "Tên phòng")]
         public string Ten_phong { get; set; }
+		
+		[Display(Name = "Số sv")]
         public int So_sv { get; set; }
+		
+		[Display(Name = "Đợt thi")]
         public Nullable<int> Dot_thi { get; set; }
+		
+		[Display(Name = "Ngày thi")]
         public Nullable<System.DateTime> Ngay_thi { get; set; }
+		
+		[Display(Name = "Ca thi")]
         public Nullable<int> Ca_thi { get; set; }
+		
+		[Display(Name = "Nhóm tiết")]
         public Nullable<int> Nhom_tiet { get; set; }
+		
+		[Display(Name = "Giờ thi")]
         public string Gio_thi { get; set; }
     }
 }

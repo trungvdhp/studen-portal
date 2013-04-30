@@ -18,12 +18,26 @@ namespace StudentPortal
     {
         [Key]
         public int ID_thanh_phan { get; set; }
+		
+		[Display(Name = "ID Hệ")]
         public int ID_he { get; set; }
+		
+		[Display(Name = "STT")]
         public int STT { get; set; }
+		
+		[Display(Name = "Ký hiệu")]
         public string Ky_hieu { get; set; }
+		
+		[Display(Name = "Tên thành phần")]
         public string Ten_thanh_phan { get; set; }
+		
+		[Display(Name = "Tỷ lệ")]
         public int Ty_le { get; set; }
+		
+		[Display(Name = "Chọn mặc định")]
         public int Chon_mac_dinh { get; set; }
+		
+		[Display(Name = "Chuyên cần")]
         public bool Chuyencan { get; set; }
     }
 }

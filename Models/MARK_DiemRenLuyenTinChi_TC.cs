@@ -13,17 +13,31 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("MARK_DiemRenLuyenTinChi_TC")]
     public partial class MARK_DiemRenLuyenTinChi_TC
     {
         [Key]
         public int ID_diem_rl { get; set; }
+		
+		[Display(Name = "Học kỳ")]
         public int Hoc_ky { get; set; }
+		
+		[Display(Name = "Năm học")]
         public string Nam_hoc { get; set; }
+		
+		[Display(Name = "ID_sv")]
         public int ID_sv { get; set; }
+		
+		[Display(Name = "ID Môn TC")]
         public int ID_mon_tc { get; set; }
+		
+		[Display(Name = "Điểm")]
         public int Diem { get; set; }
+		
+		[Display(Name = "Tên môn")]
         public string Ten_mon { get; set; }
+		
+		[Display(Name = "Tên lớp TC")]
         public string Ten_lop_tc { get; set; }
     }
 }

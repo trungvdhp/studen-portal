@@ -21,6 +21,7 @@ namespace StudentPortal
             this.PLAN_ChuongTrinhDaoTao = new HashSet<PLAN_ChuongTrinhDaoTao>();
         }
     
+		[Key]
         public int ID_khoa { get; set; }
 		
 		[Display(Name = "Mã khoa")]

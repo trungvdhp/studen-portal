@@ -21,6 +21,7 @@ namespace StudentPortal
             this.MARK_Diem_TC = new HashSet<MARK_Diem_TC>();
         }
     
+		[Key]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "Ảnh")]
