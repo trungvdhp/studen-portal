@@ -13,31 +13,73 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("PLAN_ChuongTrinhDaoaoChiTiet")]
     public partial class PLAN_ChuongTrinhDaoTaoChiTiet
     {
         [Key]
         public int ID_dt_mon { get; set; }
+		
+		[Display(Name = "ID_dt")]
         public int ID_dt { get; set; }
+		
+		[Display(Name = "ID Môn")]
         public int ID_mon { get; set; }
+		
+		[Display(Name = "Kỳ thứ")]
         public Nullable<int> Ky_thu { get; set; }
+		
+		[Display(Name = "Số học trình")]
         public Nullable<float> So_hoc_trinh { get; set; }
+		
+		[Display(Name = "Lý thuyết")]
         public Nullable<int> Ly_thuyet { get; set; }
+		
+		[Display(Name = "Thực hành")]
         public Nullable<int> Thuc_hanh { get; set; }
+		
+		[Display(Name = "Bài tập")]
         public Nullable<int> Bai_tap { get; set; }
+		
+		[Display(Name = "Bài tập lớn")]
         public Nullable<int> Bai_tap_lon { get; set; }
+		
+		[Display(Name = "Thực tập")]
         public Nullable<int> Thuc_tap { get; set; }
+		
+		[Display(Name = "Tự chọn")]
         public Nullable<bool> Tu_chon { get; set; }
+		
+		[Display(Name = "STT Môn")]
         public Nullable<int> STT_mon { get; set; }
+		
+		[Display(Name = "Hệ số")]
         public Nullable<float> He_so { get; set; }
+		
+		[Display(Name = "Kiến thức")]
         public Nullable<int> Kien_thuc { get; set; }
+		
+		[Display(Name = "Không tính TBCHT")]
         public Nullable<bool> Khong_tinh_TBCHT { get; set; }
+		
+		[Display(Name = "Nhóm tự chọn")]
         public Nullable<int> Nhom_tu_chon { get; set; }
+		
+		[Display(Name = "Môn tốt nghiệp")]
         public Nullable<bool> Mon_tot_nghiep { get; set; }
+		
+		[Display(Name = "Số học trình tiên quyết")]
         public Nullable<int> So_hoc_trinh_tien_quyet { get; set; }
+		
+		[Display(Name = "Tự học")]
         public Nullable<int> Tu_hoc { get; set; }
+		
+		[Display(Name = "Mã khoa phụ trách")]
         public string Ma_khoa_phu_trach { get; set; }
+		
+		[Display(Name = "Môn Main")]
         public int Mon_Main { get; set; }
+		
+		[Display(Name = "Nhóm môn Sub")]
         public int Nhom_mon_sub { get; set; }
     }
 }

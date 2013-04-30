@@ -13,12 +13,19 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("MARK_XetLenLopDanhSach")]
     public partial class MARK_XetLenLopDanhSach
     {
+		[Display(Name = "Năm học")]
         public string Nam_hoc { get; set; }
+		
+		[Display(Name = "ID_sv")]
         public int ID_sv { get; set; }
+		
+		[Display(Name = "Trạng thái")]
         public int Trang_thai { get; set; }
+		
+		[Display(Name = "Lý do")]
         public string Ly_do { get; set; }
     }
 }

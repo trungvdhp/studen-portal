@@ -20,7 +20,8 @@ namespace StudentPortal
         {
             this.STU_ChuyenNganh = new HashSet<STU_ChuyenNganh>();
         }
-    
+		
+		[Key]
         public int ID_nganh { get; set; }
 		
 		[Display(Name = "Mã ngành")]

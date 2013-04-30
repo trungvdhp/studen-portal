@@ -13,16 +13,31 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("PLAN_QUYDINH_HOCSOM")]
     public partial class PLAN_QUYDINH_HOCSOM
     {
+		[Key]
         public int ID { get; set; }
+		
+		[Display(Name = "ID Hệ")]
         public int ID_he { get; set; }
+		
+		[Display(Name = "Từ ngày")]
         public Nullable<System.DateTime> Tu_ngay { get; set; }
+		
+		[Display(Name = "Đến ngày")]
         public Nullable<System.DateTime> Den_ngay { get; set; }
+		
+		[Display(Name = "Học kỳ")]
         public Nullable<int> Hoc_ky { get; set; }
+		
+		[Display(Name = "Năm học")]
         public string Nam_hoc { get; set; }
+		
+		[Display(Name = "Chọn đăng ký")]
         public Nullable<bool> Chon_dang_ky { get; set; }
+		
+		[Display(Name = "Đợt đăng ký")]
         public int Dot_dang_ky { get; set; }
     }
 }

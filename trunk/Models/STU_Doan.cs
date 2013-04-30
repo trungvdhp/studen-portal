@@ -16,7 +16,7 @@ namespace StudentPortal
     [Table("STU_Doan")]
     public partial class STU_Doan
     {
-		[Display(Name = "Đoàn")]
+		[Key]
         public int Doan { get; set; }
 		
 		[Display(Name = "Tên")]

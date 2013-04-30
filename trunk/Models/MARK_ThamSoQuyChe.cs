@@ -13,15 +13,25 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("MARK_ThámoQuyChe")]
     public partial class MARK_ThamSoQuyChe
     {
         [Key]
         public int ID_tham_so_qc { get; set; }
+		
+		[Display(Name = "Quy chế")]
         public int Quy_che { get; set; }
+		
+		[Display(Name = "Mã tham số")]
         public string Ma_tham_so { get; set; }
+		
+		[Display(Name = "Nhóm quy chế")]
         public string Nhom_quy_che { get; set; }
+		
+		[Display(Name = "Tên tham số")]
         public string Ten_tham_so { get; set; }
+		
+		[Display(Name = "Giá trị")]
         public float Gia_tri { get; set; }
     }
 }

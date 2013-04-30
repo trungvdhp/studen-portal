@@ -13,16 +13,28 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("MARK_DiemRenLuyen")]
     public partial class MARK_DiemRenLuyen
     {
         [Key]
         public int ID_diem_rl { get; set; }
+		
+		[Display(Name = "Học kỳ")]
         public int Hoc_ky { get; set; }
+		
+		[Display(Name = "Năm học")]
         public string Nam_hoc { get; set; }
+		
+		[Display(Name = "ID_sv")]
         public int ID_sv { get; set; }
+		
+		[Display(Name = "ID Loại RL")]
         public int ID_loai_rl { get; set; }
+		
+		[Display(Name = "Điểm")]
         public int Diem { get; set; }
+		
+		[Display(Name = "Locked")]
         public bool Locked { get; set; }
     }
 }

@@ -13,12 +13,19 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("MARK_MucThiLai_TC")]
     public partial class MARK_MucThiLai_TC
     {
+		[Display(Name = "Học kỳ")]
         public int Hoc_ky { get; set; }
+		
+		[Display(Name = "Năm học")]
         public string Nam_hoc { get; set; }
+		
+		[Display(Name = "ID Hệ")]
         public int ID_he { get; set; }
+		
+		[Display(Name = "Số tiền")]
         public int So_tien { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace StudentPortal
     [Table("STU_DoiTuongHocBongGiayto")]
     public partial class STU_DoiTuongHocBongGiayto
     {
-		[Display(Name = "Mã dt_hb")]
+		[Key]
         public string Ma_dt_hb { get; set; }
 		
 		[Display(Name = "ID Giấy tờ")]

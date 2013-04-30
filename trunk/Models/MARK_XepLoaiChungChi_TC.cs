@@ -13,14 +13,22 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("MARK_XepLoaiChungChi_TC")]
     public partial class MARK_XepLoaiChungChi_TC
     {
         [Key]
         public int ID_xep_hang { get; set; }
+		
+		[Display(Name = "Từ điểm")]
         public float Tu_diem { get; set; }
+		
+		[Display(Name = "Đến điểm")]
         public float Den_diem { get; set; }
+		
+		[Display(Name = "Xếp hạng")]
         public string Xep_hang { get; set; }
+		
+		[Display(Name = "Xếp hạng EN")]
         public string Xep_hang_en { get; set; }
     }
 }

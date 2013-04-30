@@ -13,12 +13,16 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("PLAN_COSODAOTAO")]
     public partial class PLAN_COSODAOTAO
     {
         [Key]
         public int ID_co_so { get; set; }
+		
+		[Display(Name = "Mã cơ sở")]
         public string Ma_co_so { get; set; }
+		
+		[Display(Name = "Tên cơ sở")]
         public string Ten_co_so { get; set; }
     }
 }

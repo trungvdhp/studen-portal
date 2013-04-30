@@ -13,16 +13,28 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("MARK_DiemQuyDoi")]
     public partial class MARK_DiemQuyDoi
     {
         [Key]
         public int ID_xep_loai { get; set; }
+		
+		[Display(Name = "Xếp loại")]
         public string Xep_loai { get; set; }
+		
+		[Display(Name = "Điểm chữ")]
         public string Diem_chu { get; set; }
+		
+		[Display(Name = "Điểm số")]
         public float Diem_so { get; set; }
+		
+		[Display(Name = "Từ điểm")]
         public float Tu_diem { get; set; }
+		
+		[Display(Name = "Đến điểm")]
         public float Den_diem { get; set; }
+		
+		[Display(Name = "Tích lũy")]
         public bool Tich_luy { get; set; }
     }
 }

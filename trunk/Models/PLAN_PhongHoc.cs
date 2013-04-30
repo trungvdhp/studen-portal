@@ -13,27 +13,61 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("PLAN_PhongHoc")]
     public partial class PLAN_PhongHoc
     {
         [Key]
         public int ID_phong { get; set; }
+		
+		[Display(Name = "ID Cơ sở")]
         public Nullable<int> ID_co_so { get; set; }
+		
+		[Display(Name = "ID Nhà")]
         public Nullable<int> ID_nha { get; set; }
+		
+		[Display(Name = "ID Tầng")]
         public Nullable<int> ID_tang { get; set; }
+		
+		[Display(Name = "Số phòng")]
         public string So_phong { get; set; }
+		
+		[Display(Name = "Loại phòng")]
         public string Loai_phong { get; set; }
+		
+		[Display(Name = "Số bàn")]
         public Nullable<int> So_ban { get; set; }
+		
+		[Display(Name = "Số sv một bàn")]
         public Nullable<int> So_sv_mot_ban { get; set; }
+		
+		[Display(Name = "Sức chứa")]
         public Nullable<int> Suc_chua { get; set; }
+		
+		[Display(Name = "Sức chứa thi")]
         public Nullable<int> Suc_chua_thi { get; set; }
+		
+		[Display(Name = "Âm thanh")]
         public Nullable<bool> Am_thanh { get; set; }
+		
+		[Display(Name = "Máy tính")]
         public Nullable<bool> May_tinh { get; set; }
+		
+		[Display(Name = "Tivi")]
         public Nullable<bool> Tivi { get; set; }
+		
+		[Display(Name = "Máy chiếu")]
         public Nullable<bool> May_chieu { get; set; }
+		
+		[Display(Name = "Số sv")]
         public Nullable<int> So_sv { get; set; }
+		
+		[Display(Name = "ID Loại phòng")]
         public Nullable<int> ID_loai_phong { get; set; }
+		
+		[Display(Name = "Thiết bị")]
         public string Thiet_bi { get; set; }
+		
+		[Display(Name = "Không tổ chức thi")]
         public int Khong_ToChucThi { get; set; }
     }
 }

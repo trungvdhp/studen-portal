@@ -13,15 +13,25 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("PLAN_PhamViDangKy_TC")]
     public partial class PLAN_PhamViDangKy_TC
     {
         [Key]
         public int ID_mon_tc { get; set; }
+		
+		[Display(Name = "ID Hệ")]
         public int ID_he { get; set; }
+		
+		[Display(Name = "ID Khoa")]
         public int ID_khoa { get; set; }
+		
+		[Display(Name = "Khóa học")]
         public int Khoa_hoc { get; set; }
+		
+		[Display(Name = "ID Ngành")]
         public int ID_nganh { get; set; }
+		
+		[Display(Name = "ID Chuyên ngành")]
         public int ID_chuyen_nganh { get; set; }
     
         public virtual PLAN_MonTinChi_TC PLAN_MonTinChi_TC { get; set; }

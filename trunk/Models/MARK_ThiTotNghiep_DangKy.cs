@@ -13,12 +13,16 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("MARK_ThiTotNghiep_DangKy")]
     public partial class MARK_ThiTotNghiep_DangKy
     {
         [Key]
         public int ID_SV { get; set; }
+		
+		[Display(Name = "Sinh viên - duyệt")]
         public bool SinhVien_Duyet { get; set; }
+		
+		[Display(Name = "Cố vấn - duyệt")]
         public bool CoVan_Duyet { get; set; }
     }
 }

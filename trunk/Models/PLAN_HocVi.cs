@@ -13,12 +13,16 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("PLAN_HocVi")]
     public partial class PLAN_HocVi
     {
         [Key]
         public int ID_hoc_vi { get; set; }
+		
+		[Display(Name = "Mã học vị")]
         public string Ma_hoc_vi { get; set; }
+		
+		[Display(Name = "Học vị")]
         public string Hoc_vi { get; set; }
     }
 }

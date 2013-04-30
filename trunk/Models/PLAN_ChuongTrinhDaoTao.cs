@@ -13,21 +13,36 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    
+    [Table("PLAN_ChuongTrinhDaoTao")]
     public partial class PLAN_ChuongTrinhDaoTao
     {
         public PLAN_ChuongTrinhDaoTao()
         {
             this.MARK_Diem_TC = new HashSet<MARK_Diem_TC>();
         }
-    
+		
+		[Key]
         public int ID_dt { get; set; }
+		
+		[Display(Name = "ID Hệ")]
         public int ID_he { get; set; }
+		
+		[Display(Name = "ID Khoa")]
         public int ID_khoa { get; set; }
+		
+		[Display(Name = "Khóa học")]
         public int Khoa_hoc { get; set; }
+		
+		[Display(Name = "ID Chuyên ngành")]
         public int ID_chuyen_nganh { get; set; }
+		
+		[Display(Name = "Số học trình")]
         public float So_hoc_trinh { get; set; }
+		
+		[Display(Name = "Số kỳ học")]
         public int So_ky_hoc { get; set; }
+		
+		[Display(Name = "Số")]
         public Nullable<int> So { get; set; }
     
         public virtual ICollection<MARK_Diem_TC> MARK_Diem_TC { get; set; }
