@@ -168,6 +168,7 @@
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\HeController.cs" />
     <Compile Include="Areas\Admin\Models\DHHH.Context.cs" />
+    <Compile Include="Areas\Admin\Models\MARK_MonHoc.cs" />
     <Compile Include="Areas\Admin\Models\PLAN_BoMon.cs" />
     <Compile Include="Areas\Admin\Models\PLAN_LopTinChi_TC.cs" />
     <Compile Include="Areas\Admin\Models\STU_He.cs" />
