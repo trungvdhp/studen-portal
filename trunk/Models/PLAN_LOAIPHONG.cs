@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class PLAN_LOAIPHONG
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_loai_phong { get; set; }
 		
 		[Display(Name = "Mã loại")]

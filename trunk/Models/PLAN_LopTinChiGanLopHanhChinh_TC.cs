@@ -18,12 +18,16 @@ namespace StudentPortal
     public partial class PLAN_LopTinChiGanLopHanhChinh_TC
     {
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 		
 		[Display(Name = "ID Lớp TC")]
+		[ForeignKey("PLAN_LopTinChi_TC")]
         public int ID_lop_tc { get; set; }
 		
 		[Display(Name = "ID Lớp HC")]
         public int ID_lop_hc { get; set; }
+		
+		public virtual PLAN_LopTinChi_TC PLAN_LopTinChi_TC { get; set; }
     }
 }

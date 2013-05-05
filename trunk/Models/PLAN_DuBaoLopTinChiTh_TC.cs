@@ -24,6 +24,7 @@ namespace StudentPortal
         public string Nam_hoc { get; set; }
 		
 		[Display(Name = "ID Môn")]
+		[ForeignKey("MARK_MonHoc")]
         public int ID_mon { get; set; }
 		
 		[Display(Name = "Số tín chỉ")]
@@ -43,5 +44,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Số sv max")]
         public Nullable<int> So_sv_max { get; set; }
+		
+		public virtual MARK_MonHoc MARK_MonHoc { get; set; }
     }
 }

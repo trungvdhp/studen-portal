@@ -18,18 +18,22 @@ namespace StudentPortal
     public partial class MARK_Diem
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_diem { get; set; }
 		
 		[Display(Name = "ID_dv")]
         public string ID_dv { get; set; }
 		
 		[Display(Name = "ID_sv")]
+		[ForeignKey("STU_HoSoSinhVien")]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "ID Môn")]
+		[ForeignKey("MARK_MonHoc")]
         public int ID_mon { get; set; }
 		
 		[Display(Name = "ID_dt")]
+		[ForeignKey("PLAN_ChuongTrinhDaoTao")]
         public int ID_dt { get; set; }
 		
 		[Display(Name = "TBCHP lần 1")]
@@ -46,5 +50,11 @@ namespace StudentPortal
 		
 		[Display(Name = "Năm học")]
         public string Nam_hoc { get; set; }
+		
+		public virtual MARK_HoSoSinhVien MARK_HoSoSinhVien { get; set; }
+		
+		public virtual MARK_MonHoc MARK_MonHoc { get; set; }
+		
+		public virtual PLAN_ChuongTrinhDaoTao PLAN_ChuongTrinhDaoTap{ get; set; }
     }
 }

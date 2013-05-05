@@ -18,9 +18,11 @@ namespace StudentPortal
     public partial class MARK_ThanhPhanMon
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_thanh_phan { get; set; }
 		
 		[Display(Name = "ID Hệ")]
+		[ForeignKey("STU_He")]
         public int ID_he { get; set; }
 		
 		[Display(Name = "STT")]
@@ -40,5 +42,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Chuyên cần")]
         public bool Chuyencan { get; set; }
+		
+		public virtual STU_He STU_He { get; set; }
     }
 }

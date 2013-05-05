@@ -18,12 +18,13 @@ namespace StudentPortal
     public partial class STU_KyLuat
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_ky_luat { get; set; }
 		
-		[Display(Name = "Số qd")]
+		[Display(Name = "Số QĐ")]
         public string So_qd { get; set; }
 		
-		[Display(Name = "Ngày qd")]
+		[Display(Name = "Ngày QĐ")]
         public Nullable<System.DateTime> Ngay_qd { get; set; }
 		
 		[Display(Name = "Học kỳ")]
@@ -33,12 +34,18 @@ namespace StudentPortal
         public string Nam_hoc { get; set; }
 		
 		[Display(Name = "ID Hành vi")]
+		[ForeignKey("STU_HanhVi")]
         public int ID_hanh_vi { get; set; }
 		
 		[Display(Name = "ID Xử lý")]
+		[ForeignKey("STU_XuLy")]
         public int ID_xu_ly { get; set; }
 		
 		[Display(Name = "Nội dung")]
         public string Noi_dung { get; set; }
+		
+		public virtual STU_HanhVi STU_HanhVi { get; set; }
+		
+		public virtual STU_XuLy STU_XuLy { get; set; }
     }
 }

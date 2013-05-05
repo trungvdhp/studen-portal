@@ -18,9 +18,11 @@ namespace StudentPortal
     public partial class MARK_DiemDanh
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_diem_danh { get; set; }
 		
 		[Display(Name = "ID Điểm")]
+		[ForeignKey("MARK_Diem_TC")]
         public int ID_diem { get; set; }
 		
 		[Display(Name = "Lần học")]
@@ -40,5 +42,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Thiếu bài thực hành")]
         public Nullable<bool> Thieu_bai_thuc_hanh { get; set; }
+		
+		public virtual MARK_Diem_TC MARK_Diem_TC { get; set; }
     }
 }

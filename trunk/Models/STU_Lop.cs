@@ -18,18 +18,22 @@ namespace StudentPortal
     public partial class STU_Lop
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_lop { get; set; }
 		
 		[Display(Name = "Tên lớp")]
         public string Ten_lop { get; set; }
 		
 		[Display(Name = "ID Hệ")]
+		[ForeignKey("STU_He")]
         public int ID_he { get; set; }
 		
 		[Display(Name = "ID Khoa")]
+		[ForeignKey("STU_Khoa")]
         public int ID_khoa { get; set; }
 		
 		[Display(Name = "ID Chuyên ngành")]
+		[ForeignKey("STU_ChuyenNganh")]
         public int ID_chuyen_nganh { get; set; }
 		
 		[Display(Name = "Khóa học")]
@@ -39,6 +43,7 @@ namespace StudentPortal
         public string Nien_khoa { get; set; }
 		
 		[Display(Name = "ID Đối tượng")]
+		[ForeignKey("STU_DoiTuong")]
         public int ID_dt { get; set; }
 		
 		[Display(Name = "Số SV")]
@@ -51,6 +56,7 @@ namespace StudentPortal
         public int Ca_hoc { get; set; }
 		
 		[Display(Name = "ID Phòng")]
+		[ForeignKey("PLAN_PhongHoc")]
         public int ID_phong { get; set; }
 		
 		[Display(Name = "Họ tên GV")]
@@ -70,5 +76,15 @@ namespace StudentPortal
 		
 		[Display(Name = "Lớp hành chính")]
         public Nullable<int> Lop_hanh_chinh { get; set; }
+		
+		public virtual STU_He STU_He { get; set; }
+		
+		public virtual STU_Khoa STU_Khoa { get; set; }
+		
+		public virtual STU_ChuyenNganh STU_ChuyenNganh { get; set; }
+		
+		public virtual STU_DoiTuong STU_DoiTuong { get; set; }
+		
+		public virtual PLAN_PhongHoc PLAN_PhongHoc { get; set; }
     }
 }

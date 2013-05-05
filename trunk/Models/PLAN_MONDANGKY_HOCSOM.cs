@@ -18,12 +18,15 @@ namespace StudentPortal
     public partial class PLAN_MONDANGKY_HOCSOM
     {
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 		
 		[Display(Name = "ID_sv")]
+		[ForeignKey("STU_HoSoSinhVien")]
         public Nullable<int> ID_sv { get; set; }
 		
 		[Display(Name = "ID_dt")]
+		[ForeignKey("STU_DoiTuong")]
         public Nullable<int> ID_dt { get; set; }
 		
 		[Display(Name = "Học kỳ")]
@@ -36,9 +39,16 @@ namespace StudentPortal
         public Nullable<int> Tinh_chat { get; set; }
 		
 		[Display(Name = "ID Môn")]
+		[ForeignKey("MARK_MonHoc")]
         public Nullable<int> ID_mon { get; set; }
 		
 		[Display(Name = "Duyệt")]
         public Nullable<bool> Duyet { get; set; }
+		
+		public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }
+		
+		public virtual STU_DoiTuong STU_DoiTuong { get; set; }
+		
+		public virtual MARK_MonHoc MARK_MonHoc { get; set; }
     }
 }

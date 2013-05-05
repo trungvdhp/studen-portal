@@ -18,9 +18,13 @@ namespace StudentPortal
     public partial class PLAN_PhamViDangKyHocPhan_TC
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_lop { get; set; }
 		
 		[Display(Name = "ID Môn")]
+		[ForeignKey("MARK_MonHoc")]
         public int ID_mon { get; set; }
+		
+		public virtual MARK_MonHoc MARK_MonHoc { get; set; }
     }
 }

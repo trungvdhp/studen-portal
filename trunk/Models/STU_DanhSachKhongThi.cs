@@ -18,9 +18,11 @@ namespace StudentPortal
     public partial class STU_DanhSachKhongThi
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "ID Môn")]
+		[ForeignKey("MARK_MonHoc")]
         public int ID_mon { get; set; }
 		
 		[Display(Name = "Học kỳ")]
@@ -31,5 +33,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Lý do")]
         public string Ly_do { get; set; }
+		
+		public virtual MARK_MonHoc MARK_MonHoc { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class PLAN_MonHocNhomHocPhan
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_nhom_hp { get; set; }
 		
 		[Display(Name = "Mã nhóm")]

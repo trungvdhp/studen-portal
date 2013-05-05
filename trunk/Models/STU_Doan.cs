@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_Doan
     {
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Doan { get; set; }
 		
 		[Display(Name = "Tên")]

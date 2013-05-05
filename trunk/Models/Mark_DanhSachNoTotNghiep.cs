@@ -18,15 +18,19 @@ namespace StudentPortal
     public partial class Mark_DanhSachNoTotNghiep
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "TBCHT")]
         public Nullable<float> TBCHT { get; set; }
 		
 		[Display(Name = "ID Xếp loại")]
+		[ForeignKey("MARK_XepLoaiHocTap_TC")]
         public Nullable<int> ID_xep_loai { get; set; }
 		
 		[Display(Name = "Lý do")]
         public string Ly_do { get; set; }
+		
+		public virtual MARL_XepLoaiHocTap_TC MARK_XepLoaiHocTap_TC { get; set; }
     }
 }

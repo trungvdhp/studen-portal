@@ -18,9 +18,11 @@ namespace StudentPortal
     public partial class STU_HoSoNop
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "ID Giấy tờ")]
+		[ForeignKey(""STU_LoaiGiayTo)]
         public int ID_giay_to { get; set; }
 		
 		[Display(Name = "Bản chính")]
@@ -40,5 +42,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Ngày trả")]
         public Nullable<System.DateTime> Ngay_tra { get; set; }
+		
+		public virtual STU_LoaiGiayTo STU_LoaiGiayTo { get; set; }
     }
 }

@@ -18,12 +18,15 @@ namespace StudentPortal
     public partial class PLAN_ChuongTrinhDaoTaoChiTiet
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_dt_mon { get; set; }
 		
 		[Display(Name = "ID_dt")]
+		[ForeignKey("STU_DoiTuong")]
         public int ID_dt { get; set; }
 		
 		[Display(Name = "ID Môn")]
+		[ForeignKey("MARK_MonHoc")]
         public int ID_mon { get; set; }
 		
 		[Display(Name = "Kỳ thứ")]
@@ -82,5 +85,9 @@ namespace StudentPortal
 		
 		[Display(Name = "Nhóm môn Sub")]
         public int Nhom_mon_sub { get; set; }
+		
+		public virtual STU_DoiTuong STU_DoiTuong{ get; set; }
+		
+		public virtual MARK_MonHoc MARK_MonHoc { get; set; }
     }
 }

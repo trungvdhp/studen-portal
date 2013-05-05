@@ -18,9 +18,11 @@ namespace StudentPortal
     public partial class STU_LoaiKhenThuong
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_loai_kt { get; set; }
 		
 		[Display(Name = "ID Cấp")]
+		[ForeignKey("STU_CapKhenThuongKyLuat")]
         public int ID_cap { get; set; }
 		
 		[Display(Name = "Loại khen thưởng")]
@@ -28,5 +30,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Điểm thưởng")]
         public float Diem_thuong { get; set; }
+		
+		public virtual STU_CapKhenThuongKyLuat STU_CapKhenThuongKyLuat { get; set; }
     }
 }

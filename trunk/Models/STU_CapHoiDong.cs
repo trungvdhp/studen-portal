@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_CapHoiDong
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_cap { get; set; }
 		
 		[Display(Name = "Mã cấp")]

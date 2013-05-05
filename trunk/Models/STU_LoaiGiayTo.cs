@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_LoaiGiayTo
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_giay_to { get; set; }
 		
 		[Display(Name = "Mã giấy tờ")]

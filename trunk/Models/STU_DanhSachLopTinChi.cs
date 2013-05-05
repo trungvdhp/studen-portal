@@ -18,12 +18,15 @@ namespace StudentPortal
     public partial class STU_DanhSachLopTinChi
     {
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 		
 		[Display(Name = "ID Lớp TC")]
+		[ForeignKey("PLAN_LopTinChi_TC")]
         public int ID_lop_tc { get; set; }
 		
 		[Display(Name = "ID SV")]
+		[ForeignKey("STU_HoSoSinhVien")]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "Học lại")]
@@ -46,5 +49,9 @@ namespace StudentPortal
 		
 		[Display(Name = "CLC")]
         public Nullable<bool> CLC { get; set; }
+		
+		public virtual PLAN_LopTinChi_TC PLAN_LopTinChi_TC { get; set; }
+		
+		public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }
     }
 }

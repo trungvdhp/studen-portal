@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_XetHocBong
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_phan_bo { get; set; }
 		
 		[Display(Name = "Phương án")]

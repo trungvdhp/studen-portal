@@ -18,9 +18,11 @@ namespace StudentPortal
     public partial class STU_DanhSachXoa
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "ID Lớp")]
+		[ForeignKey("STU_Lop")]
         public int ID_lop { get; set; }
 		
 		[Display(Name = "Mật khẩu")]
@@ -28,5 +30,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Active")]
         public bool Active { get; set; }
+		
+		public virtual STU_Lop STU_Lop { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class PLAN_BoMon
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_bm { get; set; }
 		
 		[Display(Name = "Mã bộ môn")]

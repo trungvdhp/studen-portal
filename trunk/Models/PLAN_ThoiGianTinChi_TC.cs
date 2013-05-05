@@ -18,9 +18,11 @@ namespace StudentPortal
     public partial class PLAN_ThoiGianTinChi_TC
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_tin_chi { get; set; }
 		
 		[Display(Name = "ID Hệ")]
+		[ForeignKey("STU_He")]
         public Nullable<int> ID_he { get; set; }
 		
 		[Display(Name = "Khóa học")]
@@ -31,5 +33,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Học kỳ tối đa")]
         public Nullable<int> Hocky_toida { get; set; }
+		
+		public virtual STU_He STU_He { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class PLAN_LoaiLop_TC
     {
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Loai_lop { get; set; }
 		
 		[Display(Name = "Tên loại lớp")]

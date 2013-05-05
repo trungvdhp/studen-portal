@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class PLAN_HocVi
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_hoc_vi { get; set; }
 		
 		[Display(Name = "Mã học vị")]

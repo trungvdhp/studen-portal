@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class MARK_XepHangHocLuc
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_xep_hang { get; set; }
 		
 		[Display(Name = "Từ điểm")]
@@ -26,7 +27,7 @@ namespace StudentPortal
 		[Display(Name = "Đến điểm")]
         public float Den_diem { get; set; }
 		
-		[Display(Name = "Xếp hàng")]
+		[Display(Name = "Xếp hạng")]
         public string Xep_hang { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_KhenThuong
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_khen_thuong { get; set; }
 		
 		[Display(Name = "Số qd")]
@@ -33,12 +34,18 @@ namespace StudentPortal
         public string Nam_hoc { get; set; }
 		
 		[Display(Name = "ID Loại kt")]
+		[ForeignKey("STU_LoaiKhenThuong")]
         public int ID_loai_kt { get; set; }
 		
 		[Display(Name = "Hình thức")]
         public string Hinh_thuc { get; set; }
 		
 		[Display(Name = "ID cấp")]
+		[ForeignKey("STU_CapKhenThuongKyLuat")]
         public int ID_cap { get; set; }
+		
+		public virtual STU_LoaiKhenThuong STU_LoaiKhenThuong { get; set; }
+		
+		public virtual STU_CapKhenThuongKyLuat STU_CapKhenThuongKyLuat { get; set; }
     }
 }

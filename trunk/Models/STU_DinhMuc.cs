@@ -18,9 +18,11 @@ namespace StudentPortal
     public partial class STU_DinhMuc
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_dm { get; set; }
 		
 		[Display(Name = "ID Chức danh")]
+		[ForeignKey("STU_ChucDanh")]
         public int ID_chuc_danh { get; set; }
 		
 		[Display(Name = "ID Nhiệm vụ")]
@@ -28,5 +30,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Số tiết")]
         public int So_tiet { get; set; }
+		
+		public virtual STU_ChucDanh STU_ChucDanh { get; set; }
     }
 }

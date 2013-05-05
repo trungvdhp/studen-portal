@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class PLAN_LoaiRangBuoc
     {
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Loai_rang_buoc { get; set; }
 		
 		[Display(Name = "Tên ràng buộc")]

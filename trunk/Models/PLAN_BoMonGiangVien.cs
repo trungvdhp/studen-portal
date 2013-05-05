@@ -18,9 +18,13 @@ namespace StudentPortal
     public partial class PLAN_BoMonGiangVien
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_bm { get; set; }
 		
 		[Display(Name = "ID_cb")]
+		[ForeignKey("PLAN_GiaoVien")]
         public int ID_cb { get; set; }
+		
+		public virtual PLAN_GiaoVien PLAN_GiaoVien { get; set; }
     }
 }

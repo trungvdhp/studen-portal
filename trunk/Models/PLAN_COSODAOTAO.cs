@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class PLAN_COSODAOTAO
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_co_so { get; set; }
 		
 		[Display(Name = "Mã cơ sở")]

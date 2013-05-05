@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class MARK_TotNghiep_DangKy
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_SV { get; set; }
 		
 		[Display(Name = "Sinh viên - duyệt")]

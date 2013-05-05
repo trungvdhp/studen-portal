@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class MARK_QuyetDinhThoiHoc
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_qd { get; set; }
 		
 		[Display(Name = "Học kỳ")]

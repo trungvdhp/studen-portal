@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class Mark_DanhSachThuctap
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "Nơi thực tập")]

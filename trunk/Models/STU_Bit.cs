@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_Bit
     {
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         
 		[Display(Name = "Giá trị")]

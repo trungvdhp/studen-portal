@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_DoiTuong
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_dt { get; set; }
 		
 		[Display(Name = "Mã ĐT")]

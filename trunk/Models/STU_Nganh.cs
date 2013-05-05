@@ -23,6 +23,7 @@ namespace StudentPortal
         }
 		
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_nganh { get; set; }
 		
 		[Display(Name = "Mã ngành")]

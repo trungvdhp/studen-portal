@@ -18,12 +18,15 @@ namespace StudentPortal
     public partial class Mark_DanhSachHoctiep
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_hoc_tiep { get; set; }
 		
 		[Display(Name = "ID Ngừng học")]
+		[ForeignKey("MARK_DanhSachNgungHoc")]
         public int ID_ngung_hoc { get; set; }
 		
 		[Display(Name = "ID_sv")]
+		[ForeignKey("STU_HoSoSinhVien")]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "Học kỳ")]
@@ -43,5 +46,9 @@ namespace StudentPortal
 		
 		[Display(Name = "ID Lớp mới")]
         public int ID_lop_moi { get; set; }
+		
+		public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }
+		
+		public virtual MARK_DanhSachNgungHoc MARK_DanhSachNgungHoc { get; set; }
     }
 }

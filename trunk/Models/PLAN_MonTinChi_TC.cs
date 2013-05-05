@@ -24,6 +24,7 @@ namespace StudentPortal
         }
 		
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_mon_tc { get; set; }
 		
 		[Display(Name = "Kỳ đăng ký")]
@@ -33,6 +34,7 @@ namespace StudentPortal
         public string Ky_hieu_lop_tc { get; set; }
 		
 		[Display(Name = "ID Môn")]
+		[ForeignKey("MARK_MonHoc")]
         public int ID_mon { get; set; }
 		
 		[Display(Name = "Số tín chỉ")]

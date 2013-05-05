@@ -24,15 +24,24 @@ namespace StudentPortal
         public string Nam_hoc { get; set; }
 		
 		[Display(Name = "ID Lớp")]
+		[ForeignKey("STU_Lop")]
         public int ID_lop { get; set; }
 		
 		[Display(Name = "ID Danh hiệu")]
+		[ForeignKey("STU_DanhHieu")]
         public Nullable<int> ID_danh_hieu { get; set; }
 		
 		[Display(Name = "Lý do")]
         public string Ly_do { get; set; }
 		
 		[Display(Name = "ID cấp")]
+		[ForeignKey("STU_CapKhenThuongKyLuat")]
         public Nullable<int> ID_cap { get; set; }
+		
+		public virtual STU_Lop STU_Lop { get; set; }
+		
+		public virtual STU_DanhHieu STU_DanhHieu { get; set; }
+		
+		public virtual STU_CapKhenThuongKyLuat STU_CapKhenThuongKyLuat { get; set; }
     }
 }

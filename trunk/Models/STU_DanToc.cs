@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_DanToc
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_dan_toc { get; set; }
 		
 		[Display(Name = "Mã dân tộc")]

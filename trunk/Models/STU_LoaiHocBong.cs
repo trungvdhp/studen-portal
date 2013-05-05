@@ -21,12 +21,18 @@ namespace StudentPortal
         public string Ma_dt { get; set; }
 		
 		[Display(Name = "ID Hệ")]
+		[ForeignKey("STU_He")]
         public int ID_he { get; set; }
 		
 		[Display(Name = "ID Xếp loại hb")]
+		[ForeignKey("STU_XepLoaiHocBong")]
         public int ID_xep_loai_hb { get; set; }
 		
 		[Display(Name = "HB_HT")]
         public int HB_HT { get; set; }
+		
+		public virtual STU_He STU_He { get; set; }
+		
+		public virtual STU_XepLoaiHocBong STU_XepLoaiHocBong { get; set; }
     }
 }

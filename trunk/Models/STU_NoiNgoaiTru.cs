@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_NoiNgoaiTru
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "Từ ngày")]
@@ -27,6 +28,7 @@ namespace StudentPortal
         public Nullable<System.DateTime> Den_ngay { get; set; }
 		
 		[Display(Name = "ID phòng KTX")]
+		[ForeignKey("STU_PhongKyTucXa")]
         public Nullable<int> ID_phong_ktx { get; set; }
 		
 		[Display(Name = "Địa chỉ")]
@@ -45,6 +47,11 @@ namespace StudentPortal
         public bool Trang_thai { get; set; }
 		
 		[Display(Name = "ID phường")]
+		[ForeignKey("STU_Phuong")]
         public Nullable<int> ID_phuong { get; set; }
+		
+		public virtual STU_PhongKyTucXa STU_PhongKyTucXa { get; set; }
+		
+		public virtual STU_Phuong STU_Phuong { get; set; }
     }
 }

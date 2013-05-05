@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_DiemRenLuyen
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_diem_rl { get; set; }
 		
 		[Display(Name = "Học kỳ")]
@@ -27,12 +28,18 @@ namespace StudentPortal
         public string Nam_hoc { get; set; }
 		
 		[Display(Name = "ID sinh viên")]
+		[ForeignKey("STU_HoSoSinhVien")]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "ID Loại RL")]
+		[ForeignKey("STU_LoaiRenLuyen")]
         public int ID_loai_rl { get; set; }
 		
 		[Display(Name = "Điểm")]
         public int Diem { get; set; }
+		
+		public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }
+		
+		public virtual STU_LoaiRenLuyen STU_LoaiRenLuyen { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_CanBoLop
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "Năm bắt đầu")]
