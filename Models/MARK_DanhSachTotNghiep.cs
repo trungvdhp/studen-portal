@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class MARK_DanhSachTotNghiep
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "Lần thứ")]
@@ -33,6 +34,7 @@ namespace StudentPortal
         public float TBCHT { get; set; }
 		
 		[Display(Name = "ID Xếp loại")]
+		[ForeignKey("MARK_XepLoaiHocTap_TC")]
         public int ID_xep_loai { get; set; }
 		
 		[Display(Name = "Năm học")]
@@ -45,6 +47,7 @@ namespace StudentPortal
         public string So_serial_txt { get; set; }
 		
 		[Display(Name = "ID_dt")]
+		[ForeignKey("STU_DoiTuong")]
         public Nullable<int> Id_dt { get; set; }
 		
 		[Display(Name = "Phần trăm thi lại")]
@@ -55,5 +58,9 @@ namespace StudentPortal
 		
 		[Display(Name = "Ngày QĐ")]
         public Nullable<System.DateTime> Ngay_QD { get; set; }
+		
+		public virtual MARK_XepLoaiHocTap_TC MARK_XepLoaiHocTap_TC { get; set; }
+		
+		public virtual STU_DoiTuong STU_DoiTuong { get; set; }
     }
 }

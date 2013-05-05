@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_CapRenLuyen
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_cap_rl { get; set; }
 		
 		[Display(Name = "Ký hiệu")]

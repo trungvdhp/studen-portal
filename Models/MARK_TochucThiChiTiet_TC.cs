@@ -18,15 +18,19 @@ namespace StudentPortal
     public partial class MARK_TochucThiChiTiet_TC
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_ds_thi { get; set; }
 		
         [Display(Name = "ID Thi")]
+		[ForeignKey("MARK_ToChucThi")]
         public int ID_thi { get; set; }
 		
 		[Display(Name = "ID_sv")]
+		[ForeignKey("STU_HoSoSinhVien")]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "ID Phòng thi")]
+		[ForeignKey("MARK_ToChucThiPhong")]
         public int ID_phong_thi { get; set; }
 		
 		[Display(Name = "Số báo danh")]
@@ -43,5 +47,11 @@ namespace StudentPortal
 		
 		[Display(Name = "OrderBy")]
         public string OrderBy { get; set; }
+		
+		public virtual MARK_ToChucThi MARK_ToChucThi { get; set; }
+		
+		public virtual MARK_ToChucThiPhong MARK_ToChucThiPhong { get; set; }
+		
+		public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }
     }
 }

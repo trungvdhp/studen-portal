@@ -18,12 +18,14 @@ namespace StudentPortal
     public partial class Mark_DanhSachThiTotNghiep
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "TBCHT")]
         public Nullable<float> TBCHT { get; set; }
 		
 		[Display(Name = "ID Xếp loại")]
+		[ForeignKey("MARK_XepLoaiHocTap_TC")]
         public Nullable<int> ID_xep_loai { get; set; }
 		
 		[Display(Name = "Số tín chỉ")]
@@ -37,5 +39,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Cố vấn duyệt")]
         public bool Co_van_duyet { get; set; }
+		
+		public virtual MARK_XepLoaiHocTap_TC MARK_XepLoaiHocTap_TC { get; set; }
     }
 }

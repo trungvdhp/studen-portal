@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class MARK_TochucThi_TC
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_thi { get; set; }
 		
 		[Display(Name = "Học kỳ")]
@@ -27,12 +28,15 @@ namespace StudentPortal
         public string Nam_hoc { get; set; }
 		
 		[Display(Name = "ID Hệ")]
+		[ForeignKey("STU_He")]
         public int ID_he { get; set; }
 		
 		[Display(Name = "ID Khoa")]
+		[ForeignKey("STU_Khoa")]
         public int ID_khoa { get; set; }
 		
 		[Display(Name = "ID Môn")]
+		[ForeignKey("MARK_MonHoc")]
         public int ID_mon { get; set; }
 		
 		[Display(Name = "Lần thi")]
@@ -52,5 +56,11 @@ namespace StudentPortal
 		
         [Display(Name = "Giờ thi")]
         public string Gio_thi { get; set; }
+		
+		public virtual STU_He STU_He { get; set; }
+		
+		public virtual STU_Khoa STU_Khoa { get; set; }
+		
+		public virtual MARK_MonHoc MARK_MonHoc { get; set; }
     }
 }

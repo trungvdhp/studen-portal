@@ -23,18 +23,22 @@ namespace StudentPortal
         }
 		
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_dt { get; set; }
 		
 		[Display(Name = "ID Hệ")]
+		[ForeignKey("STU_He")]
         public int ID_he { get; set; }
 		
 		[Display(Name = "ID Khoa")]
+		[ForeignKey("STU_Khoa")]
         public int ID_khoa { get; set; }
 		
 		[Display(Name = "Khóa học")]
         public int Khoa_hoc { get; set; }
 		
 		[Display(Name = "ID Chuyên ngành")]
+		[ForeignKey("STU_ChuyenNganh")]
         public int ID_chuyen_nganh { get; set; }
 		
 		[Display(Name = "Số học trình")]
@@ -47,7 +51,11 @@ namespace StudentPortal
         public Nullable<int> So { get; set; }
     
         public virtual ICollection<MARK_Diem_TC> MARK_Diem_TC { get; set; }
+		
         public virtual STU_He STU_He { get; set; }
+		
         public virtual STU_Khoa STU_Khoa { get; set; }
+		
+		public virtual STU_ChuyenNganh STU_ChuyenNganh { get; set; }
     }
 }

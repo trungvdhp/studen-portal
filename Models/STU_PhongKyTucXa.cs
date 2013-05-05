@@ -18,12 +18,15 @@ namespace StudentPortal
     public partial class STU_PhongKyTucXa
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_phong_KTX { get; set; }
 		
 		[Display(Name = "ID Nhà KTX")]
+		[ForeignKey("STU_ToaNhaKyTucXa")]
         public Nullable<int> ID_nha_KTX { get; set; }
 		
 		[Display(Name = "ID Tầng")]
+		[ForeignKey("PLAN_TANG")]
         public Nullable<int> ID_tang { get; set; }
 		
 		[Display(Name = "Số phòng KTX")]
@@ -32,13 +35,20 @@ namespace StudentPortal
 		[Display(Name = "Sức chứa")]
         public Nullable<int> Suc_chua { get; set; }
 		
-		[Display(Name = "THiết bị")]
+		[Display(Name = "Thiết bị")]
         public string Thiet_bi { get; set; }
 		
 		[Display(Name = "Số tiền / người")]
         public Nullable<int> So_tien_mot_nguoi { get; set; }
 		
 		[Display(Name = "ID Cơ sở")]
+		[ForeignKey("PLAN_COSODAOTAO")]
         public Nullable<int> ID_co_so { get; set; }
+		
+		public virtual STU_ToaNhaKyTucXa STU_ToaNhaKyTucXa { get; set; }
+		
+		public virtual PLAN_TANG PLAN_TANG { get; set; }
+		
+		public virtual PLAN_COSODAOTAO PLAN_COSODAOTAO { get; set; }
     }
 }

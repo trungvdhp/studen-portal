@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class MARK_HocLai
     {
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Hoc_lai { get; set; }
 		
 		[Display(Name = "Tên")]

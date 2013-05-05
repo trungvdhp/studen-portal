@@ -21,6 +21,9 @@ namespace StudentPortal
         public string Ma_dt { get; set; }
 		
 		[Display(Name = "ID Giấy tờ")]
+		[ForeignKey("STU_LoaiGiayTo")]
         public int ID_giay_to { get; set; }
+		
+		public virtual STU_LoaiGiayTo STU_LoaiGiayTo { get; set; }
     }
 }

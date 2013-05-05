@@ -18,12 +18,16 @@ namespace StudentPortal
     public partial class STU_HoSoYeucau
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_giay_to { get; set; }
 		
 		[Display(Name = "Khóa học")]
         public int Khoa_hoc { get; set; }
 		
 		[Display(Name = "ID Hệ")]
+		[ForeignKey("STU_He")]
         public int ID_he { get; set; }
+		
+		public virtual STU_He STU_He { get; set; }
     }
 }

@@ -18,9 +18,11 @@ namespace StudentPortal
     public partial class STU_HoatDongXaHoi
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_hd_xh { get; set; }
 		
 		[Display(Name = "ID Sinh viên")]
+		[Foreign("STU_HoSoSinhVien")]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "Học kỳ")]
@@ -40,5 +42,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Điểm thưởng")]
         public Nullable<int> Diem_thuong { get; set; }
+		
+		public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }
     }
 }

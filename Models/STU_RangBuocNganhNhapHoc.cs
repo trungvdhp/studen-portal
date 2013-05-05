@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_RangBuocNganhNhapHoc
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_rb { get; set; }
 		
 		[Display(Name = "Năm học")]
@@ -27,9 +28,15 @@ namespace StudentPortal
         public int Loai { get; set; }
 		
 		[Display(Name = "ID ngành")]
+		[ForeignKey("STU_Nganh")]
         public Nullable<int> ID_Nganh { get; set; }
 		
 		[Display(Name = "ID Chuyên ngành")]
+		[ForeignKey("STU_ChuyenNganh")]
         public int ID_chuyen_nganh { get; set; }
+		
+		public virtual STU_Nganh STU_Nganh ( get; set; )
+		
+		public virtual STU_ChuyenNganh STU_ChuyenNganh ( get; set; )
     }
 }

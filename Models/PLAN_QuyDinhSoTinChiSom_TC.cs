@@ -18,9 +18,11 @@ namespace StudentPortal
     public partial class PLAN_QuyDinhSoTinChiSom_TC
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_he { get; set; }
 		
 		[Display(Name = "ID Khoa")]
+		[ForeignKey("STU_Khoa")]
         public int ID_khoa { get; set; }
 		
 		[Display(Name = "Khóa học")]
@@ -67,5 +69,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Đến ngày")]
         public Nullable<System.DateTime> Den_ngay { get; set; }
+		
+		public virtual STU_Khoa STU_Khoa { get; set; }
     }
 }

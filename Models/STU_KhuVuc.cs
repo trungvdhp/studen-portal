@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_KhuVuc
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_kv { get; set; }
 		
 		[Display(Name = "Mã khu vực")]

@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_ChuyenNganh
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_chuyen_nganh { get; set; }
 		
 		[Display(Name = "Mã chuyên ngành")]
@@ -27,6 +28,7 @@ namespace StudentPortal
         public string Chuyen_nganh { get; set; }
 		
 		[Display(Name = "ID ngành")]
+		[ForeignKey("STU_Nganh")]
         public int ID_nganh { get; set; }
 		
 		[Display(Name = "Chuyên ngành EN")]

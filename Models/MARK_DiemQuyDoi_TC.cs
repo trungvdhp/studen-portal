@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class MARK_DiemQuyDoi_TC
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_xep_loai { get; set; }
 		
         [Display(Name = "Xếp loại")]

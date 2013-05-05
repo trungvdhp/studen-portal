@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class PLAN_TANG
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_TANG { get; set; }
 		
 		[Display(Name = "Mã tầng")]

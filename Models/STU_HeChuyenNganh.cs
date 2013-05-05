@@ -18,9 +18,13 @@ namespace StudentPortal
     public partial class STU_HeChuyenNganh
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_he { get; set; }
 		
 		[Display(Name = "ID chuyên ngành")]
+		[ForeignKey("STU_ChuyenNganh")]
         public int ID_chuyen_nganh { get; set; }
+		
+		public virtual STU_ChuyenNganh STU_ChuyenNganh { get; set; }
     }
 }

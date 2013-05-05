@@ -18,15 +18,19 @@ namespace StudentPortal
     public partial class PLAN_PhongHoc
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_phong { get; set; }
 		
 		[Display(Name = "ID Cơ sở")]
+		[ForeignKey("PLAN_COSODAOTAO")]
         public Nullable<int> ID_co_so { get; set; }
 		
 		[Display(Name = "ID Nhà")]
+		[ForeignKey("PLAN_TOANHA")]
         public Nullable<int> ID_nha { get; set; }
 		
 		[Display(Name = "ID Tầng")]
+		[ForeignKey("PLAN_TANG")]
         public Nullable<int> ID_tang { get; set; }
 		
 		[Display(Name = "Số phòng")]
@@ -63,6 +67,7 @@ namespace StudentPortal
         public Nullable<int> So_sv { get; set; }
 		
 		[Display(Name = "ID Loại phòng")]
+		[ForeignKey("PLAN_LOAIPHONG")]
         public Nullable<int> ID_loai_phong { get; set; }
 		
 		[Display(Name = "Thiết bị")]
@@ -70,5 +75,13 @@ namespace StudentPortal
 		
 		[Display(Name = "Không tổ chức thi")]
         public int Khong_ToChucThi { get; set; }
+		
+		public virtual PLAN_COSODAOTAO PLAN_COSODAOTAO { get; set; }
+		
+		public virtual PLAN_TOANHA PLAN_TOANHA { get; set; }
+		
+		public virtual PLAN_TANG PLAN_TANG { get; set; }
+		
+		public virtual PLAN_LOAIPHONG PLAN_LOAIPHONG { get; set; }
     }
 }

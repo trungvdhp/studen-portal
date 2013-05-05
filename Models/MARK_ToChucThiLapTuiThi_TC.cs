@@ -18,9 +18,11 @@ namespace StudentPortal
     public partial class MARK_ToChucThiLapTuiThi_TC
     {
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 		
 		[Display(Name = "ID thi")]
+		[ForeignKey("MARK_ToChucThi")]
         public int ID_thi { get; set; }
 		
 		[Display(Name = "Túi số")]
@@ -40,5 +42,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Ghi chú")]
         public string Ghi_chu { get; set; }
+		
+		public virtual MARK_ToChucThi MARK_ToChucThi { get; set; }
     }
 }

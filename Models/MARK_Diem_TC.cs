@@ -24,18 +24,22 @@ namespace StudentPortal
         }
 		
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_diem { get; set; }
 		
 		[Display(Name = "ID_dv")]
         public string ID_dv { get; set; }
 		
 		[Display(Name = "ID_sv")]
+		[ForeignKey("STU_HoSoSinhVien")]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "ID Môn")]
+		[ForeignKey("MARK_MonHoc")]
         public int ID_mon { get; set; }
 		
 		[Display(Name = "ID_dt")]
+		[ForeignKey("PLAN_ChuongTrinhDaoTao")]
         public int ID_dt { get; set; }
 		
 		[Display(Name = "TBCMH lần 1")]
@@ -53,7 +57,7 @@ namespace StudentPortal
 		[Display(Name = "Học kỳ")]
         public int Hoc_ky { get; set; }
 		
-		[Display(Name = "NĂm học")]
+		[Display(Name = "Năm học")]
         public string Nam_hoc { get; set; }
 		
 		[Display(Name = "Duyệt")]
@@ -63,8 +67,11 @@ namespace StudentPortal
         public Nullable<bool> Tinh_tich_luy { get; set; }
     
         public virtual MARK_MonHoc MARK_MonHoc { get; set; }
+		
         public virtual PLAN_ChuongTrinhDaoTao PLAN_ChuongTrinhDaoTao { get; set; }
+		
         public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }
+		
         public virtual ICollection<MARK_DiemThanhPhan_TC> MARK_DiemThanhPhan_TC { get; set; }
         public virtual ICollection<MARK_DiemThi_TC> MARK_DiemThi_TC { get; set; }
     }

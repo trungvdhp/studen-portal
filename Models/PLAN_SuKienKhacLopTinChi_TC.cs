@@ -21,6 +21,7 @@ namespace StudentPortal
         public long ID { get; set; }
 		
 		[Display(Name = "ID Lớp TC")]
+		[ForeignKey("PLAN_LopTinChi_TC")]
         public Nullable<int> ID_lop_tc { get; set; }
 		
 		[Display(Name = "Thứ")]
@@ -34,5 +35,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Mô tả")]
         public string Mo_ta { get; set; }
+		
+		public virtual PLAN_LopTinChi_TC PLAN_LopTinChi_TC { get; set; }
     }
 }

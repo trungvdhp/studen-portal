@@ -23,12 +23,14 @@ namespace StudentPortal
         }
 		
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_lop_tc { get; set; }
 		
 		[Display(Name = "ID Lớp LT")]
         public int ID_lop_lt { get; set; }
 		
 		[Display(Name = "ID Môn TC")]
+		[Foreignkey("PLAN_MonTinChi_TC")]
         public int ID_mon_tc { get; set; }
 		
 		[Display(Name = "STT Lớp")]
@@ -53,9 +55,11 @@ namespace StudentPortal
         public int So_tiet_tuan { get; set; }
 		
 		[Display(Name = "ID Phòng")]
+		[Foreignkey("PLAN_PhongHoc")]
         public int ID_phong { get; set; }
 		
 		[Display(Name = "ID_cb")]
+		[Foreignkey("PLAN_GiaoVien")]
         public int ID_cb { get; set; }
 		
 		[Display(Name = "Hủy lớp")]
@@ -75,5 +79,9 @@ namespace StudentPortal
     
         public virtual PLAN_MonTinChi_TC PLAN_MonTinChi_TC { get; set; }
         public virtual ICollection<PLAN_SukiensTinChi_TC> PLAN_SukiensTinChi_TC { get; set; }
+		
+		public virtual PLAN_PhongHoc PLAN_PhongHoc { get; set; }
+		
+		public virtual PLAN_GiaoVien PLAN_GiaoVien { get; set; }
     }
 }

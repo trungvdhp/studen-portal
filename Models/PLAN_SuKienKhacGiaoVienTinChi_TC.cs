@@ -21,6 +21,7 @@ namespace StudentPortal
         public long ID { get; set; }
 		
 		[Display(Name = "ID_cb")]
+		[ForeignKey("PLAN_GiaoVien")]
         public Nullable<int> ID_cb { get; set; }
 		
 		[Display(Name = "Thứ")]
@@ -34,5 +35,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Mô tả")]
         public string Mo_ta { get; set; }
+		
+		public virtual PLAN_GiaoVien PLAN_GiaoVien { get; set; }
     }
 }

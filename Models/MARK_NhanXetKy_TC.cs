@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class MARK_NhanXetKy_TC
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "Học kỳ")]

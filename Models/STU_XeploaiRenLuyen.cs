@@ -18,12 +18,13 @@ namespace StudentPortal
     public partial class STU_XeploaiRenLuyen
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_xep_loai { get; set; }
 		
 		[Display(Name = "Xếp loại")]
         public string Xep_loai { get; set; }
 		
-		[Display(Name = "Twf điểm")]
+		[Display(Name = "Từ điểm")]
         public Nullable<int> Tu_diem { get; set; }
 		
 		[Display(Name = "Đến điểm")]

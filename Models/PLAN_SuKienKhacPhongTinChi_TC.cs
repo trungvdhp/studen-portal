@@ -21,6 +21,7 @@ namespace StudentPortal
         public long ID { get; set; }
 		
 		[Display(Name = "ID Phòng")]
+		[ForeignKey("PLAN_PhongHoc")]
         public Nullable<int> ID_phong { get; set; }
 		
 		[Display(Name = "Thứ")]
@@ -34,5 +35,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Mô tả")]
         public string Mo_ta { get; set; }
+		
+		public virtual PLAN_PhongHoc PLAN_PhongHoc { get; set; }
     }
 }

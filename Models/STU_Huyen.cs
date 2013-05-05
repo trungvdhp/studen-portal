@@ -21,6 +21,7 @@ namespace StudentPortal
         public string ID_huyen { get; set; }
 		
 		[Display(Name = "ID Tỉnh")]
+		[ForeignKey("STU_Tinh")]
         public string ID_tinh { get; set; }
 		
 		[Display(Name = "Tên huyện")]
@@ -28,5 +29,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Tên huyện EN")]
         public string Ten_huyen_en { get; set; }
+		
+		public virtual STU_Tinh STU_Tinh { get; set; }
     }
 }

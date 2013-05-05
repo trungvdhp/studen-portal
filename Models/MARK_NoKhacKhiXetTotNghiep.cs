@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class MARK_NoKhacKhiXetTotNghiep
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "Lý do")]

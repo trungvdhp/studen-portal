@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_HeSoRenLuyen
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 		
 		[Display(Name = "Năm thứ")]

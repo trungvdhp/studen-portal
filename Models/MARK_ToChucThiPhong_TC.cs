@@ -18,12 +18,15 @@ namespace StudentPortal
     public partial class MARK_ToChucThiPhong_TC
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_phong_thi { get; set; }
 		
 		[Display(Name = "ID Lớp TC")]
+		[ForeignKey("PLAN_LopTinChi_TC")]
         public int ID_lop_tc { get; set; }
 		
 		[Display(Name = "ID Phòng")]
+		[ForeignKey("PLAN_PhongHoc")]
         public int ID_phong { get; set; }
 		
 		[Display(Name = "Tên phòng")]
@@ -46,5 +49,9 @@ namespace StudentPortal
 		
 		[Display(Name = "Giờ thi")]
         public string Gio_thi { get; set; }
+		
+		public virtual PLAN_LopTinChi_TC PLAN_LopTinChi_TC { get; set; }
+		
+		public virtual PLAN_PhongHoc PLAN_PhongHoc { get; set; }
     }
 }

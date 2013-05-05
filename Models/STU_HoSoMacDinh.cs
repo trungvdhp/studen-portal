@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_HoSoMacDinh
     {
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 		
 		[Display(Name = "UserName")]
@@ -33,6 +34,7 @@ namespace StudentPortal
         public string ID_Huyen_tt { get; set; }
 		
 		[Display(Name = "ID Dân tộc")]
+		[ForeignKey("STU_DanToc")]
         public Nullable<int> ID_Dan_toc { get; set; }
 		
 		[Display(Name = "Tôn giáo")]
@@ -42,12 +44,14 @@ namespace StudentPortal
         public string Ma_dt { get; set; }
 		
 		[Display(Name = "ID nhóm dt")]
+		[ForeignKey("STU_NhomDoiTuong")]
         public Nullable<int> ID_nhom_dt { get; set; }
 		
 		[Display(Name = "Mã KV")]
         public string Ma_kv { get; set; }
 		
 		[Display(Name = "ID Giới tính")]
+		[ForeignKey("STU_GioiTinh")]
         public Nullable<bool> ID_gioi_tinh { get; set; }
 		
 		[Display(Name = "Khối thi")]
@@ -58,5 +62,11 @@ namespace StudentPortal
 		
 		[Display(Name = "Đảng")]
         public Nullable<bool> Dang { get; set; }
+		
+		public virtual STU_DanToc STU_DanToc { get; set; }
+		
+		public virtual STU_NhomDoiTuong STU_NhomDoiTuong { get; set; }
+		
+		public virtual STU_GioiTinh STU_GioiTinh { get; set; }
     }
 }

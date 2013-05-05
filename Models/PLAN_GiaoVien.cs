@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class PLAN_GiaoVien
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_cb { get; set; }
 		
 		[Display(Name = "Mã cb")]
@@ -30,24 +31,42 @@ namespace StudentPortal
         public string Ho_ten { get; set; }
 		
 		[Display(Name = "ID Giới tính")]
+		[ForeignKey("STU_GioiTinh")]
         public Nullable<int> ID_gioi_tinh { get; set; }
 		
 		[Display(Name = "Ngày sinh")]
         public Nullable<System.DateTime> Ngay_sinh { get; set; }
 		
 		[Display(Name = "ID Khoa")]
+		[ForeignKey("STU_Khoa")]
         public Nullable<int> ID_khoa { get; set; }
 		
 		[Display(Name = "ID Học hàm")]
+		[ForeignKey("PLAN_HocHam")]
         public Nullable<int> ID_hoc_ham { get; set; }
 		
 		[Display(Name = "ID Học vị")]
+		[ForeignKey("PLAN_HocVi")]
         public Nullable<int> ID_hoc_vi { get; set; }
 		
 		[Display(Name = "ID Chức danh")]
+		[ForeignKey("PLAN_ChucDanh")]
         public Nullable<int> ID_chuc_danh { get; set; }
 		
 		[Display(Name = "ID Chức vụ")]
+		[ForeignKey("PLAN_ChucVu")]
         public Nullable<int> ID_chuc_vu { get; set; }
+		
+		public virtual STU_GioiTinh STU_GioiTinh { get; set; }
+		
+		public virtual STU_Khoa STU_Khoa{ get; set; }
+		
+		public virtual PLAN_HocHam PLAN_HocHam { get; set; }
+		
+		public virtual PLAN_HocVi PLAN_HocVi { get; set; }
+		
+		public virtual PLAN_ChucDanh PLAN_ChucDanh { get; set; }
+		
+		public virtual PLAN_ChucVu PLAN_ChucVu { get; set; }
     }
 }

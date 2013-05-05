@@ -18,21 +18,31 @@ namespace StudentPortal
     public partial class MARK_ChungChiSinhVien_TC
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "ID_dt")]
+		[ForeignKey("PLAN_ChuongTrinhDaoTao")]
         public int ID_dt { get; set; }
 		
 		[Display(Name = "ID Chứng chỉ")]
+		[ForeignKey("MARK_LoaiChungChi_TC")]
         public int ID_chung_chi { get; set; }
 		
 		[Display(Name = "Lần xét")]
         public int Lan_xet { get; set; }
 		
 		[Display(Name = "ID Xếp loại")]
+		[ForeignKey("MARK_XepLoaiHocTap_TC")]
         public Nullable<int> ID_xep_loai { get; set; }
 		
 		[Display(Name = "TBCHT")]
         public Nullable<float> TBCHT { get; set; }
+		
+		public virtual PLAN_ChuongTrinhDaoTao PLAN_ChuongTrinhDaoTao { get; set; }
+		
+		public virtual MARK_LoaiChungChi_TC MARK_LoaiChungChi_TC { get; set; }
+		
+		public virtual MARL_XepLoaiHocTap_TC MARK_XepLoaiHocTap_TC { get; set; }
     }
 }

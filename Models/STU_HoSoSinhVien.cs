@@ -23,6 +23,7 @@ namespace StudentPortal
         }
     
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "Ảnh")]
@@ -38,18 +39,22 @@ namespace StudentPortal
         public Nullable<System.DateTime> Ngay_sinh { get; set; }
         
 		[Display(Name = "ID Giới tính")]
+		[ForeignKey("STU_GioiTinh")]
         public Nullable<int> ID_gioi_tinh { get; set; }
 		
 		[Display(Name = "ID Dân tộc")]
+		[ForeignKey("STU_DanToc")]
         public Nullable<int> ID_dan_toc { get; set; }
 		
 		[Display(Name = "ID Quốc tịch")]
+		[ForeignKey("STU_QuocTich")]
         public Nullable<int> ID_quoc_tich { get; set; }
 		
 		[Display(Name = "Tôn giáo")]
         public string Ton_giao { get; set; }
 		
 		[Display(Name = "ID Thành phần xuất thân")]
+		[ForeignKey("STU_ThanhPhanXuatThan")]
         public Nullable<int> ID_thanh_phan_xuat_than { get; set; }
 		
 		[Display(Name = "Ngày vào Đoàn")]
@@ -86,6 +91,7 @@ namespace StudentPortal
         public string Dien_thoai_NR { get; set; }
 		
 		[Display(Name = "ID Nhóm đối tượng")]
+		[ForeignKey("STU_NhomDoiTuong")]
         public Nullable<int> ID_nhom_doi_tuong { get; set; }
 		
         [Display(Name = "Địa chỉ báo tin")]
@@ -312,5 +318,15 @@ namespace StudentPortal
         public Nullable<int> Trang_thai_hoc { get; set; }
     
         public virtual ICollection<MARK_Diem_TC> MARK_Diem_TC { get; set; }
+		
+		public virtual STU_DanToc STU_DanToc { get; set; }
+		
+		public virtual STU_GioiTinh STU_GioiTinh { get; set; }
+		
+		public virtual STU_QuocTich STU_QuocTich { get; set; }
+		
+		public virtual STU_ThanhPhanXuatThan STU_ThanhPhanXuatThan { get; set; }
+		
+		public virtual STU_NhomDoiTuong STU_NhomDoiTuong { get; set; }
     }
 }

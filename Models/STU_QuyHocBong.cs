@@ -18,18 +18,20 @@ namespace StudentPortal
     public partial class STU_QuyHocBong
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_hb { get; set; }
 		
 		[Display(Name = "ID Quỹ")]
         public int ID_quy { get; set; }
 		
 		[Display(Name = "ID hệ")]
+		[ForeignKey("STU_He")]
         public int ID_he { get; set; }
 		
 		[Display(Name = "Học kỳ")]
         public int Hoc_ky { get; set; }
 		
-		[Display(Name = "NĂm học")]
+		[Display(Name = "Năm học")]
         public string Nam_hoc { get; set; }
 		
 		[Display(name = ""Từ khóa)]
@@ -46,5 +48,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Ghi chú")]
         public string Ghi_chu { get; set; }
+		
+		public virtual STU_He STU_He { get; set; }
     }
 }

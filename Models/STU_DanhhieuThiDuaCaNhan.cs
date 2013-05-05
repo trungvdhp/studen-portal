@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_DanhhieuThiDuaCaNhan
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "Học kỳ")]
@@ -36,6 +37,9 @@ namespace StudentPortal
         public Nullable<float> TBCMR { get; set; }
 		
 		[Display(Name = "ID Danh hiệu")]
+		[ForeignKey("STU_DanhHieu")]
         public Nullable<int> ID_danh_hieu { get; set; }
+		
+		public virual STU_DanhHieu STU_DanhHieu { get; set: }
     }
 }

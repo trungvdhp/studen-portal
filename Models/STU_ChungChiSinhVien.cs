@@ -18,21 +18,31 @@ namespace StudentPortal
     public partial class STU_ChungChiSinhVien
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "ID_đt")]
+		[ForeignKey("STU_DoiTuong")]
         public int ID_dt { get; set; }
 		
 		[Display(Name = "ID Chứng chỉ")]
+		[ForeignKey("MARK_LoaiChungChi")]
         public int ID_chung_chi { get; set; }
 		
 		[Display(Name = "Lần xét")]
         public int Lan_xet { get; set; }
 		
 		[Display(Name = "ID Xếp loại")]
+		[ForeignKey("STU_XepLoaiRenLuyen")]
         public Nullable<int> ID_xep_loai { get; set; }
 		
 		[Display(Name = "TBCHT")]
         public Nullable<float> TBCHT { get; set; }
+		
+		public virtual STU_DoiTuong STU_DoiTuong { get; set; }
+		
+		public virtual MARK_LoaiChungChi MARK_LoaiChungChi { get; set; }
+		
+		public virtual STU_XepLoaiRenLuyen STU_XepLoaiRenLuyen { get; set; }
     }
 }

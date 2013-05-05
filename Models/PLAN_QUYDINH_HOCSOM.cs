@@ -18,9 +18,11 @@ namespace StudentPortal
     public partial class PLAN_QUYDINH_HOCSOM
     {
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 		
 		[Display(Name = "ID Hệ")]
+		[ForeignKey("STU_He")]
         public int ID_he { get; set; }
 		
 		[Display(Name = "Từ ngày")]
@@ -40,5 +42,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Đợt đăng ký")]
         public int Dot_dang_ky { get; set; }
+		
+		public virtual STU_He STU_He { get; set; }
     }
 }

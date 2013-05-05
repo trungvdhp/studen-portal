@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class MARK_LoaiChungChi
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_chung_chi { get; set; }
 		
 		[Display(Name = "Ký hiệu")]

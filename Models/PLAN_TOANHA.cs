@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class PLAN_TOANHA
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_nha { get; set; }
 		
 		[Display(Name = "Mã nhà")]
@@ -27,6 +28,9 @@ namespace StudentPortal
         public string Ten_nha { get; set; }
 		
 		[Display(Name = "ID Cơ sở")]
+		[ForeignKey("PLAN_COSODAOTAO")]
         public int ID_co_so { get; set; }
+		
+		public virtual PLAN_COSODAOTAO PLAN_COSODAOTAO { get; set; }
     }
 }

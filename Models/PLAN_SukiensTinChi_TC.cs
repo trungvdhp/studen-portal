@@ -19,15 +19,19 @@ namespace StudentPortal
     {
 	
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 		
 		[Display(Name = "ID Lớp TC")]
+		[ForeignKey("PLAN_LopTinChi_TC")]
         public int ID_lop_tc { get; set; }
 		
 		[Display(Name = "ID Phòng")]
+		[ForeignKey("PLAN_PhongHoc")]
         public int ID_phong { get; set; }
 		
 		[Display(Name = "ID_cb")]
+		[ForeignKey("PLAN_GiaoVien")]
         public int ID_cb { get; set; }
 		
 		[Display(Name = "Ca học")]
@@ -49,5 +53,9 @@ namespace StudentPortal
         public bool Da_xep_lich { get; set; }
     
         public virtual PLAN_LopTinChi_TC PLAN_LopTinChi_TC { get; set; }
+		
+		public virtual PLAN_PhongHoc PLAN_PhongHoc { get; set; }
+		
+		public virtual PLAN_GiaoVien PLAN_GiaoVien { get; set; }
     }
 }

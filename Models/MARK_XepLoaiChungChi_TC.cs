@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class MARK_XepLoaiChungChi_TC
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_xep_hang { get; set; }
 		
 		[Display(Name = "Từ điểm")]

@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class PLAN_CaHoc
     {
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Ca { get; set; }
 		
 		[Display(Name = "Tên ca")]

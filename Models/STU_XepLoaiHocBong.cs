@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_XepLoaiHocBong
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_xep_loai_hb { get; set; }
 		
 		[Display(Name = "Tên xếp loại")]

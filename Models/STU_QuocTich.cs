@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class STU_QuocTich
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_quoc_tich { get; set; }
 		
 		[Display(Name = "Mã quốc tịch")]

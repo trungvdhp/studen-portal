@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class MARK_TrangThaiHoc_TC
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_tt { get; set; }
 		
 		[Display(Name = "Trạng thái")]

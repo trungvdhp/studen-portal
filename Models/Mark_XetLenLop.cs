@@ -24,6 +24,7 @@ namespace StudentPortal
         public string Nam_hoc { get; set; }
 		
 		[Display(Name = "ID_sv")]
+		[ForeignKey("STU_HoSoSinhVien")]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "Lần cảnh báo")]
@@ -46,5 +47,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Duyệt")]
         public Nullable<bool> Duyet { get; set; }
+		
+		public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }
     }
 }

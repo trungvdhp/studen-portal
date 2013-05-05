@@ -24,9 +24,12 @@ namespace StudentPortal
         public string Nam_hoc { get; set; }
 		
 		[Display(Name = "ID Hệ")]
+		[ForeignKey("STU_He")]
         public int ID_he { get; set; }
 		
 		[Display(Name = "Số tiền")]
         public int So_tien { get; set; }
+		
+		public virtual STU_He STU_He { get; set; }
     }
 }

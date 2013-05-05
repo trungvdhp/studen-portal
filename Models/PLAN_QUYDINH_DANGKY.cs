@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class PLAN_QUYDINH_DANGKY
     {
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 		
 		[Display(Name = "Từ ngày")]
@@ -36,12 +37,18 @@ namespace StudentPortal
         public Nullable<bool> Chon_dang_ky { get; set; }
 		
 		[Display(Name = "ID Hệ")]
+		[ForeignKey("STU_He")]
         public Nullable<int> ID_he { get; set; }
 		
 		[Display(Name = "ID Chuyên ngành")]
+		[ForeignKey("STU_ChuyenNganh")]
         public Nullable<int> ID_Chuyen_nganh { get; set; }
 		
 		[Display(Name = "Type")]
         public Nullable<int> Type { get; set; }
+		
+		public virtual STU_He STU_He { get; set; }
+		
+		public virtual STU_ChuyenNganh STU_ChuyenNganh { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class PLAN_ChuongTrinhDaoTaoKienThuc
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_kien_thuc { get; set; }
 		
 		[Display(Name = "Tên kiến thức")]

@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class MARK_ThamSoQuyChe
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_tham_so_qc { get; set; }
 		
 		[Display(Name = "Quy chế")]

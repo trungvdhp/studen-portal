@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class MARK_ToChucThiPhong
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_phong_thi { get; set; }
 		
 		[Display(Name = "Tên phòng")]

@@ -24,6 +24,7 @@ namespace StudentPortal
             this.PLAN_MonDangKy_TC = new HashSet<PLAN_MonDangKy_TC>();
         }
 		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_mon { get; set; }
 		
 		[Display(Name = "Ký hiệu")]
@@ -36,6 +37,7 @@ namespace StudentPortal
         public string Ten_tieng_anh { get; set; }
 		
 		[Display(Name = "ID_bm")]
+		[ForeignKey("PLAN_BoMon")]
         public int ID_bm { get; set; }
 		
 		[Display(Name = "ID Hệ đt")]
@@ -47,5 +49,7 @@ namespace StudentPortal
         public virtual ICollection<PLAN_MonTinChi_TC> PLAN_MonTinChi_TC { get; set; }
         public virtual ICollection<MARK_Diem_TC> MARK_Diem_TC { get; set; }
         public virtual ICollection<PLAN_MonDangKy_TC> PLAN_MonDangKy_TC { get; set; }
+		
+		public virtual PLAN_BoMon PLAN_BoMon { get; set; }
     }
 }

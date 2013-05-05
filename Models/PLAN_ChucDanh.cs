@@ -18,6 +18,7 @@ namespace StudentPortal
     public partial class PLAN_ChucDanh
     {
         [Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_chuc_danh { get; set; }
 		
 		[Display(Name = "Mã chức danh")]
