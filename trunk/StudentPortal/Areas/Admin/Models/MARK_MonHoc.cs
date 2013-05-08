@@ -17,12 +17,12 @@ namespace StudentPortal
 	[Table("MARK_MonHoc")]
 	public partial class MARK_MonHoc
 	{
-		public MARK_MonHoc()
-		{
-			//this.PLAN_MonTinChi_TC = new HashSet<PLAN_MonTinChi_TC>();
-			//this.MARK_Diem_TC = new HashSet<MARK_Diem_TC>();
-			//this.PLAN_MonDangKy_TC = new HashSet<PLAN_MonDangKy_TC>();
-		}
+		//public MARK_MonHoc()
+		//{
+		//	//this.PLAN_MonTinChi_TC = new HashSet<PLAN_MonTinChi_TC>();
+		//	//this.MARK_Diem_TC = new HashSet<MARK_Diem_TC>();
+		//	//this.PLAN_MonDangKy_TC = new HashSet<PLAN_MonDangKy_TC>();
+		//}
 		[Key]
 		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
 		public int ID_mon { get; set; }
