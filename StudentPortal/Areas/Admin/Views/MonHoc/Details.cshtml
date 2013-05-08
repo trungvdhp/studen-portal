@@ -1,0 +1,58 @@
+﻿@model StudentPortal.MARK_MonHoc
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>MARK_MonHoc</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ky_hieu)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ky_hieu)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ten_mon)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ten_mon)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ten_tieng_anh)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ten_tieng_anh)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PLAN_BoMon.Ma_bo_mon)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PLAN_BoMon.Ma_bo_mon)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.STU_He.Ma_he)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.STU_He.Ma_he)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ID_nhom_hp)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_nhom_hp)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID_mon }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -8,10 +8,10 @@ using System.Web.Mvc;
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
-	public class BoMonController : Controller
+	public class BoMonController : BasicController
 	{
 		private DHHHContext db = new DHHHContext();
-
+		
 		//
 		// GET: /Admin/BoMon/
 
@@ -27,7 +27,7 @@ namespace StudentPortal.Areas.Admin.Controllers
 		{
 			if (page < 1) page = 1;
 			JsonResult result = new JsonResult();
-			result.Data = db.PLAN_BoMon.OrderBy(t => t.ID_bm).Skip((page - 1) * 10).Take(10).ToList();
+			result.Data = db.PLAN_BoMon.OrderBy(t => t.ID_bm).Skip((page - 1) * items_per_page).Take(10).ToList();
 			result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
 			return result;
 		}
