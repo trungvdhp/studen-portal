@@ -14,6 +14,7 @@
 <#@ import namespace="Microsoft.VisualStudio.Web.Mvc.Scaffolding.BuiltIn" #>
 <#
 MvcTextTemplateHost mvcHost = MvcTemplateHost;
+var Model = (MvcTextTemplateHost)Host;
 #>
 @model <#= mvcHost.ViewDataTypeName #>
 <#
@@ -27,6 +28,7 @@ if(mvcHost.IsPartialView) {
 
 @{
     ViewBag.Title = "<#= mvcHost.ViewName#>";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 <#
 if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 #>
@@ -35,8 +37,6 @@ if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 }
 #>
 }
-
-<h2><#= mvcHost.ViewName#></h2>
 
 <#
 } else {
@@ -72,11 +72,24 @@ if (mvcHost.ReferenceScriptLibraries) {
     }
 }
 #>
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend><#= mvcHost.ViewDataType.Name #></legend>
+<div class="row-fluid">
+	<div class="span12">
+		<!-- BEGIN SAMPLE FORM PORTLET-->
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<h4><i class="icon-reorder"></i><#= mvcHost.ViewName#></h4>
+				<div class="tools">
+					<a href="javascript:;" class="collapse"></a>
+					<a href="#portlet-config" data-toggle="modal" class="config"></a>
+					<a href="javascript:;" class="reload"></a>
+					<a href="javascript:;" class="remove"></a>
+				</div>
+			</div>
+			<div class="portlet-body form">
+				<!-- BEGIN FORM-->
+				@using (Html.BeginForm("Edit", "<#= Model.ControllerRootName #>", FormMethod.Post, new { @class = "form-horizontal" }))
+	{
+					@Html.ValidationSummary(true)
 
 <#
 foreach (ModelProperty property in GetModelProperties(mvcHost.ViewDataType)) {
@@ -88,55 +101,58 @@ foreach (ModelProperty property in GetModelProperties(mvcHost.ViewDataType)) {
 <#
         } else if (!property.IsReadOnly) {
 #>
-        <div class="editor-label">
+        <div class="control-group">
 <#
             if (property.IsForeignKey) {
 #>
-            @Html.LabelFor(model => model.<#= property.Name #>, "<#= property.AssociationName #>")
+            @Html.LabelFor(model => model.<#= property.Name #>, "<#= property.AssociationName #>", new { @class = "control-label" })
 <#
             } else {
 #>
-            @Html.LabelFor(model => model.<#= property.Name #>)
+            @Html.LabelFor(model => model.<#= property.Name #>, new { @class = "control-label" })
 <#
             }
 #>
-        </div>
-        <div class="editor-field">
-<#
-            if (property.IsForeignKey) {
-#>
-            @Html.DropDownList("<#= property.Name #>", String.Empty)
-<#
-            } else {
-#>
-            @Html.EditorFor(model => model.<#= property.Name #>)
-<#
-            }
-#>
-            @Html.ValidationMessageFor(model => model.<#= property.Name #>)
-        </div>
-
+			<div class="controls">
+	<#
+				if (property.IsForeignKey) {
+	#>
+				@Html.DropDownList("<#= property.Name #>", String.Empty)
+	<#
+				} else {
+	#>
+				@Html.TextBoxFor(model => model.<#= property.Name #>, new { @class = "medium m-wrap" })
+	<#
+				}
+	#>
+				@Html.ValidationMessageFor(model => model.<#= property.Name #>)
+			</div>
+		</div>
 <#
         }
     }
 }
 #>
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
+        <div class="form-actions">
+				<button class="btn blue" type="submit">Save</button>
+				<button class="btn" type="button">Cancel</button>
+			</div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+		</div>
+		</div>
+	</div>
 </div>
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
 <#
 if(mvcHost.IsContentPage && mvcHost.ReferenceScriptLibraries) {
 #>
 
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@
 <#
 }
 #>
