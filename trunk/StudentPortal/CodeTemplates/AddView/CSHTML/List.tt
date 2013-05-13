@@ -29,10 +29,11 @@ if(mvcHost.IsPartialView) {
 
 @{
     ViewBag.Title = "<#= mvcHost.ViewName#>";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 <#
 if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 #>
-    Layout = "<#= mvcHost.MasterPageFile#>";
+    @*Layout = "<#= mvcHost.MasterPageFile#>";*@
 <#
 }
 #>
@@ -66,7 +67,7 @@ if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-@(Html.Kendo().Grid<StudentPortal.MARK_MonHoc>()
+@(Html.Kendo().Grid<<#= Model.ModelType.Namespace #>.<#= Model.ModelType.Name #>>()
 	.Name("<#= modelName #>")
 	.Columns(columns =>
 	{
@@ -86,51 +87,13 @@ foreach (ModelProperty property in properties) {
 	.Sortable()
 	.DataSource(
 		dataSource => dataSource.Ajax()
-			.Read(read => read.Action("Read", "<#= Model.ControllerName #>"))
+			.Read(read => read.Action("Read", "<#= Model.ControllerRootName #>"))
 	)
 )
 
 	</div>
 </div>
 
-@*
-@foreach (var item in Model) {
-    <tr>
-<#
-foreach (ModelProperty property in properties) {
-    if (!property.IsPrimaryKey && property.Scaffold) {
-#>
-        <td>
-            @Html.DisplayFor(modelItem => <#= property.ItemValueExpression #>)
-        </td>
-<#
-    }
-}
-
-string pkName = GetPrimaryKeyName(mvcHost.ViewDataType);
-if (pkName != null) {
-#>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.<#= pkName #> }) |
-            @Html.ActionLink("Details", "Details", new { id=item.<#= pkName #> }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.<#= pkName #> })
-        </td>
-<#
-} else {
-#>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-<#
-}
-#>
-    </tr>
-}
-
-</table>
-*@
 <#
 // The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page
 #>

@@ -25,6 +25,7 @@ namespace StudentPortal
 		public string Ma_cb { get; set; }
 
 		[Display(Name = "Tên")]
+		[Required]
 		public string Ten { get; set; }
 
 		[Display(Name = "Họ tên")]

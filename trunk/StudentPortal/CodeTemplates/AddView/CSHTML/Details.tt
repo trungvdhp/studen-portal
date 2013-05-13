@@ -15,6 +15,7 @@
 <#@ import namespace="Microsoft.VisualStudio.Web.Mvc.Scaffolding.BuiltIn" #>
 <#
 MvcTextTemplateHost mvcHost = MvcTemplateHost;
+var Model = (MvcTextTemplateHost)Host;
 #>
 @model <#= mvcHost.ViewDataTypeName #>
 <#
@@ -28,6 +29,7 @@ if(mvcHost.IsPartialView) {
 
 @{
     ViewBag.Title = "<#= mvcHost.ViewName#>";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 <#
 if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 #>
@@ -59,25 +61,55 @@ if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
     PushIndent("    ");
 }
 #>
-<fieldset>
-    <legend><#= mvcHost.ViewDataType.Name #></legend>
+<div class="row-fluid">
+	<div class="span12">
+		<!-- BEGIN SAMPLE FORM PORTLET-->
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<h4><i class="icon-reorder"></i><#= mvcHost.ViewName#></h4>
+				<div class="tools">
+					<a href="javascript:;" class="collapse"></a>
+					<a href="#portlet-config" data-toggle="modal" class="config"></a>
+					<a href="javascript:;" class="reload"></a>
+					<a href="javascript:;" class="remove"></a>
+				</div>
+			</div>
+			<div class="portlet-body form">
+			<form class="form-horizontal" action="#">
 <#
 foreach (ModelProperty property in GetModelProperties(mvcHost.ViewDataType)) {
     if (!property.IsPrimaryKey && property.Scaffold) {
 #>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.<#= property.ValueExpression #>)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.<#= property.ValueExpression #>)
-    </div>
+    <div class="control-group">
+<#
+            if (property.IsForeignKey) {
+#>
+            @Html.LabelFor(model => model.<#= property.Name #>, "<#= property.AssociationName #>", new { @class = "control-label" })
+<#
+            } else {
+#>
+            @Html.LabelFor(model => model.<#= property.Name #>, new { @class = "control-label" })
+<#
+            }
+#>
+		<div class="controls">
+			@Html.TextBoxFor(model => model.<#= property.Name #>, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
 <#
     }
 }
 #>
-</fieldset>
-<p>
+					<div class="form-actions">
+						<a class="btn blue" type="submit">Edit</a>
+						<a class="btn" href="">Cancel</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 <#
 string pkName = GetPrimaryKeyName(mvcHost.ViewDataType);
 if (pkName != null) {
@@ -92,7 +124,6 @@ if (pkName != null) {
 <#
 }
 #>
-</p>
 <#
 if(!mvcHost.IsPartialView && !mvcHost.IsContentPage) {
     ClearIndent();
