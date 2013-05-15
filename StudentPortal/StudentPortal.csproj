@@ -161,6 +161,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AjaxResult.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -565,7 +566,7 @@
     </Content>
     <Content Include="CodeTemplates\AddController\ControllerWithContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ControllerWithContext.cs</LastGenOutput>
+      <LastGenOutput>ControllerWithContext.cshtml</LastGenOutput>
     </Content>
     <Content Include="CodeTemplates\AddView\AspxCSharp\Create.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -615,16 +616,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>List.cshtml</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\GiaoVien\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\GiaoVien\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\GiaoVien\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\GiaoVien\Edit.cshtml" />
-    <Content Include="CodeTemplates\AddView\CSHTML\Details.cshtml">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Details.tt</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\GiaoVien\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Delete.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jqGrid\Changes.txt" />
     <Content Include="Scripts\jqGrid\i18n\grid.locale-en.js" />
