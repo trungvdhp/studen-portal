@@ -79,8 +79,9 @@ foreach (ModelProperty property in properties) {
 		columns.Bound(model => model.<#= property.ValueExpression #>);
 		<#
     }
-}
+}  
 #>
+        columns.Command(command => {command.Custom("Edit").Click("Edit"); command.Custom("Delete").Click("Delete");});
 	})
 	.Groupable()
 	.Pageable()
@@ -93,7 +94,21 @@ foreach (ModelProperty property in properties) {
 
 	</div>
 </div>
-
+<#
+    string pkName = GetPrimaryKeyName(mvcHost.ViewDataType);
+#>
+<script type="text/javascript">
+	function Edit(e) {
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+		location.href='@Url.Action("Edit","<#= Model.ControllerRootName #>")/'+dataItem.<#= pkName #>;
+	}
+	function Delete(e) {
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+		location.href = '@Url.Action("Delete","<#= Model.ControllerRootName #>")/' + dataItem.<#= pkName #>;
+	}
+</script>
 <#
 // The following code closes the asp:Content tag used in the case of a master page and the body and html tags in the case of a regular view page
 #>

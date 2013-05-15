@@ -135,7 +135,7 @@ foreach (ModelProperty property in GetModelProperties(mvcHost.ViewDataType)) {
 #>
         <div class="form-actions">
 				<button class="btn blue" type="submit">Save</button>
-				<button class="btn" type="button">Cancel</button>
+				@Html.ActionLink("Cancel", "Index",new{},new { @class = "btn" })
 			</div>
 }
 
