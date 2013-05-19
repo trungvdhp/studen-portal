@@ -30,7 +30,7 @@ namespace StudentPortal
         public int ID_lop_lt { get; set; }
 		
 		[Display(Name = "ID Môn TC")]
-		[Foreignkey("PLAN_MonTinChi_TC")]
+		[ForeignKey("PLAN_MonTinChi_TC")]
         public int ID_mon_tc { get; set; }
 		
 		[Display(Name = "STT Lớp")]
@@ -55,11 +55,11 @@ namespace StudentPortal
         public int So_tiet_tuan { get; set; }
 		
 		[Display(Name = "ID Phòng")]
-		[Foreignkey("PLAN_PhongHoc")]
+		[ForeignKey("PLAN_PhongHoc")]
         public int ID_phong { get; set; }
 		
 		[Display(Name = "ID_cb")]
-		[Foreignkey("PLAN_GiaoVien")]
+		[ForeignKey("PLAN_GiaoVien")]
         public int ID_cb { get; set; }
 		
 		[Display(Name = "Hủy lớp")]

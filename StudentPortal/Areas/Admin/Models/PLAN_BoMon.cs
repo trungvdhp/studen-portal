@@ -12,23 +12,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentPortal
 {
-	using System;
-	using System.Collections.Generic;
-	[Table("PLAN_BoMon")]
-	public partial class PLAN_BoMon
-	{
-		[Key]
+    using System;
+    using System.Collections.Generic;
+    [Table("PLAN_BoMon")]
+    public partial class PLAN_BoMon
+    {
+        [Key]
 		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-		public int ID_bm { get; set; }
-
+        public int ID_bm { get; set; }
+		
 		[Display(Name = "Mã bộ môn")]
-		public string Ma_bo_mon { get; set; }
-
+        public string Ma_bo_mon { get; set; }
+		
 		[Display(Name = "Bộ môn")]
-		public string Bo_mon { get; set; }
-
+        public string Bo_mon { get; set; }
+		
 		[Display(Name = "Số nhóm")]
-		public Nullable<int> So_nhom { get; set; }
-
-	}
+        public Nullable<int> So_nhom { get; set; }
+    }
 }

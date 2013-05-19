@@ -19,7 +19,7 @@ namespace StudentPortal
     {
         public STU_He()
         {
-            //this.PLAN_ChuongTrinhDaoTao = new HashSet<PLAN_ChuongTrinhDaoTao>();
+            this.PLAN_ChuongTrinhDaoTao = new HashSet<PLAN_ChuongTrinhDaoTao>();
         }
     
         [Key]
@@ -47,6 +47,6 @@ namespace StudentPortal
 		[Display(Name = "Loại đào tạo EN")]
         public string Loai_dao_tao_en { get; set; }
     
-        //public virtual ICollection<PLAN_ChuongTrinhDaoTao> PLAN_ChuongTrinhDaoTao { get; set; }
+        public virtual ICollection<PLAN_ChuongTrinhDaoTao> PLAN_ChuongTrinhDaoTao { get; set; }
     }
 }

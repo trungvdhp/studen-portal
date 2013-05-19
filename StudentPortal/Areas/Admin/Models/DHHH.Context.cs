@@ -30,15 +30,25 @@ namespace StudentPortal
 		//public DbSet<SYS_Module> SYS_Module { get; set; }
 		public DbSet<PLAN_GiaoVien> PLAN_GiaoVien { get; set; }
 		//public DbSet<MARK_MonHoc> MARK_MonHoc { get; set; }
-		public DbSet<PLAN_LopTinChi_TC> PLAN_LopTinChi_TC { get; set; }
+		//public DbSet<PLAN_LopTinChi_TC> PLAN_LopTinChi_TC { get; set; }
 		//public DbSet<PLAN_MonTinChi_TC> PLAN_MonTinChi_TC { get; set; }
 		//public DbSet<PLAN_PhongHoc> PLAN_PhongHoc { get; set; }
 		public DbSet<PLAN_BoMon> PLAN_BoMon { get; set; }
 		public DbSet<STU_He> STU_He { get; set; }
 
-		public DbSet<MARK_MonHoc> MARK_MonHoc { get; set; }
+		//public DbSet<MARK_MonHoc> MARK_MonHoc { get; set; }
 
 		public DbSet<STU_Khoa> STU_Khoa { get; set; }
+
+        public DbSet<STU_GioiTinh> STU_GioiTinh { get; set; }
+
+        public DbSet<PLAN_HocHam> PLAN_HocHam { get; set; }
+
+        public DbSet<PLAN_HocVi> PLAN_HocVi { get; set; }
+
+        public DbSet<PLAN_ChucDanh> PLAN_ChucDanh { get; set; }
+
+        public DbSet<PLAN_ChucVu> PLAN_ChucVu { get; set; }
 		//public DbSet<STU_Khoa> STU_Khoa { get; set; }
 		//public DbSet<MARK_ChungChiSinhVien_TC> MARK_ChungChiSinhVien_TC { get; set; }
 		//public DbSet<Mark_DanhSachChuaTotNghiep> Mark_DanhSachChuaTotNghiep { get; set; }

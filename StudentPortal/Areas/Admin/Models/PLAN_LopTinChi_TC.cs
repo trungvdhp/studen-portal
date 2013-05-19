@@ -19,7 +19,7 @@ namespace StudentPortal
     {
         public PLAN_LopTinChi_TC()
         {
-            //this.PLAN_SukiensTinChi_TC = new HashSet<PLAN_SukiensTinChi_TC>();
+            this.PLAN_SukiensTinChi_TC = new HashSet<PLAN_SukiensTinChi_TC>();
         }
 		
 		[Key]
@@ -30,6 +30,7 @@ namespace StudentPortal
         public int ID_lop_lt { get; set; }
 		
 		[Display(Name = "ID Môn TC")]
+		[ForeignKey("PLAN_MonTinChi_TC")]
         public int ID_mon_tc { get; set; }
 		
 		[Display(Name = "STT Lớp")]
@@ -54,9 +55,11 @@ namespace StudentPortal
         public int So_tiet_tuan { get; set; }
 		
 		[Display(Name = "ID Phòng")]
+		[ForeignKey("PLAN_PhongHoc")]
         public int ID_phong { get; set; }
 		
 		[Display(Name = "ID_cb")]
+		[ForeignKey("PLAN_GiaoVien")]
         public int ID_cb { get; set; }
 		
 		[Display(Name = "Hủy lớp")]
@@ -74,7 +77,11 @@ namespace StudentPortal
 		[Display(Name = "Chỗ trống")]
         public Nullable<int> Cho_trong { get; set; }
     
-        //public virtual PLAN_MonTinChi_TC PLAN_MonTinChi_TC { get; set; }
-        //public virtual ICollection<PLAN_SukiensTinChi_TC> PLAN_SukiensTinChi_TC { get; set; }
+        public virtual PLAN_MonTinChi_TC PLAN_MonTinChi_TC { get; set; }
+        public virtual ICollection<PLAN_SukiensTinChi_TC> PLAN_SukiensTinChi_TC { get; set; }
+		
+		public virtual PLAN_PhongHoc PLAN_PhongHoc { get; set; }
+		
+		public virtual PLAN_GiaoVien PLAN_GiaoVien { get; set; }
     }
 }
