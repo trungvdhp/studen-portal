@@ -12,47 +12,44 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentPortal
 {
-	using System;
-	using System.Collections.Generic;
-	[Table("MARK_MonHoc")]
-	public partial class MARK_MonHoc
-	{
-		//public MARK_MonHoc()
-		//{
-		//	//this.PLAN_MonTinChi_TC = new HashSet<PLAN_MonTinChi_TC>();
-		//	//this.MARK_Diem_TC = new HashSet<MARK_Diem_TC>();
-		//	//this.PLAN_MonDangKy_TC = new HashSet<PLAN_MonDangKy_TC>();
-		//}
+    using System;
+    using System.Collections.Generic;
+    [Table("MARK_MonHoc")]
+    public partial class MARK_MonHoc
+    {
+        public MARK_MonHoc()
+        {
+            this.PLAN_MonTinChi_TC = new HashSet<PLAN_MonTinChi_TC>();
+            this.MARK_Diem_TC = new HashSet<MARK_Diem_TC>();
+            this.PLAN_MonDangKy_TC = new HashSet<PLAN_MonDangKy_TC>();
+        }
 		[Key]
 		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-		public int ID_mon { get; set; }
-
+        public int ID_mon { get; set; }
+		
 		[Display(Name = "Ký hiệu")]
-		public string Ky_hieu { get; set; }
-
+        public string Ky_hieu { get; set; }
+		
 		[Display(Name = "Tên môn")]
-		public string Ten_mon { get; set; }
-
-		[Display(Name = "Tên tiếng Anh")]
-		public string Ten_tieng_anh { get; set; }
-
+        public string Ten_mon { get; set; }
+		
+		[Display(Name = "Tên tiếng anh")]
+        public string Ten_tieng_anh { get; set; }
+		
 		[Display(Name = "ID_bm")]
 		[ForeignKey("PLAN_BoMon")]
-		public int ID_bm { get; set; }
-
+        public int ID_bm { get; set; }
+		
 		[Display(Name = "ID Hệ đt")]
-		[ForeignKey("STU_He")]
-		public Nullable<int> ID_he_dt { get; set; }
-
+        public Nullable<int> ID_he_dt { get; set; }
+		
 		[Display(Name = "ID Nhóm hp")]
-		public Nullable<int> ID_nhom_hp { get; set; }
-
+        public Nullable<int> ID_nhom_hp { get; set; }
+    
+        public virtual ICollection<PLAN_MonTinChi_TC> PLAN_MonTinChi_TC { get; set; }
+        public virtual ICollection<MARK_Diem_TC> MARK_Diem_TC { get; set; }
+        public virtual ICollection<PLAN_MonDangKy_TC> PLAN_MonDangKy_TC { get; set; }
+		
 		public virtual PLAN_BoMon PLAN_BoMon { get; set; }
-
-		public virtual STU_He STU_He { get; set; }
-
-		//public virtual ICollection<PLAN_MonTinChi_TC> PLAN_MonTinChi_TC { get; set; }
-		//public virtual ICollection<MARK_Diem_TC> MARK_Diem_TC { get; set; }
-		//public virtual ICollection<PLAN_MonDangKy_TC> PLAN_MonDangKy_TC { get; set; }
-	}
+    }
 }

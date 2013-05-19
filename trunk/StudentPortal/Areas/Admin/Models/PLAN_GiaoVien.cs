@@ -12,47 +12,61 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentPortal
 {
-	using System;
-	using System.Collections.Generic;
-	[Table("PLAN_GiaoVien")]
-	public partial class PLAN_GiaoVien
-	{
-		[Key]
+    using System;
+    using System.Collections.Generic;
+    [Table("PLAN_GiaoVien")]
+    public partial class PLAN_GiaoVien
+    {
+        [Key]
 		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-		public int ID_cb { get; set; }
-
+        public int ID_cb { get; set; }
+		
 		[Display(Name = "Mã cb")]
-		public string Ma_cb { get; set; }
-
+        public string Ma_cb { get; set; }
+		
 		[Display(Name = "Tên")]
-		[Required]
-		public string Ten { get; set; }
-
+        public string Ten { get; set; }
+		
 		[Display(Name = "Họ tên")]
-		public string Ho_ten { get; set; }
-
+        public string Ho_ten { get; set; }
+		
 		[Display(Name = "ID Giới tính")]
-		public Nullable<int> ID_gioi_tinh { get; set; }
-
+		[ForeignKey("STU_GioiTinh")]
+        public Nullable<int> ID_gioi_tinh { get; set; }
+		
 		[Display(Name = "Ngày sinh")]
-		public Nullable<System.DateTime> Ngay_sinh { get; set; }
-
+        public Nullable<System.DateTime> Ngay_sinh { get; set; }
+		
 		[Display(Name = "ID Khoa")]
 		[ForeignKey("STU_Khoa")]
-		public Nullable<int> ID_khoa { get; set; }
-
+        public Nullable<int> ID_khoa { get; set; }
+		
 		[Display(Name = "ID Học hàm")]
-		public Nullable<int> ID_hoc_ham { get; set; }
-
+		[ForeignKey("PLAN_HocHam")]
+        public Nullable<int> ID_hoc_ham { get; set; }
+		
 		[Display(Name = "ID Học vị")]
-		public Nullable<int> ID_hoc_vi { get; set; }
-
+		[ForeignKey("PLAN_HocVi")]
+        public Nullable<int> ID_hoc_vi { get; set; }
+		
 		[Display(Name = "ID Chức danh")]
-		public Nullable<int> ID_chuc_danh { get; set; }
-
+		[ForeignKey("PLAN_ChucDanh")]
+        public Nullable<int> ID_chuc_danh { get; set; }
+		
 		[Display(Name = "ID Chức vụ")]
-		public Nullable<int> ID_chuc_vu { get; set; }
-
-		public virtual STU_Khoa STU_Khoa { get; set; }
-	}
+		[ForeignKey("PLAN_ChucVu")]
+        public Nullable<int> ID_chuc_vu { get; set; }
+		
+		public virtual STU_GioiTinh STU_GioiTinh { get; set; }
+		
+		public virtual STU_Khoa STU_Khoa{ get; set; }
+		
+		public virtual PLAN_HocHam PLAN_HocHam { get; set; }
+		
+		public virtual PLAN_HocVi PLAN_HocVi { get; set; }
+		
+		public virtual PLAN_ChucDanh PLAN_ChucDanh { get; set; }
+		
+		public virtual PLAN_ChucVu PLAN_ChucVu { get; set; }
+    }
 }

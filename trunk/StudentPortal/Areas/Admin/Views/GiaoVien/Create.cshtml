@@ -46,9 +46,9 @@
 			</div>
 		</div>
         <div class="control-group">
-					@Html.LabelFor(model => model.ID_gioi_tinh, new { @class = "control-label" })
+					@Html.LabelFor(model => model.ID_gioi_tinh, "Giới tính", new { @class = "control-label" })
 				<div class="controls">
-					@Html.TextBoxFor(model => model.ID_gioi_tinh, new { @class = "medium m-wrap" })
+					@Html.DropDownList("ID_gioi_tinh", String.Empty)
 					@Html.ValidationMessageFor(model => model.ID_gioi_tinh)
 			</div>
 		</div>
@@ -67,30 +67,30 @@
 			</div>
 		</div>
         <div class="control-group">
-					@Html.LabelFor(model => model.ID_hoc_ham, new { @class = "control-label" })
+					@Html.LabelFor(model => model.ID_hoc_ham, "PLAN_HocHam", new { @class = "control-label" })
 				<div class="controls">
-					@Html.TextBoxFor(model => model.ID_hoc_ham, new { @class = "medium m-wrap" })
+					@Html.DropDownList("ID_hoc_ham", String.Empty)
 					@Html.ValidationMessageFor(model => model.ID_hoc_ham)
 			</div>
 		</div>
         <div class="control-group">
-					@Html.LabelFor(model => model.ID_hoc_vi, new { @class = "control-label" })
+					@Html.LabelFor(model => model.ID_hoc_vi, "PLAN_HocVi", new { @class = "control-label" })
 				<div class="controls">
-					@Html.TextBoxFor(model => model.ID_hoc_vi, new { @class = "medium m-wrap" })
+					@Html.DropDownList("ID_hoc_vi", String.Empty)
 					@Html.ValidationMessageFor(model => model.ID_hoc_vi)
 			</div>
 		</div>
         <div class="control-group">
-					@Html.LabelFor(model => model.ID_chuc_danh, new { @class = "control-label" })
+					@Html.LabelFor(model => model.ID_chuc_danh, "PLAN_ChucDanh", new { @class = "control-label" })
 				<div class="controls">
-					@Html.TextBoxFor(model => model.ID_chuc_danh, new { @class = "medium m-wrap" })
+					@Html.DropDownList("ID_chuc_danh", String.Empty)
 					@Html.ValidationMessageFor(model => model.ID_chuc_danh)
 			</div>
 		</div>
         <div class="control-group">
-					@Html.LabelFor(model => model.ID_chuc_vu, new { @class = "control-label" })
+					@Html.LabelFor(model => model.ID_chuc_vu, "PLAN_ChucVu", new { @class = "control-label" })
 				<div class="controls">
-					@Html.TextBoxFor(model => model.ID_chuc_vu, new { @class = "medium m-wrap" })
+					@Html.DropDownList("ID_chuc_vu", String.Empty)
 					@Html.ValidationMessageFor(model => model.ID_chuc_vu)
 			</div>
 		</div>
