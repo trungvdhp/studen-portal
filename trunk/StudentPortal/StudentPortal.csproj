@@ -173,6 +173,30 @@
     <Compile Include="Areas\Admin\Controllers\GiaoVienController.cs" />
     <Compile Include="Areas\Admin\Controllers\HocHamController.cs" />
     <Compile Include="Areas\Admin\Controllers\HocViController.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_BienLaiThu.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_BienLaiThuChiTiet.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_BienLaiThuChiTietCopy.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_BienLaiThuChiTiet_ThiLai.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_BienLaiThuCopy.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_BienLaiThuHocLai.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_BienLaiThu_ThiLai.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_CHUYENKHOAN.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_DanhSachHocBong.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_DanhSachMienGiamHocPhi.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_DanhSachNoHocPhi.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_DanhSachThuPhiHocBu.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_DinhMucGiaoVien.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_HeSoHocPhi.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_HoatDongKhoaHocCongNghe.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_LoaiCongViec.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_LoaiMienGiamNienKhoa.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_LoaiMienGiamTinChi.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_LoaiQuy.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_LoaiThuChi.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_MucHocPhiTinChi.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_MucThuKhacSinhVien.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_MucThuKhacSinhVienCopy.cs" />
+    <Compile Include="Areas\Admin\Models\ACC_ThiLai.cs" />
     <Compile Include="Areas\Admin\Models\DHHH.Context.cs" />
     <Compile Include="Areas\Admin\Models\MARK_ChungChiSinhVien_TC.cs" />
     <Compile Include="Areas\Admin\Models\Mark_DanhSachChuaTotNghiep.cs" />
@@ -373,10 +397,13 @@
     <Compile Include="BasicController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TraCuuController.cs" />
+    <Compile Include="CustomRoleProvider.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Lib\SinhVien.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -389,6 +416,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AutoCompleteData.cs" />
+    <Compile Include="ViewModels\BienLaiThu.cs" />
+    <Compile Include="ViewModels\DiemHocTap.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\kendo\2012.3.1114\Black\editor.png" />
@@ -785,6 +815,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>List.cshtml</LastGenOutput>
     </Content>
+    <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
     <Content Include="Areas\Admin\Views\GiaoVien\Index.cshtml" />
     <Content Include="Areas\Admin\Views\GiaoVien\Details.cshtml" />
     <Content Include="Areas\Admin\Views\GiaoVien\Create.cshtml" />
@@ -943,9 +974,9 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared_\Error.cshtml" />
+    <Content Include="Views\Shared_\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared_\_Layout.cshtml" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -954,6 +985,14 @@
     <Content Include="Areas\Admin\Views\Shared\_Header.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Footer.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_PageHeader.cshtml" />
+    <Content Include="Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\TraCuu\Diem.cshtml" />
+    <Content Include="Views\TraCuu\ThuChi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

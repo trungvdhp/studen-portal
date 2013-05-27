@@ -17,10 +17,10 @@ namespace StudentPortal
     [Table("STU_HoSoSinhVien")]
     public partial class STU_HoSoSinhVien
     {
-        public STU_HoSoSinhVien()
-        {
-            this.MARK_Diem_TC = new HashSet<MARK_Diem_TC>();
-        }
+		//public STU_HoSoSinhVien()
+		//{
+		//	this.MARK_Diem_TC = new HashSet<MARK_Diem_TC>();
+		//}
     
 		[Key]
 		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -316,8 +316,8 @@ namespace StudentPortal
 		
         [Display(Name = "Trạng thái học")]
         public Nullable<int> Trang_thai_hoc { get; set; }
-    
-        public virtual ICollection<MARK_Diem_TC> MARK_Diem_TC { get; set; }
+
+		//public virtual ICollection<MARK_Diem_TC> MARK_Diem_TC { get; set; }
 		
 		public virtual STU_DanToc STU_DanToc { get; set; }
 		

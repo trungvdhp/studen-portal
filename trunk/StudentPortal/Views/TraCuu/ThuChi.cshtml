@@ -1,0 +1,157 @@
+﻿@{
+	ViewBag.Title = "Tra cứu";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row-fluid">
+	<div class="span12">
+		<!-- BEGIN SAMPLE FORM PORTLET-->
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<h4><i class="icon-reorder"></i>Thu chi</h4>
+				<div class="tools">
+					<a href="javascript:;" class="collapse"></a>
+					<a href="#portlet-config" data-toggle="modal" class="config"></a>
+					<a href="javascript:;" class="reload"></a>
+					<a href="javascript:;" class="remove"></a>
+				</div>
+			</div>
+			<div class="portlet-body form">
+				@(Html.Kendo().AutoComplete()
+					.Name("TuKhoa")
+					.Filter("startswith")
+					.DataTextField("Text")
+					.Placeholder("Nhập từ khóa...")
+					.HtmlAttributes(new { style = "width: 200px" })
+						//.Template("${data.Text}")
+					.DataSource(source =>
+					{
+						source.Read(read =>
+						{
+							read.Action("TuKhoa", "TraCuu")
+								.Data("getTuKhoa");
+						})
+						.ServerFiltering(true);
+					})
+			)
+				@(Html.Kendo().DropDownList()
+	.Name("NamHoc")
+	.OptionLabel("Toàn khóa")
+	.HtmlAttributes(new { style = "width:120px" })
+	.DataTextField("Text")
+	.DataValueField("Value")
+	.DataSource(source =>
+	{
+		source.Read(read =>
+		{
+			read.Action("NamThu", "TraCuu")
+				.Data("getTuKhoa");
+		});
+	})
+						//.Enable(false)
+	.AutoBind(false)
+	.CascadeFrom("TuKhoa")
+)
+
+				@(Html.Kendo().DropDownList()
+	.Name("HocKy")
+	.HtmlAttributes(new { style = "width:120px" })
+	.OptionLabel("Cả năm")
+	.DataTextField("Text")
+	.DataValueField("Value")
+	.DataSource(source =>
+	{
+		source.Read(read =>
+		{
+			read.Action("KyThu", "TraCuu")
+				.Data("getTuKhoa");
+		}).ServerFiltering(true);
+	})
+	.Enable(false)
+	.AutoBind(false)
+		.CascadeFrom("NamHoc")
+)
+@(Html.Kendo().DropDownList()
+	.Name("DotThu")
+	.HtmlAttributes(new { style = "width:120px" })
+	.OptionLabel("Đợt thu")
+	.DataTextField("Text")
+	.DataValueField("Value")
+	.DataSource(source =>
+	{
+		source.Read(read =>
+		{
+			read.Action("DotThu", "TraCuu")
+				.Data("getTuKhoa");
+		}).ServerFiltering(true);
+	})
+	.Enable(false)
+	.AutoBind(false)
+		.CascadeFrom("NamHoc")
+)
+				@(Html.Kendo().DropDownList()
+	.Name("LanThu")
+	.HtmlAttributes(new { style = "width:120px" })
+	.OptionLabel("Lần thu")
+	.DataTextField("Text")
+	.DataValueField("Value")
+	.DataSource(source =>
+	{
+		source.Read(read =>
+		{
+			read.Action("LanThu", "TraCuu")
+				.Data("getTuKhoa");
+		}).ServerFiltering(true);
+	})
+	.Enable(false)
+	.AutoBind(false)
+		.CascadeFrom("NamHoc")
+)
+
+
+<button class="btn blue" id="TraCuuButton">Tra cứu</button>
+@(Html.Kendo().Grid<StudentPortal.ACC_BienLaiThu>()
+    .Name("GridBienLai")
+    .Columns(columns => {
+        columns.Bound(t => t.So_phieu).Width(50);
+        columns.Bound(t => t.Noi_dung).Width(150);
+        columns.Bound(t => t.So_tien).Width(50);
+        columns.Bound(t => t.Ngay_thu).Width(50);
+        columns.Bound(t => t.Nguoi_thu).Width(50);
+        columns.Bound(t => t.Nam_hoc).Width(100).Hidden();
+        columns.Bound(t => t.Hoc_ky).Width(50).Hidden();
+    })
+    .Groupable()
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .Pageable(pager =>pager.Enabled(false))
+    .DataSource( 
+        dataSource => dataSource.Ajax()
+                .Group(group => group.Add(t => t.Nam_hoc))
+                .Group(group => group.Add(t => t.Hoc_ky))
+				.Group(group => group.Add(t => t.Dot_thu))
+				.Group(group => group.Add(t => t.Lan_thu))
+            .Read(read => read.Action("BienLaiThu","TraCuu").Data("getTuKhoa"))
+    )
+    .HtmlAttributes(new {style = "height:400px"})
+)
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	function getTuKhoa() {
+		return {
+			TuKhoa: $("#TuKhoa").val(),
+			NamHoc: $("#NamHoc").val(),
+			HocKy: $("#HocKy").val(),
+			DotThu: $("#DotThu").val(),
+			LanThu: $("#LanThu").val()
+		};
+	}
+	$("#TraCuuButton").click(function () {
+		$("#GridBienLai").data("kendoGrid").dataSource.read();
+	});
+</script>

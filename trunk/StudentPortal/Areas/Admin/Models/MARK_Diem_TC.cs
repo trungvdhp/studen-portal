@@ -17,11 +17,11 @@ namespace StudentPortal
     [Table("MARK_Diem_TC")]
     public partial class MARK_Diem_TC
     {
-        public MARK_Diem_TC()
-        {
-            this.MARK_DiemThanhPhan_TC = new HashSet<MARK_DiemThanhPhan_TC>();
-            this.MARK_DiemThi_TC = new HashSet<MARK_DiemThi_TC>();
-        }
+		//public MARK_Diem_TC()
+		//{
+		//	this.MARK_DiemThanhPhan_TC = new HashSet<MARK_DiemThanhPhan_TC>();
+		//	this.MARK_DiemThi_TC = new HashSet<MARK_DiemThi_TC>();
+		//}
 		
 		[Key]
 		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -39,7 +39,7 @@ namespace StudentPortal
         public int ID_mon { get; set; }
 		
 		[Display(Name = "ID_dt")]
-		[ForeignKey("PLAN_ChuongTrinhDaoTao")]
+		//[ForeignKey("PLAN_ChuongTrinhDaoTao")]
         public int ID_dt { get; set; }
 		
 		[Display(Name = "TBCMH lần 1")]
@@ -65,14 +65,14 @@ namespace StudentPortal
 		
 		[Display(Name = "Tính tích lũy")]
         public Nullable<bool> Tinh_tich_luy { get; set; }
-    
-        public virtual MARK_MonHoc MARK_MonHoc { get; set; }
+
+		public virtual MARK_MonHoc MARK_MonHoc { get; set; }
+
+		//public virtual PLAN_ChuongTrinhDaoTao PLAN_ChuongTrinhDaoTao { get; set; }
+
+		public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }
 		
-        public virtual PLAN_ChuongTrinhDaoTao PLAN_ChuongTrinhDaoTao { get; set; }
-		
-        public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }
-		
-        public virtual ICollection<MARK_DiemThanhPhan_TC> MARK_DiemThanhPhan_TC { get; set; }
-        public virtual ICollection<MARK_DiemThi_TC> MARK_DiemThi_TC { get; set; }
+		//public virtual ICollection<MARK_DiemThanhPhan_TC> MARK_DiemThanhPhan_TC { get; set; }
+		//public virtual ICollection<MARK_DiemThi_TC> MARK_DiemThi_TC { get; set; }
     }
 }
