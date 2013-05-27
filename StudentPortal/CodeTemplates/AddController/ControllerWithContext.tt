@@ -39,7 +39,7 @@ namespace <#= Model.Namespace #>
     var lambdaVar = modelVariable[0];
     var isObjectContext = typeof(ObjectContext).IsAssignableFrom(Model.ContextType);
 #>
-    public class <#= Model.ControllerName #> : Controller
+    public class <#= Model.ControllerName #> : BasicController
     {
         private <#= Model.ContextType.Name #> db = new <#= Model.ContextType.Name #>();
 

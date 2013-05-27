@@ -14,34 +14,25 @@ namespace StudentPortal
 {
 	using System;
 	using System.Collections.Generic;
-	[Table("PLAN_HocKyDangKy_TC")]
-	public partial class PLAN_HocKyDangKy_TC
+
+	[Table("ACC_BienLaiThuChiTiet_ThiLai")]
+	public partial class ACC_BienLaiThuChiTiet_ThiLai
 	{
-
-
 		[Key]
 		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
+		public int ID_bien_lai_sub { get; set; }
 
-		[Display(Name = "Kỳ đăng ký")]
-		public int Ky_dang_ky { get; set; }
+		[ForeignKey("ACC_BienLaiThu_ThiLai")]
+		public int ID_bien_lai { get; set; }
 
-		[Display(Name = "Đợt")]
-		public int Dot { get; set; }
+		[ForeignKey("ACC_LoaiThuChi")]
+		public int ID_thu_chi { get; set; }
 
-		[Display(Name = "Học kỳ")]
-		public int Hoc_ky { get; set; }
+		public int ID_mon { get; set; }
 
-		[Display(Name = "Năm học")]
-		public string Nam_hoc { get; set; }
+		public int So_tien { get; set; }
 
-		[Display(Name = "Từ ngày")]
-		public System.DateTime Tu_ngay { get; set; }
-
-		[Display(Name = "Đến ngày")]
-		public Nullable<System.DateTime> Den_ngay { get; set; }
-
-		[Display(Name = "Chọn đăng ký")]
-		public bool Chon_dang_ky { get; set; }
+		public virtual ACC_BienLaiThu_ThiLai ACC_BienLaiThu_ThiLai { get; set; }
+		public virtual ACC_LoaiThuChi ACC_LoaiThuChi { get; set; }
 	}
 }

@@ -17,10 +17,10 @@ namespace StudentPortal
     [Table("MARK_ThanhPhanMon_TC")]
     public partial class MARK_ThanhPhanMon_TC
     {
-        public MARK_ThanhPhanMon_TC()
-        {
-            this.MARK_DiemThanhPhan_TC = new HashSet<MARK_DiemThanhPhan_TC>();
-        }
+		//public MARK_ThanhPhanMon_TC()
+		//{
+		//	this.MARK_DiemThanhPhan_TC = new HashSet<MARK_DiemThanhPhan_TC>();
+		//}
     
 		[Key]
 		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -44,6 +44,6 @@ namespace StudentPortal
 		[Display(Name = "Chuyên cần")]
         public Nullable<int> Chuyen_can { get; set; }
     
-        public virtual ICollection<MARK_DiemThanhPhan_TC> MARK_DiemThanhPhan_TC { get; set; }
+		//public virtual ICollection<MARK_DiemThanhPhan_TC> MARK_DiemThanhPhan_TC { get; set; }
     }
 }

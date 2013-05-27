@@ -27,29 +27,46 @@ namespace StudentPortal
 		//    throw new UnintentionalCodeFirstException();
 		//}
 
+
+		public DbSet<ACC_BienLaiThu> ACC_BienLaiThu { get; set; }
+		public DbSet<ACC_BienLaiThu_ThiLai> ACC_BienLaiThu_ThiLai { get; set; }
+		public DbSet<ACC_BienLaiThuChiTiet> ACC_BienLaiThuChiTiet { get; set; }
+		public DbSet<ACC_BienLaiThuChiTiet_ThiLai> ACC_BienLaiThuChiTiet_ThiLai { get; set; }
+		//public DbSet<ACC_BienLaiThuChiTietCopy> ACC_BienLaiThuChiTietCopy { get; set; }
+		//public DbSet<ACC_BienLaiThuCopy> ACC_BienLaiThuCopy { get; set; }
+		//public DbSet<ACC_BienLaiThuHocLai> ACC_BienLaiThuHocLai { get; set; }
+		//public DbSet<ACC_CHUYENKHOAN> ACC_CHUYENKHOAN { get; set; }
+		//public DbSet<ACC_DanhSachHocBong> ACC_DanhSachHocBong { get; set; }
+		//public DbSet<ACC_DanhSachMienGiamHocPhi> ACC_DanhSachMienGiamHocPhi { get; set; }
+		//public DbSet<ACC_DanhSachNoHocPhi> ACC_DanhSachNoHocPhi { get; set; }
+		//public DbSet<ACC_DanhSachThuPhiHocBu> ACC_DanhSachThuPhiHocBu { get; set; }
+		//public DbSet<ACC_DinhMucGiaoVien> ACC_DinhMucGiaoVien { get; set; }
+		//public DbSet<ACC_HeSoHocPhi> ACC_HeSoHocPhi { get; set; }
+		//public DbSet<ACC_HoatDongKhoaHocCongNghe> ACC_HoatDongKhoaHocCongNghe { get; set; }
+		//public DbSet<ACC_LoaiCongViec> ACC_LoaiCongViec { get; set; }
+		//public DbSet<ACC_LoaiMienGiamNienKhoa> ACC_LoaiMienGiamNienKhoa { get; set; }
+		//public DbSet<ACC_LoaiMienGiamTinChi> ACC_LoaiMienGiamTinChi { get; set; }
+		//public DbSet<ACC_LoaiQuy> ACC_LoaiQuy { get; set; }
+		public DbSet<ACC_LoaiThuChi> ACC_LoaiThuChi { get; set; }
+		//public DbSet<ACC_MucHocPhiTinChi> ACC_MucHocPhiTinChi { get; set; }
+		//public DbSet<ACC_MucThuKhacSinhVien> ACC_MucThuKhacSinhVien { get; set; }
+		//public DbSet<ACC_MucThuKhacSinhVienCopy> ACC_MucThuKhacSinhVienCopy { get; set; }
+		//public DbSet<ACC_ThiLai> ACC_ThiLai { get; set; }
+
 		//public DbSet<SYS_Module> SYS_Module { get; set; }
 		public DbSet<PLAN_GiaoVien> PLAN_GiaoVien { get; set; }
-		//public DbSet<MARK_MonHoc> MARK_MonHoc { get; set; }
+		public DbSet<MARK_MonHoc> MARK_MonHoc { get; set; }
 		//public DbSet<PLAN_LopTinChi_TC> PLAN_LopTinChi_TC { get; set; }
 		//public DbSet<PLAN_MonTinChi_TC> PLAN_MonTinChi_TC { get; set; }
 		//public DbSet<PLAN_PhongHoc> PLAN_PhongHoc { get; set; }
-		public DbSet<PLAN_BoMon> PLAN_BoMon { get; set; }
-		public DbSet<STU_He> STU_He { get; set; }
-
-		//public DbSet<MARK_MonHoc> MARK_MonHoc { get; set; }
-
-		public DbSet<STU_Khoa> STU_Khoa { get; set; }
-
+		//public DbSet<PLAN_BoMon> PLAN_BoMon { get; set; }
+		//public DbSet<STU_He> STU_He { get; set; }
         public DbSet<STU_GioiTinh> STU_GioiTinh { get; set; }
-
         public DbSet<PLAN_HocHam> PLAN_HocHam { get; set; }
-
         public DbSet<PLAN_HocVi> PLAN_HocVi { get; set; }
-
         public DbSet<PLAN_ChucDanh> PLAN_ChucDanh { get; set; }
-
         public DbSet<PLAN_ChucVu> PLAN_ChucVu { get; set; }
-		//public DbSet<STU_Khoa> STU_Khoa { get; set; }
+		public DbSet<STU_Khoa> STU_Khoa { get; set; }
 		//public DbSet<MARK_ChungChiSinhVien_TC> MARK_ChungChiSinhVien_TC { get; set; }
 		//public DbSet<Mark_DanhSachChuaTotNghiep> Mark_DanhSachChuaTotNghiep { get; set; }
 		//public DbSet<Mark_DanhSachHoctiep> Mark_DanhSachHoctiep { get; set; }
@@ -61,7 +78,7 @@ namespace StudentPortal
 		//public DbSet<Mark_DanhSachThuctap> Mark_DanhSachThuctap { get; set; }
 		//public DbSet<MARK_DanhSachTotNghiep> MARK_DanhSachTotNghiep { get; set; }
 		//public DbSet<MARK_Diem> MARK_Diem { get; set; }
-		//public DbSet<MARK_Diem_TC> MARK_Diem_TC { get; set; }
+		public DbSet<MARK_Diem_TC> MARK_Diem_TC { get; set; }
 		//public DbSet<MARK_DiemDanh> MARK_DiemDanh { get; set; }
 		//public DbSet<MARK_DiemDanh_TC> MARK_DiemDanh_TC { get; set; }
 		//public DbSet<MARK_DiemKyHieu> MARK_DiemKyHieu { get; set; }
@@ -71,9 +88,9 @@ namespace StudentPortal
 		//public DbSet<MARK_DiemRenLuyen> MARK_DiemRenLuyen { get; set; }
 		//public DbSet<MARK_DiemRenLuyenTinChi_TC> MARK_DiemRenLuyenTinChi_TC { get; set; }
 		//public DbSet<MARK_DiemThanhPhan> MARK_DiemThanhPhan { get; set; }
-		//public DbSet<MARK_DiemThanhPhan_TC> MARK_DiemThanhPhan_TC { get; set; }
+		public DbSet<MARK_DiemThanhPhan_TC> MARK_DiemThanhPhan_TC { get; set; }
 		//public DbSet<MARK_DiemThi> MARK_DiemThi { get; set; }
-		//public DbSet<MARK_DiemThi_TC> MARK_DiemThi_TC { get; set; }
+		public DbSet<MARK_DiemThi_TC> MARK_DiemThi_TC { get; set; }
 		//public DbSet<MARK_HocLai> MARK_HocLai { get; set; }
 		//public DbSet<MARK_LoaiChungChi> MARK_LoaiChungChi { get; set; }
 		//public DbSet<MARK_LoaiChungChi_TC> MARK_LoaiChungChi_TC { get; set; }
@@ -152,7 +169,7 @@ namespace StudentPortal
 		//public DbSet<PLAN_DuyetDangKySinhVien> PLAN_DuyetDangKySinhVien { get; set; }
 		//public DbSet<PLAN_GiaoVienMonDay> PLAN_GiaoVienMonDay { get; set; }
 		//public DbSet<PLAN_HocHam> PLAN_HocHam { get; set; }
-		//public DbSet<PLAN_HocKyDangKy_TC> PLAN_HocKyDangKy_TC { get; set; }
+		public DbSet<PLAN_HocKyDangKy_TC> PLAN_HocKyDangKy_TC { get; set; }
 		//public DbSet<PLAN_HocVi> PLAN_HocVi { get; set; }
 		//public DbSet<PLAN_KeHoachKhac_TC> PLAN_KeHoachKhac_TC { get; set; }
 		//public DbSet<PLAN_KeHoachKyHieu_TC> PLAN_KeHoachKyHieu_TC { get; set; }
@@ -213,7 +230,7 @@ namespace StudentPortal
 		//public DbSet<STU_HoatDongXaHoi> STU_HoatDongXaHoi { get; set; }
 		//public DbSet<STU_HoSoMacDinh> STU_HoSoMacDinh { get; set; }
 		//public DbSet<STU_HoSoNop> STU_HoSoNop { get; set; }
-		//public DbSet<STU_HoSoSinhVien> STU_HoSoSinhVien { get; set; }
+		public DbSet<STU_HoSoSinhVien> STU_HoSoSinhVien { get; set; }
 		//public DbSet<STU_HoSoSinhVienSub> STU_HoSoSinhVienSub { get; set; }
 		//public DbSet<STU_HoSoSinhVienTemp> STU_HoSoSinhVienTemp { get; set; }
 		//public DbSet<STU_HoSoSinhVienXoa> STU_HoSoSinhVienXoa { get; set; }
