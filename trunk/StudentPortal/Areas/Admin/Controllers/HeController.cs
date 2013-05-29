@@ -5,24 +5,38 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
+
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
-    public class HeController : Controller
+    public class HeController : BasicController
     {
         private DHHHContext db = new DHHHContext();
 
         //
         // GET: /Admin/He/
 
+        //[Authorize(Roles="He.Index")]
         public ActionResult Index()
         {
-            return View(db.STU_He.ToList());
+			return View();
+        }
+
+		//
+        // GET: /Admin/He//Read
+
+        //[Authorize(Roles="He.Read")]
+        public ActionResult Read([DataSourceRequest] DataSourceRequest request)
+        {
+            return Json(db.STU_He.ToDataSourceResult(request));
         }
 
         //
         // GET: /Admin/He/Details/5
 
+        //[Authorize(Roles="He.Details")]
         public ActionResult Details(int id = 0)
         {
             STU_He stu_he = db.STU_He.Find(id);
@@ -36,6 +50,7 @@ namespace StudentPortal.Areas.Admin.Controllers
         //
         // GET: /Admin/He/Create
 
+        //[Authorize(Roles="He.Create")]
         public ActionResult Create()
         {
             return View();
@@ -45,6 +60,7 @@ namespace StudentPortal.Areas.Admin.Controllers
         // POST: /Admin/He/Create
 
         [HttpPost]
+        //[Authorize(Roles="He.Create")]
         public ActionResult Create(STU_He stu_he)
         {
             if (ModelState.IsValid)
@@ -59,7 +75,7 @@ namespace StudentPortal.Areas.Admin.Controllers
 
         //
         // GET: /Admin/He/Edit/5
-
+        //[Authorize(Roles="He.Edit")]
         public ActionResult Edit(int id = 0)
         {
             STU_He stu_he = db.STU_He.Find(id);
@@ -74,6 +90,7 @@ namespace StudentPortal.Areas.Admin.Controllers
         // POST: /Admin/He/Edit/5
 
         [HttpPost]
+        //[Authorize(Roles="He.Edit")]
         public ActionResult Edit(STU_He stu_he)
         {
             if (ModelState.IsValid)
@@ -88,6 +105,7 @@ namespace StudentPortal.Areas.Admin.Controllers
         //
         // GET: /Admin/He/Delete/5
 
+        //[Authorize(Roles="He.Delete")]
         public ActionResult Delete(int id = 0)
         {
             STU_He stu_he = db.STU_He.Find(id);
@@ -102,6 +120,7 @@ namespace StudentPortal.Areas.Admin.Controllers
         // POST: /Admin/He/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        //[Authorize(Roles="He.DeleteConfirmed")]
         public ActionResult DeleteConfirmed(int id)
         {
             STU_He stu_he = db.STU_He.Find(id);

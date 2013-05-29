@@ -231,6 +231,30 @@ namespace StudentPortal
 		//public DbSet<STU_HoSoMacDinh> STU_HoSoMacDinh { get; set; }
 		//public DbSet<STU_HoSoNop> STU_HoSoNop { get; set; }
 		public DbSet<STU_HoSoSinhVien> STU_HoSoSinhVien { get; set; }
+
+        public DbSet<STU_He> STU_He { get; set; }
+
+        public DbSet<PLAN_BoMon> PLAN_BoMon { get; set; }
+
+        public DbSet<STU_ChuyenNganh> STU_ChuyenNganh { get; set; }
+
+        public DbSet<STU_Nganh> STU_Nganh { get; set; }
+
+        public DbSet<STU_DanhSach> STU_DanhSach { get; set; }
+
+        public DbSet<STU_Lop> STU_Lop { get; set; }
+
+        public DbSet<STU_DanhSachLopTinChi> STU_DanhSachLopTinChi { get; set; }
+
+        public DbSet<PLAN_LopTinChi_TC> PLAN_LopTinChi_TC { get; set; }
+
+        public DbSet<STU_DanhSachNganh2> STU_DanhSachNganh2 { get; set; }
+
+        public DbSet<STU_DoiTuong> STU_DoiTuong { get; set; }
+
+        public DbSet<STU_CanBoLop> STU_CanBoLop { get; set; }
+
+        public DbSet<STU_CapHoiDong> STU_CapHoiDong { get; set; }
 		//public DbSet<STU_HoSoSinhVienSub> STU_HoSoSinhVienSub { get; set; }
 		//public DbSet<STU_HoSoSinhVienTemp> STU_HoSoSinhVienTemp { get; set; }
 		//public DbSet<STU_HoSoSinhVienXoa> STU_HoSoSinhVienXoa { get; set; }
