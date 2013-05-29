@@ -2,75 +2,50 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="row-fluid">
+	<div class="span12">
+
+		<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ID_he)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ma_he)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ten_he)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quy_che)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ten_he_en)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ten_bac_hoc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Loai_dao_tao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Loai_dao_tao_en)
-        </th>
-        <th></th>
-    </tr>
+@(Html.Kendo().Grid<StudentPortal.STU_He>()
+	.Name("STU_He")
+	.Columns(columns =>
+	{
+			columns.Bound(model => model.Ma_he);
+				columns.Bound(model => model.Ten_he);
+				columns.Bound(model => model.Quy_che);
+				columns.Bound(model => model.Ten_he_en);
+				columns.Bound(model => model.Ten_bac_hoc);
+				columns.Bound(model => model.Loai_dao_tao);
+				columns.Bound(model => model.Loai_dao_tao_en);
+		        columns.Command(command => {command.Custom("Edit").Click("Edit"); command.Custom("Delete").Click("Delete");});
+	})
+	.Groupable()
+	.Pageable()
+	.Sortable()
+	.DataSource(
+		dataSource => dataSource.Ajax()
+			.Read(read => read.Action("Read", "He"))
+	)
+)
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ID_he)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ma_he)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ten_he)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quy_che)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ten_he_en)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ten_bac_hoc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Loai_dao_tao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Loai_dao_tao_en)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
-
-</table>
+	</div>
+</div>
+<script type="text/javascript">
+	function Edit(e) {
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+		location.href='@Url.Action("Edit","He")/'+dataItem.ID_he;
+	}
+	function Delete(e) {
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+		location.href = '@Url.Action("Delete","He")/' + dataItem.ID_he;
+	}
+</script>

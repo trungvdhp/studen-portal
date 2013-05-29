@@ -5,124 +5,134 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
+
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
-	public class BoMonController : BasicController
-	{
-		private DHHHContext db = new DHHHContext();
-		
-		//
-		// GET: /Admin/BoMon/
+    public class BoMonController : BasicController
+    {
+        private DHHHContext db = new DHHHContext();
 
-		public ActionResult Index()
-		{
-			return View(db.PLAN_BoMon.ToList());
-		}
+        //
+        // GET: /Admin/BoMon/
 
-		//
-		// GET: /Admin/BoMon/Details/5
-
-		public ActionResult Read(int page)
-		{
-			if (page < 1) page = 1;
-			JsonResult result = new JsonResult();
-			result.Data = db.PLAN_BoMon.OrderBy(t => t.ID_bm).Skip((page - 1) * items_per_page).Take(10).ToList();
-			result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-			return result;
-		}
-
-		public ActionResult Details(int id = 0)
-		{
-			PLAN_BoMon plan_bomon = db.PLAN_BoMon.Find(id);
-			if (plan_bomon == null)
-			{
-				return HttpNotFound();
-			}
-			return View(plan_bomon);
-		}
-
-		//
-		// GET: /Admin/BoMon/Create
-
-		public ActionResult Create()
-		{
+        //[Authorize((Roles="BoMon.Index")]
+        public ActionResult Index()
+        {
 			return View();
-		}
+        }
 
 		//
-		// POST: /Admin/BoMon/Create
+        // GET: /Admin/BoMon//Read
 
-		[HttpPost]
-		public ActionResult Create(PLAN_BoMon plan_bomon)
-		{
-			if (ModelState.IsValid)
-			{
-				db.PLAN_BoMon.Add(plan_bomon);
-				db.SaveChanges();
-				return RedirectToAction("Index");
-			}
+        //[Authorize((Roles="BoMon.Read")]
+        public ActionResult Read([DataSourceRequest] DataSourceRequest request)
+        {
+            return Json(db.PLAN_BoMon.ToDataSourceResult(request));
+        }
 
-			return View(plan_bomon);
-		}
+        //
+        // GET: /Admin/BoMon/Details/5
 
-		//
-		// GET: /Admin/BoMon/Edit/5
+        //[Authorize((Roles="BoMon.Details")]
+        public ActionResult Details(int id = 0)
+        {
+            PLAN_BoMon plan_bomon = db.PLAN_BoMon.Find(id);
+            if (plan_bomon == null)
+            {
+                return HttpNotFound();
+            }
+            return View(plan_bomon);
+        }
 
-		public ActionResult Edit(int id = 0)
-		{
-			PLAN_BoMon plan_bomon = db.PLAN_BoMon.Find(id);
-			if (plan_bomon == null)
-			{
-				return HttpNotFound();
-			}
-			return View(plan_bomon);
-		}
+        //
+        // GET: /Admin/BoMon/Create
 
-		//
-		// POST: /Admin/BoMon/Edit/5
+        //[Authorize((Roles="BoMon.Create")]
+        public ActionResult Create()
+        {
+            return View();
+        }
 
-		[HttpPost]
-		public ActionResult Edit(PLAN_BoMon plan_bomon)
-		{
-			if (ModelState.IsValid)
-			{
-				db.Entry(plan_bomon).State = EntityState.Modified;
-				db.SaveChanges();
-				return RedirectToAction("Index");
-			}
-			return View(plan_bomon);
-		}
+        //
+        // POST: /Admin/BoMon/Create
 
-		//
-		// GET: /Admin/BoMon/Delete/5
+        [HttpPost]
+        //[Authorize((Roles="BoMon.Create")]
+        public ActionResult Create(PLAN_BoMon plan_bomon)
+        {
+            if (ModelState.IsValid)
+            {
+                db.PLAN_BoMon.Add(plan_bomon);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
-		public ActionResult Delete(int id = 0)
-		{
-			PLAN_BoMon plan_bomon = db.PLAN_BoMon.Find(id);
-			if (plan_bomon == null)
-			{
-				return HttpNotFound();
-			}
-			return View(plan_bomon);
-		}
+            return View(plan_bomon);
+        }
 
-		//
-		// POST: /Admin/BoMon/Delete/5
+        //
+        // GET: /Admin/BoMon/Edit/5
+        //[Authorize((Roles="BoMon.Edit")]
+        public ActionResult Edit(int id = 0)
+        {
+            PLAN_BoMon plan_bomon = db.PLAN_BoMon.Find(id);
+            if (plan_bomon == null)
+            {
+                return HttpNotFound();
+            }
+            return View(plan_bomon);
+        }
 
-		[HttpPost, ActionName("Delete")]
-		public ActionResult DeleteConfirmed(int id)
-		{
-			PLAN_BoMon plan_bomon = db.PLAN_BoMon.Find(id);
-			db.PLAN_BoMon.Remove(plan_bomon);
-			db.SaveChanges();
-			return RedirectToAction("Index");
-		}
+        //
+        // POST: /Admin/BoMon/Edit/5
 
-		protected override void Dispose(bool disposing)
-		{
-			db.Dispose();
-			base.Dispose(disposing);
-		}
-	}
+        [HttpPost]
+        //[Authorize((Roles="BoMon.Edit")]
+        public ActionResult Edit(PLAN_BoMon plan_bomon)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(plan_bomon).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(plan_bomon);
+        }
+
+        //
+        // GET: /Admin/BoMon/Delete/5
+
+        //[Authorize((Roles="BoMon.Delete")]
+        public ActionResult Delete(int id = 0)
+        {
+            PLAN_BoMon plan_bomon = db.PLAN_BoMon.Find(id);
+            if (plan_bomon == null)
+            {
+                return HttpNotFound();
+            }
+            return View(plan_bomon);
+        }
+
+        //
+        // POST: /Admin/BoMon/Delete/5
+
+        [HttpPost, ActionName("Delete")]
+        //[Authorize((Roles="BoMon.DeleteConfirmed")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            PLAN_BoMon plan_bomon = db.PLAN_BoMon.Find(id);
+            db.PLAN_BoMon.Remove(plan_bomon);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+    }
 }
