@@ -46,7 +46,6 @@ namespace StudentPortal.Lib
 			}
 			return diem;
 		}
-
 		public static List<BienLaiThu> GetBienLai(int ID_sv)
 		{
 			DHHHContext db = new DHHHContext();
@@ -56,15 +55,31 @@ namespace StudentPortal.Lib
 				Hoc_ky = t.ACC_BienLaiThu.Hoc_ky,
 				Dot_thu = t.ACC_BienLaiThu.Dot_thu,
 				Lan_thu = t.ACC_BienLaiThu.Lan_thu,
-				Noi_dung = t.ACC_BienLaiThu.Noi_dung,
+				Ten_lan = t.ACC_BienLaiThu.Noi_dung,
+				Ngay_thu = t.ACC_BienLaiThu.Ngay_thu,
+				Noi_dung = t.ID_mon_tc == 0 ? t.ACC_LoaiThuChi.Ten_thu_chi : t.PLAN_MonTinChi_TC.MARK_MonHoc.Ten_mon,
 				Nguoi_thu = t.ACC_BienLaiThu.Nguoi_thu,
-				So_tien = t.ACC_BienLaiThu.So_tien,
-				So_tien_ct = t.So_tien,
+				So_tien = t.So_tien,
 				So_phieu = t.ACC_BienLaiThu.So_phieu,
 				Ten_thu_chi = t.ACC_LoaiThuChi.Ten_thu_chi,
 				Ghi_chu = t.Ghi_chu,
-			});
-			return bienlai.ToList();
+			}).ToList();				
+			bienlai.AddRange(db.ACC_BienLaiThu.Where(t=>t.ID_sv==ID_sv).Select(t=>new BienLaiThu{
+				Nam_hoc = t.Nam_hoc,
+				Hoc_ky = t.Hoc_ky,
+				Dot_thu = t.Dot_thu,
+				Lan_thu = t.Lan_thu,
+				Noi_dung = "Tổng tiền",
+				So_tien = t.So_tien,
+				Ten_lan = t.Noi_dung,
+				Ngay_thu = t.Ngay_thu,
+			}).ToList());
+			return bienlai;
+		}
+		public static bool Exits(string Ma_sv)
+		{
+			DHHHContext db = new DHHHContext();
+			return db.STU_HoSoSinhVien.Where(t => t.Ma_sv == Ma_sv).Count() == 1;
 		}
 	}
 }

@@ -28,9 +28,10 @@ namespace StudentPortal
 		[ForeignKey("ACC_LoaiThuChi")]
 		public int ID_thu_chi { get; set; }
 
+		[ForeignKey("PLAN_MonTinChi_TC")]
 		public int ID_mon_tc { get; set; }
 
-		[Display(Name="Số tiền")]
+		[Display(Name = "Số tiền")]
 		public int So_tien { get; set; }
 
 		public string Ghi_chu { get; set; }
@@ -38,5 +39,6 @@ namespace StudentPortal
 		public virtual ACC_BienLaiThu ACC_BienLaiThu { get; set; }
 
 		public virtual ACC_LoaiThuChi ACC_LoaiThuChi { get; set; }
+		public virtual PLAN_MonTinChi_TC PLAN_MonTinChi_TC { get; set; }
 	}
 }

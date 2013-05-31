@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,40 +10,43 @@ namespace StudentPortal.ViewModels
 
 		public int Id_bien_lai { get; set; }
 
-		[DisplayName("Học kỳ")]
+		[Display(Name="Học kỳ")]
 		public int Hoc_ky { get; set; }
 
-		[DisplayName("Năm học")]
+		[Display(Name="Năm học")]
 		public string Nam_hoc { get; set; }
 
-		[DisplayName("Đợt thu")]
+		[Display(Name="Đợt thu")]
 		public int Dot_thu { get; set; }
 
+		[Display(Name="Lần thu")]
+		public string Ten_lan { get; set; }
 
-		[DisplayName("Lần thu")]
+		[Display(Name="Lần thu")]
 		public int Lan_thu { get; set; }
 
-		[DisplayName("Số tiền")]
+		[Display(Name="Số tiền")]
 		public int So_tien { get; set; }
 
-		public int So_tien_ct { get; set; }
-
-		[DisplayName("Số tiền chữ")]
+		[Display(Name="Số tiền chữ")]
 		public string So_tien_chu { get; set; }
 
-		[DisplayName("Người thu")]
+		[Display(Name="Người thu")]
 		public string Nguoi_thu { get; set; }
 
-		[DisplayName("Số phiếu")]
+		[Display(Name="Ngày thu")]
+		public DateTime Ngay_thu {get;set;}
+
+		[Display(Name="Số phiếu")]
 		public int So_phieu { get; set; }
 
-		[DisplayName("Nội dung")]
-		public string Noi_dung {get;set;}
+		[Display(Name="Nội dung")]
+		public string Noi_dung { get; set; }
 
-		[DisplayName("Tên thu chi")]
+		[Display(Name="Tên thu chi")]
 		public string Ten_thu_chi { get; set; }
 
-		[DisplayName("Ghi chú")]
+		[Display(Name="Ghi chú")]
 		public string Ghi_chu { get; set; }
 
 	}

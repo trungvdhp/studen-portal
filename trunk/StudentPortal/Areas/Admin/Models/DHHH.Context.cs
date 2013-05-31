@@ -57,7 +57,7 @@ namespace StudentPortal
 		public DbSet<PLAN_GiaoVien> PLAN_GiaoVien { get; set; }
 		public DbSet<MARK_MonHoc> MARK_MonHoc { get; set; }
 		//public DbSet<PLAN_LopTinChi_TC> PLAN_LopTinChi_TC { get; set; }
-		//public DbSet<PLAN_MonTinChi_TC> PLAN_MonTinChi_TC { get; set; }
+		public DbSet<PLAN_MonTinChi_TC> PLAN_MonTinChi_TC { get; set; }
 		//public DbSet<PLAN_PhongHoc> PLAN_PhongHoc { get; set; }
 		//public DbSet<PLAN_BoMon> PLAN_BoMon { get; set; }
 		//public DbSet<STU_He> STU_He { get; set; }

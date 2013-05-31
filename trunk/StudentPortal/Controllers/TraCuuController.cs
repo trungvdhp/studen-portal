@@ -17,7 +17,7 @@ namespace StudentPortal.Controllers
 		DHHHContext db = new DHHHContext();
 
 
-
+		#region TuKhoa
 		public ActionResult TuKhoa(string TuKhoa)
 		{
 			DHHHContext db = new DHHHContext();
@@ -42,6 +42,7 @@ namespace StudentPortal.Controllers
 			json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
 			return json;
 		}
+		#endregion
 
 		#region Diem
 
@@ -199,8 +200,10 @@ namespace StudentPortal.Controllers
 				bienlai = bienlai.Where(t => t.Lan_thu == Lan_thu).ToList();
 			}
 
+
 			return Json(bienlai.ToDataSourceResult(request));
 		}
 		#endregion
+
 	}
 }
