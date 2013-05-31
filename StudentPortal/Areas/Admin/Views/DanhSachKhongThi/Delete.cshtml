@@ -1,0 +1,76 @@
+﻿@model StudentPortal.STU_DanhSachKhongThi
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div class="row-fluid">
+	<div class="span12">
+		<!-- BEGIN SAMPLE FORM PORTLET-->
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<h4><i class="icon-reorder"></i>Delete</h4>
+				<div class="tools">
+					<a href="javascript:;" class="collapse"></a>
+					<a href="#portlet-config" data-toggle="modal" class="config"></a>
+					<a href="javascript:;" class="reload"></a>
+					<a href="javascript:;" class="remove"></a>
+				</div>
+			</div>
+			<div class="portlet-body form">
+                <!-- BEGIN FORM-->
+				@using (Html.BeginForm("DeleteConfirmed", "DanhSachKhongThi", FormMethod.Post, new { @class = "form-horizontal" }))
+	{
+
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.ID_mon, "MARK_MonHoc", new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.ID_mon, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.Hoc_ky, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.Hoc_ky, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.Nam_hoc, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.Nam_hoc, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.Ly_do, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.Ly_do, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+        <div class="form-actions">
+            <input type="submit" class="btn red" value="Delete" />
+            @Html.ActionLink("Cancel", "Index",new{},new { @class = "btn" })
+        </div>
+}
+			</div>
+		</div>
+	</div>
+</div>
+
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        
+    </p>
+}

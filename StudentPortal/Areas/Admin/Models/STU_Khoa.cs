@@ -17,10 +17,10 @@ namespace StudentPortal
     [Table("STU_Khoa")]
     public partial class STU_Khoa
     {
-        public STU_Khoa()
+        /*public STU_Khoa()
         {
             this.PLAN_ChuongTrinhDaoTao = new HashSet<PLAN_ChuongTrinhDaoTao>();
-        }
+        }*/
     
 		[Key]
 		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -35,6 +35,6 @@ namespace StudentPortal
 		[Display(Name = "Tên khoa EN")]
         public string Ten_khoa_en { get; set; }
     
-        public virtual ICollection<PLAN_ChuongTrinhDaoTao> PLAN_ChuongTrinhDaoTao { get; set; }
+        //public virtual ICollection<PLAN_ChuongTrinhDaoTao> PLAN_ChuongTrinhDaoTao { get; set; }
     }
 }

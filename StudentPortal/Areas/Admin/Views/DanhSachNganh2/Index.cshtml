@@ -1,0 +1,52 @@
+﻿@model IEnumerable<StudentPortal.STU_DanhSachNganh2>
+
+@{
+    ViewBag.Title = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row-fluid">
+	<div class="span12">
+
+		<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@(Html.Kendo().Grid<StudentPortal.STU_DanhSachNganh2>()
+	.Name("STU_DanhSachNganh2")
+	.Columns(columns =>
+	{
+			columns.Bound(model => model.STU_DoiTuong.Ma_dt);
+				columns.Bound(model => model.Hoc_ky);
+				columns.Bound(model => model.Nam_hoc);
+				columns.Bound(model => model.So_QD);
+				columns.Bound(model => model.Ngay_QD);
+				columns.Bound(model => model.Noi_dung);
+				columns.Bound(model => model.Ngung_hoc);
+				columns.Bound(model => model.Duyet);
+		        columns.Command(command => {command.Custom("Edit").Click("Edit"); command.Custom("Delete").Click("Delete");});
+	})
+	.Groupable()
+	.Pageable()
+	.Sortable()
+	.DataSource(
+		dataSource => dataSource.Ajax()
+			.Read(read => read.Action("Read", "DanhSachNganh2"))
+	)
+)
+
+	</div>
+</div>
+<script type="text/javascript">
+	function Edit(e) {
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+		location.href='@Url.Action("Edit","DanhSachNganh2")/'+dataItem.ID_sv;
+	}
+	function Delete(e) {
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+		location.href = '@Url.Action("Delete","DanhSachNganh2")/' + dataItem.ID_sv;
+	}
+</script>

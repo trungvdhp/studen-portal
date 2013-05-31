@@ -255,6 +255,14 @@ namespace StudentPortal
         public DbSet<STU_CanBoLop> STU_CanBoLop { get; set; }
 
         public DbSet<STU_CapHoiDong> STU_CapHoiDong { get; set; }
+
+        public DbSet<STU_CapKhenThuongKyLuat> STU_CapKhenThuongKyLuat { get; set; }
+
+        public DbSet<STU_XeploaiRenLuyen> STU_XeploaiRenLuyen { get; set; }
+
+        public DbSet<STU_DanhHieu> STU_DanhHieu { get; set; }
+
+        public DbSet<STU_ChucDanh> STU_ChucDanh { get; set; }
 		//public DbSet<STU_HoSoSinhVienSub> STU_HoSoSinhVienSub { get; set; }
 		//public DbSet<STU_HoSoSinhVienTemp> STU_HoSoSinhVienTemp { get; set; }
 		//public DbSet<STU_HoSoSinhVienXoa> STU_HoSoSinhVienXoa { get; set; }

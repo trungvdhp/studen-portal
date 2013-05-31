@@ -21,12 +21,12 @@
 				columns.Bound(model => model.Ten);
 				columns.Bound(model => model.Ho_ten);
                 columns.Bound(model => model.STU_GioiTinh.Gioi_tinh);
-				columns.Bound(model => model.Ngay_sinh);
+				columns.Bound(model => model.Ngay_sinh).Format("{0:dd/MM/yyyy}");
 				columns.Bound(model => model.STU_Khoa.Ma_khoa);
-				columns.Bound(model => model.PLAN_HocHam.Ma_hoc_ham);
-				columns.Bound(model => model.PLAN_HocVi.Ma_hoc_vi);
-				columns.Bound(model => model.PLAN_ChucDanh.Ma_chuc_danh);
-				columns.Bound(model => model.PLAN_ChucVu.Ma_chuc_vu);
+                //columns.Bound(model => model.PLAN_HocHam.Ma_hoc_ham);
+                //columns.Bound(model => model.PLAN_HocVi.Ma_hoc_vi);
+                //columns.Bound(model => model.PLAN_ChucDanh.Ma_chuc_danh);
+                //columns.Bound(model => model.PLAN_ChucVu.Ma_chuc_vu);
 		        columns.Command(command => {command.Custom("Edit").Click("Edit"); command.Custom("Delete").Click("Delete");});
 	})
 	.Groupable()

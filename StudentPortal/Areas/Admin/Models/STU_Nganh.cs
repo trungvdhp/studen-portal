@@ -17,10 +17,10 @@ namespace StudentPortal
     [Table("STU_Nganh")]
     public partial class STU_Nganh
     {
-        public STU_Nganh()
-        {
-            this.STU_ChuyenNganh = new HashSet<STU_ChuyenNganh>();
-        }
+        //public STU_Nganh()
+        //{
+        //    this.STU_ChuyenNganh = new HashSet<STU_ChuyenNganh>();
+        //}
 		
 		[Key]
 		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
@@ -35,6 +35,6 @@ namespace StudentPortal
 		[Display(Name = "Tên ngành EN")]
         public string Ten_nganh_En { get; set; }
     
-        public virtual ICollection<STU_ChuyenNganh> STU_ChuyenNganh { get; set; }
+        //public virtual ICollection<STU_ChuyenNganh> STU_ChuyenNganh { get; set; }
     }
 }
