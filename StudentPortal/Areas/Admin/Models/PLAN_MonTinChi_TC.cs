@@ -12,57 +12,57 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentPortal
 {
-    using System;
-    using System.Collections.Generic;
-    [Table("PLAN_MonTinChi_TC")]
-    public partial class PLAN_MonTinChi_TC
-    {
-        public PLAN_MonTinChi_TC()
-        {
-            this.PLAN_LopTinChi_TC = new HashSet<PLAN_LopTinChi_TC>();
-            this.PLAN_PhamViDangKy_TC = new HashSet<PLAN_PhamViDangKy_TC>();
-        }
-		
+	using System;
+	using System.Collections.Generic;
+	[Table("PLAN_MonTinChi_TC")]
+	public partial class PLAN_MonTinChi_TC
+	{
+		//public PLAN_MonTinChi_TC()
+		//{
+		//	this.PLAN_LopTinChi_TC = new HashSet<PLAN_LopTinChi_TC>();
+		//	this.PLAN_PhamViDangKy_TC = new HashSet<PLAN_PhamViDangKy_TC>();
+		//}
+
 		[Key]
 		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int ID_mon_tc { get; set; }
-		
+		public int ID_mon_tc { get; set; }
+
 		[Display(Name = "Kỳ đăng ký")]
-        public int Ky_dang_ky { get; set; }
-		
+		public int Ky_dang_ky { get; set; }
+
 		[Display(Name = "Ký hiệu lớp TC")]
-        public string Ky_hieu_lop_tc { get; set; }
-		
+		public string Ky_hieu_lop_tc { get; set; }
+
 		[Display(Name = "ID Môn")]
 		[ForeignKey("MARK_MonHoc")]
-        public int ID_mon { get; set; }
-		
+		public int ID_mon { get; set; }
+
 		[Display(Name = "Số tín chỉ")]
-        public int So_tin_chi { get; set; }
-		
+		public int So_tin_chi { get; set; }
+
 		[Display(Name = "Hệ số")]
-        public int He_so { get; set; }
-		
+		public int He_so { get; set; }
+
 		[Display(Name = "Số tiền")]
-        public Nullable<int> So_tien { get; set; }
-		
+		public Nullable<int> So_tien { get; set; }
+
 		[Display(Name = "Lý thuyết")]
-        public int Ly_thuyet { get; set; }
-		
+		public int Ly_thuyet { get; set; }
+
 		[Display(Name = "Thực hành")]
-        public int Thuc_hanh { get; set; }
-		
+		public int Thuc_hanh { get; set; }
+
 		[Display(Name = "Bài tập")]
-        public int Bai_tap { get; set; }
-		
+		public int Bai_tap { get; set; }
+
 		[Display(Name = "Bài tập lớn")]
-        public int Bai_tap_lon { get; set; }
-		
+		public int Bai_tap_lon { get; set; }
+
 		[Display(Name = "Locked")]
-        public bool Locked { get; set; }
-    
-        public virtual MARK_MonHoc MARK_MonHoc { get; set; }
-        public virtual ICollection<PLAN_LopTinChi_TC> PLAN_LopTinChi_TC { get; set; }
-        public virtual ICollection<PLAN_PhamViDangKy_TC> PLAN_PhamViDangKy_TC { get; set; }
-    }
+		public bool Locked { get; set; }
+
+		public virtual MARK_MonHoc MARK_MonHoc { get; set; }
+		//public virtual ICollection<PLAN_LopTinChi_TC> PLAN_LopTinChi_TC { get; set; }
+		//public virtual ICollection<PLAN_PhamViDangKy_TC> PLAN_PhamViDangKy_TC { get; set; }
+	}
 }

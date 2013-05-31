@@ -87,7 +87,7 @@
 	})
 	.Enable(false)
 	.AutoBind(false)
-		.CascadeFrom("NamHoc")
+		.CascadeFrom("HocKy")
 )
 				@(Html.Kendo().DropDownList()
 	.Name("LanThu")
@@ -105,21 +105,22 @@
 	})
 	.Enable(false)
 	.AutoBind(false)
-		.CascadeFrom("NamHoc")
+		.CascadeFrom("DotThu")
 )
 
 
 <button class="btn blue" id="TraCuuButton">Tra cứu</button>
-@(Html.Kendo().Grid<StudentPortal.ACC_BienLaiThu>()
+@(Html.Kendo().Grid<StudentPortal.ViewModels.BienLaiThu>()
     .Name("GridBienLai")
     .Columns(columns => {
-        columns.Bound(t => t.So_phieu).Width(50);
         columns.Bound(t => t.Noi_dung).Width(150);
-        columns.Bound(t => t.So_tien).Width(50);
-        columns.Bound(t => t.Ngay_thu).Width(50);
+        columns.Bound(t => t.So_tien).Width(50).Format("{0:C}");
+		columns.Bound(t => t.Ngay_thu).Width(50).Format("{0:dd/MM/yyyy}");
         columns.Bound(t => t.Nguoi_thu).Width(50);
-        columns.Bound(t => t.Nam_hoc).Width(100).Hidden();
-        columns.Bound(t => t.Hoc_ky).Width(50).Hidden();
+        columns.Bound(t => t.Nam_hoc).Hidden();
+        columns.Bound(t => t.Hoc_ky).Hidden();
+		columns.Bound(t => t.Dot_thu).Hidden();
+		columns.Bound(t => t.Ten_lan).Hidden();
     })
     .Groupable()
     .Pageable()
@@ -131,7 +132,7 @@
                 .Group(group => group.Add(t => t.Nam_hoc))
                 .Group(group => group.Add(t => t.Hoc_ky))
 				.Group(group => group.Add(t => t.Dot_thu))
-				.Group(group => group.Add(t => t.Lan_thu))
+				.Group(group => group.Add(t => t.Ten_lan))
             .Read(read => read.Action("BienLaiThu","TraCuu").Data("getTuKhoa"))
     )
     .HtmlAttributes(new {style = "height:400px"})
