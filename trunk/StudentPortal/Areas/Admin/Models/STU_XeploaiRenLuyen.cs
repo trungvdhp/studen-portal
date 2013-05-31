@@ -14,7 +14,7 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    [Table("STU_XepLoaiRenLuyen")]
+    [Table("STU_XeploaiRenLuyen")]
     public partial class STU_XeploaiRenLuyen
     {
         [Key]

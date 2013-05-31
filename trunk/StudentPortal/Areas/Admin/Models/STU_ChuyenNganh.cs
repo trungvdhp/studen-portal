@@ -35,8 +35,11 @@ namespace StudentPortal
         public string Chuyen_nganh_En { get; set; }
 		
 		[Display(Name = "Kỹ thuật")]
-        public bool Ky_thuat { get; set; }
+        [ForeignKey("STU_Bit")]
+        public int Ky_thuat { get; set; }
     
         public virtual STU_Nganh STU_Nganh { get; set; }
+
+        public virtual STU_Bit STU_Bit { get; set; }
     }
 }

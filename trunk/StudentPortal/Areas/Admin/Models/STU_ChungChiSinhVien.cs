@@ -33,7 +33,7 @@ namespace StudentPortal
         public int Lan_xet { get; set; }
 		
 		[Display(Name = "ID Xếp loại")]
-		[ForeignKey("STU_XepLoaiRenLuyen")]
+		[ForeignKey("STU_XeploaiRenLuyen")]
         public Nullable<int> ID_xep_loai { get; set; }
 		
 		[Display(Name = "TBCHT")]
