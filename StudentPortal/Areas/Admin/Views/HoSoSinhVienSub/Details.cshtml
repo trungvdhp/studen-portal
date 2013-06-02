@@ -1,0 +1,97 @@
+﻿@model StudentPortal.STU_HoSoSinhVienSub
+
+@{
+    ViewBag.Title = "Details";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div class="row-fluid">
+	<div class="span12">
+		<!-- BEGIN SAMPLE FORM PORTLET-->
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<h4><i class="icon-reorder"></i>Details</h4>
+				<div class="tools">
+					<a href="javascript:;" class="collapse"></a>
+					<a href="#portlet-config" data-toggle="modal" class="config"></a>
+					<a href="javascript:;" class="reload"></a>
+					<a href="javascript:;" class="remove"></a>
+				</div>
+			</div>
+			<div class="portlet-body form">
+			<form class="form-horizontal" action="#">
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.Dia_chi_day_du, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.Dia_chi_day_du, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.So_dien_thoai, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.So_dien_thoai, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.Di_dong, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.Di_dong, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.Fax, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.Fax, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.Email, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.ID_co_quan_lam_viec, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.ID_co_quan_lam_viec, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.ID_tinh_chat_cong_viec, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.ID_tinh_chat_cong_viec, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.Muc_thu_nhap_thang, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.Muc_thu_nhap_thang, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.ID_noi_lam_viec, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.ID_noi_lam_viec, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+					<div class="form-actions">
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID_sv },new { @class = "btn blue" }) |
+                        @Html.ActionLink("Cancel", "Index",new{},new { @class = "btn" })
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+

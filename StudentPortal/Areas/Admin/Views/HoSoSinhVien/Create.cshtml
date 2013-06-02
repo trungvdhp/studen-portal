@@ -1,0 +1,697 @@
+﻿@model StudentPortal.STU_HoSoSinhVien
+
+@{
+    ViewBag.Title = "Create";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row-fluid">
+	<div class="span12">
+		<!-- BEGIN SAMPLE FORM PORTLET-->
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<h4><i class="icon-reorder"></i>Create</h4>
+				<div class="tools">
+					<a href="javascript:;" class="collapse"></a>
+					<a href="#portlet-config" data-toggle="modal" class="config"></a>
+					<a href="javascript:;" class="reload"></a>
+					<a href="javascript:;" class="remove"></a>
+				</div>
+			</div>
+			<div class="portlet-body form">
+				<!-- BEGIN FORM-->
+				@using (Html.BeginForm("Create", "HoSoSinhVien", FormMethod.Post, new { @class = "form-horizontal" }))
+	{
+					@Html.ValidationSummary(true)
+
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ma_sv, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ma_sv, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ma_sv)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ho_ten, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ho_ten, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ho_ten)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ngay_sinh, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ngay_sinh, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ngay_sinh)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_gioi_tinh, "STU_GioiTinh", new { @class = "control-label" })
+				<div class="controls">
+					@Html.DropDownList("ID_gioi_tinh", String.Empty)
+					@Html.ValidationMessageFor(model => model.ID_gioi_tinh)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_dan_toc, "STU_DanToc", new { @class = "control-label" })
+				<div class="controls">
+					@Html.DropDownList("ID_dan_toc", String.Empty)
+					@Html.ValidationMessageFor(model => model.ID_dan_toc)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_quoc_tich, "STU_QuocTich", new { @class = "control-label" })
+				<div class="controls">
+					@Html.DropDownList("ID_quoc_tich", String.Empty)
+					@Html.ValidationMessageFor(model => model.ID_quoc_tich)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ton_giao, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ton_giao, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ton_giao)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_thanh_phan_xuat_than, "STU_ThanhPhanXuatThan", new { @class = "control-label" })
+				<div class="controls">
+					@Html.DropDownList("ID_thanh_phan_xuat_than", String.Empty)
+					@Html.ValidationMessageFor(model => model.ID_thanh_phan_xuat_than)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ngay_vao_doan, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ngay_vao_doan, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ngay_vao_doan)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ngay_vao_dang, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ngay_vao_dang, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ngay_vao_dang)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Que_quan, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Que_quan, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Que_quan)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_tinh_ns, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.ID_tinh_ns, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.ID_tinh_ns)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Dia_chi_tt, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Dia_chi_tt, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Dia_chi_tt)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Xa_phuong_tt, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Xa_phuong_tt, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Xa_phuong_tt)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_huyen_tt, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.ID_huyen_tt, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.ID_huyen_tt)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_tinh_tt, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.ID_tinh_tt, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.ID_tinh_tt)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_doi_tuong_TC, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.ID_doi_tuong_TC, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.ID_doi_tuong_TC)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_doi_tuong_TS, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.ID_doi_tuong_TS, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.ID_doi_tuong_TS)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Dien_thoai_NR, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Dien_thoai_NR, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Dien_thoai_NR)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_nhom_doi_tuong, "STU_NhomDoiTuong", new { @class = "control-label" })
+				<div class="controls">
+					@Html.DropDownList("ID_nhom_doi_tuong", String.Empty)
+					@Html.ValidationMessageFor(model => model.ID_nhom_doi_tuong)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Dia_chi_bao_tin, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Dia_chi_bao_tin, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Dia_chi_bao_tin)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_khu_vuc_TS, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.ID_khu_vuc_TS, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.ID_khu_vuc_TS)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Doi_tuong_du_thi, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Doi_tuong_du_thi, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Doi_tuong_du_thi)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Diem1, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Diem1, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Diem1)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Diem2, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Diem2, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Diem2)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Diem3, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Diem3, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Diem3)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Diem4, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Diem4, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Diem4)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Tong_diem, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Tong_diem, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Tong_diem)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.SBD, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.SBD, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.SBD)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Nganh_tuyen_sinh, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Nganh_tuyen_sinh, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Nganh_tuyen_sinh)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Khoi_thi, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Khoi_thi, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Khoi_thi)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Xep_loai_hoc_tap, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Xep_loai_hoc_tap, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Xep_loai_hoc_tap)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Xep_loai_hanh_kiem, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Xep_loai_hanh_kiem, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Xep_loai_hanh_kiem)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Xep_loai_tot_nghiep, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Xep_loai_tot_nghiep, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Xep_loai_tot_nghiep)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Nam_tot_nghiep, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Nam_tot_nghiep, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Nam_tot_nghiep)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Diem_thuong, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Diem_thuong, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Diem_thuong)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ly_do_thuong_diem, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ly_do_thuong_diem, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ly_do_thuong_diem)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Khen_thuong_ky_luat, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Khen_thuong_ky_luat, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Khen_thuong_ky_luat)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Qua_trinh_HT_LD, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Qua_trinh_HT_LD, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Qua_trinh_HT_LD)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ho_ten_cha, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ho_ten_cha, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ho_ten_cha)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_quoc_tich_cha, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.ID_quoc_tich_cha, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.ID_quoc_tich_cha)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_dan_toc_cha, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.ID_dan_toc_cha, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.ID_dan_toc_cha)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ton_giao_cha, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ton_giao_cha, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ton_giao_cha)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ho_khau_TT_cha, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ho_khau_TT_cha, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ho_khau_TT_cha)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Hoat_dong_XH_CT_cha, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Hoat_dong_XH_CT_cha, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Hoat_dong_XH_CT_cha)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ho_ten_me, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ho_ten_me, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ho_ten_me)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_quoc_tich_me, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.ID_quoc_tich_me, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.ID_quoc_tich_me)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_dan_toc_me, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.ID_dan_toc_me, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.ID_dan_toc_me)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ton_giao_me, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ton_giao_me, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ton_giao_me)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ho_khau_TT_me, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ho_khau_TT_me, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ho_khau_TT_me)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Hoat_dong_XH_CT_me, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Hoat_dong_XH_CT_me, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Hoat_dong_XH_CT_me)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ho_ten_vo_chong, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ho_ten_vo_chong, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ho_ten_vo_chong)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_quoc_tich_vo_chong, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.ID_quoc_tich_vo_chong, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.ID_quoc_tich_vo_chong)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_dan_toc_vo_chong, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.ID_dan_toc_vo_chong, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.ID_dan_toc_vo_chong)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ton_giao_vo_chong, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ton_giao_vo_chong, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ton_giao_vo_chong)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ho_khau_TT_vo_chong, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ho_khau_TT_vo_chong, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ho_khau_TT_vo_chong)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Hoat_dong_XH_CT_vo_chong, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Hoat_dong_XH_CT_vo_chong, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Hoat_dong_XH_CT_vo_chong)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ho_ten_nghe_nghiep_anh_em, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ho_ten_nghe_nghiep_anh_em, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ho_ten_nghe_nghiep_anh_em)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Dang_ky_hoc, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Dang_ky_hoc, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Dang_ky_hoc)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Hoten_Order, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Hoten_Order, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Hoten_Order)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Chuyen_nganh_dang_ky, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Chuyen_nganh_dang_ky, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Chuyen_nganh_dang_ky)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Lop, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Lop, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Lop)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ngoai_ngu, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ngoai_ngu, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ngoai_ngu)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.UserID, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.UserID, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.UserID)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ngay_nhap_hoc, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ngay_nhap_hoc, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ngay_nhap_hoc)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.UserName_tiep_nhan, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.UserName_tiep_nhan, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.UserName_tiep_nhan)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.UserID_tiep_nhan, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.UserID_tiep_nhan, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.UserID_tiep_nhan)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.CMND, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.CMND, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.CMND)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ngay_cap, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ngay_cap, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ngay_cap)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Noi_cap, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Noi_cap, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Noi_cap)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Dienthoai_canhan, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Dienthoai_canhan, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Dienthoai_canhan)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Email, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Email, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Email)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.NoiO_hiennay, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.NoiO_hiennay, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.NoiO_hiennay)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Namsinh_cha, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Namsinh_cha, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Namsinh_cha)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Namsinh_me, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Namsinh_me, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Namsinh_me)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.IDCard, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.IDCard, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.IDCard)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Nam_nhap_hoc, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Nam_nhap_hoc, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Nam_nhap_hoc)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.So_tai_khoan, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.So_tai_khoan, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.So_tai_khoan)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_xep_hang_hoc_luc, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.ID_xep_hang_hoc_luc, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.ID_xep_hang_hoc_luc)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Da_nhap_truong, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Da_nhap_truong, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Da_nhap_truong)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.SV_ngoai_tinh, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.SV_ngoai_tinh, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.SV_ngoai_tinh)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ma_ho_so, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ma_ho_so, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ma_ho_so)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.NGANHTS, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.NGANHTS, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.NGANHTS)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.CNGANHTT, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.CNGANHTT, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.CNGANHTT)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.TTNganh, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.TTNganh, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.TTNganh)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.TruongTHPT, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.TruongTHPT, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.TruongTHPT)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.BanTS, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.BanTS, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.BanTS)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.DonViDKDT, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.DonViDKDT, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.DonViDKDT)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.PhieuDKDL, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.PhieuDKDL, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.PhieuDKDL)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.LOP10, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.LOP10, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.LOP10)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.LOP11, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.LOP11, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.LOP11)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.LOP12, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.LOP12, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.LOP12)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.He_nhap_hoc, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.He_nhap_hoc, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.He_nhap_hoc)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Trang_thai_hoc, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Trang_thai_hoc, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Trang_thai_hoc)
+			</div>
+		</div>
+			<div class="form-actions">
+				<button class="btn blue" type="submit">Create</button>
+				<button class="btn" type="button">Cancel</button>
+			</div>
+}
+
+			</div>
+		</div>
+	</div>
+</div>
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

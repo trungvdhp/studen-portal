@@ -263,6 +263,88 @@ namespace StudentPortal
         public DbSet<STU_DanhHieu> STU_DanhHieu { get; set; }
 
         public DbSet<STU_ChucDanh> STU_ChucDanh { get; set; }
+
+        public DbSet<STU_DanToc> STU_DanToc { get; set; }
+
+        public DbSet<STU_DiemRenLuyen> STU_DiemRenLuyen { get; set; }
+
+        public DbSet<STU_LoaiRenLuyen> STU_LoaiRenLuyen { get; set; }
+
+        public DbSet<STU_DinhMuc> STU_DinhMuc { get; set; }
+
+        public DbSet<STU_Doan> STU_Doan { get; set; }
+
+        public DbSet<STU_DoiTuongGiayto> STU_DoiTuongGiayto { get; set; }
+
+        public DbSet<STU_LoaiGiayTo> STU_LoaiGiayTo { get; set; }
+
+        public DbSet<STU_DoiTuongHocBong> STU_DoiTuongHocBong { get; set; }
+
+        public DbSet<STU_DoiTuongHocBongGiayto> STU_DoiTuongHocBongGiayto { get; set; }
+
+        public DbSet<STU_HanhVi> STU_HanhVi { get; set; }
+
+        public DbSet<STU_HeChuyenNganh> STU_HeChuyenNganh { get; set; }
+
+        public DbSet<STU_HeSoRenLuyen> STU_HeSoRenLuyen { get; set; }
+
+        public DbSet<STU_HoatDongXaHoi> STU_HoatDongXaHoi { get; set; }
+
+        public DbSet<STU_HoSoNop> STU_HoSoNop { get; set; }
+
+        public DbSet<STU_QuocTich> STU_QuocTich { get; set; }
+
+        public DbSet<STU_ThanhPhanXuatThan> STU_ThanhPhanXuatThan { get; set; }
+
+        public DbSet<STU_NhomDoiTuong> STU_NhomDoiTuong { get; set; }
+
+        public DbSet<STU_HoSoSinhVienSub> STU_HoSoSinhVienSub { get; set; }
+
+        public DbSet<STU_HoSoSinhVienTemp> STU_HoSoSinhVienTemp { get; set; }
+
+        public DbSet<STU_HoSoSinhVienXoa> STU_HoSoSinhVienXoa { get; set; }
+
+        public DbSet<STU_HoSoYeucau> STU_HoSoYeucau { get; set; }
+
+        public DbSet<STU_Huyen> STU_Huyen { get; set; }
+
+        public DbSet<STU_Tinh> STU_Tinh { get; set; }
+
+        public DbSet<STU_KhenThuong> STU_KhenThuong { get; set; }
+
+        public DbSet<STU_LoaiKhenThuong> STU_LoaiKhenThuong { get; set; }
+
+        public DbSet<STU_KhenThuongSinhVien> STU_KhenThuongSinhVien { get; set; }
+
+        public DbSet<STU_KhuVuc> STU_KhuVuc { get; set; }
+
+        public DbSet<STU_KyLuat> STU_KyLuat { get; set; }
+
+        public DbSet<STU_XuLy> STU_XuLy { get; set; }
+
+        public DbSet<STU_KyLuatSinhVien> STU_KyLuatSinhVien { get; set; }
+
+        public DbSet<STU_CapRenLuyen> STU_CapRenLuyen { get; set; }
+
+        public DbSet<PLAN_PhongHoc> PLAN_PhongHoc { get; set; }
+
+        public DbSet<STU_NhanXetKy> STU_NhanXetKy { get; set; }
+
+        public DbSet<STU_NhanXetNam> STU_NhanXetNam { get; set; }
+
+        public DbSet<STU_NoiNgoaiTru> STU_NoiNgoaiTru { get; set; }
+
+        public DbSet<STU_PhongKyTucXa> STU_PhongKyTucXa { get; set; }
+
+        public DbSet<STU_Phuong> STU_Phuong { get; set; }
+
+        public DbSet<STU_ToaNhaKyTucXa> STU_ToaNhaKyTucXa { get; set; }
+
+        public DbSet<PLAN_TANG> PLAN_TANG { get; set; }
+
+        public DbSet<PLAN_COSODAOTAO> PLAN_COSODAOTAO { get; set; }
+
+        public DbSet<STU_QuyHocBong> STU_QuyHocBong { get; set; }
 		//public DbSet<STU_HoSoSinhVienSub> STU_HoSoSinhVienSub { get; set; }
 		//public DbSet<STU_HoSoSinhVienTemp> STU_HoSoSinhVienTemp { get; set; }
 		//public DbSet<STU_HoSoSinhVienXoa> STU_HoSoSinhVienXoa { get; set; }
