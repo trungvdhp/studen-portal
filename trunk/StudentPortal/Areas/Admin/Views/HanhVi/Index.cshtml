@@ -1,0 +1,46 @@
+﻿@model IEnumerable<StudentPortal.STU_HanhVi>
+
+@{
+    ViewBag.Title = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row-fluid">
+	<div class="span12">
+
+		<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@(Html.Kendo().Grid<StudentPortal.STU_HanhVi>()
+	.Name("STU_HanhVi")
+	.Columns(columns =>
+	{
+			columns.Bound(model => model.Ma_hanh_vi);
+				columns.Bound(model => model.Hanh_vi);
+		        columns.Command(command => {command.Custom("Edit").Click("Edit"); command.Custom("Delete").Click("Delete");});
+	})
+	.Groupable()
+	.Pageable()
+	.Sortable()
+	.DataSource(
+		dataSource => dataSource.Ajax()
+			.Read(read => read.Action("Read", "HanhVi"))
+	)
+)
+
+	</div>
+</div>
+<script type="text/javascript">
+	function Edit(e) {
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+		location.href='@Url.Action("Edit","HanhVi")/'+dataItem.ID_hanh_vi;
+	}
+	function Delete(e) {
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+		location.href = '@Url.Action("Delete","HanhVi")/' + dataItem.ID_hanh_vi;
+	}
+</script>

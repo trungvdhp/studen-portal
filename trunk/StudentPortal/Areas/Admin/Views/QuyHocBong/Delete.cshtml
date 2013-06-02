@@ -1,0 +1,116 @@
+﻿@model StudentPortal.STU_QuyHocBong
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div class="row-fluid">
+	<div class="span12">
+		<!-- BEGIN SAMPLE FORM PORTLET-->
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<h4><i class="icon-reorder"></i>Delete</h4>
+				<div class="tools">
+					<a href="javascript:;" class="collapse"></a>
+					<a href="#portlet-config" data-toggle="modal" class="config"></a>
+					<a href="javascript:;" class="reload"></a>
+					<a href="javascript:;" class="remove"></a>
+				</div>
+			</div>
+			<div class="portlet-body form">
+                <!-- BEGIN FORM-->
+				@using (Html.BeginForm("DeleteConfirmed", "QuyHocBong", FormMethod.Post, new { @class = "form-horizontal" }))
+	{
+
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.ID_quy, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.ID_quy, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.ID_he, "STU_He", new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.ID_he, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.Hoc_ky, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.Hoc_ky, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.Nam_hoc, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.Nam_hoc, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.Tu_khoa, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.Tu_khoa, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.Den_khoa, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.Den_khoa, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.Sotien_ngansach, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.Sotien_ngansach, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.Sotien_khac, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.Sotien_khac, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+
+    <div class="control-group">
+            @Html.LabelFor(model => model.Ghi_chu, new { @class = "control-label" })
+		<div class="controls">
+			@Html.TextBoxFor(model => model.Ghi_chu, new { @class = "medium m-wrap",disabled="" })
+		</div>
+	</div>
+
+        <div class="form-actions">
+            <input type="submit" class="btn red" value="Delete" />
+            @Html.ActionLink("Cancel", "Index",new{},new { @class = "btn" })
+        </div>
+}
+			</div>
+		</div>
+	</div>
+</div>
+
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        
+    </p>
+}

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<StudentPortal.STU_DiemRenLuyen>
+
+@{
+    ViewBag.Title = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row-fluid">
+	<div class="span12">
+
+		<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@(Html.Kendo().Grid<StudentPortal.STU_DiemRenLuyen>()
+	.Name("STU_DiemRenLuyen")
+	.Columns(columns =>
+	{
+			columns.Bound(model => model.Hoc_ky);
+				columns.Bound(model => model.Nam_hoc);
+				columns.Bound(model => model.STU_HoSoSinhVien.Ma_sv);
+				columns.Bound(model => model.STU_LoaiRenLuyen.Ky_hieu);
+				columns.Bound(model => model.Diem);
+		        columns.Command(command => {command.Custom("Edit").Click("Edit"); command.Custom("Delete").Click("Delete");});
+	})
+	.Groupable()
+	.Pageable()
+	.Sortable()
+	.DataSource(
+		dataSource => dataSource.Ajax()
+			.Read(read => read.Action("Read", "DiemRenLuyen"))
+	)
+)
+
+	</div>
+</div>
+<script type="text/javascript">
+	function Edit(e) {
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+		location.href='@Url.Action("Edit","DiemRenLuyen")/'+dataItem.ID_diem_rl;
+	}
+	function Delete(e) {
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+		location.href = '@Url.Action("Delete","DiemRenLuyen")/' + dataItem.ID_diem_rl;
+	}
+</script>

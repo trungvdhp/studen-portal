@@ -1,0 +1,47 @@
+﻿@model IEnumerable<StudentPortal.STU_DoiTuongHocBong>
+
+@{
+    ViewBag.Title = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row-fluid">
+	<div class="span12">
+
+		<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@(Html.Kendo().Grid<StudentPortal.STU_DoiTuongHocBong>()
+	.Name("STU_DoiTuongHocBong")
+	.Columns(columns =>
+	{
+			columns.Bound(model => model.Ma_dt_hb);
+				columns.Bound(model => model.Ten_dt_hb);
+				columns.Bound(model => model.Sotien_trocap);
+		        columns.Command(command => {command.Custom("Edit").Click("Edit"); command.Custom("Delete").Click("Delete");});
+	})
+	.Groupable()
+	.Pageable()
+	.Sortable()
+	.DataSource(
+		dataSource => dataSource.Ajax()
+			.Read(read => read.Action("Read", "DoiTuongHocBong"))
+	)
+)
+
+	</div>
+</div>
+<script type="text/javascript">
+	function Edit(e) {
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+		location.href='@Url.Action("Edit","DoiTuongHocBong")/'+dataItem.ID_dt_hb;
+	}
+	function Delete(e) {
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+		location.href = '@Url.Action("Delete","DoiTuongHocBong")/' + dataItem.ID_dt_hb;
+	}
+</script>
