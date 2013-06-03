@@ -13,7 +13,7 @@ namespace StudentPortal.Areas.Admin.Controllers
 {
     public class DanhSachNganh2Controller : BasicController
     {
-        private DHHH db = new DHHH();
+		private DHHHContext db = new DHHHContext();
 
         //
         // GET: /Admin/DanhSachNganh2/

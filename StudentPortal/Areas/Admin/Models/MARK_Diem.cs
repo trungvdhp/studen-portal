@@ -33,7 +33,7 @@ namespace StudentPortal
         public int ID_mon { get; set; }
 		
 		[Display(Name = "ID_dt")]
-		[ForeignKey("PLAN_ChuongTrinhDaoTao")]
+		//[ForeignKey("PLAN_ChuongTrinhDaoTao")]
         public int ID_dt { get; set; }
 		
 		[Display(Name = "TBCHP lần 1")]
@@ -55,6 +55,6 @@ namespace StudentPortal
 		
 		public virtual MARK_MonHoc MARK_MonHoc { get; set; }
 		
-		public virtual PLAN_ChuongTrinhDaoTao PLAN_ChuongTrinhDaoTap{ get; set; }
+		//public virtual PLAN_ChuongTrinhDaoTao PLAN_ChuongTrinhDaoTap{ get; set; }
     }
 }

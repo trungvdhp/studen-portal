@@ -18,7 +18,7 @@ namespace StudentPortal.Areas.Admin.Controllers
         //
         // GET: /Admin/ChuyenNganh/
 
-        [Authorize(Roles="ChuyenNganh.Index")]
+        //[Authorize(Roles="ChuyenNganh.Index")]
         public ActionResult Index()
         {
 			return View();
@@ -27,17 +27,17 @@ namespace StudentPortal.Areas.Admin.Controllers
 		//
         // GET: /Admin/ChuyenNganh//Read
 
-        [Authorize(Roles="ChuyenNganh.Read")]
+        //[Authorize(Roles="ChuyenNganh.Read")]
         public ActionResult Read([DataSourceRequest] DataSourceRequest request)
         {
-            var stu_chuyennganh = db.STU_ChuyenNganh.Include(s => s.STU_Nganh);
+            var stu_chuyennganh = db.STU_ChuyenNganh.Include(s => s.STU_Nganh).Include(s => s.STU_Bit);
             return Json(stu_chuyennganh.ToDataSourceResult(request));
         }
 
         //
         // GET: /Admin/ChuyenNganh/Details/5
 
-        [Authorize(Roles="ChuyenNganh.Details")]
+        //[Authorize(Roles="ChuyenNganh.Details")]
         public ActionResult Details(int id = 0)
         {
             STU_ChuyenNganh stu_chuyennganh = db.STU_ChuyenNganh.Find(id);
@@ -51,10 +51,11 @@ namespace StudentPortal.Areas.Admin.Controllers
         //
         // GET: /Admin/ChuyenNganh/Create
 
-        [Authorize(Roles="ChuyenNganh.Create")]
+        //[Authorize(Roles="ChuyenNganh.Create")]
         public ActionResult Create()
         {
-            ViewBag.ID_nganh = new SelectList(db.STU_Nganh, "ID_nganh", "Ma_nganh");
+            ViewBag.ID_nganh = new SelectList(db.STU_Nganh, "ID_nganh", "Ten_nganh");
+            ViewBag.Ky_thuat = new SelectList(db.STU_Bit, "ID", "Gia_tri");
             return View();
         }
 
@@ -62,7 +63,7 @@ namespace StudentPortal.Areas.Admin.Controllers
         // POST: /Admin/ChuyenNganh/Create
 
         [HttpPost]
-        [Authorize(Roles="ChuyenNganh.Create")]
+        //[Authorize(Roles="ChuyenNganh.Create")]
         public ActionResult Create(STU_ChuyenNganh stu_chuyennganh)
         {
             if (ModelState.IsValid)
@@ -72,13 +73,14 @@ namespace StudentPortal.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ID_nganh = new SelectList(db.STU_Nganh, "ID_nganh", "Ma_nganh", stu_chuyennganh.ID_nganh);
+            ViewBag.ID_nganh = new SelectList(db.STU_Nganh, "ID_nganh", "Ten_nganh", stu_chuyennganh.ID_nganh);
+            ViewBag.Ky_thuat = new SelectList(db.STU_Bit, "ID", "Gia_tri", stu_chuyennganh.Ky_thuat);
             return View(stu_chuyennganh);
         }
 
         //
         // GET: /Admin/ChuyenNganh/Edit/5
-        [Authorize(Roles="ChuyenNganh.Edit")]
+        //[Authorize(Roles="ChuyenNganh.Edit")]
         public ActionResult Edit(int id = 0)
         {
             STU_ChuyenNganh stu_chuyennganh = db.STU_ChuyenNganh.Find(id);
@@ -86,7 +88,8 @@ namespace StudentPortal.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ID_nganh = new SelectList(db.STU_Nganh, "ID_nganh", "Ma_nganh", stu_chuyennganh.ID_nganh);
+            ViewBag.ID_nganh = new SelectList(db.STU_Nganh, "ID_nganh", "Ten_nganh", stu_chuyennganh.ID_nganh);
+            ViewBag.Ky_thuat = new SelectList(db.STU_Bit, "ID", "Gia_tri", stu_chuyennganh.Ky_thuat);
             return View(stu_chuyennganh);
         }
 
@@ -94,7 +97,7 @@ namespace StudentPortal.Areas.Admin.Controllers
         // POST: /Admin/ChuyenNganh/Edit/5
 
         [HttpPost]
-        [Authorize(Roles="ChuyenNganh.Edit")]
+        //[Authorize(Roles="ChuyenNganh.Edit")]
         public ActionResult Edit(STU_ChuyenNganh stu_chuyennganh)
         {
             if (ModelState.IsValid)
@@ -103,14 +106,15 @@ namespace StudentPortal.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ID_nganh = new SelectList(db.STU_Nganh, "ID_nganh", "Ma_nganh", stu_chuyennganh.ID_nganh);
+            ViewBag.ID_nganh = new SelectList(db.STU_Nganh, "ID_nganh", "Ten_nganh", stu_chuyennganh.ID_nganh);
+            ViewBag.Ky_thuat = new SelectList(db.STU_Bit, "ID", "Gia_tri", stu_chuyennganh.Ky_thuat);
             return View(stu_chuyennganh);
         }
 
         //
         // GET: /Admin/ChuyenNganh/Delete/5
 
-        [Authorize(Roles="ChuyenNganh.Delete")]
+        //[Authorize(Roles="ChuyenNganh.Delete")]
         public ActionResult Delete(int id = 0)
         {
             STU_ChuyenNganh stu_chuyennganh = db.STU_ChuyenNganh.Find(id);
@@ -125,7 +129,7 @@ namespace StudentPortal.Areas.Admin.Controllers
         // POST: /Admin/ChuyenNganh/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        [Authorize(Roles="ChuyenNganh.DeleteConfirmed")]
+        //[Authorize(Roles="ChuyenNganh.DeleteConfirmed")]
         public ActionResult DeleteConfirmed(int id)
         {
             STU_ChuyenNganh stu_chuyennganh = db.STU_ChuyenNganh.Find(id);
