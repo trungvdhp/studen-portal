@@ -128,8 +128,8 @@ namespace StudentPortal
 		//public DbSet<PLAN_CaHoc> PLAN_CaHoc { get; set; }
 		public DbSet<PLAN_ChucDanh> PLAN_ChucDanh { get; set; }
 		public DbSet<PLAN_ChucVu> PLAN_ChucVu { get; set; }
-		//public DbSet<PLAN_ChuongTrinhDaoTao> PLAN_ChuongTrinhDaoTao { get; set; }
-		//public DbSet<PLAN_ChuongTrinhDaoTaoChiTiet> PLAN_ChuongTrinhDaoTaoChiTiet { get; set; }
+		public DbSet<PLAN_ChuongTrinhDaoTao> PLAN_ChuongTrinhDaoTao { get; set; }
+		public DbSet<PLAN_ChuongTrinhDaoTaoChiTiet> PLAN_ChuongTrinhDaoTaoChiTiet { get; set; }
 		//public DbSet<PLAN_ChuongTrinhDaoTaoKienThuc> PLAN_ChuongTrinhDaoTaoKienThuc { get; set; }
 		//public DbSet<PLAN_ChuongTrinhDaoTaoMonTuongDuong> PLAN_ChuongTrinhDaoTaoMonTuongDuong { get; set; }
 		//public DbSet<PLAN_ChuongTrinhDaoTaoNhomTuChon> PLAN_ChuongTrinhDaoTaoNhomTuChon { get; set; }
@@ -187,7 +187,7 @@ namespace StudentPortal
 		//public DbSet<STU_DanhHieu> STU_DanhHieu { get; set; }
 		//public DbSet<STU_DanhhieuThiDuaCaNhan> STU_DanhhieuThiDuaCaNhan { get; set; }
 		//public DbSet<STU_DanhhieuThiDuaTapthe> STU_DanhhieuThiDuaTapthe { get; set; }
-		//public DbSet<STU_DanhSach> STU_DanhSach { get; set; }
+		public DbSet<STU_DanhSach> STU_DanhSach { get; set; }
 		//public DbSet<STU_DanhSachKhongThi> STU_DanhSachKhongThi { get; set; }
 		public DbSet<STU_DanhSachLopTinChi> STU_DanhSachLopTinChi { get; set; }
 		public DbSet<STU_DanhSachNganh2> STU_DanhSachNganh2 { get; set; }
@@ -247,5 +247,7 @@ namespace StudentPortal
 		//public DbSet<STU_XeploaiRenLuyen> STU_XeploaiRenLuyen { get; set; }
 		//public DbSet<STU_XetHocBong> STU_XetHocBong { get; set; }
 		public DbSet<STU_XuLy> STU_XuLy { get; set; }
+
+		public DbSet<PLAN_MonTinChi_TC> PLAN_MonTinChi_TC { get; set; }
 	}
 }

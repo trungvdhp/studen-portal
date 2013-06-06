@@ -8,11 +8,16 @@ namespace StudentPortal.ViewModels
 	{
 		public int Id_diem;
 
+		public int ID_mon { get; set; }
+
 		[DisplayName("Mã MH")]
 		public string Ma_mon { get; set; }
 
 		[DisplayName("Tên môn")]
 		public string Ten_mon { get; set; }
+
+		[DisplayName("Hệ số")]
+		public float He_so { get; set; }
 
 		[DisplayName("Điểm X")]
 		public float X { get; set; }

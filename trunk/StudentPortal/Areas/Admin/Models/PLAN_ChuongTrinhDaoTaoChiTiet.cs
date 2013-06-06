@@ -14,7 +14,7 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    [Table("PLAN_ChuongTrinhDaoaoChiTiet")]
+    [Table("PLAN_ChuongTrinhDaoTaoChiTiet")]
     public partial class PLAN_ChuongTrinhDaoTaoChiTiet
     {
         [Key]
@@ -22,7 +22,7 @@ namespace StudentPortal
         public int ID_dt_mon { get; set; }
 		
 		[Display(Name = "ID_dt")]
-		[ForeignKey("STU_DoiTuong")]
+		[ForeignKey("PLAN_ChuongTrinhDaoTao")]
         public int ID_dt { get; set; }
 		
 		[Display(Name = "ID Môn")]
@@ -81,12 +81,12 @@ namespace StudentPortal
         public string Ma_khoa_phu_trach { get; set; }
 		
 		[Display(Name = "Môn Main")]
-        public int Mon_Main { get; set; }
+		public Nullable<int> Mon_Main { get; set; }
 		
 		[Display(Name = "Nhóm môn Sub")]
-        public int Nhom_mon_sub { get; set; }
-		
-		public virtual STU_DoiTuong STU_DoiTuong{ get; set; }
+		public Nullable<int> Nhom_mon_sub { get; set; }
+
+		public virtual PLAN_ChuongTrinhDaoTao PLAN_ChuongTrinhDaoTao { get; set; }
 		
 		public virtual MARK_MonHoc MARK_MonHoc { get; set; }
     }

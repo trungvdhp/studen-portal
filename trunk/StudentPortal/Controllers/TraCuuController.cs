@@ -26,16 +26,16 @@ namespace StudentPortal.Controllers
 			try
 			{
 				int.Parse(TuKhoa);
-				list = db.STU_HoSoSinhVien.Where(t => t.Ma_sv.StartsWith(TuKhoa)).Take(10).Select(t => new AutoCompleteData
+				list = db.STU_DanhSach.Where(t => t.STU_HoSoSinhVien.Ma_sv.StartsWith(TuKhoa)).Take(10).Select(t => new AutoCompleteData
 				{
-					Text = t.Ma_sv + " " + t.Ho_ten
+					Text = t.STU_HoSoSinhVien.Ma_sv + " " + t.STU_HoSoSinhVien.Ho_ten + " "+t.STU_Lop.Ten_lop
 				}).ToList();
 			}
 			catch
 			{
-				list = db.STU_HoSoSinhVien.Where(t => t.Ho_ten.Contains(TuKhoa)).Take(10).Select(t => new AutoCompleteData
+				list = db.STU_DanhSach.Where(t => t.STU_HoSoSinhVien.Ho_ten.Contains(TuKhoa)).Take(10).Select(t => new AutoCompleteData
 				{
-					Text = t.Ma_sv + " " + t.Ho_ten
+					Text = t.STU_HoSoSinhVien.Ma_sv + " " + t.STU_HoSoSinhVien.Ho_ten + " " + t.STU_Lop.Ten_lop
 				}).ToList();
 			}
 			JsonResult json = Json(list);

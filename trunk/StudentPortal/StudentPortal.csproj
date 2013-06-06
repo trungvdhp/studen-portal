@@ -206,6 +206,8 @@
     <Compile Include="Areas\Admin\Controllers\LoaiKhenThuongController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoaiRenLuyenController.cs" />
     <Compile Include="Areas\Admin\Controllers\LopController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LopTinChiController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MonTinChiController.cs" />
     <Compile Include="Areas\Admin\Controllers\NganhController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhanXetKyController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhanXetNamController.cs" />
@@ -438,6 +440,7 @@
     <Compile Include="Areas\Admin\Models\SYS_Module.cs" />
     <Compile Include="BasicController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DangKyHocPhanController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TraCuuController.cs" />
     <Compile Include="CustomRoleProvider.cs" />
@@ -445,6 +448,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Lib\ChuongTrinhDaoTao.cs" />
     <Compile Include="Lib\GiaoVien.cs" />
     <Compile Include="Lib\NguoiDung.cs" />
     <Compile Include="Lib\SinhVien.cs" />
@@ -463,6 +467,7 @@
     <Compile Include="ViewModels\AutoCompleteData.cs" />
     <Compile Include="ViewModels\BienLaiThu.cs" />
     <Compile Include="ViewModels\DiemHocTap.cs" />
+    <Compile Include="ViewModels\MonHoc.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\kendo\2012.3.1114\Black\editor.png" />
@@ -1145,6 +1150,16 @@
     <Content Include="Areas\Admin\Views\HoatDongXaHoi\Details.cshtml" />
     <Content Include="Areas\Admin\Views\HoatDongXaHoi\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\HoatDongXaHoi\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\MonTinChi\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\MonTinChi\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\MonTinChi\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\MonTinChi\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\MonTinChi\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\LopTinChi\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\LopTinChi\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\LopTinChi\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\LopTinChi\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\LopTinChi\Delete.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jqGrid\Changes.txt" />
     <Content Include="Scripts\jqGrid\i18n\grid.locale-en.js" />

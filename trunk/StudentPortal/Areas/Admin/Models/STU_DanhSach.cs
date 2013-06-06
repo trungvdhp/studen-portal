@@ -18,7 +18,7 @@ namespace StudentPortal
     public partial class STU_DanhSach
     {
         [Key]
-		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+		[ForeignKey("STU_HoSoSinhVien")]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "ID Lớp")]
@@ -47,5 +47,6 @@ namespace StudentPortal
         public int Trang_thai { get; set; }
 		
 		public virtual STU_Lop STU_Lop { get; set; }
+		public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }
     }
 }
