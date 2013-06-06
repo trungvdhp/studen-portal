@@ -1,0 +1,151 @@
+﻿@model StudentPortal.PLAN_LopTinChi_TC
+
+@{
+    ViewBag.Title = "Create";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row-fluid">
+	<div class="span12">
+		<!-- BEGIN SAMPLE FORM PORTLET-->
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<h4><i class="icon-reorder"></i>Create</h4>
+				<div class="tools">
+					<a href="javascript:;" class="collapse"></a>
+					<a href="#portlet-config" data-toggle="modal" class="config"></a>
+					<a href="javascript:;" class="reload"></a>
+					<a href="javascript:;" class="remove"></a>
+				</div>
+			</div>
+			<div class="portlet-body form">
+				<!-- BEGIN FORM-->
+				@using (Html.BeginForm("Create", "LopTinChi", FormMethod.Post, new { @class = "form-horizontal" }))
+	{
+					@Html.ValidationSummary(true)
+
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_lop_lt, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.ID_lop_lt, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.ID_lop_lt)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_mon_tc, "PLAN_MonTinChi_TC", new { @class = "control-label" })
+				<div class="controls">
+					@Html.DropDownList("ID_mon_tc", String.Empty)
+					@Html.ValidationMessageFor(model => model.ID_mon_tc)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.STT_lop, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.STT_lop, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.STT_lop)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.So_sv_min, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.So_sv_min, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.So_sv_min)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.So_sv_max, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.So_sv_max, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.So_sv_max)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Tu_ngay, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Tu_ngay, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Tu_ngay)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Den_ngay, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Den_ngay, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Den_ngay)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ca_hoc, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ca_hoc, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ca_hoc)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.So_tiet_tuan, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.So_tiet_tuan, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.So_tiet_tuan)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_phong, "PLAN_PhongHoc", new { @class = "control-label" })
+				<div class="controls">
+					@Html.DropDownList("ID_phong", String.Empty)
+					@Html.ValidationMessageFor(model => model.ID_phong)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.ID_cb, "PLAN_GiaoVien", new { @class = "control-label" })
+				<div class="controls">
+					@Html.DropDownList("ID_cb", String.Empty)
+					@Html.ValidationMessageFor(model => model.ID_cb)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Huy_lop, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Huy_lop, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Huy_lop)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ly_do, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ly_do, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ly_do)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Nhom_dang_ky, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Nhom_dang_ky, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Nhom_dang_ky)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Ngay_thi, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Ngay_thi, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Ngay_thi)
+			</div>
+		</div>
+        <div class="control-group">
+					@Html.LabelFor(model => model.Cho_trong, new { @class = "control-label" })
+				<div class="controls">
+					@Html.TextBoxFor(model => model.Cho_trong, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Cho_trong)
+			</div>
+		</div>
+			<div class="form-actions">
+				<button class="btn blue" type="submit">Create</button>
+				<button class="btn" type="button">Cancel</button>
+			</div>
+}
+
+			</div>
+		</div>
+	</div>
+</div>
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

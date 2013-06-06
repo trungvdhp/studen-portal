@@ -22,7 +22,7 @@
         .Filter("startswith")
         .DataTextField("Text")
         .Placeholder("Nhập từ khóa...")
-        .HtmlAttributes(new {style="width: 200px"})
+        .HtmlAttributes(new {style="width: 300px"})
         //.Template("${data.Text}")
         .DataSource(source =>
         {
@@ -78,9 +78,10 @@
     .Columns(columns => {
         columns.Bound(diem => diem.Ma_mon).Width(50);
         columns.Bound(diem => diem.Ten_mon).Width(150);
-        columns.Bound(diem => diem.X).Width(50);
-        columns.Bound(diem => diem.Y).Width(50);
-        columns.Bound(diem => diem.Z).Width(50);
+		columns.Bound(diem => diem.He_so).Width(30);
+        columns.Bound(diem => diem.X).Width(30);
+        columns.Bound(diem => diem.Y).Width(30);
+        columns.Bound(diem => diem.Z).Width(30).Format("{0:0.00}");
         columns.Bound(diem => diem.Diem_chu).Width(50);
         columns.Bound(diem => diem.Nam_hoc).Width(100).Hidden();
         columns.Bound(diem => diem.Hoc_ky).Width(50).Hidden();
