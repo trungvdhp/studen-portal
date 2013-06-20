@@ -8,9 +8,22 @@ namespace StudentPortal
 {
 	public class CustomRoleProvider : RoleProvider
 	{
+
+		DHHHContext db = new DHHHContext();
+
 		public override string[] GetRolesForUser(string username)
 		{
-			//return GlobalLib.GetActionNames();
+			var user = db.UserProfiles.First(t => t.UserName == username);
+			if (user != null)
+			{
+				var roles = db.webpages_Groups_Roles.Where(t => t.GroupId == user.GroupId).Join(db.webpages_Roles,gr=>gr.RoleId,r=>r.RoleId,(gr,r)=>new{r.RoleName}).ToList();
+				var list = new List<string>();
+				foreach (var r in roles)
+				{
+					list.Add(r.RoleName);
+				}
+				return list.ToArray();
+			}
 			string[] str=new string[]{};
 			return str;
 		}

@@ -1,0 +1,110 @@
+﻿@model StudentPortal.Models.webpages_Group
+
+@{
+    ViewBag.Title = "Edit";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row-fluid">
+	<div class="span12">
+		<!-- BEGIN SAMPLE FORM PORTLET-->
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<h4><i class="icon-reorder"></i>Edit</h4>
+				<div class="tools">
+					<a href="javascript:;" class="collapse"></a>
+					<a href="#portlet-config" data-toggle="modal" class="config"></a>
+					<a href="javascript:;" class="reload"></a>
+					<a href="javascript:;" class="remove"></a>
+				</div>
+			</div>
+			<div class="portlet-body form">
+				<!-- BEGIN FORM-->
+				@using (Html.BeginForm("Edit", "Group", FormMethod.Post, new { @class = "form-horizontal" }))
+	{
+					@Html.ValidationSummary(true)
+
+        @Html.HiddenFor(model => model.GroupId)
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.GroupName, new { @class = "control-label" })
+			<div class="controls">
+					@Html.TextBoxFor(model => model.GroupName, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.GroupName)
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label">Quyền</label>
+			<div class="controls">
+				@(Html.Kendo().Grid<StudentPortal.Models.webpages_Roles>()
+	.Name("Grid")
+	.Columns(columns =>
+	{
+			columns.Bound(c => c.RoleId)
+				.ClientTemplate("<input type='checkbox' class='chkbx' value='#= RoleId #' name='RoleIds'/>")
+				.HeaderTemplate("<input type='checkbox' id='masterCheckBox' />")
+				.Width(40)
+				.Title("")
+				.HeaderHtmlAttributes(new { style = "text-align:center" })
+				.HtmlAttributes(new { style = "text-align:center" })
+				.Filterable(false).Groupable(false).Sortable(false);
+			columns.Bound(model => model.RoleName);
+			columns.Bound(model => model.DisplayName);
+	})
+	.Groupable()
+	.Pageable()
+	.Sortable()
+	.Events(e => {
+                e.DataBound("onDataBound");
+            })
+	.DataSource(
+		dataSource => dataSource.Ajax()
+			.Read(read => read.Action("Read", "Roles"))
+	)
+)
+			</div>
+		</div>
+        <div class="form-actions">
+				<button class="btn blue" type="submit">Save</button>
+				@Html.ActionLink("Cancel", "Index",new{},new { @class = "btn" })
+			</div>
+}
+
+		</div>
+		</div>
+	</div>
+</div>
+<script>
+
+	var selectedVals = @Html.Raw(Json.Encode(ViewBag.selectedVals))
+	// on data bound, check checkboxes
+	function onDataBound(e) {
+		checkCells(selectedVals, '#masterCheckBox', '#Grid :checkbox');
+		resizeGrid("#Grid");
+	}
+	// on click checkbox cell in a row
+	$(function () {
+		$('#Grid').on('click', '.chkbx', function () {
+			var state = $(this).is(':checked');
+			var grid = $('#Grid').data().kendoGrid;
+			var dataItem = grid.dataItem($(this).closest('tr'));
+
+			checkVal(dataItem.RoleId, state, selectedVals);
+			$('#masterCheckBox').attr('checked', isCheckedAll('#Grid :checkbox'));
+		})
+	})
+
+	$('#masterCheckBox').click(function () { checkAll(this, '#Grid :checkbox'); })
+
+	function gridRefresh() {
+		$("#Grid").data("kendoGrid").dataSource.read();
+	}
+</script>
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

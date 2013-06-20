@@ -8,15 +8,6 @@ using System.Web.Security;
 
 namespace StudentPortal.Models
 {
-    public class UsersContext : DbContext
-    {
-        public UsersContext()
-            : base("DHHHConnection")
-        {
-        }
-
-        public DbSet<UserProfile> UserProfiles { get; set; }
-    }
 
     [Table("UserProfile")]
     public class UserProfile
@@ -25,7 +16,49 @@ namespace StudentPortal.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+
+		[ForeignKey("webpages_Group")]
+		public int GroupId { get; set; }
+
+		public virtual webpages_Group webpages_Group { get; set; }
     }
+
+	[Table("webpages_Group")]
+	public class webpages_Group
+	{
+		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+		public int GroupId { get; set; }
+
+		[Display(Name="Tên nhóm")]
+		public string GroupName { get; set; }
+
+	}
+
+	[Table("webpages_Roles")]
+	public class webpages_Roles
+	{
+		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+		public int RoleId { get; set; }
+
+		public string RoleName{get;set;}
+
+		public string DisplayName { get; set; }
+	}
+
+
+	[Table("webpages_Groups_Roles")]
+	public class webpages_Groups_Roles
+	{
+		[Key]
+		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; }
+
+		public int GroupId { get; set; }
+
+		public int RoleId { get; set; }
+	}
 
     public class RegisterExternalLoginModel
     {
