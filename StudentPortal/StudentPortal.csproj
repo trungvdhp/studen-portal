@@ -184,6 +184,7 @@
     <Compile Include="Areas\Admin\Controllers\DoiTuongHocBongController.cs" />
     <Compile Include="Areas\Admin\Controllers\DoiTuongHocBongGiayToController.cs" />
     <Compile Include="Areas\Admin\Controllers\GiaoVienController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GroupController.cs" />
     <Compile Include="Areas\Admin\Controllers\HanhViController.cs" />
     <Compile Include="Areas\Admin\Controllers\HeChuyenNganhController.cs" />
     <Compile Include="Areas\Admin\Controllers\HeController.cs" />
@@ -217,6 +218,8 @@
     <Compile Include="Areas\Admin\Controllers\PhuongController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuocTichController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuyHocBongController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\ACC_BienLaiThu.cs" />
     <Compile Include="Areas\Admin\Models\ACC_BienLaiThuChiTiet.cs" />
     <Compile Include="Areas\Admin\Models\ACC_BienLaiThuChiTietCopy.cs" />
@@ -450,6 +453,7 @@
     </Compile>
     <Compile Include="Lib\ChuongTrinhDaoTao.cs" />
     <Compile Include="Lib\GiaoVien.cs" />
+    <Compile Include="Lib\GlobalLib.cs" />
     <Compile Include="Lib\NguoiDung.cs" />
     <Compile Include="Lib\SinhVien.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -794,6 +798,7 @@
     <Content Include="Content\themes\assets\font-awesome\font\fontawesome-webfont_162a16fe.eot" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\Shared\_PageHeader.cshtml" />
+    <Content Include="Newtonsoft.Json.dll" />
     <Content Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -1160,6 +1165,21 @@
     <Content Include="Areas\Admin\Views\LopTinChi\Create.cshtml" />
     <Content Include="Areas\Admin\Views\LopTinChi\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\LopTinChi\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Delete.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jqGrid\Changes.txt" />
     <Content Include="Scripts\jqGrid\i18n\grid.locale-en.js" />

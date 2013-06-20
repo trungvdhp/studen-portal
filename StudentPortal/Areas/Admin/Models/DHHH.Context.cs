@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using StudentPortal.Models;
 
 namespace StudentPortal
 {
@@ -18,7 +19,7 @@ namespace StudentPortal
 	public partial class DHHHContext : DbContext
 	{
 		public DHHHContext()
-			: base("name=DefaultConnection")
+			: base("name=DHHHConnection")
 		{
 		}
 
@@ -157,7 +158,7 @@ namespace StudentPortal
 		//public DbSet<PLAN_LopTinChiGanLopHanhChinh_TC> PLAN_LopTinChiGanLopHanhChinh_TC { get; set; }
 		//public DbSet<PLAN_MONDANGKY_HOCSOM> PLAN_MONDANGKY_HOCSOM { get; set; }
 		//public DbSet<PLAN_MonDangKy_TC> PLAN_MonDangKy_TC { get; set; }
-		//public DbSet<PLAN_MonTinChi_TC> PLAN_MonTinChi_TC { get; set; }
+		public DbSet<PLAN_MonTinChi_TC> PLAN_MonTinChi_TC { get; set; }
 		//public DbSet<PLAN_MonHocNhomHocPhan> PLAN_MonHocNhomHocPhan { get; set; }
 		//public DbSet<PLAN_PhamViDangKy_TC> PLAN_PhamViDangKy_TC { get; set; }
 		//public DbSet<PLAN_PhamViDangKyHocPhan_TC> PLAN_PhamViDangKyHocPhan_TC { get; set; }
@@ -248,6 +249,9 @@ namespace StudentPortal
 		//public DbSet<STU_XetHocBong> STU_XetHocBong { get; set; }
 		public DbSet<STU_XuLy> STU_XuLy { get; set; }
 
-		public DbSet<PLAN_MonTinChi_TC> PLAN_MonTinChi_TC { get; set; }
+		public DbSet<UserProfile> UserProfiles { get; set; }
+		public DbSet<webpages_Group> webpages_Group { get; set; }
+		public DbSet<webpages_Roles> webpages_Roles { get; set; }
+		public DbSet<webpages_Groups_Roles> webpages_Groups_Roles { get; set; }
 	}
 }
