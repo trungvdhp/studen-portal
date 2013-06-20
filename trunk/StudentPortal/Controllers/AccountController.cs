@@ -53,7 +53,7 @@ namespace StudentPortal.Controllers
 				{
 					if (GiaoVien.Exist(model.UserName) || SinhVien.Exits(model.UserName))
 					{
-						WebSecurity.CreateUserAndAccount(model.UserName, model.UserName);
+						WebSecurity.CreateUserAndAccount(model.UserName, model.UserName, new { GroupId = 3});
 						WebSecurity.Login(model.UserName, model.Password);
 						return RedirectToAction("Index", "Home");
 					}
