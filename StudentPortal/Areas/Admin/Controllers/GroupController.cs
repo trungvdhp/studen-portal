@@ -68,11 +68,10 @@ namespace StudentPortal.Areas.Admin.Controllers
             {
                 db.webpages_Group.Add(webpages_group);
 				db.SaveChanges();
-				var RoleIds = Request.Form["RoleIds"].Split(new string[] { "," }, StringSplitOptions.None);
-				if (RoleIds != null)
+				var buf = Request.Form["RoleIds"];
+				if (buf != null)
 				{
-					//var oldRole = db.webpages_Groups_Roles.Where(t => t.GroupId == webpages_group.GroupId).ToList();
-					//foreach (var r in oldRole) db.webpages_Groups_Roles.Remove(r);
+					var RoleIds = buf.Split(new string[] { "," }, StringSplitOptions.None);
 
 					foreach (var roleId in RoleIds)
 					{
@@ -119,9 +118,10 @@ namespace StudentPortal.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-				var RoleIds = Request.Form["RoleIds"].Split(new string[] { "," }, StringSplitOptions.None);
-				if (RoleIds != null)
+				var buf = Request.Form["RoleIds"];
+				if (buf != null)
 				{
+					var RoleIds = buf.Split(new string[] { "," }, StringSplitOptions.None);
 					var oldRole = db.webpages_Groups_Roles.Where(t => t.GroupId == webpages_group.GroupId).ToList();
 					foreach (var r in oldRole) db.webpages_Groups_Roles.Remove(r);
 
@@ -158,7 +158,7 @@ namespace StudentPortal.Areas.Admin.Controllers
         //
         // POST: /Admin/Group/Delete/5
 
-        [HttpPost, ActionName("Delete")]
+        //[HttpPost, ActionName("Delete")]
         //[Authorize(Roles="Group.DeleteConfirmed")]
         public ActionResult DeleteConfirmed(int id)
         {
