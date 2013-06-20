@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using StudentPortal.Lib;
+using StudentPortal.Models;
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
