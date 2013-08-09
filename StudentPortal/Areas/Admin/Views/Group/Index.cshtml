@@ -11,7 +11,8 @@
 		<h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @*@Html.ActionLink("Create New", "Create")*@
+	<a href="@Url.Action("Create")" class="btn green" title="">Create New</a>
 </p>
 @(Html.Kendo().Grid<StudentPortal.Models.webpages_Group>()
 	.Name("webpages_Group")

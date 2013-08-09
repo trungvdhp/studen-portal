@@ -18,6 +18,7 @@ namespace StudentPortal.Controllers
 
 
 		#region TuKhoa
+		[Authorize(Roles="TraCuu.TuKhoa")]
 		public ActionResult TuKhoa(string TuKhoa)
 		{
 			DHHHContext db = new DHHHContext();
@@ -46,11 +47,13 @@ namespace StudentPortal.Controllers
 
 		#region Diem
 
+		[Authorize(Roles = "TraCuu.Diem")]
 		public ActionResult Diem()
 		{
 			return View();
 		}
 
+		[Authorize(Roles = "TraCuu.NamHoc")]
 		public ActionResult NamHoc(string TuKhoa)
 		{
 			int ID_sv = SinhVien.GetIdSv(TuKhoa);
@@ -67,6 +70,7 @@ namespace StudentPortal.Controllers
 			return result;
 		}
 
+		[Authorize(Roles = "TraCuu.HocKy")]
 		public ActionResult HocKy(string TuKhoa, string NamHoc)
 		{
 			int ID_sv = SinhVien.GetIdSv(TuKhoa);
@@ -83,6 +87,7 @@ namespace StudentPortal.Controllers
 			return result;
 		}
 
+		[Authorize(Roles = "TraCuu.DiemHocTap")]
 		public ActionResult DiemHocTap([DataSourceRequest] DataSourceRequest request, string TuKhoa, string NamHoc, string HocKy)
 		{
 			int ID_sv = SinhVien.GetIdSv(TuKhoa);
@@ -99,11 +104,13 @@ namespace StudentPortal.Controllers
 
 		#region Thu chi
 
+		[Authorize(Roles = "TraCuu.ThuChi")]
 		public ActionResult ThuChi()
 		{
 			return View();
 		}
 
+		[Authorize(Roles = "TraCuu.NamThu")]
 		public ActionResult NamThu(string TuKhoa)
 		{
 			int ID_sv = SinhVien.GetIdSv(TuKhoa);
@@ -119,6 +126,7 @@ namespace StudentPortal.Controllers
 			return result;
 		}
 
+		[Authorize(Roles = "TraCuu.KyThu")]
 		public ActionResult KyThu(string TuKhoa, string NamHoc)
 		{
 			int ID_sv = SinhVien.GetIdSv(TuKhoa);
@@ -134,6 +142,8 @@ namespace StudentPortal.Controllers
 			result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
 			return result;
 		}
+
+		[Authorize(Roles = "TraCuu.DotThu")]
 		public ActionResult DotThu(string TuKhoa, string NamHoc, string HocKy)
 		{
 			int ID_sv = SinhVien.GetIdSv(TuKhoa);
@@ -154,6 +164,7 @@ namespace StudentPortal.Controllers
 			return result;
 		}
 
+		[Authorize(Roles = "TraCuu.LanThu")]
 		public ActionResult LanThu(string TuKhoa, string NamHoc, String HocKy, string DotThu)
 		{
 			int ID_sv = SinhVien.GetIdSv(TuKhoa);
@@ -179,6 +190,7 @@ namespace StudentPortal.Controllers
 			return result;
 		}
 
+		[Authorize(Roles = "TraCuu.BienLaiThu")]
 		public ActionResult BienLaiThu([DataSourceRequest] DataSourceRequest request, string TuKhoa, string NamHoc, String HocKy, String DotThu, string LanThu)
 		{
 			int ID_sv = SinhVien.GetIdSv(TuKhoa);
