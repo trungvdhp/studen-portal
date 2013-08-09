@@ -136,7 +136,18 @@ namespace StudentPortal.Areas.Admin.Controllers
 				}
                 db.Entry(webpages_group).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+				return new JsonResult()
+				{
+					JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+					Data = new AjaxResult()
+					{
+						Status = AjaxStatus.SUCCESS,
+						Data = new { 
+							Redirect = Url.Action("Index"),
+						},
+						Message = "Lưu nhóm thành công!"
+					}
+				};
             }
             return View(webpages_group);
         }

@@ -38,7 +38,7 @@ namespace StudentPortal.Areas.Admin.Controllers
 					db.webpages_Roles.Add(r);
 				}
 			}
-
+			db.SaveChanges();
 			return new JsonResult()
 			{
 				Data = new AjaxResult()

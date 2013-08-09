@@ -22,39 +22,37 @@
 				</li>
 				<li class="has-sub">
 					<a href="javascript:;" class="">
-					<i class="icon-bookmark-empty"></i> UI Features
+					<i class="icon-bookmark-empty"></i> Tra cứu
 					<span class="arrow"></span>
 					</a>
 					<ul class="sub">
-						<li><a class="" href="ui_general.html">General</a></li>
-						<li><a class="" href="ui_buttons.html">Buttons</a></li>
-						<li><a class="" href="ui_tabs_accordions.html">Tabs & Accordions</a></li>
-						<li><a class="" href="ui_typography.html">Typography</a></li>
+						<li><a class="" href="@Url.Action("Diem", "TraCuu")">Điểm</a></li>
+						<li><a class="" href="@Url.Action("ThuChi","TraCuu")">Thu chi</a></li>
 					</ul>
 				</li>
 				<li class="has-sub">
 					<a href="javascript:;" class="">
-					<i class="icon-table"></i> Form Stuff
+					<i class="icon-table"></i> Quản lý đăng ký học
 					<span class="arrow"></span>
 					</a>
 					<ul class="sub">
-						<li><a class="" href="form_layout.html">Form Layouts</a></li>
-						<li><a class="" href="form_component.html">Form Components</a></li>
-						<li><a class="" href="form_wizard.html">Form Wizard</a></li>
-						<li><a class="" href="form_validation.html">Form Validation</a></li>
+						<li><a class="" href="@Url.Action("Index","MonTinChi", new { Area = "Admin" })">Môn tín chỉ</a></li>
+						<li><a class="" href="form_component.html">Lớp tín chỉ</a></li>
+						<li><a class="" href="form_wizard.html">Danh sách đăng ký</a></li>
 					</ul>
 				</li>
 				<li class="has-sub">
 					<a href="javascript:;" class="">
-					<i class="icon-th-list"></i> Data Tables
+					<i class="icon-th-list"></i> Hệ thống
 					<span class="arrow"></span>
 					</a>
 					<ul class="sub">
-						<li><a class="" href="table_basic.html">Basic Tables</a></li>
-						<li><a class="" href="table_managed.html">Managed Tables</a></li>
+						<li><a class="" href="@Url.Action("Index","Roles", new { Area = "Admin" })">Quyền</a></li>
+						<li><a class="" href="@Url.Action("Index","Group", new { Area = "Admin" })">Nhóm</a></li>
+						<li><a class="" href="@Url.Action("Index","User", new { Area = "Admin" })">Người dùng</a></li>
 					</ul>
 				</li>
-				<li><a class="" href="grids.html"><i class="icon-th"></i> Grids & Portlets</a></li>
+				@*<li><a class="" href="grids.html"><i class="icon-th"></i> Grids & Portlets</a></li>
 				<li class="has-sub">
 					<a href="javascript:;" class="">
 					<i class="icon-map-marker"></i> Maps
@@ -80,7 +78,7 @@
 						<li><a class="" href="extra_blank.html">Blank Page</a></li>
 					</ul>
 				</li>
-				<li><a class="" href="login.html"><i class="icon-user"></i> Login Page</a></li>
+				<li><a class="" href="login.html"><i class="icon-user"></i> Login Page</a></li>*@
 			</ul>
 			<!-- END SIDEBAR MENU -->
 		</div>

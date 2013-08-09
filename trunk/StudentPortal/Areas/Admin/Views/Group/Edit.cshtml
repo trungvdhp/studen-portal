@@ -20,7 +20,7 @@
 			</div>
 			<div class="portlet-body form">
 				<!-- BEGIN FORM-->
-				@using (Html.BeginForm("Edit", "Group", FormMethod.Post, new { @class = "form-horizontal" }))
+				@using (Html.BeginForm("Edit", "Group", FormMethod.Post, new { @class = "form-horizontal", id="groupForm" }))
 	{
 					@Html.ValidationSummary(true)
 
@@ -33,7 +33,7 @@
 					@Html.ValidationMessageFor(model => model.GroupName)
 			</div>
 		</div>
-		
+		<input type="hidden" name="RoleIds" />
 		<div class="control-group">
 			<label class="control-label">Quyền</label>
 			<div class="controls">
@@ -42,7 +42,7 @@
 	.Columns(columns =>
 	{
 			columns.Bound(c => c.RoleId)
-				.ClientTemplate("<input type='checkbox' class='chkbx' value='#= RoleId #' name='RoleIds'/>")
+				.ClientTemplate("<input type='checkbox' class='chkbx' value='#= RoleId #'/>")
 				.HeaderTemplate("<input type='checkbox' id='masterCheckBox' />")
 				.Width(40)
 				.Title("")
@@ -78,6 +78,24 @@
 <script>
 
 	var selectedVals = @Html.Raw(Json.Encode(ViewBag.selectedVals))
+
+		$(document).ready(function () {
+			$('#groupForm').submit(function () {
+				$(this).find('[name="RoleIds"]').val(selectedVals);
+				$.ajax({
+					url: '@Url.Action("Edit")',
+					type: 'post',
+					dataType: 'json',
+					data: $(this).serialize(),
+					success: function (o) {
+						alert(o.Message);
+						if (o.Status == 1)
+							location.href = o.Data.Redirect;
+					}
+				});
+				return false;
+			});
+		})
 	// on data bound, check checkboxes
 	function onDataBound(e) {
 		checkCells(selectedVals, '#masterCheckBox', '#Grid :checkbox');
