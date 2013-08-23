@@ -7,8 +7,6 @@ namespace StudentPortal.Lib
 {
 	public class GiaoVien
 	{
-		
-		
 		public static bool Exist(string Ma_cb)
 		{
 			DHHHContext db = new DHHHContext();

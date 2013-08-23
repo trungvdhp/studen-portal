@@ -454,7 +454,7 @@
     <Compile Include="Lib\ChuongTrinhDaoTao.cs" />
     <Compile Include="Lib\GiaoVien.cs" />
     <Compile Include="Lib\GlobalLib.cs" />
-    <Compile Include="Lib\NguoiDung.cs" />
+    <Compile Include="Lib\User.cs" />
     <Compile Include="Lib\SinhVien.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -472,6 +472,7 @@
     <Compile Include="ViewModels\BienLaiThu.cs" />
     <Compile Include="ViewModels\DiemHocTap.cs" />
     <Compile Include="ViewModels\MonHoc.cs" />
+    <Compile Include="ViewModels\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\kendo\2012.3.1114\Black\editor.png" />
@@ -1318,9 +1319,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared_\Error.cshtml" />
-    <Content Include="Views\Shared_\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared_\_Layout.cshtml" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1338,6 +1336,7 @@
     <Content Include="Views\TraCuu\Diem.cshtml" />
     <Content Include="Views\TraCuu\ThuChi.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\DangKyHocPhan\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

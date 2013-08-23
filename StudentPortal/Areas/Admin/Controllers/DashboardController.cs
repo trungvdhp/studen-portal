@@ -10,7 +10,7 @@ namespace StudentPortal.Areas.Admin.Controllers
     {
         //
         // GET: /Admin/Dashboard/
-
+        //[Authorize(Roles="Dashboard.Index")]
         public ActionResult Index()
         {
             return View();

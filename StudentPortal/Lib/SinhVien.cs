@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using StudentPortal.ViewModels;
+using StudentPortal.Models;
 using System.Text.RegularExpressions;
 
 namespace StudentPortal.Lib
 {
 	public class SinhVien
-	{
-		public static STU_HoSoSinhVien Info = new STU_HoSoSinhVien();
-
-		static Dictionary<string, float> DiemHe4 = new Dictionary<string, float>() { 
+    {
+        #region Const diem
+        static Dictionary<string, float> DiemHe4 = new Dictionary<string, float>() { 
 			{"A",4},
 			{"A+",4},
 			{"B",3},
@@ -23,7 +23,8 @@ namespace StudentPortal.Lib
 			{"F",0},
 			{"",0},
 		};
-		public static int GetIdSv(String TuKhoa)
+        #endregion
+        public static int GetIdSv(String TuKhoa)
 		{
 			DHHHContext db = new DHHHContext();
 			TuKhoa = TuKhoa.Replace("  ", " ").Trim();
@@ -161,5 +162,12 @@ namespace StudentPortal.Lib
 			DHHHContext db = new DHHHContext();
 			return db.STU_HoSoSinhVien.Where(t => t.Ma_sv == Ma_sv).Count() == 1;
 		}
-	}
+
+        public static STU_DanhSach getSinhVien(UserProfile profile)
+        {
+            DHHHContext db = new DHHHContext();
+            var sinhVien = db.STU_DanhSach.Single(t => t.STU_HoSoSinhVien.Ma_sv == profile.UserName);
+            return sinhVien;
+        }
+    }
 }
