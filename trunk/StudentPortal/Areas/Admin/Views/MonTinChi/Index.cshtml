@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<StudentPortal.PLAN_MonTinChi_TC>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Môn tín chỉ";
 	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -26,18 +26,21 @@
 		});
 	})
 )
-@(Html.Kendo().DropDownList()
-	.Name("IDKhoa")
-	.OptionLabel("Chọn khoa")
-	.DataTextField("Text")
-	.DataValueField("Value")
-	.HtmlAttributes(new {style="width:300px;"})
-	.DataSource(source=> {
-		source.Read(read =>
-		{
-			read.Action("getKhoa", "MonTinChi");
-		});
-	})
+ @(Html.Kendo().DropDownList()
+    .Name("IDKhoa")
+    .OptionLabel("Chọn khoa")
+    .DataTextField("Text")
+    .DataValueField("Value")
+    .HtmlAttributes(new { style = "width:300px;" })
+    .DataSource(source =>
+    {
+        source.Read(read =>
+        {
+            read.Action("getKhoa", "MonTinChi").Data("getHeFilter");
+        }).ServerFiltering(true);
+    })
+    .AutoBind(false)
+    .CascadeFrom("IDHe")
 )
 @(Html.Kendo().Grid<StudentPortal.PLAN_MonTinChi_TC>()
 	.Name("PLAN_MonTinChi_TC")
@@ -71,6 +74,15 @@
 	</div>
 </div>
 <script type="text/javascript">
+    function getHeFilter() {
+        var idHe = 0;
+        if (!isNaN($("#IDHe").val())) {
+            idHe = $("#IDHe").val();
+        }
+        return {
+            ID_he: idHe
+        }
+    }
 	function getFilter() {
 		return {
 			IDHe: $('#IDHe').val(),

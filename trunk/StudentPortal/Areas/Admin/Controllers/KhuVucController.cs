@@ -11,7 +11,7 @@ using Kendo.Mvc.Extensions;
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
-    public class KhuVucController : BasicController
+    public class KhuVucController : BaseController
     {
         private DHHHContext db = new DHHHContext();
 

@@ -20,5 +20,47 @@ namespace StudentPortal.Lib
 			foreach (int i in temp) if (!result.Contains(i)) result.Add(i);
 			return result;
 		}
+
+        public static List<STU_Khoa> getKhoa(int ID_he)
+        {
+            DHHHContext db = new DHHHContext();
+            var chuongTrinhDaoTao = db.PLAN_ChuongTrinhDaoTao.ToList();
+            if (ID_he != 0)
+            {
+                chuongTrinhDaoTao = db.PLAN_ChuongTrinhDaoTao.Where(t => t.ID_he == ID_he).ToList();
+            }
+            return chuongTrinhDaoTao.Select(t => t.STU_Khoa).Distinct().ToList();
+        }
+
+        public static List<int> getKhoaHoc(int ID_he, int ID_khoa)
+        {
+            DHHHContext db = new DHHHContext();
+            var chuongTrinhDaoTao = db.PLAN_ChuongTrinhDaoTao.ToList();
+            if (ID_he != 0)
+                chuongTrinhDaoTao = chuongTrinhDaoTao.Where(t => t.ID_he == ID_he).ToList();
+            if (ID_khoa != 0)
+                chuongTrinhDaoTao = chuongTrinhDaoTao.Where(t => t.ID_khoa == ID_khoa).ToList();
+            return chuongTrinhDaoTao.Select(t => t.Khoa_hoc).Distinct().ToList();
+        }
+
+        public static List<PLAN_ChuongTrinhDaoTao> getNganh(int ID_he, int ID_khoa, int Khoa_hoc)
+        {
+            DHHHContext db = new DHHHContext();
+            var chuongTrinhDaoTao = db.PLAN_ChuongTrinhDaoTao.ToList();
+            if (ID_he != 0)
+                chuongTrinhDaoTao = chuongTrinhDaoTao.Where(t => t.ID_he == ID_he).ToList();
+            if (ID_khoa != 0)
+                chuongTrinhDaoTao = chuongTrinhDaoTao.Where(t => t.ID_khoa == ID_khoa).ToList();
+            if (Khoa_hoc != 0)
+                chuongTrinhDaoTao = chuongTrinhDaoTao.Where(t => t.Khoa_hoc == Khoa_hoc).ToList();
+            return chuongTrinhDaoTao.ToList();
+        }
+
+        public static List<MARK_MonHoc> getMonHoc(int ID_dt)
+        {
+            DHHHContext db = new DHHHContext();
+            var monHoc = db.PLAN_ChuongTrinhDaoTaoChiTiet.Where(t => t.ID_dt == ID_dt).Select(t => t.MARK_MonHoc).ToList();
+            return monHoc;
+        }
 	}
 }

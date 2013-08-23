@@ -12,7 +12,7 @@ using StudentPortal.Lib;
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
-    public class MonTinChiController : BasicController
+    public class MonTinChiController : BaseController
     {
         private DHHHContext db = new DHHHContext();
 
@@ -25,17 +25,6 @@ namespace StudentPortal.Areas.Admin.Controllers
 			return View();
         }
 
-		//
-        // GET: /Admin/MonTinChi//Read
-
-		public ActionResult getKhoa()
-		{
-			JsonResult result = new JsonResult();
-			result.Data = new SelectList(db.STU_Khoa.ToList(), "ID_khoa", "Ten_khoa");
-			result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-			return result;
-		}
-
 		public ActionResult getHe()
 		{
 			JsonResult result = new JsonResult();
@@ -44,6 +33,16 @@ namespace StudentPortal.Areas.Admin.Controllers
 			return result;
 		}
 
+        public ActionResult getKhoa(int ID_he)
+        {
+            JsonResult result = new JsonResult();
+            result.Data = new SelectList(ChuongTrinhDaoTao.getKhoa(ID_he), "ID_khoa", "Ten_khoa");
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+        
+        //
+        // GET: /Admin/MonTinChi//Read
         //[Authorize(Roles="MonTinChi.Read")]
         public ActionResult Read([DataSourceRequest] DataSourceRequest request,string IDHe,string IDKhoa,string KyThu)
         {

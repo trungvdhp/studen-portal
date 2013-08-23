@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Đăng ký học phần";
+}
+<div class="row-fluid">
+    <div class="span12">
+
+        <h2>Đăng ký học phần</h2>
+
+        @(Html.Kendo().DropDownList()
+    .Name("KhoaHoc")
+    .OptionLabel("Chọn khóa")
+    .DataTextField("Text")
+    .DataValueField("Text")
+    .HtmlAttributes(new { style = "width:300px;" })
+    .DataSource(source =>
+    {
+        source.Read(read =>
+        {
+            read.Action("getKhoaHoc", "DangKyHocPhan");
+        });
+    })
+)
+
+        @(Html.Kendo().DropDownList()
+    .Name("IDDt")
+    .OptionLabel("Chọn ngành")
+    .DataTextField("Text")
+    .DataValueField("Value")
+    .HtmlAttributes(new { style = "width:300px;" })
+    .DataSource(source =>
+    {
+        source.Read(read =>
+        {
+            read.Action("getNganh", "DangKyHocPhan").Data("getFilter");
+        })
+        .ServerFiltering(true);
+    })
+    .AutoBind(false)
+    .CascadeFrom("KhoaHoc")
+)
+
+         @(Html.Kendo().DropDownList()
+    .Name("IDMon")
+    .OptionLabel("Chọn môn")
+    .DataTextField("Text")
+    .DataValueField("Value")
+    .HtmlAttributes(new { style = "width:300px;" })
+    .DataSource(source =>
+    {
+        source.Read(read =>
+        {
+            read.Action("getMonHoc", "DangKyHocPhan").Data("getFilter");
+        })
+        .ServerFiltering(true);
+    })
+    .AutoBind(false)
+    .CascadeFrom("IDDt")
+)
+
+    </div>
+</div>
+<script>
+    function getFilter() {
+        var result = {
+            Khoa_hoc: 0,
+            ID_dt: 0
+        };
+
+        if (!isNaN($("#KhoaHoc").val())) result.Khoa_hoc = $("#KhoaHoc").val();
+        if (!isNaN($("#IDDt").val())) result.ID_dt = $("#IDDt").val();
+        return result;
+    }
+</script>

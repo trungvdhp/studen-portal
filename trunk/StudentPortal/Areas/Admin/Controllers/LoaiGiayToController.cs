@@ -11,7 +11,7 @@ using Kendo.Mvc.Extensions;
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
-    public class LoaiGiayToController : BasicController
+    public class LoaiGiayToController : BaseController
     {
         private DHHHContext db = new DHHHContext();
 

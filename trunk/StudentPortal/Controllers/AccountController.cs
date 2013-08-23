@@ -16,7 +16,7 @@ namespace StudentPortal.Controllers
 {
 	[Authorize]
 	[InitializeSimpleMembership]
-	public class AccountController : Controller
+	public class AccountController : BaseController
 	{
 
 		DHHHContext db = new DHHHContext();
@@ -45,7 +45,6 @@ namespace StudentPortal.Controllers
 				{
 					if (WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
 					{
-						SinhVien.Info = db.STU_HoSoSinhVien.FirstOrDefault(t => t.Ma_sv == model.UserName);
 						return RedirectToLocal(returnUrl);
 					}
 				}

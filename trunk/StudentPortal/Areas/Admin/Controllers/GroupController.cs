@@ -12,7 +12,7 @@ using StudentPortal.Models;
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
-    public class GroupController : BasicController
+    public class GroupController : BaseController
     {
         private DHHHContext db = new DHHHContext();
 
