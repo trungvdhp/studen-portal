@@ -51,10 +51,23 @@ namespace StudentPortal
 		
 		[Display(Name = "Đã xếp lịch")]
         public bool Da_xep_lich { get; set; }
+
+        [Display(Name = "Từ ngày")]
+        public DateTime Tu_ngay { get; set; }
+
+        [Display(Name = "Đến ngày")]
+        public DateTime Den_ngay { get; set; }
+
+        [Display(Name = "Kỳ đăng ký")]
+        [ForeignKey("PLAN_HocKyDangKy_TC")]
+        public int Ky_dang_ky { get; set; }
+
     
         public virtual PLAN_LopTinChi_TC PLAN_LopTinChi_TC { get; set; }
 		
 		public virtual PLAN_PhongHoc PLAN_PhongHoc { get; set; }
+
+        public virtual PLAN_HocKyDangKy_TC PLAN_HocKyDangKy_TC { get; set; }
 		
 		public virtual PLAN_GiaoVien PLAN_GiaoVien { get; set; }
     }

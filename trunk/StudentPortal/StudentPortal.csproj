@@ -452,6 +452,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Lib\ChuongTrinhDaoTao.cs" />
+    <Compile Include="Lib\DangKyHocPhan.cs" />
     <Compile Include="Lib\GiaoVien.cs" />
     <Compile Include="Lib\GlobalLib.cs" />
     <Compile Include="Lib\User.cs" />

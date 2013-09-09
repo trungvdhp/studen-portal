@@ -162,12 +162,33 @@ namespace StudentPortal.Lib
 			DHHHContext db = new DHHHContext();
 			return db.STU_HoSoSinhVien.Where(t => t.Ma_sv == Ma_sv).Count() == 1;
 		}
-
-        public static STU_DanhSach getSinhVien(UserProfile profile)
+        public static STU_DanhSach GetSinhVien(UserProfile profile)
         {
             DHHHContext db = new DHHHContext();
             var sinhVien = db.STU_DanhSach.Single(t => t.STU_HoSoSinhVien.Ma_sv == profile.UserName);
             return sinhVien;
+        }
+
+        public static List<DiemHocTap> GetBangDiem(int ID_sv)
+        {
+            var diems = GetDiemHocTap(ID_sv);
+            //var bangdiem = new List<DiemHocTap>();
+            Dictionary<int, DiemHocTap> bangdiem = new Dictionary<int, DiemHocTap>();
+            foreach (var diem in diems)
+            {
+                if (!bangdiem.ContainsKey(diem.ID_mon))
+                    bangdiem[diem.ID_mon] = diem;
+                else if (diem.Z > bangdiem[diem.ID_mon].Z)
+                    bangdiem[diem.ID_mon] = diem;
+            }
+            return bangdiem.Values.ToList();
+        }
+
+        
+
+        public static void GetHocKyHienTai(STU_DanhSach sinhVien)
+        {
+
         }
     }
 }
