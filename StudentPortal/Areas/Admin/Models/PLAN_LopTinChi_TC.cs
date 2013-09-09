@@ -14,7 +14,7 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    [Table("PLAN_LopTinChi")]
+    [Table("PLAN_LopTinChi_TC")]
     public partial class PLAN_LopTinChi_TC
     {
         //public PLAN_LopTinChi_TC()

@@ -165,14 +165,14 @@ namespace StudentPortal
 		public DbSet<PLAN_PhongHoc> PLAN_PhongHoc { get; set; }
 		//public DbSet<PLAN_PhamViDangKyLop_TC> PLAN_PhamViDangKyLop_TC { get; set; }
 		//public DbSet<PLAN_PLAN_KhungThoiGian_TC> PLAN_PLAN_KhungThoiGian_TC { get; set; }
-		//public DbSet<PLAN_QUYDINH_DANGKY> PLAN_QUYDINH_DANGKY { get; set; }
+        public DbSet<PLAN_QUYDINH_DANGKY> PLAN_QUYDINH_DANGKY { get; set; }
 		//public DbSet<PLAN_QUYDINH_HOCSOM> PLAN_QUYDINH_HOCSOM { get; set; }
 		//public DbSet<PLAN_QuyDinhSoTinChi_TC> PLAN_QuyDinhSoTinChi_TC { get; set; }
 		//public DbSet<PLAN_QuyDinhSoTinChiSom_TC> PLAN_QuyDinhSoTinChiSom_TC { get; set; }
 		//public DbSet<PLAN_SuKienKhacGiaoVienTinChi_TC> PLAN_SuKienKhacGiaoVienTinChi_TC { get; set; }
 		//public DbSet<PLAN_SuKienKhacLopTinChi_TC> PLAN_SuKienKhacLopTinChi_TC { get; set; }
 		//public DbSet<PLAN_SuKienKhacPhongTinChi_TC> PLAN_SuKienKhacPhongTinChi_TC { get; set; }
-		//public DbSet<PLAN_SukiensTinChi_TC> PLAN_SukiensTinChi_TC { get; set; }
+        public DbSet<PLAN_SukiensTinChi_TC> PLAN_SukiensTinChi_TC { get; set; }
 		public DbSet<PLAN_TANG> PLAN_TANG { get; set; }
 		//public DbSet<PLAN_ThoiGianTinChi> PLAN_ThoiGianTinChi { get; set; }
 		//public DbSet<PLAN_ThoiGianTinChi_TC> PLAN_ThoiGianTinChi_TC { get; set; }

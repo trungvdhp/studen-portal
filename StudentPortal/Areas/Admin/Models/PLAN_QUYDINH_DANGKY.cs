@@ -43,6 +43,11 @@ namespace StudentPortal
 		[Display(Name = "ID Chuyên ngành")]
 		[ForeignKey("STU_ChuyenNganh")]
         public Nullable<int> ID_Chuyen_nganh { get; set; }
+
+        [ForeignKey("PLAN_HocKyDangKy_TC")]
+        public int Ky_dang_ky { get; set; }
+
+        public int Khoa_hoc { get; set; }
 		
 		[Display(Name = "Type")]
         public Nullable<int> Type { get; set; }
@@ -50,5 +55,7 @@ namespace StudentPortal
 		public virtual STU_He STU_He { get; set; }
 		
 		public virtual STU_ChuyenNganh STU_ChuyenNganh { get; set; }
+
+        public virtual PLAN_HocKyDangKy_TC PLAN_HocKyDangKy_TC { get; set; }
     }
 }
