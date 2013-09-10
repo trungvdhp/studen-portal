@@ -35,7 +35,6 @@ namespace StudentPortal
 		[Display(Name = "Loại ràng buộc")]
         public int Loai_rang_buoc { get; set; }
 
-
         [Display(Name = "Diểm ràng buộc")]
         public float Diem_rang_buoc { get; set; }
 		

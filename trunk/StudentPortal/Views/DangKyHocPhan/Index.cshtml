@@ -1,40 +1,32 @@
 ﻿@{
     ViewBag.Title = "Đăng ký học phần";
 }
+
 <div class="row-fluid">
     <div class="span12">
-        @(Html.Kendo().DropDownList()
-    .Name("KhoaHoc")
-    .OptionLabel("Chọn khóa")
-    .DataTextField("Text")
-    .DataValueField("Text")
-    .HtmlAttributes(new { style = "width:300px;" })
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("getKhoaHoc", "DangKyHocPhan");
-        });
-    })
-)
 
         @(Html.Kendo().DropDownList()
-    .Name("IDDt")
-    .OptionLabel("Chọn ngành")
+    .Name("KieuDK")
+    .OptionLabel("Chọn kiểu đăng ký")
     .DataTextField("Text")
     .DataValueField("Value")
     .HtmlAttributes(new { style = "width:300px;" })
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("getNganh", "DangKyHocPhan").Data("getFilter");
-        })
-        .ServerFiltering(true);
+    .BindTo(new List<SelectListItem>(){
+        new SelectListItem(){
+            Text="Tiến độ học", 
+            Value="tien_do",
+        },
+        new SelectListItem(){
+            Text="Học cải thiện", 
+            Value="cai_thien",
+        },
+        new SelectListItem(){
+            Text="Học lại", 
+            Value="hoc_lai",
+        },
     })
-    .AutoBind(false)
-    .CascadeFrom("KhoaHoc")
 )
+    
 
          @(Html.Kendo().DropDownList()
     .Name("IDMon")
@@ -46,25 +38,47 @@
     {
         source.Read(read =>
         {
-            read.Action("getMonHoc", "DangKyHocPhan").Data("getFilter");
+            read.Action("getMonHoc", "DangKyHocPhan").Data("getFilters");
         })
         .ServerFiltering(true);
     })
     .AutoBind(false)
-    .CascadeFrom("IDDt")
+    .CascadeFrom("KieuDK")
+)
+        <button id="btnLoadLopTC" class="btn blue">Load danh sách lớp</button>
+        @(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChi>()
+    .Name("GridLopTC")
+    .Columns(columns => {
+        columns.Bound(diem => diem.Ten_lop_tc).Width(150);
+        columns.Bound(diem => diem.Ma_mon).Width(150);
+        columns.Bound(diem => diem.Dia_diem).Width(30);
+        columns.Bound(diem => diem.Si_so).Width(30);
+        columns.Bound(diem => diem.Da_dang_ky).Width(30);
+    })
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .Pageable(pager =>pager.Enabled(false))
+    .DataSource( 
+        dataSource => dataSource.Ajax()
+            .Read(read => read.Action("getLopTC","DangKyHocPhan").Data("getFilters"))
+    )
+    .HtmlAttributes(new {style = "height:400px"})
 )
 
     </div>
 </div>
 <script>
-    function getFilter() {
-        var result = {
-            Khoa_hoc: 0,
-            ID_dt: 0
-        };
-
-        if (!isNaN($("#KhoaHoc").val())) result.Khoa_hoc = $("#KhoaHoc").val();
-        if (!isNaN($("#IDDt").val())) result.ID_dt = $("#IDDt").val();
-        return result;
+    function getFilters() {
+        return {
+            KieuDK: $('#KieuDK').val(),
+            ID_mon: $('#IDMon').val(),
+        }
     }
+    $(document).ready(function () {
+        $('#btnLoadLopTC').click(function () {
+            $("#GridLopTC").data("kendoGrid").dataSource.read();
+        });
+    });
+
 </script>

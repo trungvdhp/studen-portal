@@ -36,5 +36,6 @@ namespace StudentPortal.ViewModels
 
 		[DisplayName("Năm học")]
 		public string Nam_hoc { get; set; }
+
 	}
 }
