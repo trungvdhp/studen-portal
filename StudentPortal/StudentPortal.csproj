@@ -441,6 +441,7 @@
     <Compile Include="Areas\Admin\Models\STU_XetHocBong.cs" />
     <Compile Include="Areas\Admin\Models\STU_XuLy.cs" />
     <Compile Include="Areas\Admin\Models\SYS_Module.cs" />
+    <Compile Include="Areas\Admin\Models\ViewLopTinChi.cs" />
     <Compile Include="BasicController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DangKyHocPhanController.cs" />
@@ -472,7 +473,9 @@
     <Compile Include="ViewModels\AutoCompleteData.cs" />
     <Compile Include="ViewModels\BienLaiThu.cs" />
     <Compile Include="ViewModels\DiemHocTap.cs" />
+    <Compile Include="ViewModels\LopTinChi.cs" />
     <Compile Include="ViewModels\MonHoc.cs" />
+    <Compile Include="ViewModels\SuKienTinChi.cs" />
     <Compile Include="ViewModels\User.cs" />
   </ItemGroup>
   <ItemGroup>

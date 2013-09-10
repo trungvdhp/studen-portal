@@ -11,7 +11,7 @@ namespace StudentPortal.Lib
 	public class SinhVien
     {
         #region Const diem
-        static Dictionary<string, float> DiemHe4 = new Dictionary<string, float>() { 
+        public static Dictionary<string, float> DiemHe4 = new Dictionary<string, float>() { 
 			{"A",4},
 			{"A+",4},
 			{"B",3},
@@ -65,6 +65,7 @@ namespace StudentPortal.Lib
 			foreach (var d in diem)
 			{
 				string key = d.Nam_hoc+"-"+d.Hoc_ky;
+                if (d.Diem_chu == null) d.Diem_chu = "";
 				
 				var q = db.MARK_DiemThi_TC.Where(t => t.ID_diem == d.Id_diem && t.Nam_hoc_thi == d.Nam_hoc && t.Hoc_ky_thi == d.Hoc_ky);
 				if (q.Count() > 0)
