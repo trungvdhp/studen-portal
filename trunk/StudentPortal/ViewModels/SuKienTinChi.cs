@@ -25,5 +25,8 @@ namespace StudentPortal.ViewModels
 
         [DisplayName("Số tiết/tuần")]
         public int So_tiet { get; set; }
+
+        [DisplayName("Chi tiết")]
+        public string Chi_tiet { get; set; }
     }
 }

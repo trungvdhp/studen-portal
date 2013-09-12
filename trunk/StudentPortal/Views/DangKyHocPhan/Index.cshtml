@@ -4,7 +4,24 @@
 
 <div class="row-fluid">
     <div class="span12">
-
+    <span>Chọn chuyên ngành: </span>
+         @(Html.Kendo().DropDownList()
+    .Name("ID_dt")
+    //.OptionLabel("Chọn chuyên ngành")
+    .DataTextField("Text")
+    .DataValueField("Value")
+    .HtmlAttributes(new { style = "width:300px;" })
+    .DataSource(source =>
+    {
+        source.Read(read =>
+        {
+            read.Action("getChuyenNganh", "DangKyHocPhan");
+        })
+        //.ServerFiltering(true)
+        ;
+    })
+    //.AutoBind(false)
+) <br /><br />
         @(Html.Kendo().DropDownList()
     .Name("KieuDK")
     .OptionLabel("Chọn kiểu đăng ký")
@@ -49,21 +66,69 @@
         @(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChi>()
     .Name("GridLopTC")
     .Columns(columns => {
-        columns.Bound(diem => diem.Ten_lop_tc).Width(150);
-        columns.Bound(diem => diem.Ma_mon).Width(150);
-        columns.Bound(diem => diem.Dia_diem).Width(30);
-        columns.Bound(diem => diem.Si_so).Width(30);
-        columns.Bound(diem => diem.Da_dang_ky).Width(30);
+        columns.Bound(lopTC => lopTC.Ten_lop_tc).Width(120);
+        columns.Bound(lopTC => lopTC.Ma_mon).Width(30);
+        columns.Bound(lopTC => lopTC.Chi_tiet).Width(150);
+        columns.Bound(lopTC => lopTC.Si_so).Width(30);
+        columns.Bound(lopTC => lopTC.Da_dang_ky).Width(30);
     })
     .Pageable()
     .Sortable()
     .Scrollable()
+    .Selectable()
     .Pageable(pager =>pager.Enabled(false))
     .DataSource( 
         dataSource => dataSource.Ajax()
             .Read(read => read.Action("getLopTC","DangKyHocPhan").Data("getFilters"))
     )
-    .HtmlAttributes(new {style = "height:400px"})
+    //.HtmlAttributes(new {style = "height:400px"})
+)
+
+        @(Html.Kendo().Scheduler<StudentPortal.ViewModels.ThoiKhoaBieu>()
+    .Name("scheduler")
+    //.Date(new DateTime(2013, 6, 13))
+    .StartTime(DateTime.Now.Date.AddHours(6.5))
+    .EndTime(DateTime.Now.Date.AddHours(18.5))
+    .DateHeaderTemplate("ABC")
+    //.MajorTick(60)
+    
+    //.MajorTimeHeaderTemplate("XYZ")
+    .Height(600)
+    .Views(views =>
+    {
+        //views.DayView();
+        views.WeekView(); //weekView => weekView.Selected(true)
+        //views.MonthView();
+        //views.AgendaView();
+    })
+    .Timezone("Etc/UTC")
+    //.Resources(resource =>
+    //{
+    //    resource.Add(m => m.OwnerID)
+    //        .Title("Owner")
+    //        .DataTextField("Text")
+    //        .DataValueField("Value")
+    //        .DataColorField("Color")
+    //        .BindTo(new[] { 
+    //            new { Text = "Alex", Value = 1, Color = "#f8a398" } ,
+    //            new { Text = "Bob", Value = 2, Color = "#51a0ed" } ,
+    //            new { Text = "Charlie", Value = 3, Color = "#56ca85" } 
+    //        });
+    //})
+    .DataSource(d => d
+        .Model(m => {
+            m.Id(f => f.Id);
+            //m.Field(f => f.OwnerID).DefaultValue(1);
+        })
+        .Read("getThoiKhoaBieuTmp", "DangKyHocPhan")
+        //.Create("Create", "Scheduler")
+        //.Destroy("Destroy", "Scheduler")
+        //.Update("Update", "Scheduler")
+        //.Filter(filters =>
+        //{
+        //    filters.Add(model => model.OwnerID).IsEqualTo(1).Or().IsEqualTo(2);
+        //})
+    )
 )
 
     </div>
@@ -71,6 +136,7 @@
 <script>
     function getFilters() {
         return {
+            ID_dt: $('#ID_dt').val(),
             KieuDK: $('#KieuDK').val(),
             ID_mon: $('#IDMon').val(),
         }

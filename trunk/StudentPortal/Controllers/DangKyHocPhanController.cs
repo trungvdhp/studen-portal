@@ -75,7 +75,7 @@ namespace StudentPortal.Controllers
 
 
 
-        public ActionResult getMonHoc(string KieuDK)
+        public ActionResult getMonHoc(string KieuDK,int ID_dt)
         {
             JsonResult result = new JsonResult();
             DHHHContext db = new DHHHContext();
@@ -83,10 +83,11 @@ namespace StudentPortal.Controllers
             var userProfile = StudentPortal.Lib.User.getUserProfile(WebSecurity.CurrentUserId);
             var sinhVien = SinhVien.GetSinhVien(userProfile);
             var chuongtrinhDaotao = db.PLAN_ChuongTrinhDaoTao.Single(t =>
-                t.ID_chuyen_nganh == sinhVien.STU_Lop.ID_chuyen_nganh &&
-                t.ID_he == sinhVien.STU_Lop.ID_he &&
-                t.ID_khoa == sinhVien.STU_Lop.ID_khoa &&
-                t.Khoa_hoc == sinhVien.STU_Lop.Khoa_hoc
+                t.ID_dt == ID_dt
+                //t.ID_chuyen_nganh == sinhVien.STU_Lop.ID_chuyen_nganh &&
+                //t.ID_he == sinhVien.STU_Lop.ID_he &&
+                //t.ID_khoa == sinhVien.STU_Lop.ID_khoa &&
+                //t.Khoa_hoc == sinhVien.STU_Lop.Khoa_hoc
                );
             if (chuongtrinhDaotao != null)
             {
@@ -182,6 +183,16 @@ namespace StudentPortal.Controllers
             DHHHContext db = new DHHHContext();
             var lopTinChi = DangKyHocPhan.getLopTinChi(ID_mon);
             return Json(lopTinChi.ToDataSourceResult(request));
+        }
+
+        public ActionResult getChuyenNganh()
+        {
+            var userProfile = StudentPortal.Lib.User.getUserProfile(WebSecurity.CurrentUserId);
+            var sinhVien = SinhVien.GetSinhVien(userProfile);
+            JsonResult result = new JsonResult();
+            result.Data = new SelectList(SinhVien.getChuyenNganh(sinhVien.ID_sv), "ID_dt", "Chuyen_nganh");
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
         }
     }
 }
