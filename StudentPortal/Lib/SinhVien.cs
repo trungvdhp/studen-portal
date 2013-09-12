@@ -169,7 +169,6 @@ namespace StudentPortal.Lib
             var sinhVien = db.STU_DanhSach.Single(t => t.STU_HoSoSinhVien.Ma_sv == profile.UserName);
             return sinhVien;
         }
-
         public static List<DiemHocTap> GetBangDiem(int ID_sv)
         {
             var diems = GetDiemHocTap(ID_sv);
@@ -184,12 +183,18 @@ namespace StudentPortal.Lib
             }
             return bangdiem.Values.ToList();
         }
-
-        
-
         public static void GetHocKyHienTai(STU_DanhSach sinhVien)
         {
 
+        }
+        public static List<ChuyenNganh> getChuyenNganh(int ID_sv)
+        {
+            DHHHContext  db = new DHHHContext();
+            return db.STU_DanhSach.Where(t => t.ID_sv == ID_sv).Select(t => new ChuyenNganh
+            {
+                ID_dt = t.STU_Lop.ID_dt,
+                Chuyen_nganh = t.STU_Lop.STU_ChuyenNganh.Chuyen_nganh
+            }).Distinct().ToList();
         }
     }
 }

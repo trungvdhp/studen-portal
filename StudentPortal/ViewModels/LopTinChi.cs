@@ -30,14 +30,14 @@ namespace StudentPortal.ViewModels
         [DisplayName("Mã môn")]
         public string Ma_mon { get; set; }
 
-        [DisplayName("Địa điểm")]
-        public string Dia_diem { get; set; }
-
         [DisplayName("Sĩ số")]
         public int Si_so { get; set; }
 
         [DisplayName("Đã đăng ký")]
         public int Da_dang_ky { get; set; }
+
+        [DisplayName("Chi tiết")]
+        public string Chi_tiet { get; set; }
 
         public int ID_lop_lt { get; set; }
 
