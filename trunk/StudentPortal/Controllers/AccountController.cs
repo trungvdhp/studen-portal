@@ -20,9 +20,6 @@ namespace StudentPortal.Controllers
 	{
 
 		DHHHContext db = new DHHHContext();
-
-		//
-		// GET: /Account/Login
 		
 		[AllowAnonymous]
 		public ActionResult Login(string returnUrl)
@@ -30,9 +27,6 @@ namespace StudentPortal.Controllers
 			ViewBag.ReturnUrl = returnUrl;
 			return View();
 		}
-
-		//
-		// POST: /Account/Login
 
 		[HttpPost]
 		[AllowAnonymous]

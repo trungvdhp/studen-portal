@@ -119,7 +119,7 @@ namespace StudentPortal
 		//public DbSet<MARK_XepLoaiHocTap> MARK_XepLoaiHocTap { get; set; }
 		//public DbSet<MARK_XepLoaiHocTap_TC> MARK_XepLoaiHocTap_TC { get; set; }
 		//public DbSet<MARK_XepLoaiHocTapThangdiem10_TC> MARK_XepLoaiHocTapThangdiem10_TC { get; set; }
-		//public DbSet<Mark_XetLenLop> Mark_XetLenLop { get; set; }
+        public DbSet<Mark_XetLenLop> Mark_XetLenLop { get; set; }
 		//public DbSet<MARK_XetLenLopDanhSach> MARK_XetLenLopDanhSach { get; set; }
 		//public DbSet<MARK_XetLenLopDanhSach_TC> MARK_XetLenLopDanhSach_TC { get; set; }
 		//public DbSet<MARK_XetLenLopTongHop> MARK_XetLenLopTongHop { get; set; }
@@ -132,8 +132,8 @@ namespace StudentPortal
 		public DbSet<PLAN_ChuongTrinhDaoTao> PLAN_ChuongTrinhDaoTao { get; set; }
 		public DbSet<PLAN_ChuongTrinhDaoTaoChiTiet> PLAN_ChuongTrinhDaoTaoChiTiet { get; set; }
 		//public DbSet<PLAN_ChuongTrinhDaoTaoKienThuc> PLAN_ChuongTrinhDaoTaoKienThuc { get; set; }
-		//public DbSet<PLAN_ChuongTrinhDaoTaoMonTuongDuong> PLAN_ChuongTrinhDaoTaoMonTuongDuong { get; set; }
-		//public DbSet<PLAN_ChuongTrinhDaoTaoNhomTuChon> PLAN_ChuongTrinhDaoTaoNhomTuChon { get; set; }
+        public DbSet<PLAN_ChuongTrinhDaoTaoMonTuongDuong> PLAN_ChuongTrinhDaoTaoMonTuongDuong { get; set; }
+        public DbSet<PLAN_ChuongTrinhDaoTaoNhomTuChon> PLAN_ChuongTrinhDaoTaoNhomTuChon { get; set; }
         public DbSet<PLAN_ChuongTrinhDaoTaoRangBuoc> PLAN_ChuongTrinhDaoTaoRangBuoc { get; set; }
 		//public DbSet<PLAN_ChuyenMon> PLAN_ChuyenMon { get; set; }
 		public DbSet<PLAN_COSODAOTAO> PLAN_COSODAOTAO { get; set; }
@@ -146,7 +146,7 @@ namespace StudentPortal
 		public DbSet<PLAN_GiaoVien> PLAN_GiaoVien { get; set; }
 		public DbSet<PLAN_GiaoVienMonDay> PLAN_GiaoVienMonDay { get; set; }
 		public DbSet<PLAN_HocHam> PLAN_HocHam { get; set; }
-		//public DbSet<PLAN_HocKyDangKy_TC> PLAN_HocKyDangKy_TC { get; set; }
+        public DbSet<PLAN_HocKyDangKy_TC> PLAN_HocKyDangKy_TC { get; set; }
 		public DbSet<PLAN_HocVi> PLAN_HocVi { get; set; }
 		//public DbSet<PLAN_KeHoachKhac_TC> PLAN_KeHoachKhac_TC { get; set; }
 		//public DbSet<PLAN_KeHoachKyHieu_TC> PLAN_KeHoachKyHieu_TC { get; set; }
@@ -254,5 +254,7 @@ namespace StudentPortal
 		public DbSet<webpages_Roles> webpages_Roles { get; set; }
 		public DbSet<webpages_Groups_Roles> webpages_Groups_Roles { get; set; }
         public DbSet<ViewLopTinChi> ViewLopTinChi { get; set; }
+        public DbSet<SCH_CauHinhThoiGian> SCH_CauHinhThoiGian { get; set; }
+        public DbSet<CauHinhModel> Config { get; set; }
 	}
 }

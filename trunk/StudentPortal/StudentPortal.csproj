@@ -45,6 +45,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NodaTime, Version=1.1.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Kid\Desktop\NodaTime.dll</HintPath>
+    </Reference>
+    <Reference Include="NodaTime.Testing, Version=1.1.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Kid\Desktop\NodaTime.Testing.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -163,7 +171,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AjaxResult.cs" />
+    <Compile Include="Lib\CauHinh.cs" />
+    <Compile Include="Lib\LopTinChi.cs" />
+    <Compile Include="Models\CauHinhModel.cs" />
+    <Compile Include="ViewModels\AjaxResult.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -371,6 +382,7 @@
     <Compile Include="Areas\Admin\Models\PLAN_ThoiGianTinChi.cs" />
     <Compile Include="Areas\Admin\Models\PLAN_ThoiGianTinChi_TC.cs" />
     <Compile Include="Areas\Admin\Models\PLAN_TOANHA.cs" />
+    <Compile Include="Areas\Admin\Models\SCH_CauHinhThoiGian.cs" />
     <Compile Include="Areas\Admin\Models\STU_Bit.cs" />
     <Compile Include="Areas\Admin\Models\STU_CanBoLop.cs" />
     <Compile Include="Areas\Admin\Models\STU_CapHoiDong.cs" />
@@ -477,6 +489,7 @@
     <Compile Include="ViewModels\BienLaiThu.cs" />
     <Compile Include="ViewModels\ChuyenNganh.cs" />
     <Compile Include="ViewModels\DiemHocTap.cs" />
+    <Compile Include="ViewModels\HocKy.cs" />
     <Compile Include="ViewModels\LopTinChi.cs" />
     <Compile Include="ViewModels\MonHoc.cs" />
     <Compile Include="ViewModels\SuKienTinChi.cs" />
@@ -850,7 +863,6 @@
     <Content Include="Content\themes\assets\font-awesome\font\fontawesome-webfont_162a16fe.eot" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\Shared\_PageHeader.cshtml" />
-    <Content Include="Newtonsoft.Json.dll" />
     <Content Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -1349,6 +1361,9 @@
     <None Include="Scripts\kendo\2013.2.716\kendo.web.min.intellisense.js" />
     <Content Include="Scripts\kendo\2013.2.716\kendo.web.min.js" />
     <Content Include="Scripts\kendo\2013.2.716\kendo.window.min.js" />
+    <Content Include="Scripts\kendo\lang\kendo.culture.vi-VN.min.js" />
+    <Content Include="Scripts\kendo\lang\kendo.culture.vi.min.js" />
+    <Content Include="Scripts\kendo\lang\kendo.vi-VN.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />

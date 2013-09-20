@@ -17,12 +17,7 @@ namespace StudentPortal
 	[Table("PLAN_HocKyDangKy_TC")]
 	public partial class PLAN_HocKyDangKy_TC
 	{
-
-
-		[Key]
-		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
-
+        [Key]
 		[Display(Name = "Kỳ đăng ký")]
 		public int Ky_dang_ky { get; set; }
 
