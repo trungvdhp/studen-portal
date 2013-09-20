@@ -4,30 +4,41 @@
 
 <div class="row-fluid">
     <div class="span12">
-    <span>Chọn chuyên ngành: </span>
-         @(Html.Kendo().DropDownList()
+        <span>Chọn chuyên ngành: </span>
+        @(Html.Kendo().DropDownList()
     .Name("ID_dt")
-    //.OptionLabel("Chọn chuyên ngành")
+                //.OptionLabel("Chọn chuyên ngành")
     .DataTextField("Text")
     .DataValueField("Value")
-    .HtmlAttributes(new { style = "width:300px;" })
+    .HtmlAttributes(new { style = "width:200px;" })
     .DataSource(source =>
     {
         source.Read(read =>
         {
             read.Action("getChuyenNganh", "DangKyHocPhan");
         })
-        //.ServerFiltering(true)
+            //.ServerFiltering(true)
         ;
     })
-    //.AutoBind(false)
-) <br /><br />
+                //.AutoBind(false)
+)
+        <br />
+        <br />
+        <script>
+            var Thu = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]; //Array();
+            var Tong_so_tiet = '@ViewBag.Tong_so_tiet';
+            var Tiet = Array();
+            for (var i = 1; i <= Tong_so_tiet; i++)
+                Tiet[i - 1] = "Tiết " + i;
+            var idThu = 0;
+            var idTiet = 0;
+        </script>
         @(Html.Kendo().DropDownList()
     .Name("KieuDK")
     .OptionLabel("Chọn kiểu đăng ký")
     .DataTextField("Text")
     .DataValueField("Value")
-    .HtmlAttributes(new { style = "width:300px;" })
+    .HtmlAttributes(new { style = "width:200px;" })
     .BindTo(new List<SelectListItem>(){
         new SelectListItem(){
             Text="Tiến độ học", 
@@ -43,9 +54,9 @@
         },
     })
 )
-    
 
-         @(Html.Kendo().DropDownList()
+
+        @(Html.Kendo().DropDownList()
     .Name("IDMon")
     .OptionLabel("Chọn môn")
     .DataTextField("Text")
@@ -60,91 +71,164 @@
         .ServerFiltering(true);
     })
     .AutoBind(false)
+    .Events(e=> {
+        e.Change("reloadGridLopTC");
+    })
     .CascadeFrom("KieuDK")
 )
-        <button id="btnLoadLopTC" class="btn blue">Load danh sách lớp</button>
-        @(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChi>()
+          @(Html.Kendo().DropDownList()
+    .Name("IDGiaiDoan")
+    .DataTextField("Text")
+    .OptionLabel("Chọn giai đoạn")
+    .DataValueField("Value")
+    .HtmlAttributes(new { style = "width:200px;" })
+    .DataSource(source =>
+    {
+        source.Read(read =>
+        {
+            read.Action("getGiaiDoan", "DangKyHocPhan");
+        });
+    })
+    .Events(e =>{
+        e.Change("reloadScheduler");
+    })
+    .AutoBind(false)
+)
+
+        @(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChiViewModel>()
     .Name("GridLopTC")
-    .Columns(columns => {
-        columns.Bound(lopTC => lopTC.Ten_lop_tc).Width(120);
-        columns.Bound(lopTC => lopTC.Ma_mon).Width(30);
-        columns.Bound(lopTC => lopTC.Chi_tiet).Width(150);
-        columns.Bound(lopTC => lopTC.Si_so).Width(30);
-        columns.Bound(lopTC => lopTC.Da_dang_ky).Width(30);
+    .Columns(columns =>
+    {
+        columns.Bound(lopTC => lopTC.Ten_lop_tc);
+        columns.Bound(lopTC => lopTC.Giang_vien).HtmlAttributes(new { style = "width:100px" }).HeaderHtmlAttributes(new { style = "width:100px" });
+        columns.Bound(lopTC => lopTC.Ma_mon).HtmlAttributes(new { style = "width:60px" }).HeaderHtmlAttributes(new { style = "width:60px" });
+        columns.Bound(lopTC => lopTC.Chi_tiet);
+        columns.Bound(lopTC => lopTC.Si_so).HtmlAttributes(new { style = "width:50px" }).HeaderHtmlAttributes(new { style = "width:50px" });
+        columns.Bound(lopTC => lopTC.Da_dang_ky).HtmlAttributes(new { style = "width:50px" }).HeaderHtmlAttributes(new { style = "width:50px" });
+        //columns.Command(command => command.Custom("Đăng ký").Click("btnDangKy_Click")).HtmlAttributes(new { style = "width:70px" }).HeaderHtmlAttributes(new { style = "width:70px" });
+        columns.Template(@<text></text>).ClientTemplate(@"# 
+var btn = 'Đăng ký';
+var act = 'DangKy';
+if(!Chua_dang_ky){
+    btn='Hủy';
+    act = 'HuyDangKy';
+};
+#
+<a ID_lop_tc='#=ID_lop_tc#' data-action='#=act#' class=""k-button-icontext k-button btnDangKy"" href=""\#"">#= btn #</a>");
     })
     .Pageable()
     .Sortable()
     .Scrollable()
     .Selectable()
-    .Pageable(pager =>pager.Enabled(false))
-    .DataSource( 
+    .Pageable(pager => pager.Enabled(false))
+    .DataSource(
         dataSource => dataSource.Ajax()
-            .Read(read => read.Action("getLopTC","DangKyHocPhan").Data("getFilters"))
+            .Read(read => read.Action("getLopTC", "DangKyHocPhan").Data("getFilters"))
     )
-    //.HtmlAttributes(new {style = "height:400px"})
+                //.HtmlAttributes(new {style = "height:400px"})
 )
 
+       
+        
         @(Html.Kendo().Scheduler<StudentPortal.ViewModels.ThoiKhoaBieu>()
     .Name("scheduler")
-    //.Date(new DateTime(2013, 6, 13))
-    .StartTime(DateTime.Now.Date.AddHours(6.5))
-    .EndTime(DateTime.Now.Date.AddHours(18.5))
-    .DateHeaderTemplate("ABC")
-    //.MajorTick(60)
-    
-    //.MajorTimeHeaderTemplate("XYZ")
-    .Height(600)
+
+    .StartTime(DateTime.Now.Date)
+    .EndTime(DateTime.Now.Date.AddHours((int)ViewBag.Tong_so_tiet))
+    .DateHeaderTemplate("<strong># if(idThu==7) idThu=0; # #=Thu[idThu]# # idThu++; #</strong>")
+    .MajorTimeHeaderTemplate("# if(idTiet==Tong_so_tiet) idTiet=0; # #=Tiet[idTiet]# # idTiet++;# ")
+    .EventTemplate("<div class=\"time_event\" data-color=\"#=Color#\"><dl><dd>#= title #<dd></dl></div>")
     .Views(views =>
     {
-        //views.DayView();
-        views.WeekView(); //weekView => weekView.Selected(true)
-        //views.MonthView();
-        //views.AgendaView();
+        views.WeekView(); 
     })
-    .Timezone("Etc/UTC")
-    //.Resources(resource =>
-    //{
-    //    resource.Add(m => m.OwnerID)
-    //        .Title("Owner")
-    //        .DataTextField("Text")
-    //        .DataValueField("Value")
-    //        .DataColorField("Color")
-    //        .BindTo(new[] { 
-    //            new { Text = "Alex", Value = 1, Color = "#f8a398" } ,
-    //            new { Text = "Bob", Value = 2, Color = "#51a0ed" } ,
-    //            new { Text = "Charlie", Value = 3, Color = "#56ca85" } 
-    //        });
-    //})
+    .Editable(false)
+    .Events(e => {
+        e.DataBound("onDataBound");
+    })
     .DataSource(d => d
-        .Model(m => {
+        .Model(m =>
+        {
             m.Id(f => f.Id);
-            //m.Field(f => f.OwnerID).DefaultValue(1);
+            m.Field(f => f.ID_lop_tc).DefaultValue(1);
         })
-        .Read("getThoiKhoaBieuTmp", "DangKyHocPhan")
-        //.Create("Create", "Scheduler")
-        //.Destroy("Destroy", "Scheduler")
-        //.Update("Update", "Scheduler")
-        //.Filter(filters =>
-        //{
-        //    filters.Add(model => model.OwnerID).IsEqualTo(1).Or().IsEqualTo(2);
-        //})
+        .Read(read=>read.Action("getThoiKhoaBieu", "DangKyHocPhan").Data("getFilters"))
     )
 )
 
     </div>
 </div>
+
 <script>
+    function onDataBound() {
+        $('.time_event').each(function () {
+            $(this).parent().css('background-color', $(this).attr('data-color'));
+        })
+    }
+    function reloadScheduler(e) {
+        $("#scheduler").data("kendoScheduler").dataSource.read();
+    }
+    
     function getFilters() {
         return {
             ID_dt: $('#ID_dt').val(),
             KieuDK: $('#KieuDK').val(),
             ID_mon: $('#IDMon').val(),
+            ID_giai_doan: $('#IDGiaiDoan').val()
         }
     }
+    function deleteNotUseElements() {
+        $('.k-reset.k-header.k-toolbar.k-scheduler-navigation').css("display", "none");
+        //$('.k-reset.k-header.k-toolbar.k-scheduler-views').css('display', 'none');
+        $('.k-scheduler-table.k-scheduler-header-all-day').css("display", "none");
+        $('.k-scheduler-times-all-day').parent().css("display", "none");
+    }
+    function reloadGridLopTC(e) {
+        $("#GridLopTC").data("kendoGrid").dataSource.read();
+    }
     $(document).ready(function () {
-        $('#btnLoadLopTC').click(function () {
-            $("#GridLopTC").data("kendoGrid").dataSource.read();
+        deleteNotUseElements();
+        $('.btnDangKy').live('click', function (e) {
+            e.preventDefault();
+            //var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            $.ajax({
+                url: '/DangKyHocPhan/'+$(this).attr('data-action'),
+                data: {
+                    ID_lop_tc: $(this).attr('ID_lop_tc'),//dataItem.ID_lop_tc,
+                    ID_dt: $('#ID_dt').val()
+                },
+                dataType: 'json',
+                type: 'post',
+                success: function (e) {
+                    $("#IDGiaiDoan").data("kendoDropDownList").dataSource.read();
+                    $("#IDGiaiDoan").val(0);
+                    reloadScheduler();
+                    alert(e.Message);
+
+                }
+            });
         });
+        //$('.btnHuy').live('click', function (e) {
+        //    e.preventDefault();
+        //    //var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        //    $.ajax({
+        //        url: '/DangKyHocPhan/HuyDangKy',
+        //        data: {
+        //            ID_lop_tc: $(this).attr('ID_lop_tc'),//dataItem.ID_lop_tc,
+        //            ID_dt: $('#ID_dt').val()
+        //        },
+        //        dataType: 'json',
+        //        type: 'post',
+        //        success: function (e) {
+                    
+        //        }
+        //    });
+        //});
+        //$('#scheduler').appendTo($('#IDGiaiDoan').parent().html());
+        
+        //$('#btnLoadLopTC').click(function () {
+        //    $("#GridLopTC").data("kendoGrid").dataSource.read();
+        //});
     });
 
 </script>

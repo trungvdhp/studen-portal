@@ -62,5 +62,7 @@ namespace StudentPortal.Lib
             var monHoc = db.PLAN_ChuongTrinhDaoTaoChiTiet.Where(t => t.ID_dt == ID_dt).Select(t => t.MARK_MonHoc).ToList();
             return monHoc;
         }
+
+        
 	}
 }

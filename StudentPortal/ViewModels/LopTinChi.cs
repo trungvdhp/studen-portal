@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace StudentPortal.ViewModels
 {
-    public class LopTinChi
+    public class LopTinChiViewModel
     {
         public int ID_lop_tc { get; set; }
 
@@ -33,11 +33,16 @@ namespace StudentPortal.ViewModels
         [DisplayName("Sĩ số")]
         public int Si_so { get; set; }
 
-        [DisplayName("Đã đăng ký")]
+        [DisplayName("Đã ĐK")]
         public int Da_dang_ky { get; set; }
 
         [DisplayName("Chi tiết")]
         public string Chi_tiet { get; set; }
+
+        [DisplayName("Giảng viên")]
+        public string Giang_vien { get; set; }
+
+        public bool Chua_dang_ky { get; set; }
 
         public int ID_lop_lt { get; set; }
 
@@ -47,7 +52,7 @@ namespace StudentPortal.ViewModels
 
         public List<SuKienTinChi> SuKienTinChi { get; set; }
 
-        public LopTinChi()
+        public LopTinChiViewModel()
         {
             this.SuKienTinChi = new List<SuKienTinChi>();
         }

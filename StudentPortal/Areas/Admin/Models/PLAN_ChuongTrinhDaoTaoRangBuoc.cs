@@ -30,6 +30,7 @@ namespace StudentPortal
         public int ID_mon { get; set; }
 		
 		[Display(Name = "ID môn RB")]
+        [ForeignKey("Mon_Rang_Buoc")]
         public int ID_mon_rb { get; set; }
 		
 		[Display(Name = "Loại ràng buộc")]
@@ -41,5 +42,7 @@ namespace StudentPortal
 		public virtual STU_DoiTuong STU_DoiTuong { get; set; }
 		
 		public virtual MARK_MonHoc MARK_MonHoc { get; set; }
+
+        public virtual MARK_MonHoc Mon_Rang_Buoc { get; set; }
     }
 }

@@ -18,13 +18,16 @@ namespace StudentPortal
     public partial class Mark_XetLenLop
     {
 		[Display(Name = "Học kỳ")]
+        [Key, Column(Order = 2)]
         public int Hoc_ky { get; set; }
 		
 		[Display(Name = "Năm học")]
+        [Key, Column(Order = 1)]
         public string Nam_hoc { get; set; }
 		
 		[Display(Name = "ID_sv")]
 		[ForeignKey("STU_HoSoSinhVien")]
+        [Key, Column(Order=0)]
         public int ID_sv { get; set; }
 		
 		[Display(Name = "Lần cảnh báo")]

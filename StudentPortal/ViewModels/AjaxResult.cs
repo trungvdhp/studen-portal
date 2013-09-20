@@ -15,6 +15,7 @@ namespace StudentPortal
 	public enum AjaxStatus
 	{
 		ERROR = 0,
-		SUCCESS = 1
+		SUCCESS = 1,
+        INFO = 2,
 	}
 }

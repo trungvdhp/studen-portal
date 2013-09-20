@@ -46,8 +46,10 @@ namespace StudentPortal.ViewModels
         public int? RecurrenceID { get; set; }
         public string RecurrenceException { get; set; }
         public bool IsAllDay { get; set; }
-        //public int? OwnerID { get; set; }
 
+        public int ID_lop_tc { get; set; }
+        public string Color { get; set; }
+        
         public ThoiKhoaBieu ToEntity()
         {
             return new ThoiKhoaBieu
