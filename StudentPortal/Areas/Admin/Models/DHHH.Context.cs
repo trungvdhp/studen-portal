@@ -160,7 +160,7 @@ namespace StudentPortal
 		//public DbSet<PLAN_MonDangKy_TC> PLAN_MonDangKy_TC { get; set; }
 		public DbSet<PLAN_MonTinChi_TC> PLAN_MonTinChi_TC { get; set; }
 		//public DbSet<PLAN_MonHocNhomHocPhan> PLAN_MonHocNhomHocPhan { get; set; }
-		//public DbSet<PLAN_PhamViDangKy_TC> PLAN_PhamViDangKy_TC { get; set; }
+        public DbSet<PLAN_PhamViDangKy_TC> PLAN_PhamViDangKy_TC { get; set; }
 		//public DbSet<PLAN_PhamViDangKyHocPhan_TC> PLAN_PhamViDangKyHocPhan_TC { get; set; }
 		public DbSet<PLAN_PhongHoc> PLAN_PhongHoc { get; set; }
 		//public DbSet<PLAN_PhamViDangKyLop_TC> PLAN_PhamViDangKyLop_TC { get; set; }

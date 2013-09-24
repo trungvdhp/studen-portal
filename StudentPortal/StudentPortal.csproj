@@ -171,6 +171,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Admin\Controllers\ThongBaoController.cs" />
+    <Compile Include="Controllers\ThoiKhoaBieuController.cs" />
     <Compile Include="Lib\CauHinh.cs" />
     <Compile Include="Lib\LopTinChi.cs" />
     <Compile Include="Models\CauHinhModel.cs" />
@@ -487,11 +489,14 @@
     </Compile>
     <Compile Include="ViewModels\AutoCompleteData.cs" />
     <Compile Include="ViewModels\BienLaiThu.cs" />
+    <Compile Include="ViewModels\ChuongTrinhDaoTaoViewModel.cs" />
     <Compile Include="ViewModels\ChuyenNganh.cs" />
     <Compile Include="ViewModels\DiemHocTap.cs" />
     <Compile Include="ViewModels\HocKy.cs" />
+    <Compile Include="ViewModels\KyDangKy.cs" />
     <Compile Include="ViewModels\LopTinChi.cs" />
     <Compile Include="ViewModels\MonHoc.cs" />
+    <Compile Include="ViewModels\SinhVien.cs" />
     <Compile Include="ViewModels\SuKienTinChi.cs" />
     <Compile Include="ViewModels\ThoiKhoaBieu.cs" />
     <Compile Include="ViewModels\User.cs" />
@@ -1424,6 +1429,7 @@
     <Content Include="Views\TraCuu\ThuChi.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\DangKyHocPhan\Index.cshtml" />
+    <Content Include="Views\ThoiKhoaBieu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

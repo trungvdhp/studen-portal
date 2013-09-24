@@ -63,6 +63,15 @@ namespace StudentPortal.Lib
             return monHoc;
         }
 
-        
+        private static List<int> _khoaDangHoc;
+        public static List<int> getKhoaDangHoc()
+        {
+            if (_khoaDangHoc == null)
+            {
+                DHHHContext db = new DHHHContext();
+                _khoaDangHoc = db.STU_Lop.Where(t => t.Ra_truong == false && t.ID_dt != 0).Select(t => t.Khoa_hoc).ToList();
+            }
+            return _khoaDangHoc;
+        }
 	}
 }

@@ -98,16 +98,20 @@ namespace StudentPortal.Lib
 
                     dicLopTinChi[sukienTinChi.ID_lop_tc].Chi_tiet += Chi_tiet;
                 }
-                _cacheDicLopTC[sukienTinChi.ID_lop_tc] = dicLopTinChi[sukienTinChi.ID_lop_tc];
+                else
+                    dicLopTinChi[sukienTinChi.ID_lop_tc] = _cacheDicLopTC[sukienTinChi.ID_lop_tc];
             }
 
             foreach (var lopTinChi in dicLopTinChi.Values)
             {
+                if(_cacheDicLopTC.ContainsKey(lopTinChi.ID_lop_tc))
+                    continue;
                 if (lopTinChi.ID_lop_lt != 0 && dicLopTinChi.ContainsKey(lopTinChi.ID_lop_lt))
                 {
                     var lopLT = dicLopTinChi[lopTinChi.ID_lop_lt];
                     dicLopTinChi[lopTinChi.ID_lop_tc].Ten_lop_tc = String.Format("{0}.TH{1:00}", lopLT.Ten_lop_tc, lopTinChi.STT_lop);
                 }
+                _cacheDicLopTC[lopTinChi.ID_lop_tc] = dicLopTinChi[lopTinChi.ID_lop_tc];
             }
 
             return dicLopTinChi;

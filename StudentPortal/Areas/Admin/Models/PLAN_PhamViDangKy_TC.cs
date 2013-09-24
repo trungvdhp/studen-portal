@@ -17,27 +17,31 @@ namespace StudentPortal
     [Table("PLAN_PhamViDangKy_TC")]
     public partial class PLAN_PhamViDangKy_TC
     {
-        [Key]
-		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        [Key, Column(Order=0)]
         public int ID_mon_tc { get; set; }
 		
 		[Display(Name = "ID Hệ")]
+        [Key, Column(Order = 1)]
 		[ForeignKey("STU_He")]
         public int ID_he { get; set; }
-		
+
+        [Key, Column(Order = 2)]
 		[Display(Name = "ID Khoa")]
 		[ForeignKey("STU_Khoa")]
         public int ID_khoa { get; set; }
 		
 		[Display(Name = "Khóa học")]
+        [Key, Column(Order = 5)]
         public int Khoa_hoc { get; set; }
 		
 		[Display(Name = "ID Ngành")]
 		[ForeignKey("STU_Nganh")]
+        [Key, Column(Order = 3)]
         public int ID_nganh { get; set; }
 		
 		[Display(Name = "ID Chuyên ngành")]
 		[ForeignKey("STU_ChuyenNganh")]
+        [Key, Column(Order = 4)]
         public int ID_chuyen_nganh { get; set; }
     
         public virtual PLAN_MonTinChi_TC PLAN_MonTinChi_TC { get; set; }
