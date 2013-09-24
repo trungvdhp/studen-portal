@@ -165,10 +165,10 @@ namespace StudentPortal.Lib
 			DHHHContext db = new DHHHContext();
 			return db.STU_HoSoSinhVien.Where(t => t.Ma_sv == Ma_sv).Count() == 1;
 		}
-        public static STU_DanhSach GetSinhVien(UserProfile profile)
+        public static List<STU_DanhSach> GetSinhVien(UserProfile profile)
         {
             DHHHContext db = new DHHHContext();
-            var sinhVien = db.STU_DanhSach.Single(t => t.STU_HoSoSinhVien.Ma_sv == profile.UserName);
+            var sinhVien = db.STU_DanhSach.Where(t => t.STU_HoSoSinhVien.Ma_sv == profile.UserName).ToList();
             return sinhVien;
         }
         //public static List<DiemHocTap> GetBangDiem(int ID_sv)
@@ -198,7 +198,20 @@ namespace StudentPortal.Lib
                 Chuyen_nganh = t.STU_Lop.STU_ChuyenNganh.Chuyen_nganh
             }).Distinct().ToList();
         }
-
+        private static Dictionary<int, STU_Lop> _lop;
+        public static Dictionary<int, STU_Lop> Lop
+        {
+            get
+            {
+                if (_lop == null)
+                {
+                    DHHHContext db = new DHHHContext();
+                    _lop = db.STU_DanhSach.ToDictionary(t => t.ID_sv, t => t.STU_Lop);
+                }
+                return _lop;
+            }
+        }
+        
         //public static HocKy GetHocKyTruoc(STU_DanhSach sinhVien)
         //{
         //    var diemhoctap = GetDiemHocTap(sinhVien.ID_sv);

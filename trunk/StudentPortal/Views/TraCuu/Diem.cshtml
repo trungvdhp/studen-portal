@@ -3,27 +3,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row-fluid">
-	<div class="span12">
-		<!-- BEGIN SAMPLE FORM PORTLET-->
-		<div class="portlet box blue">
-			<div class="portlet-title">
-				<h4><i class="icon-reorder"></i>Điểm</h4>
-				<div class="tools">
-					<a href="javascript:;" class="collapse"></a>
-					<a href="#portlet-config" data-toggle="modal" class="config"></a>
-					<a href="javascript:;" class="reload"></a>
-					<a href="javascript:;" class="remove"></a>
-				</div>
-			</div>
-			<div class="portlet-body form">
-				
-@(Html.Kendo().AutoComplete()
+    <div class="span12">
+        <!-- BEGIN SAMPLE FORM PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <h4><i class="icon-reorder"></i>Điểm</h4>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                    <a href="#portlet-config" data-toggle="modal" class="config"></a>
+                    <a href="javascript:;" class="reload"></a>
+                    <a href="javascript:;" class="remove"></a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <p>
+                    @(Html.Kendo().AutoComplete()
         .Name("TuKhoa")
         .Filter("startswith")
         .DataTextField("Text")
         .Placeholder("Nhập từ khóa...")
-        .HtmlAttributes(new {style="width: 300px"})
-        //.Template("${data.Text}")
+        .HtmlAttributes(new { style = "width: 300px" })
+                            //.Template("${data.Text}")
         .DataSource(source =>
         {
             source.Read(read =>
@@ -35,7 +35,7 @@
         })
 )
 
-@(Html.Kendo().DropDownList()
+                    @(Html.Kendo().DropDownList()
     .Name("NamHoc")
     .OptionLabel("Toàn khóa")
     .HtmlAttributes(new { style = "width:120px" })
@@ -49,14 +49,14 @@
                 .Data("getTuKhoa");
         });
     })
-    //.Enable(false)
+                            //.Enable(false)
     .AutoBind(false)
     .CascadeFrom("TuKhoa")
 )
 
-@(Html.Kendo().DropDownList()
+                    @(Html.Kendo().DropDownList()
     .Name("HocKy")
-    .HtmlAttributes(new {style="width:120px"})
+    .HtmlAttributes(new { style = "width:120px" })
     .OptionLabel("Cả năm")
     .DataTextField("Text")
     .DataValueField("Value")
@@ -72,13 +72,15 @@
     .AutoBind(false)
         .CascadeFrom("NamHoc")
 )
-<button class="btn blue" id="TraCuuButton">Tra cứu</button>
-@(Html.Kendo().Grid<StudentPortal.ViewModels.DiemHocTap>()
+                    <button class="k-button" id="TraCuuButton">Tra cứu</button>
+                </p>
+                @(Html.Kendo().Grid<StudentPortal.ViewModels.DiemHocTap>()
     .Name("GridBangDiem")
-    .Columns(columns => {
+    .Columns(columns =>
+    {
         columns.Bound(diem => diem.Ma_mon).Width(50);
         columns.Bound(diem => diem.Ten_mon).Width(150);
-		columns.Bound(diem => diem.He_so).Width(30);
+        columns.Bound(diem => diem.He_so).Width(30);
         columns.Bound(diem => diem.X).Width(30);
         columns.Bound(diem => diem.Y).Width(30);
         columns.Bound(diem => diem.Z).Width(30).Format("{0:0.00}");
@@ -90,30 +92,30 @@
     .Pageable()
     .Sortable()
     .Scrollable()
-    .Pageable(pager =>pager.Enabled(false))
-    .DataSource( 
+    .Pageable(pager => pager.Enabled(false))
+    .DataSource(
         dataSource => dataSource.Ajax()
                 .Group(group => group.Add(diem => diem.Nam_hoc))
                 .Group(group => group.Add(diem => diem.Hoc_ky))
-            .Read(read => read.Action("DiemHocTap","TraCuu").Data("getTuKhoa"))
+            .Read(read => read.Action("DiemHocTap", "TraCuu").Data("getTuKhoa"))
     )
-    .HtmlAttributes(new {style = "height:400px"})
+    .HtmlAttributes(new { style = "height:400px" })
 )
 
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
-	function getTuKhoa() {
-		return {
-			TuKhoa: $("#TuKhoa").val(),
-			NamHoc: $("#NamHoc").val(),
-			HocKy: $("#HocKy").val()
-		};
-	}
-	$("#TraCuuButton").click(function () {
-		$("#GridBangDiem").data("kendoGrid").dataSource.read();
-	});
+    function getTuKhoa() {
+        return {
+            TuKhoa: $("#TuKhoa").val(),
+            NamHoc: $("#NamHoc").val(),
+            HocKy: $("#HocKy").val()
+        };
+    }
+    $("#TraCuuButton").click(function () {
+        $("#GridBangDiem").data("kendoGrid").dataSource.read();
+    });
 </script>

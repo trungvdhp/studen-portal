@@ -22,11 +22,9 @@ namespace StudentPortal.Lib
     {
 
 
-        public static List<PLAN_QUYDINH_DANGKY> GetQuyDinhDangKy()
+        public static List<PLAN_QUYDINH_DANGKY> GetQuyDinhDangKy(STU_DanhSach sinhVien)
         {
             DHHHContext db = new DHHHContext();
-            var userProfile = StudentPortal.Lib.User.getUserProfile(WebSecurity.CurrentUserId);
-            var sinhVien = SinhVien.GetSinhVien(userProfile);
             var quydinhDangkysTmp = db.PLAN_QUYDINH_DANGKY.Where(t => t.Tu_ngay <= DateTime.Now && t.Den_ngay >= DateTime.Now).ToList();
             var quydinhDangkys = new List<PLAN_QUYDINH_DANGKY>();
             foreach (var quydinhDangky in quydinhDangkysTmp)

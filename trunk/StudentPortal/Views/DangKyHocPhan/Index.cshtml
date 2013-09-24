@@ -114,7 +114,8 @@ if(!Chua_dang_ky){
     act = 'HuyDangKy';
 };
 #
-<a ID_lop_tc='#=ID_lop_tc#' data-action='#=act#' class=""k-button-icontext k-button btnDangKy"" href=""\#"">#= btn #</a>");
+<a ID_lop_tc='#=ID_lop_tc#' data-action='#=act#' class=""k-button-icontext k-button btnDangKy"" href=""\#"">#= btn #</a>")
+    .HtmlAttributes(new { style = "width:70px" }).HeaderHtmlAttributes(new { style = "width:70px" });
     })
     .Pageable()
     .Sortable()
@@ -202,33 +203,13 @@ if(!Chua_dang_ky){
                 success: function (e) {
                     $("#IDGiaiDoan").data("kendoDropDownList").dataSource.read();
                     $("#IDGiaiDoan").val(0);
+                    reloadGridLopTC(e);
                     reloadScheduler();
                     alert(e.Message);
 
                 }
             });
         });
-        //$('.btnHuy').live('click', function (e) {
-        //    e.preventDefault();
-        //    //var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        //    $.ajax({
-        //        url: '/DangKyHocPhan/HuyDangKy',
-        //        data: {
-        //            ID_lop_tc: $(this).attr('ID_lop_tc'),//dataItem.ID_lop_tc,
-        //            ID_dt: $('#ID_dt').val()
-        //        },
-        //        dataType: 'json',
-        //        type: 'post',
-        //        success: function (e) {
-                    
-        //        }
-        //    });
-        //});
-        //$('#scheduler').appendTo($('#IDGiaiDoan').parent().html());
-        
-        //$('#btnLoadLopTC').click(function () {
-        //    $("#GridLopTC").data("kendoGrid").dataSource.read();
-        //});
     });
 
 </script>

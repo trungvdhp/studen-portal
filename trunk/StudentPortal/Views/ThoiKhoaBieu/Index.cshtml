@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Thời khóa biểu";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="row-fluid">
+    <div class="span12">
+        <p>
+            @(Html.Kendo().DropDownList()
+            .Name("ChuyenNganh")
+            .OptionLabel("Chọn chuyên ngành")
+            .DataSource(source=>{
+                source.Read("getChuyenNganh", "ThoiKhoaBieu");
+            })
+            )
+            @(Html.Kendo().DropDownList()
+            .Name("KyDangKy")
+            .OptionLabel("Chọn học kỳ đăng ký")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("getHocKyDK", "ThoiKhoaBieu").Data("getFilters");
+                })
+                .ServerFiltering(true);
+            })
+            .CascadeFrom("ChuyenNganh")
+            )
+        </p>
+    </div>
+</div>
