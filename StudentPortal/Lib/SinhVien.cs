@@ -36,11 +36,11 @@ namespace StudentPortal.Lib
 			return 0;
 
 		}
-        public static List<DiemHocTap> GetDiemHocTap(int ID_sv)
+        public static List<DiemHocTap> GetDiemHocTap(int ID_sv,int ID_dt)
         {
             DHHHContext db = new DHHHContext();
 
-            var diem = db.MARK_DiemThanhPhan_TC.Where(t => t.MARK_Diem_TC.ID_sv == ID_sv && t.MARK_ThanhPhanMon_TC.Ky_hieu == "X").Select(t => new DiemHocTap
+            var diem = db.MARK_DiemThanhPhan_TC.Where(t => t.MARK_Diem_TC.ID_dt==ID_dt&&t.MARK_Diem_TC.ID_sv == ID_sv && t.MARK_ThanhPhanMon_TC.Ky_hieu == "X").Select(t => new DiemHocTap
             {
                 Id_diem = t.MARK_Diem_TC.ID_diem,
                 ID_mon = t.MARK_Diem_TC.ID_mon,

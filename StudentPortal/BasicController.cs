@@ -20,11 +20,11 @@ namespace StudentPortal
     {
         private PLAN_HocKyDangKy_TC _HocKyDangKy;
         private UserProfile _userProfile;
-        private List<STU_DanhSach> _sinhVien;
+        private Dictionary<int,STU_DanhSach> _sinhVien;
         private PLAN_QUYDINH_DANGKY _quydinhDK;
-        private List<DiemHocTap> _diemHocTap;
-        private List<DiemHocTap> _bangdiem;
-        private HocKy _hocKyTruoc;
+        private Dictionary<int,List<DiemHocTap>> _diemHocTap = new Dictionary<int,List<DiemHocTap>>();
+        private Dictionary<int,List<DiemHocTap> >_bangdiem = new Dictionary<int,List<DiemHocTap>>();
+        private Dictionary<int, HocKy> _hocKyTruoc = new Dictionary<int,HocKy>();
         private bool _hetHanDK;
         private Dictionary<string, List<PLAN_MonTinChi_TC>> _dicMonDangKy = new Dictionary<string, List<PLAN_MonTinChi_TC>>();
 
@@ -41,13 +41,13 @@ namespace StudentPortal
                 return _userProfile;
             }
         }
-        protected List<STU_DanhSach> sinhVien
+        protected Dictionary<int, STU_DanhSach> sinhVien
         {
             get
             {
                 if (_sinhVien == null && userProfile != null)
                 {
-                    _sinhVien = SinhVien.GetSinhVien(userProfile);
+                    _sinhVien = SinhVien.GetSinhVien(userProfile).ToDictionary(t=>t.STU_Lop.ID_dt,t=>t)  ;
                 }
                 return _sinhVien;
             }
@@ -86,23 +86,19 @@ namespace StudentPortal
                 return _hetHanDK;
             }
         }
-        protected List<DiemHocTap> DiemHocTap
+        protected List<DiemHocTap> getDiemHocTap(int ID_dt)
         {
-            get
-            {
-                if (_diemHocTap == null)
-                    _diemHocTap = SinhVien.GetDiemHocTap(sinhVien.ID_sv);
-                return _diemHocTap;
-            }
+            
+                if (!_diemHocTap.ContainsKey(ID_dt))
+                    _diemHocTap[ID_dt]= SinhVien.GetDiemHocTap(sinhVien[ID_dt].ID_sv,ID_dt);
+                return _diemHocTap[ID_dt];
+            
         }
-        protected List<DiemHocTap> BangDiem
+        protected List<DiemHocTap> getBangDiem(int ID_dt)
         {
-            get
-            {
-                if (_bangdiem == null)
+                if (!_bangdiem.ContainsKey(ID_dt))
                 {
-                    var diems = this.DiemHocTap;
-                    //var bangdiem = new List<DiemHocTap>();
+                    var diems = this.getDiemHocTap(ID_dt);
                     Dictionary<int, DiemHocTap> bangdiem = new Dictionary<int, DiemHocTap>();
                     foreach (var diem in diems)
                     {
@@ -111,27 +107,26 @@ namespace StudentPortal
                         else if (diem.Z > bangdiem[diem.ID_mon].Z)
                             bangdiem[diem.ID_mon] = diem;
                     }
-                    _bangdiem = bangdiem.Values.ToList();
+                    _bangdiem[ID_dt] = bangdiem.Values.ToList();
                 }
-                return _bangdiem;
-            }
+                return _bangdiem[ID_dt];
+         
         }
-        protected HocKy HocKyTruoc
+        protected HocKy getHocKyTruoc(int ID_dt)
         {
-            get
-            {
-                if (_hocKyTruoc == null)
+            
+                if (_hocKyTruoc.ContainsKey(ID_dt))
                 {
-                    var hocky = this.DiemHocTap.Select(t => new HocKy
+                    var hocky = this.getDiemHocTap(ID_dt).Select(t => new HocKy
                     {
                         Hoc_ky = t.Hoc_ky,
                         Nam_hoc = t.Nam_hoc,
                     }).Distinct().OrderByDescending(t => t.Nam_hoc).ThenByDescending(t => t.Hoc_ky).ToList();
-                    _hocKyTruoc = hocky.First();
+                    _hocKyTruoc[ID_dt] = hocky.First();
                 }
-                return _hocKyTruoc;
-            }
+                return _hocKyTruoc[ID_dt];
         }
+        
 
         protected List<PLAN_MonTinChi_TC> getMonDangKy(string KieuDK, int ID_dt)
         {
@@ -145,7 +140,7 @@ namespace StudentPortal
                 {
                     var monChuongTrinhKhung = ChuongTrinhDaoTao.getMonHoc(chuongtrinhDaotao.ID_dt);
                     var idMonChuongTrinhKhung = monChuongTrinhKhung.Select(t => t.ID_mon).ToList();
-                    var quydinhDangkys = DangKyHocPhan.GetQuyDinhDangKy(sinhVien);
+                    var quydinhDangkys = DangKyHocPhan.GetQuyDinhDangKy(sinhVien[ID_dt]);
 
                     if (quydinhDangkys.Count > 0)
                     {
@@ -157,7 +152,7 @@ namespace StudentPortal
                             .Select(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC)
                             .Distinct()
                             .ToList();
-                        var lopHC = sinhVien.Single(t => t.STU_Lop.ID_dt == ID_dt).STU_Lop;
+                        var lopHC = sinhVien[ID_dt].STU_Lop;
                         var phamviDKs = db.PLAN_PhamViDangKy_TC
                             .Where(t => t.ID_he == 0 || t.ID_he == lopHC.ID_he)
                             .Where(t => t.ID_khoa == 0 || t.ID_khoa == lopHC.ID_khoa)
@@ -175,7 +170,7 @@ namespace StudentPortal
                                 monDuocDK.Add(mon);
                         }
 
-                        var bangdiem = this.BangDiem;
+                        var bangdiem = this.getBangDiem(ID_dt);
                         var dicBangdiem = bangdiem.ToDictionary(t => t.ID_mon, t => t.Z);
                         var monRangBuoc = db.PLAN_ChuongTrinhDaoTaoRangBuoc.Where(t => t.ID_dt == chuongtrinhDaotao.ID_dt).ToList();
                         var dicMonRangBuoc = monRangBuoc.ToDictionary(t => t.ID_mon, t => t);
@@ -269,14 +264,14 @@ namespace StudentPortal
             return _dicMonDangKy[KieuDK + ID_dt];
         }
 
-        private List<STU_ChuyenNganh> _chuyenNganh;
-        protected List<STU_ChuyenNganh> ChuyenNganh
+        private List<ChuyenNganh> _chuyenNganh;
+        protected List<ChuyenNganh> ChuyenNganh
         {
             get
             {
                 if (_chuyenNganh == null)
-                { 
-                    _chuyenNganh = db.STU_DanhSach.Where(t=>t.ID_sv == sinhVien[0].ID_sv).Select(t=>t.STU_Lop.STU_ChuyenNganh).ToList();
+                {
+                    _chuyenNganh = SinhVien.getChuyenNganh(sinhVien.Values.First().ID_sv);
                 }
                 return _chuyenNganh;
             }
