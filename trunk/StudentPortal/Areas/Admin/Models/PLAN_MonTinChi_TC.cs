@@ -28,6 +28,7 @@ namespace StudentPortal
 		public int ID_mon_tc { get; set; }
 
 		[Display(Name = "Kỳ đăng ký")]
+        [ForeignKey("PLAN_HocKyDangKy_TC")]
 		public int Ky_dang_ky { get; set; }
 
 		[Display(Name = "Ký hiệu lớp TC")]
@@ -62,7 +63,7 @@ namespace StudentPortal
 		public bool Locked { get; set; }
 
 		public virtual MARK_MonHoc MARK_MonHoc { get; set; }
-		//public virtual ICollection<PLAN_LopTinChi_TC> PLAN_LopTinChi_TC { get; set; }
-		//public virtual ICollection<PLAN_PhamViDangKy_TC> PLAN_PhamViDangKy_TC { get; set; }
+
+        public virtual PLAN_HocKyDangKy_TC PLAN_HocKyDangKy_TC { get; set; }
 	}
 }

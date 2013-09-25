@@ -50,13 +50,13 @@ namespace StudentPortal.Controllers
             return result;
         }
 
-        public ActionResult getLopTC([DataSourceRequest]DataSourceRequest request, int? ID_mon)
+        public ActionResult getLopTC([DataSourceRequest]DataSourceRequest request, int? ID_mon, int? ID_dt)
         {
             DHHHContext db = new DHHHContext();
-            //var userProfile = StudentPortal.Lib.User.getUserProfile(WebSecurity.CurrentUserId);
-            //var sinhVien = SinhVien.GetSinhVien(userProfile);
+            if (ID_dt == null) return null;
             var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon);
-            var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == sinhVien.ID_sv).Select(t => t.ID_lop_tc).ToList();
+            var ID_sv = sinhVien[(int)ID_dt].ID_sv;
+            var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList();
 
             for (var i = 0; i < lopTinChis.Count; i++)
             {
@@ -73,19 +73,17 @@ namespace StudentPortal.Controllers
 
         public ActionResult getChuyenNganh()
         {
-            //var userProfile = StudentPortal.Lib.User.getUserProfile(WebSecurity.CurrentUserId);
-            //var sinhVien = SinhVien.GetSinhVien(userProfile);
             JsonResult result = new JsonResult();
             result.Data = new SelectList(this.ChuyenNganh, "ID_dt", "Chuyen_nganh");
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
-        public ActionResult getGiaiDoan()
+
+        public ActionResult getGiaiDoan(int ID_dt)
         {
             DHHHContext db = new DHHHContext();
-            //var userProfile = StudentPortal.Lib.User.getUserProfile(WebSecurity.CurrentUserId);
-            //var sinhVien = SinhVien.GetSinhVien(userProfile);
-            var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == sinhVien.ID_sv).Select(t => t.ID_lop_tc).ToList();
+            var ID_sv = sinhVien[ID_dt].ID_sv;
+            var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList();
             var suKienTinChis = new List<PLAN_SukiensTinChi_TC>();
             foreach (var idLopDK in idLopDKs)
             {
@@ -108,12 +106,12 @@ namespace StudentPortal.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
-        public ActionResult getThoiKhoaBieu([DataSourceRequest] DataSourceRequest request, int? ID_giai_doan)
+        public ActionResult getThoiKhoaBieu([DataSourceRequest] DataSourceRequest request, int? ID_giai_doan,int? ID_dt)
         {
             DHHHContext db = new DHHHContext();
-            //var userProfile = StudentPortal.Lib.User.getUserProfile(WebSecurity.CurrentUserId);
-            //var sinhVien = SinhVien.GetSinhVien(userProfile);
-            var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == sinhVien.ID_sv).Select(t => t.ID_lop_tc).ToList();
+            if (ID_dt == null) return null;
+            var ID_sv = sinhVien[(int)ID_dt].ID_sv;
+            var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList();
             var suKienTinChis = new List<PLAN_SukiensTinChi_TC>();
             var dicLopTinChiColor = new Dictionary<int, string>();
             Random rand = new Random();
@@ -160,9 +158,9 @@ namespace StudentPortal.Controllers
             }).ToDataSourceResult(request));
         }
 
-        public List<PLAN_SukiensTinChi_TC> getSuKienTinChiDK()
+        public List<PLAN_SukiensTinChi_TC> getSuKienTinChiDK(int ID_dt)
         {
-            var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == sinhVien.ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == HocKyDangKy.Ky_dang_ky).Select(t => t.PLAN_LopTinChi_TC).ToList();
+            var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == sinhVien[ID_dt].ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == HocKyDangKy.Ky_dang_ky).Select(t => t.PLAN_LopTinChi_TC).ToList();
             var idLopDKs = lopDKs.Select(t => t.ID_lop_tc).ToList();
             var suKienTinChis = new List<PLAN_SukiensTinChi_TC>();
             foreach (var idLopDK in idLopDKs)
@@ -191,17 +189,17 @@ namespace StudentPortal.Controllers
                 return result;
             }
 
-            var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == sinhVien.ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky==HocKyDangKy.Ky_dang_ky).Select(t=>t.PLAN_LopTinChi_TC).ToList();
+            var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == sinhVien[ID_dt].ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky==HocKyDangKy.Ky_dang_ky).Select(t=>t.PLAN_LopTinChi_TC).ToList();
             var idLopDKs = lopDKs.Select(t => t.ID_lop_tc).ToList();
-            var suKienTinChiDaDKs = this.getSuKienTinChiDK();
+            var suKienTinChiDaDKs = this.getSuKienTinChiDK(ID_dt);
 
             var skLopTCs = db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == ID_lop_tc).ToList();
             var lopTC = skLopTCs.First().PLAN_LopTinChi_TC;
             var ID_mon_tc = skLopTCs.First().PLAN_LopTinChi_TC.ID_mon_tc;
             
             // Kiem tra so tin chi 
-            var hockyTruoc = this.HocKyTruoc;
-            var xetLenLop = db.Mark_XetLenLop.Where(t => t.ID_sv == sinhVien.ID_sv && t.Hoc_ky == hockyTruoc.Hoc_ky && t.Nam_hoc == t.Nam_hoc);
+            var hockyTruoc = this.getHocKyTruoc(ID_dt);
+            var xetLenLop = db.Mark_XetLenLop.Where(t => t.ID_sv == sinhVien[ID_dt].ID_sv && t.Hoc_ky == hockyTruoc.Hoc_ky && t.Nam_hoc == t.Nam_hoc);
             if (xetLenLop.Count()!=0)
             {
                 var dkLenLop = xetLenLop.First();
@@ -242,7 +240,7 @@ namespace StudentPortal.Controllers
             LopTinChiViewModel loptrung = new LopTinChiViewModel();
 
             // Kiem tra mon hoc co nam trong danh sach mon duoc dang ky ko
-            var ID_dts = SinhVien.getChuyenNganh(sinhVien.ID_sv).Select(t=>t.ID_dt).ToList();
+            var ID_dts = SinhVien.getChuyenNganh(sinhVien[ID_dt].ID_sv).Select(t=>t.ID_dt).ToList();
             
             if (ID_dts.Contains(ID_dt))
             {
@@ -340,7 +338,7 @@ namespace StudentPortal.Controllers
             }
 
             // Kiem tra mon da hoc tuong duong
-            var monDaHoc = this.BangDiem.ToDictionary(t=> t.ID_mon,t=>t);
+            var monDaHoc = this.getBangDiem(ID_dt).ToDictionary(t=> t.ID_mon,t=>t);
             foreach (var mon in monDaHoc.Values)
             {
                 if (monTuongduongs.ContainsKey(mon.ID_mon) && SinhVien.DiemHe4[monDaHoc[mon.ID_mon].Diem_chu] >= SinhVien.DiemHe4["C+"])
@@ -390,7 +388,7 @@ namespace StudentPortal.Controllers
             db.STU_DanhSachLopTinChi.Add(new STU_DanhSachLopTinChi
             {
                 ID_lop_tc = ID_lop_tc,
-                ID_sv = sinhVien.ID_sv,
+                ID_sv = sinhVien[ID_dt].ID_sv,
                 Duyet = 0,
             });
             db.SaveChanges();
@@ -411,7 +409,7 @@ namespace StudentPortal.Controllers
         {
             var result = new JsonResult();
 
-            var lopTCs = db.STU_DanhSachLopTinChi.Where(t => t.ID_lop_tc == ID_lop_tc && t.ID_sv == sinhVien.ID_sv);
+            var lopTCs = db.STU_DanhSachLopTinChi.Where(t => t.ID_lop_tc == ID_lop_tc && t.ID_sv == sinhVien[ID_dt].ID_sv);
             if (lopTCs.Count() > 0)
             {
                 var lopTC = lopTCs.First();

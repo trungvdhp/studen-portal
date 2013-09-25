@@ -4,10 +4,11 @@
 
 <div class="row-fluid">
     <div class="span12">
+        <p>
         <span>Chọn chuyên ngành: </span>
         @(Html.Kendo().DropDownList()
     .Name("ID_dt")
-                //.OptionLabel("Chọn chuyên ngành")
+    .OptionLabel("Chọn chuyên ngành")
     .DataTextField("Text")
     .DataValueField("Value")
     .HtmlAttributes(new { style = "width:200px;" })
@@ -17,13 +18,14 @@
         {
             read.Action("getChuyenNganh", "DangKyHocPhan");
         })
-            //.ServerFiltering(true)
         ;
     })
-                //.AutoBind(false)
-)
-        <br />
-        <br />
+    .Events(e =>
+    {
+        e.DataBound("chonChuyenNganh");
+        e.Change("loadTKB");
+    })
+)</p><p>
         <script>
             var Thu = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]; //Array();
             var Tong_so_tiet = '@ViewBag.Tong_so_tiet';
@@ -86,7 +88,7 @@
     {
         source.Read(read =>
         {
-            read.Action("getGiaiDoan", "DangKyHocPhan");
+            read.Action("getGiaiDoan", "DangKyHocPhan").Data("getFilters");
         });
     })
     .Events(e =>{
@@ -94,7 +96,8 @@
     })
     .AutoBind(false)
 )
-
+    </p>
+        <p></p>
         @(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChiViewModel>()
     .Name("GridLopTC")
     .Columns(columns =>
@@ -126,10 +129,10 @@ if(!Chua_dang_ky){
         dataSource => dataSource.Ajax()
             .Read(read => read.Action("getLopTC", "DangKyHocPhan").Data("getFilters"))
     )
-                //.HtmlAttributes(new {style = "height:400px"})
+    
 )
 
-       
+       <p></p>
         
         @(Html.Kendo().Scheduler<StudentPortal.ViewModels.ThoiKhoaBieu>()
     .Name("scheduler")
@@ -155,13 +158,21 @@ if(!Chua_dang_ky){
         })
         .Read(read=>read.Action("getThoiKhoaBieu", "DangKyHocPhan").Data("getFilters"))
     )
+    
 )
-
+        <p></p>
     </div>
 </div>
 
 <script>
-    function onDataBound() {
+    function chonChuyenNganh() {
+        $("#ID_dt").data("kendoDropDownList").value(1);
+        $("#scheduler").data("kendoScheduler").dataSource.read();
+    }
+    function loadTKB(e) {
+        $("#scheduler").data("kendoScheduler").dataSource.read();
+    }
+    function onDataBound(e) {
         $('.time_event').each(function () {
             $(this).parent().css('background-color', $(this).attr('data-color'));
         })
@@ -180,7 +191,6 @@ if(!Chua_dang_ky){
     }
     function deleteNotUseElements() {
         $('.k-reset.k-header.k-toolbar.k-scheduler-navigation').css("display", "none");
-        //$('.k-reset.k-header.k-toolbar.k-scheduler-views').css('display', 'none');
         $('.k-scheduler-table.k-scheduler-header-all-day').css("display", "none");
         $('.k-scheduler-times-all-day').parent().css("display", "none");
     }
@@ -188,6 +198,7 @@ if(!Chua_dang_ky){
         $("#GridLopTC").data("kendoGrid").dataSource.read();
     }
     $(document).ready(function () {
+        loadTKB()
         deleteNotUseElements();
         $('.btnDangKy').live('click', function (e) {
             e.preventDefault();

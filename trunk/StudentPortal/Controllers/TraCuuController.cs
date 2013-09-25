@@ -45,6 +45,8 @@ namespace StudentPortal.Controllers
 		}
 		#endregion
 
+
+
 		#region Diem
 
         //[Authorize(Roles = "TraCuu.Diem")]
@@ -52,6 +54,16 @@ namespace StudentPortal.Controllers
 		{
 			return View();
 		}
+
+        public ActionResult getChuyenNganh(string TuKhoa)
+        {
+            int ID_sv = SinhVien.GetIdSv(TuKhoa);
+            var chuyennganhs = SinhVien.getChuyenNganh(ID_sv);
+            JsonResult result = new JsonResult();
+            result.Data = new SelectList(chuyennganhs , "ID_dt", "Chuyen_nganh");
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
 
         //[Authorize(Roles = "TraCuu.NamHoc")]
 		public ActionResult NamHoc(string TuKhoa)
@@ -88,13 +100,13 @@ namespace StudentPortal.Controllers
 		}
 
         //[Authorize(Roles = "TraCuu.DiemHocTap")]
-		public ActionResult DiemHocTap([DataSourceRequest] DataSourceRequest request, string TuKhoa, string NamHoc, string HocKy)
+		public ActionResult DiemHocTap([DataSourceRequest] DataSourceRequest request, string TuKhoa, string NamHoc, string HocKy,int ID_dt)
 		{
 			int ID_sv = SinhVien.GetIdSv(TuKhoa);
 			DHHHContext db = new DHHHContext();
 			int hk = HocKy == "" ? 0 : Convert.ToInt32(HocKy);
 
-			var diem = SinhVien.GetDiemHocTap(ID_sv);
+			var diem = SinhVien.GetDiemHocTap(ID_sv,ID_dt);
 			if (NamHoc != "") diem = diem.Where(t => t.Nam_hoc == NamHoc).ToList();
 			if (hk != 0) diem = diem.Where(t => t.Hoc_ky == hk).ToList();
 			return Json(diem.ToDataSourceResult(request));
