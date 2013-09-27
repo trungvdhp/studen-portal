@@ -24,7 +24,7 @@
     .Events(e =>
     {
         //e.DataBound("chonChuyenNganh");
-        //e.Change("loadTKB");
+        e.Change("reloadScheduler");
     })
 )
             @(Html.Kendo().DropDownList()
@@ -59,17 +59,71 @@
     })
     .Events(e =>
     {
-        //e.Change("reloadScheduler");
+        e.Change("reloadScheduler");
     })
     .AutoBind(false)
 )
         </p>
+        <script>
+            var Thu = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]; //Array();
+            var Tong_so_tiet = '@ViewBag.Tong_so_tiet';
+            var Tiet = Array();
+            for (var i = 1; i <= Tong_so_tiet; i++)
+                Tiet[i - 1] = "Tiết " + i;
+            var idThu = 0;
+            var idTiet = 0;
+        </script>
+        @(Html.Kendo().Scheduler<StudentPortal.ViewModels.ThoiKhoaBieu>()
+    .Name("scheduler")
+
+    .StartTime(DateTime.Now.Date)
+    .EndTime(DateTime.Now.Date.AddHours((int)ViewBag.Tong_so_tiet))
+    .DateHeaderTemplate("<strong># if(idThu==7) idThu=0; # #=Thu[idThu]# # idThu++; #</strong>")
+    .MajorTimeHeaderTemplate("# if(idTiet==Tong_so_tiet) idTiet=0; # #=Tiet[idTiet]# # idTiet++;# ")
+    .EventTemplate("<div class=\"time_event\" data-color=\"#=Color#\"><dl><dd>#= title #<dd></dl></div>")
+    .Views(views =>
+    {
+        views.WeekView(); 
+    })
+    .Editable(false)
+    .Events(e => {
+        e.DataBound("onDataBound");
+    })
+    .DataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.Id);
+            m.Field(f => f.ID_lop_tc).DefaultValue(1);
+        })
+        .Read(read=>read.Action("getThoiKhoaBieu", "ThoiKhoaBieu").Data("getFilters"))
+    )
+    
+)
+        <p></p>
     </div>
 </div>
 <script>
+    function deleteNotUseElements() {
+        $('.k-reset.k-header.k-toolbar.k-scheduler-navigation').css("display", "none");
+        $('.k-scheduler-table.k-scheduler-header-all-day').css("display", "none");
+        $('.k-scheduler-times-all-day').parent().css("display", "none");
+    }
+    function onDataBound(e) {
+        $('.time_event').each(function () {
+            $(this).parent().css('background-color', $(this).attr('data-color'));
+        })
+    }
+
+    function reloadScheduler(e) {
+        $("#scheduler").data("kendoScheduler").dataSource.read();
+    }
+
     function getFilters() {
         return {
             ID_dt: $('#ID_dt').val(),
         }
     }
+    $(document).ready(function () {
+        deleteNotUseElements();
+    });
 </script>

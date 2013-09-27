@@ -14,8 +14,6 @@ using StudentPortal.Lib;
 
 namespace StudentPortal.Controllers
 {
-	[Authorize]
-	[InitializeSimpleMembership]
 	public class AccountController : BaseController
 	{
 

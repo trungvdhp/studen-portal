@@ -2,76 +2,78 @@
 
 @{
     ViewBag.Title = "Môn tín chỉ";
-	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row-fluid">
-	<div class="span12">
+    <div class="span12">
 
-		<h2>Index</h2>
+        <p>
+            @Html.ActionLink("Thêm", "Create", new { }, new { @class = "btn green" })
+        </p>
+        <p>
+            @(Html.Kendo().DropDownList()
+                .Name("IDHe")
+                .OptionLabel("Chọn hệ đào tạo")
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .HtmlAttributes(new { style = "width:300px;" })
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("getHe", "MonTinChi");
+                    });
+                })
+            )
+            @(Html.Kendo().DropDownList()
+                .Name("IDKhoa")
+                .OptionLabel("Chọn khoa")
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .HtmlAttributes(new { style = "width:300px;" })
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("getKhoa", "MonTinChi").Data("getHeFilter");
+                    }).ServerFiltering(true);
+                })
+                .AutoBind(false)
+                .CascadeFrom("IDHe")
+            )
+        </p>
+        <p></p>
+        @(Html.Kendo().Grid<StudentPortal.PLAN_MonTinChi_TC>()
+            .Name("PLAN_MonTinChi_TC")
+            .Columns(columns =>
+            {
+                columns.Bound(model => model.ID_mon_tc);
+                columns.Bound(model => model.MARK_MonHoc.Ky_hieu);
+                columns.Bound(model => model.MARK_MonHoc.Ten_mon);
+                //columns.Bound(model => model.Ky_dang_ky);
+                //columns.Bound(model => model.Ky_hieu_lop_tc);
+                columns.Bound(model => model.So_tin_chi);
+                columns.Bound(model => model.He_so);
+                //columns.Bound(model => model.So_tien);
+                //columns.Bound(model => model.Ly_thuyet);
+                //columns.Bound(model => model.Thuc_hanh);
+                //columns.Bound(model => model.Bai_tap);
+                //columns.Bound(model => model.Bai_tap_lon);
+                //columns.Bound(model => model.Locked);
+                columns.Command(command => { command.Custom("Sửa").Click("Edit"); command.Custom("Xóa").Click("Delete"); });
+            })
+            .Groupable()
+            .Pageable()
+            .Sortable()
+            .Filterable()
+            .DataSource(
+                dataSource => dataSource.Ajax()
+                    .Read(read => read.Action("Read", "MonTinChi").Data("getFilter"))
+            )
+        )
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-@(Html.Kendo().DropDownList()
-	.Name("IDHe")
-	.OptionLabel("Chọn hệ đào tạo")
-	.DataTextField("Text")
-	.DataValueField("Value")
-	.HtmlAttributes(new {style="width:300px;"})
-	.DataSource(source=> {
-		source.Read(read =>
-		{
-			read.Action("getHe", "MonTinChi");
-		});
-	})
-)
- @(Html.Kendo().DropDownList()
-    .Name("IDKhoa")
-    .OptionLabel("Chọn khoa")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .HtmlAttributes(new { style = "width:300px;" })
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("getKhoa", "MonTinChi").Data("getHeFilter");
-        }).ServerFiltering(true);
-    })
-    .AutoBind(false)
-    .CascadeFrom("IDHe")
-)
-@(Html.Kendo().Grid<StudentPortal.PLAN_MonTinChi_TC>()
-	.Name("PLAN_MonTinChi_TC")
-	.Columns(columns =>
-	{
-				columns.Bound(model => model.ID_mon_tc);
-				columns.Bound(model => model.MARK_MonHoc.Ky_hieu);
-				columns.Bound(model => model.MARK_MonHoc.Ten_mon);
-				//columns.Bound(model => model.Ky_dang_ky);
-				//columns.Bound(model => model.Ky_hieu_lop_tc);
-				columns.Bound(model => model.So_tin_chi);
-				columns.Bound(model => model.He_so);
-				//columns.Bound(model => model.So_tien);
-				//columns.Bound(model => model.Ly_thuyet);
-				//columns.Bound(model => model.Thuc_hanh);
-				//columns.Bound(model => model.Bai_tap);
-				//columns.Bound(model => model.Bai_tap_lon);
-				//columns.Bound(model => model.Locked);
-		        columns.Command(command => {command.Custom("Edit").Click("Edit"); command.Custom("Delete").Click("Delete");});
-	})
-	.Groupable()
-	.Pageable()
-	.Sortable()
-	.Filterable()
-	.DataSource(
-		dataSource => dataSource.Ajax()
-			.Read(read => read.Action("Read", "MonTinChi").Data("getFilter"))
-	)
-)
-
-	</div>
+    </div>
 </div>
 <script type="text/javascript">
     function getHeFilter() {
@@ -83,32 +85,32 @@
             ID_he: idHe
         }
     }
-	function getFilter() {
-		return {
-			IDHe: $('#IDHe').val(),
-			IDKhoa: $('#IDKhoa').val(),
-			KyThu: 0
-		}
-	}
-	function Edit(e) {
-		e.preventDefault();
-		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
-		location.href='@Url.Action("Edit","MonTinChi")/'+dataItem.ID_mon_tc;
-	}
-	function Delete(e) {
-		e.preventDefault();
-		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
-		location.href = '@Url.Action("Delete","MonTinChi")/' + dataItem.ID_mon_tc;
-	}
-	
-	$(document).ready(function () {
+    function getFilter() {
+        return {
+            IDHe: $('#IDHe').val(),
+            IDKhoa: $('#IDKhoa').val(),
+            KyThu: 0
+        }
+    }
+    function Edit(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+        location.href = '@Url.Action("Edit", "MonTinChi")/' + dataItem.ID_mon_tc;
+    }
+    function Delete(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+        location.href = '@Url.Action("Delete", "MonTinChi")/' + dataItem.ID_mon_tc;
+    }
 
-		$('#IDHe').change(function () {
-			$("#PLAN_MonTinChi_TC").data("kendoGrid").dataSource.read();
-		});
+    $(document).ready(function () {
 
-		$('#IDKhoa').change(function () {
-			$("#PLAN_MonTinChi_TC").data("kendoGrid").dataSource.read();
-		});
-	})
+        $('#IDHe').change(function () {
+            $("#PLAN_MonTinChi_TC").data("kendoGrid").dataSource.read();
+        });
+
+        $('#IDKhoa').change(function () {
+            $("#PLAN_MonTinChi_TC").data("kendoGrid").dataSource.read();
+        });
+    })
 </script>

@@ -6,7 +6,7 @@
 			</div>
 			<form class="sidebar-search">
 				<div class="input-box">
-					<input type="text" class="" placeholder="Search" />
+					<input type="text" class="" placeholder="Tìm kiếm" />
 					<input type="button" class="submit" value=" " />
 				</div>
 			</form>
@@ -26,8 +26,8 @@
 					<span class="arrow"></span>
 					</a>
 					<ul class="sub">
-						<li><a class="" href="@Url.Action("Diem", "TraCuu")">Điểm</a></li>
-						<li><a class="" href="@Url.Action("ThuChi","TraCuu")">Thu chi</a></li>
+						<li><a class="" href="@Url.Action("Diem", "TraCuu", new { Area = ""})">Điểm</a></li>
+						<li><a class="" href="@Url.Action("ThuChi","TraCuu", new { Area = ""})">Thu chi</a></li>
 					</ul>
 				</li>
 				<li class="has-sub">
@@ -37,8 +37,8 @@
 					</a>
 					<ul class="sub">
 						<li><a class="" href="@Url.Action("Index","MonTinChi", new { Area = "Admin" })">Môn tín chỉ</a></li>
-						<li><a class="" href="form_component.html">Lớp tín chỉ</a></li>
-						<li><a class="" href="form_wizard.html">Danh sách đăng ký</a></li>
+						<li><a class="" href="@Url.Action("Index","LopTinChi", new { Area = "Admin" })">Lớp tín chỉ</a></li>
+						<li><a class="" href="@Url.Action("Index","DanhSachLopTC", new { Area = "Admin" })">Danh sách SV đăng ký</a></li>
 					</ul>
 				</li>
 				<li class="has-sub">

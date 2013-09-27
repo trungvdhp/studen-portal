@@ -255,6 +255,6 @@ namespace StudentPortal
 		public DbSet<webpages_Groups_Roles> webpages_Groups_Roles { get; set; }
         public DbSet<ViewLopTinChi> ViewLopTinChi { get; set; }
         public DbSet<SCH_CauHinhThoiGian> SCH_CauHinhThoiGian { get; set; }
-        public DbSet<CauHinhModel> Config { get; set; }
+        public DbSet<CauHinhModel> CauHinh { get; set; }
 	}
 }

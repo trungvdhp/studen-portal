@@ -14,14 +14,14 @@ namespace StudentPortal
 {
     using System;
     using System.Collections.Generic;
-    [Table("webpages_Configs")]
+    [Table("webpages_CauHinh")]
     public partial class CauHinhModel
     {
         [Key, Column(Order = 0)]
         public string Ten { get; set; }
-        
-        [Key, Column(Order=1)]
-        public int Ky_dang_ky { get; set; }
+
+        //[Key, Column(Order = 3)]
+        //public int? Ky_dang_ky { get; set; }
 
         public string Gia_tri { get; set; }
 

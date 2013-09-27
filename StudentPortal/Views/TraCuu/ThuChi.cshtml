@@ -128,7 +128,6 @@
     .Groupable()
     .Pageable()
     .Sortable()
-    .Scrollable()
     .Pageable(pager => pager.Enabled(false))
     .DataSource(
         dataSource => dataSource.Ajax()
@@ -138,7 +137,7 @@
                 .Group(group => group.Add(t => t.Ten_lan))
             .Read(read => read.Action("BienLaiThu", "TraCuu").Data("getTuKhoa"))
     )
-    .HtmlAttributes(new { style = "height:400px" })
+    .HtmlAttributes(new {style="min-height:400px"})
 )
             </div>
         </div>

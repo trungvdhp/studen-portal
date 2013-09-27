@@ -1,274 +1,60 @@
 ﻿@model IEnumerable<StudentPortal.PLAN_LopTinChi_TC>
 
 @{
-    ViewBag.Title = "Quản lý lớp tín chỉ";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row-fluid">
-    <div class="span12">
+	<div class="span12">
 
-        <h2>@ViewBag.Title</h2>
+		<h2>Index</h2>
 
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-        <p>
-            @(Html.Kendo().DropDownList()
-    .OptionLabel("Chọn hệ đào tạo")
-    .Name("He")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .HtmlAttributes(new { style = "width: 200px" })
-    .DataSource(source =>
-    {
-        source.Read("getHeDaoTao", "LopTinChi");
-    })
+<p>
+    @Html.ActionLink("Thêm", "Create", new { }, new { @class = "btn green" })
+</p>
+@(Html.Kendo().Grid<StudentPortal.PLAN_LopTinChi_TC>()
+	.Name("PLAN_LopTinChi_TC")
+	.Columns(columns =>
+	{
+			columns.Bound(model => model.ID_lop_lt);
+				columns.Bound(model => model.PLAN_MonTinChi_TC.Ky_hieu_lop_tc);
+				columns.Bound(model => model.STT_lop);
+				columns.Bound(model => model.So_sv_min);
+				columns.Bound(model => model.So_sv_max);
+				columns.Bound(model => model.Tu_ngay);
+				columns.Bound(model => model.Den_ngay);
+				columns.Bound(model => model.Ca_hoc);
+				columns.Bound(model => model.So_tiet_tuan);
+				columns.Bound(model => model.PLAN_PhongHoc.So_phong);
+				columns.Bound(model => model.PLAN_GiaoVien.Ma_cb);
+				columns.Bound(model => model.Huy_lop);
+				columns.Bound(model => model.Ly_do);
+				columns.Bound(model => model.Nhom_dang_ky);
+				columns.Bound(model => model.Ngay_thi);
+				columns.Bound(model => model.Cho_trong);
+		        columns.Command(command => {command.Custom("Sửa").Click("Edit"); command.Custom("Xóa").Click("Delete");});
+	})
+	.Groupable()
+	.Pageable()
+	.Sortable()
+	.DataSource(
+		dataSource => dataSource.Ajax()
+			.Read(read => read.Action("Read", "LopTinChi"))
+	)
 )
 
-            @(Html.Kendo().DropDownList()
-    .OptionLabel("Chọn chuyên ngành")
-    .Name("ChuyenNganh")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .HtmlAttributes(new { style = "width: 200px" })
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("getChuyenNganh", "LopTinChi").Data("getFilters");
-        })
-        .ServerFiltering(true);
-    })
-    .CascadeFrom("He")
-    .AutoBind(false)
-)
-            @* @(Html.Kendo().DropDownList()
-    .OptionLabel("Chọn chương trìn đào tạo")
-    .Name("ID_dt")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .HtmlAttributes(new { style = "width: 300px" })
-    .DataSource(source =>
-    {
-        source.Read(read =>{
-            read.Action("getChuongTrinhDaoTao", "LopTinChi").Data("getFilters");
-        })
-        .ServerFiltering(true);
-    })
-    .AutoBind(false)
-    .CascadeFrom("ChuyenNganh")
-)*@
-
-
-            @(Html.Kendo().DropDownList()
-    .OptionLabel("Chọn kỳ đăng ký")
-    .Name("KyDangKy")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .DataSource(source =>
-    {
-        source.Read("getKyDangKy", "LopTinChi")
-        .ServerFiltering(true);
-    })
-    .CascadeFrom("ChuyenNganh")
-    .AutoBind(false)
-)
-
-            @(Html.Kendo().DropDownList()
-    .OptionLabel("Chọn môn tín chỉ")
-    .Name("MonTC")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .HtmlAttributes(new { style = "width:300px" })
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("getMonTC", "LopTinChi").Data("getFilters").Data("getFilters");
-        }).ServerFiltering(true);
-    })
-    .AutoBind(false)
-    .CascadeFrom("KyDangKy")
-)
-
-            @(Html.Kendo().DropDownList()
-        .OptionLabel("Chọn lớp tín chỉ")
-        .Name("LopTC")
-        .DataTextField("Text")
-    .DataValueField("Value")
-    .HtmlAttributes(new { style = "width:300px" })
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("getLopTC", "LopTinChi").Data("getFilters");
-        }).ServerFiltering(true);
-    }
-    )
-    .AutoBind(false)
-    .CascadeFrom("MonTC")
-    .Events(e =>
-    {
-        e.Change("LopTC_change");
-    })
-)
-        </p>
-        @(Html.Kendo().Grid<StudentPortal.ViewModels.SinhVienViewModel>()
-    .Name("GridSinhVien")
-    .Columns(column =>
-    {
-        column.Template(@<text></text>)
-            .ClientTemplate(@"<input type='checkbox' value='#=ID_sv#' class='checkRow'/>")
-            .HeaderTemplate(@"<input type='checkbox' class='checkAll'/>")
-            .Width(30)
-            //.HtmlAttributes(new { style = "width:20px" })
-            //.HeaderHtmlAttributes(new { style = "width:20px" })
-            ;
-        column.Bound(t => t.Ma_sv)
-            //.HtmlAttributes(new { style = "width:50px" }).HeaderHtmlAttributes(new { style = "width:50px" })
-            .Width(60)
-            ;
-        column.Bound(t => t.Ho_ten)
-            ;
-        column.Bound(t => t.Lop)
-            //.HtmlAttributes(new { style = "width:80px" }).HeaderHtmlAttributes(new { style = "width:80px" })
-            .Width(90)
-            ;
-        column.Template(@<text></text>).ClientTemplate(@"#
-var label = 'Xác nhận';
-var action = 'DuyetDK';
-if(Duyet==1)
-{
-    action = 'BoDuyetDK';
-    label = 'Hủy';
-}
-#<a class='k-button-icontext k-button btnDuyet' href='javascript:;' ID_sv='#=ID_sv#' data-action='#=action#'>#=label#</a>")
-            //.HtmlAttributes(new { style = "width:80px" }).HeaderHtmlAttributes(new { style = "width:80px" })
-            .Width(90)
-            ;
-    })
-    .DataSource(source =>
-    {
-        source.Ajax().Read(read =>
-        {
-            read.Action("getSinhVienDK", "LopTinChi").Data("getFilters");
-        });
-    })
-    
-    .Groupable()
-    .Pageable()
-    .Sortable()
-    //.Scrollable()
-    .Selectable()
-    .Pageable(pager => pager.PageSizes(new int[]{10,20,30})
-      )
-    .Events(e =>
-    {
-        e.DataBound("onDataBound");
-    })
-)
-        <p></p>
-        <p>
-            <a href="javascript:;" class="btnDuyetSelected btn purple" data-action="DuyetDKs">Duyệt các sinh viên đã chọn</a> &nbsp;
-            <a href="javascript:;" class="btnDuyetSelected btn" data-action="BoDuyetDKs">Bỏ duyệt các sinh viên đã chọn</a>
-        </p>
-    </div>
+	</div>
 </div>
 <script type="text/javascript">
-    var selectedIDs = {};
-    function onDataBound(e) {
-        $('.checkRow').each(function (e) {
-            if (selectedIDs[$(this).val()]) {
-                $(this).attr('checked', true);
-            }
-        });
-        checkAll(true);
-    }
-    function checkAll(checked) {
-
-        var checkAll = false;
-        if (checked) {
-            var checkAll = true;
-            $('.checkRow').each(function (e) {
-                if (!selectedIDs[$(this).val()]) checkAll = false;
-            });
-
-        }
-        $('.checkAll').attr('checked', checkAll);
-        if (checkAll) $('.checkAll').parent().addClass('checked');
-        else $('.checkAll').parent().removeClass('checked');
-    }
-    $(document).ready(function () {
-        $('.checkAll').change(function () {
-            var checked = $(this).attr('checked') == 'checked';
-            $('.checkRow').attr('checked', checked);
-            $('.checkRow').each(function () {
-                selectedIDs[$(this).val()] = checked;
-            });
-        });
-        $('.checkRow').live('click', function () {
-            var checked = $(this).attr('checked') == 'checked';
-            selectedIDs[$(this).val()] = checked;
-            checkAll(checked);
-        });
-        $('.btnDuyetSelected').click(function () {
-            var IDs = [];
-            var i=0;
-            for (var id in selectedIDs)
-                if (selectedIDs[id]) IDs[i++] = id;
-            $.ajax({
-                url: '/Admin/LopTinChi/' + $(this).attr('data-action'),
-                data: {
-                    IDs: IDs.join(),
-                    ID_lop_tc: $('#LopTC').val(),
-                },
-                dataType: 'json',
-                success: function (o) {
-                    alert(o.Message);
-                    $('#GridSinhVien').data("kendoGrid").dataSource.read();
-
-                }
-            });
-        });
-        $('.btnDuyet').live('click',function () {
-            $.ajax({
-                url: '/Admin/LopTinChi/' + $(this).attr('data-action'),
-                dataType: 'json',
-                data: {
-                    ID_sv: $(this).attr('ID_sv'),
-                    ID_lop_tc: $('#LopTC').val(),
-                },
-                success: function (o) {
-                    alert(o.Message);
-                    $('#GridSinhVien').data("kendoGrid").dataSource.read();
-                }
-            });
-        });
-    })
-
-    function LopTC_change(e) {
-        selectedIDs = {};
-        $('#GridSinhVien').data("kendoGrid").dataSource.read();
-    }
-    function getFilters() {
-        return {
-            //ID_dt: $('#ID_dt').val(),
-            ID_he: $('#He').val(),
-            ID_chuyen_nganh: $('#ChuyenNganh').val(),
-            Ky_dang_ky: $('#KyDangKy').val(),
-            ID_mon: $('#MonTC').val(),
-            ID_lop_tc: $('#LopTC').val(),
-        };
-    }
-    function Edit(e) {
-        e.preventDefault();
-        var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
-        location.href = '@Url.Action("Edit", "LopTinChi")/' + dataItem.ID_lop_tc;
-    }
-    function Delete(e) {
-        e.preventDefault();
-        var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
-        location.href = '@Url.Action("Delete", "LopTinChi")/' + dataItem.ID_lop_tc;
-    }
+	function Edit(e) {
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+		location.href='@Url.Action("Edit","LopTinChi")/'+dataItem.ID_lop_tc;
+	}
+	function Delete(e) {
+		e.preventDefault();
+		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+		location.href = '@Url.Action("Delete","LopTinChi")/' + dataItem.ID_lop_tc;
+	}
 </script>

@@ -15,16 +15,16 @@ using StudentPortal.Filters;
 
 namespace StudentPortal
 {
-    [InitializeSimpleMembership]
+    [Authorize]
     public class BaseController : Controller
     {
         private PLAN_HocKyDangKy_TC _HocKyDangKy;
         private UserProfile _userProfile;
-        private Dictionary<int,STU_DanhSach> _sinhVien;
+        private Dictionary<int, STU_DanhSach> _sinhVien;
         private PLAN_QUYDINH_DANGKY _quydinhDK;
-        private Dictionary<int,List<DiemHocTap>> _diemHocTap = new Dictionary<int,List<DiemHocTap>>();
-        private Dictionary<int,List<DiemHocTap> >_bangdiem = new Dictionary<int,List<DiemHocTap>>();
-        private Dictionary<int, HocKy> _hocKyTruoc = new Dictionary<int,HocKy>();
+        private Dictionary<int, List<DiemHocTap>> _diemHocTap = new Dictionary<int, List<DiemHocTap>>();
+        private Dictionary<int, List<DiemHocTap>> _bangdiem = new Dictionary<int, List<DiemHocTap>>();
+        private Dictionary<int, HocKy> _hocKyTruoc = new Dictionary<int, HocKy>();
         private bool _hetHanDK;
         private Dictionary<string, List<PLAN_MonTinChi_TC>> _dicMonDangKy = new Dictionary<string, List<PLAN_MonTinChi_TC>>();
 
@@ -47,7 +47,7 @@ namespace StudentPortal
             {
                 if (_sinhVien == null && userProfile != null)
                 {
-                    _sinhVien = SinhVien.GetSinhVien(userProfile).ToDictionary(t=>t.STU_Lop.ID_dt,t=>t)  ;
+                    _sinhVien = SinhVien.GetSinhVien(userProfile).ToDictionary(t => t.STU_Lop.ID_dt, t => t);
                 }
                 return _sinhVien;
             }
@@ -88,46 +88,44 @@ namespace StudentPortal
         }
         protected List<DiemHocTap> getDiemHocTap(int ID_dt)
         {
-            
-                if (!_diemHocTap.ContainsKey(ID_dt))
-                    _diemHocTap[ID_dt]= SinhVien.GetDiemHocTap(sinhVien[ID_dt].ID_sv,ID_dt);
-                return _diemHocTap[ID_dt];
-            
+
+            if (!_diemHocTap.ContainsKey(ID_dt))
+                _diemHocTap[ID_dt] = SinhVien.GetDiemHocTap(this.ID_sv, ID_dt);
+            return _diemHocTap[ID_dt];
+
         }
         protected List<DiemHocTap> getBangDiem(int ID_dt)
         {
-                if (!_bangdiem.ContainsKey(ID_dt))
+            if (!_bangdiem.ContainsKey(ID_dt))
+            {
+                var diems = this.getDiemHocTap(ID_dt);
+                Dictionary<int, DiemHocTap> bangdiem = new Dictionary<int, DiemHocTap>();
+                foreach (var diem in diems)
                 {
-                    var diems = this.getDiemHocTap(ID_dt);
-                    Dictionary<int, DiemHocTap> bangdiem = new Dictionary<int, DiemHocTap>();
-                    foreach (var diem in diems)
-                    {
-                        if (!bangdiem.ContainsKey(diem.ID_mon))
-                            bangdiem[diem.ID_mon] = diem;
-                        else if (diem.Z > bangdiem[diem.ID_mon].Z)
-                            bangdiem[diem.ID_mon] = diem;
-                    }
-                    _bangdiem[ID_dt] = bangdiem.Values.ToList();
+                    if (!bangdiem.ContainsKey(diem.ID_mon))
+                        bangdiem[diem.ID_mon] = diem;
+                    else if (diem.Z > bangdiem[diem.ID_mon].Z)
+                        bangdiem[diem.ID_mon] = diem;
                 }
-                return _bangdiem[ID_dt];
-         
+                _bangdiem[ID_dt] = bangdiem.Values.ToList();
+            }
+            return _bangdiem[ID_dt];
+
         }
         protected HocKy getHocKyTruoc(int ID_dt)
         {
-            
-                if (_hocKyTruoc.ContainsKey(ID_dt))
-                {
-                    var hocky = this.getDiemHocTap(ID_dt).Select(t => new HocKy
-                    {
-                        Hoc_ky = t.Hoc_ky,
-                        Nam_hoc = t.Nam_hoc,
-                    }).Distinct().OrderByDescending(t => t.Nam_hoc).ThenByDescending(t => t.Hoc_ky).ToList();
-                    _hocKyTruoc[ID_dt] = hocky.First();
-                }
-                return _hocKyTruoc[ID_dt];
-        }
-        
 
+            if (!_hocKyTruoc.ContainsKey(ID_dt))
+            {
+                var hocky = this.getDiemHocTap(ID_dt).Select(t => new HocKy
+                {
+                    Hoc_ky = t.Hoc_ky,
+                    Nam_hoc = t.Nam_hoc,
+                }).Distinct().OrderByDescending(t => t.Nam_hoc).ThenByDescending(t => t.Hoc_ky).ToList();
+                _hocKyTruoc[ID_dt] = hocky.First();
+            }
+            return _hocKyTruoc[ID_dt];
+        }
         protected List<PLAN_MonTinChi_TC> getMonDangKy(string KieuDK, int ID_dt)
         {
             if (!_dicMonDangKy.ContainsKey(KieuDK + ID_dt))
@@ -263,7 +261,6 @@ namespace StudentPortal
             }
             return _dicMonDangKy[KieuDK + ID_dt];
         }
-
         private List<ChuyenNganh> _chuyenNganh;
         protected List<ChuyenNganh> ChuyenNganh
         {
@@ -276,6 +273,16 @@ namespace StudentPortal
                 return _chuyenNganh;
             }
         }
+        private int _iD_sv = 0;
+        protected int ID_sv
+        {
+            get
+            {
+                if (_iD_sv == 0)
+                    _iD_sv = sinhVien.Values.First().ID_sv;
+                return _iD_sv;
+            }
+        }
         public BaseController()
         {
             itemsPerPage = Properties.Settings.Default.items_per_page;
@@ -283,7 +290,32 @@ namespace StudentPortal
 
             if (WebSecurity.IsAuthenticated)
             {
-
+                string strUserGroups = CauHinh.get("User_Groups").ToString();
+                string[] buf = strUserGroups.Split(new char[] { ',' });
+                var groupIDs = new List<int>();
+                foreach (string e in buf)
+                {
+                    int groupID = Convert.ToInt32(e);
+                    groupIDs.Add(groupID);
+                }
+                if (!groupIDs.Contains(userProfile.GroupId))
+                {
+                    var groupRoles = db.webpages_Groups_Roles.Where(t => t.GroupId == userProfile.GroupId).Select(t => t.webpages_Roles.RoleName).ToList();
+                    var userRoles = Roles.GetRolesForUser(userProfile.UserName);
+                    var addRoles = new List<string>();
+                    foreach (var role in groupRoles)
+                    {
+                        if (!userRoles.Contains(role))
+                            Roles.AddUserToRole(userProfile.UserName, role);
+                    }
+                    var removeRoles = new List<string>();
+                    foreach (var role in userRoles)
+                    {
+                        if (!groupRoles.Contains(role))
+                            Roles.RemoveUserFromRole(userProfile.UserName, role);
+                    }
+                    
+                }
             }
         }
     }

@@ -12,9 +12,13 @@ namespace StudentPortal.Controllers
 {
     public class ThoiKhoaBieuController : BaseController
     {
-        //
-        // GET: /ThoiKhoaBieu/
-
+        public ThoiKhoaBieuController()
+        {
+            var cauhinhThoigian = db.SCH_CauHinhThoiGian.Single(t => t.Ky_dang_ky == HocKyDangKy.Ky_dang_ky);
+            ViewBag.Ngay_thoi_gian = cauhinhThoigian.Ngay_thoi_gian;
+            List<string> thoiGianBatDau = cauhinhThoigian.Thoi_gian_bat_dau.Split(new char[] { ',' }).ToList();
+            ViewBag.Tong_so_tiet = thoiGianBatDau.Count - thoiGianBatDau.Count(t => t == "0000");
+        }
         public ActionResult Index()
         {
             return View();
@@ -43,7 +47,7 @@ namespace StudentPortal.Controllers
         public ActionResult getGiaiDoan(int ID_dt)
         {
             DHHHContext db = new DHHHContext();
-            var ID_sv = sinhVien[ID_dt].ID_sv;
+            var ID_sv = this.ID_sv;
             var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList();
             var suKienTinChis = new List<PLAN_SukiensTinChi_TC>();
             foreach (var idLopDK in idLopDKs)

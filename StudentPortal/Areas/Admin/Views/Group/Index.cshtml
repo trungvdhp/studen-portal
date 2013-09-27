@@ -1,25 +1,22 @@
 ﻿@model IEnumerable<StudentPortal.Models.webpages_Group>
 
 @{
-    ViewBag.Title = "Index";
-	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Nhóm người dùng";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row-fluid">
 	<div class="span12">
 
-		<h2>Index</h2>
-
 <p>
-    @*@Html.ActionLink("Create New", "Create")*@
-	<a href="@Url.Action("Create")" class="btn green" title="">Create New</a>
+    @Html.ActionLink("Thêm", "Create", new { }, new { @class = "btn green" })
 </p>
 @(Html.Kendo().Grid<StudentPortal.Models.webpages_Group>()
 	.Name("webpages_Group")
 	.Columns(columns =>
 	{
 			columns.Bound(model => model.GroupName);
-		        columns.Command(command => {command.Custom("Edit").Click("Edit"); command.Custom("Delete").Click("Delete");});
+		        columns.Command(command => {command.Custom("Sửa").Click("Edit"); command.Custom("Xóa").Click("Delete");});
 	})
 	.Groupable()
 	.Pageable()
