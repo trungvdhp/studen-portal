@@ -5,9 +5,7 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <!-- BEGIN LOGO -->
-            <a class="brand" href="index.html">
-                <img src="~/Content/themes/assets/img/logo.png" alt="logo" />
-            </a>
+            <a href="#" class="brand"><span style="color:#fff">CỔNG THÔNG TIN </span><span style="color:red">SINH VIÊN</span></a>
             <!-- END LOGO -->
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
             <a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
@@ -136,7 +134,7 @@
                 </li>
                 <!-- END INBOX DROPDOWN -->
                 <!-- BEGIN TODO DROPDOWN -->
-                <li class="dropdown" id="header_task_bar">
+                @*<li class="dropdown" id="header_task_bar">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-tasks"></i>
                         <span class="badge">5</span>
@@ -215,7 +213,7 @@
                             <a href="#">See all tasks <i class="m-icon-swapright"></i></a>
                         </li>
                     </ul>
-                </li>
+                </li>*@
                 <!-- END TODO DROPDOWN -->
                 @if (Request.IsAuthenticated)
                 {
@@ -224,26 +222,30 @@
 
                     <li class="dropdown user">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img alt="" src="~/Content/themes/assets/img/avatar1_small.jpg" />
+                            <img alt="" src="~/Images/trung.jpg" style="max-height:29px;max-width:29px;"/>
                             <span class="username">@User.Identity.Name</span>
                             <i class="icon-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#"><i class="icon-user"></i>&nbsp;Hồ sơ</a></li>
-                            <li><a href="#"><i class="icon-calendar"></i>&nbsp;Thời khóa biểu</a></li>
-                            <li><a href="#"><i class="icon-tasks"></i>&nbsp;My Tasks</a></li>
+                            <li><a href="@Url.Action("Index","ThoiKhoaBieu")"><i class="icon-calendar"></i>&nbsp;Thời khóa biểu</a></li>
+                            <li><a href="@Url.Action("DiemHocTap","TraCuu")"><i class="icon-tasks"></i>&nbsp;Điểm học tập</a></li>
                             <li class="divider"></li>
                             <li>
-                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", style = "display:none;" }))
+                                @using (Html.BeginForm("LogOff", "Account", new { Area = "" }, FormMethod.Post, new { id = "logoutForm", style = "display:none;" }))
                                 {
                                     @Html.AntiForgeryToken()	
                                 }
-                                <a href="javascript:document.getElementById('logoutForm').submit()"><i class="icon-key"></i>Đăng xuất</a>
+                                <a href="javascript:$('#logoutForm').submit()"><i class="icon-key"></i>Đăng xuất</a>
                             </li>
                         </ul>
                     </li>
 
                     <!-- END USER LOGIN DROPDOWN -->
+                }else{
+                    <li class="user">
+                        <a href="@Url.Action("Login","Account")">Đăng nhập</a>
+                    </li>
                 }
             </ul>
             <!-- END TOP NAVIGATION MENU -->

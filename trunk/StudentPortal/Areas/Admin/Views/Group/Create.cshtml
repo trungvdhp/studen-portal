@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
-	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row-fluid">
@@ -39,8 +39,8 @@
 	.Columns(columns =>
 	{
 			columns.Bound(c => c.RoleId)
-				.ClientTemplate("<input type='checkbox' class='chkbx' value='#= RoleId #' name='RoleIds'/>")
-				.HeaderTemplate("<input type='checkbox' id='masterCheckBox' />")
+                .ClientTemplate("<input type='checkbox' class='checkRow' value='#= RoleId #' name='RoleIds'/>")
+				.HeaderTemplate("<input type='checkbox' class='checkAll' />")
 				.Width(40)
 				.Title("")
 				.HeaderHtmlAttributes(new { style = "text-align:center" })
@@ -63,8 +63,8 @@
 			</div>
 		</div>
 			<div class="form-actions">
-				<button class="btn blue" type="submit">Create</button>
-				<button class="btn" type="button">Cancel</button>
+				<button class="btn blue" type="submit">Xác nhận</button>
+				@Html.ActionLink("Hủy bỏ", "Index", new { }, new { @class="btn" })
 			</div>
 }
 
@@ -73,25 +73,44 @@
 	</div>
 </div>
 <script>
-	var selectedVals = []
-	// on data bound, check checkboxes
-	function onDataBound(e) {
-		checkCells(selectedVals, '#masterCheckBox', '#Grid :checkbox');
-		resizeGrid("#Grid");
+    var selectedIDs = {};
+    function onDataBound(e) {
+        $('.checkRow').each(function (e) {
+            if (selectedIDs[$(this).val()]) {
+                $(this).attr('checked', true);
+            }
+        });
+        checkAll(true);
+    }
+	function checkAll(checked) {
+
+	    var checkAll = false;
+	    if (checked) {
+	        var checkAll = true;
+	        $('.checkRow').each(function (e) {
+	            if (!selectedIDs[$(this).val()]) checkAll = false;
+	        });
+
+	    }
+	    $('.checkAll').attr('checked', checkAll);
+	    if (checkAll) $('.checkAll').parent().addClass('checked');
+	    else $('.checkAll').parent().removeClass('checked');
 	}
-	// on click checkbox cell in a row
-	$(function () {
-		$('#Grid').on('click', '.chkbx', function () {
-			var state = $(this).is(':checked');
-			var grid = $('#Grid').data().kendoGrid;
-			var dataItem = grid.dataItem($(this).closest('tr'));
 
-			checkVal(dataItem.RoleId, state, selectedVals);
-			$('#masterCheckBox').attr('checked', isCheckedAll('#Grid :checkbox'));
-		})
-	})
-
-	$('#masterCheckBox').click(function () { checkAll(this, '#Grid :checkbox'); })
+	$(document).ready(function () {
+	    $('.checkAll').change(function () {
+	        var checked = $(this).attr('checked') == 'checked';
+	        $('.checkRow').attr('checked', checked);
+	        $('.checkRow').each(function () {
+	            selectedIDs[$(this).val()] = checked;
+	        });
+	    });
+	    $('.checkRow').live('click', function () {
+	        var checked = $(this).attr('checked') == 'checked';
+	        selectedIDs[$(this).val()] = checked;
+	        checkAll(checked);
+	    });
+	});
 
 	function gridRefresh() {
 		$("#Grid").data("kendoGrid").dataSource.read();

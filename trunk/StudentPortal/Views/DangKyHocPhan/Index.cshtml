@@ -23,7 +23,7 @@
     .Events(e =>
     {
         e.DataBound("chonChuyenNganh");
-        e.Change("loadTKB");
+        e.Change("reloadScheduler");
     })
 )</p><p>
         <script>
@@ -169,9 +169,6 @@ if(!Chua_dang_ky){
         $("#ID_dt").data("kendoDropDownList").value(1);
         $("#scheduler").data("kendoScheduler").dataSource.read();
     }
-    function loadTKB(e) {
-        $("#scheduler").data("kendoScheduler").dataSource.read();
-    }
     function onDataBound(e) {
         $('.time_event').each(function () {
             $(this).parent().css('background-color', $(this).attr('data-color'));
@@ -198,7 +195,7 @@ if(!Chua_dang_ky){
         $("#GridLopTC").data("kendoGrid").dataSource.read();
     }
     $(document).ready(function () {
-        loadTKB()
+        reloadScheduler()
         deleteNotUseElements();
         $('.btnDangKy').live('click', function (e) {
             e.preventDefault();

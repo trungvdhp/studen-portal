@@ -2,122 +2,149 @@
 
 @{
     ViewBag.Title = "Edit";
-	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row-fluid">
-	<div class="span12">
-		<!-- BEGIN SAMPLE FORM PORTLET-->
-		<div class="portlet box blue">
-			<div class="portlet-title">
-				<h4><i class="icon-reorder"></i>Edit</h4>
-				<div class="tools">
-					<a href="javascript:;" class="collapse"></a>
-					<a href="#portlet-config" data-toggle="modal" class="config"></a>
-					<a href="javascript:;" class="reload"></a>
-					<a href="javascript:;" class="remove"></a>
-				</div>
-			</div>
-			<div class="portlet-body form">
-				<!-- BEGIN FORM-->
-				@using (Html.BeginForm("Edit", "Group", FormMethod.Post, new { @class = "form-horizontal", id="groupForm" }))
-	{
-					@Html.ValidationSummary(true)
+    <div class="span12">
+        <!-- BEGIN SAMPLE FORM PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <h4><i class="icon-reorder"></i>Edit</h4>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                    <a href="#portlet-config" data-toggle="modal" class="config"></a>
+                    <a href="javascript:;" class="reload"></a>
+                    <a href="javascript:;" class="remove"></a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                @using (Html.BeginForm("Edit", "Group", FormMethod.Post, new { @class = "form-horizontal", id = "groupForm" }))
+                {
+                    @Html.ValidationSummary(true)
 
-        @Html.HiddenFor(model => model.GroupId)
+                    @Html.HiddenFor(model => model.GroupId)
 
-        <div class="control-group">
-            @Html.LabelFor(model => model.GroupName, new { @class = "control-label" })
-			<div class="controls">
-					@Html.TextBoxFor(model => model.GroupName, new { @class = "medium m-wrap" })
-					@Html.ValidationMessageFor(model => model.GroupName)
-			</div>
-		</div>
-		<input type="hidden" name="RoleIds" />
-		<div class="control-group">
-			<label class="control-label">Quyền</label>
-			<div class="controls">
-				@(Html.Kendo().Grid<StudentPortal.Models.webpages_Roles>()
-	.Name("Grid")
-	.Columns(columns =>
-	{
-			columns.Bound(c => c.RoleId)
-				.ClientTemplate("<input type='checkbox' class='chkbx' value='#= RoleId #'/>")
-				.HeaderTemplate("<input type='checkbox' id='masterCheckBox' />")
-				.Width(40)
-				.Title("")
-				.HeaderHtmlAttributes(new { style = "text-align:center" })
-				.HtmlAttributes(new { style = "text-align:center" })
-				.Filterable(false).Groupable(false).Sortable(false);
-			columns.Bound(model => model.RoleName);
-			columns.Bound(model => model.DisplayName);
-	})
-	.Groupable()
-	.Pageable()
-	.Sortable()
-	.Events(e => {
-                e.DataBound("onDataBound");
-            })
-	.DataSource(
-		dataSource => dataSource.Ajax()
-			.Read(read => read.Action("Read", "Roles"))
-	)
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.GroupName, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(model => model.GroupName, new { @class = "medium m-wrap" })
+                            @Html.ValidationMessageFor(model => model.GroupName)
+                        </div>
+                    </div>
+                    <input type="hidden" name="RoleIds" />
+                    <div class="control-group">
+                        <label class="control-label">Quyền</label>
+                        <div class="controls">
+                            @(Html.Kendo().Grid<StudentPortal.Models.webpages_Roles>()
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.RoleId)
+            .ClientTemplate("<input type='checkbox' class='checkRow' value='#= RoleId #'/>")
+            .HeaderTemplate("<input type='checkbox' class='checkAll' />")
+            .Width(40)
+            .Title("")
+            .HeaderHtmlAttributes(new { style = "text-align:center" })
+            .HtmlAttributes(new { style = "text-align:center" })
+            .Filterable(false).Groupable(false).Sortable(false);
+        columns.Bound(model => model.RoleName);
+        columns.Bound(model => model.DisplayName);
+    })
+    .Groupable()
+    .Pageable()
+    .Sortable()
+    .Events(e =>
+    {
+        e.DataBound("onDataBound");
+    })
+    .DataSource(
+        dataSource => dataSource.Ajax()
+            .Read(read => read.Action("Read", "Roles"))
+    )
 )
-			</div>
-		</div>
-        <div class="form-actions">
-				<button class="btn blue" type="submit">Save</button>
-				@Html.ActionLink("Cancel", "Index",new{},new { @class = "btn" })
-			</div>
-}
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn blue" type="submit">Save</button>
+                        @Html.ActionLink("Cancel", "Index", new { }, new { @class = "btn" })
+                    </div>
+                }
 
-		</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
 
-	var selectedVals = @Html.Raw(Json.Encode(ViewBag.selectedVals))
+    var selectedVals = @Html.Raw(Json.Encode(ViewBag.selectedVals))
+    selectedIDs = {};
+    for (var i in selectedVals)
+        selectedIDs[i] = true;
 
-		$(document).ready(function () {
-			$('#groupForm').submit(function () {
-				$(this).find('[name="RoleIds"]').val(selectedVals);
-				$.ajax({
-					url: '@Url.Action("Edit")',
-					type: 'post',
-					dataType: 'json',
-					data: $(this).serialize(),
-					success: function (o) {
-						alert(o.Message);
-						if (o.Status == 1)
-							location.href = o.Data.Redirect;
-					}
-				});
-				return false;
-			});
-		})
-	// on data bound, check checkboxes
-	function onDataBound(e) {
-		checkCells(selectedVals, '#masterCheckBox', '#Grid :checkbox');
-		resizeGrid("#Grid");
-	}
-	// on click checkbox cell in a row
-	$(function () {
-		$('#Grid').on('click', '.chkbx', function () {
-			var state = $(this).is(':checked');
-			var grid = $('#Grid').data().kendoGrid;
-			var dataItem = grid.dataItem($(this).closest('tr'));
 
-			checkVal(dataItem.RoleId, state, selectedVals);
-			$('#masterCheckBox').attr('checked', isCheckedAll('#Grid :checkbox'));
-		})
-	})
+    function onDataBound(e) {
+        $('.checkRow').each(function (e) {
+            if (selectedIDs[$(this).val()]) {
+                $(this).attr('checked', true);
+            }
+        });
+        checkAll(true);
+    }
+    function checkAll(checked) {
 
-	$('#masterCheckBox').click(function () { checkAll(this, '#Grid :checkbox'); })
+        var checkAll = false;
+        if (checked) {
+            var checkAll = true;
+            $('.checkRow').each(function (e) {
+                if (!selectedIDs[$(this).val()]) checkAll = false;
+            });
 
-	function gridRefresh() {
-		$("#Grid").data("kendoGrid").dataSource.read();
-	}
+        }
+        $('.checkAll').attr('checked', checkAll);
+        if (checkAll) $('.checkAll').parent().addClass('checked');
+        else $('.checkAll').parent().removeClass('checked');
+    }
+
+    $(document).ready(function () {
+        $('#groupForm').submit(function () {
+            selectedVals = [];
+            var j = 0;
+            for (var i in selectedIDs)
+                if (selectedIDs[i]) selectedVals[j++] = i;
+
+            $(this).find('[name="RoleIds"]').val(selectedVals);
+            $.ajax({
+                url: '@Url.Action("Edit")',
+                type: 'post',
+                dataType: 'json',
+                data: $(this).serialize(),
+                success: function (o) {
+                    alert(o.Message);
+                    if (o.Status == 1)
+                        location.href = o.Data.Redirect;
+                }
+            });
+            return false;
+        });
+        $('.checkAll').change(function () {
+            var checked = $(this).attr('checked') == 'checked';
+            $('.checkRow').attr('checked', checked);
+            $('.checkRow').each(function () {
+                selectedIDs[$(this).val()] = checked;
+            });
+        });
+        $('.checkRow').live('click', function () {
+            var checked = $(this).attr('checked') == 'checked';
+            selectedIDs[$(this).val()] = checked;
+            checkAll(checked);
+        });
+    });
+
+    function gridRefresh() {
+        $("#Grid").data("kendoGrid").dataSource.read();
+    }
 </script>
 @*<div>
     @Html.ActionLink("Back to List", "Index")

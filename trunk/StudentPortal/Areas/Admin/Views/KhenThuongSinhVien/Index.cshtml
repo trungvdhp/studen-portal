@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row-fluid">
@@ -11,14 +11,14 @@
 		<h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Thêm", "Create", new { }, new { @class = "btn green" })
 </p>
 @(Html.Kendo().Grid<StudentPortal.STU_KhenThuongSinhVien>()
 	.Name("STU_KhenThuongSinhVien")
 	.Columns(columns =>
 	{
 			columns.Bound(model => model.STU_HoSoSinhVien.Ma_sv);
-		        columns.Command(command => {command.Custom("Edit").Click("Edit"); command.Custom("Delete").Click("Delete");});
+		        columns.Command(command => {command.Custom("Sửa").Click("Edit"); command.Custom("Xóa").Click("Delete");});
 	})
 	.Groupable()
 	.Pageable()

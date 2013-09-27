@@ -76,6 +76,9 @@ namespace StudentPortal
 		
 		[Display(Name = "Chỗ trống")]
         public Nullable<int> Cho_trong { get; set; }
+
+        [Display(Name = "Đã đăng ký")]
+        public int Da_dang_ky { get; set; }
     
         public virtual PLAN_MonTinChi_TC PLAN_MonTinChi_TC { get; set; }
 		

@@ -15,7 +15,7 @@ namespace StudentPortal.Lib
                 if (_dic == null)
                 {
                     var db = new DHHHContext();
-                    _dic = db.Config.ToDictionary(t => t.Ten, t => t);
+                    _dic = db.CauHinh.ToDictionary(t => t.Ten, t => t);
                 }
                 return _dic;
             }
@@ -36,5 +36,6 @@ namespace StudentPortal.Lib
             }
             return null;
         }
+
     }
 }

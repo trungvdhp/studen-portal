@@ -49,10 +49,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\Kid\Desktop\NodaTime.dll</HintPath>
     </Reference>
-    <Reference Include="NodaTime.Testing, Version=1.1.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Users\Kid\Desktop\NodaTime.Testing.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -171,6 +167,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Admin\Controllers\DanhSachLopTCController.cs" />
     <Compile Include="Areas\Admin\Controllers\ThongBaoController.cs" />
     <Compile Include="Controllers\ThoiKhoaBieuController.cs" />
     <Compile Include="Lib\CauHinh.cs" />
@@ -458,12 +455,11 @@
     <Compile Include="Areas\Admin\Models\STU_XuLy.cs" />
     <Compile Include="Areas\Admin\Models\SYS_Module.cs" />
     <Compile Include="Areas\Admin\Models\ViewLopTinChi.cs" />
-    <Compile Include="BasicController.cs" />
+    <Compile Include="BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DangKyHocPhanController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TraCuuController.cs" />
-    <Compile Include="CustomRoleProvider.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -502,6 +498,30 @@
     <Compile Include="ViewModels\User.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CodeTemplates\AddView\AspxCSharp\Create.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Create.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeTemplates\AddView\AspxCSharp\Delete.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Delete.cshtml</LastGenOutput>
+    </Content>
+    <Content Include="CodeTemplates\AddView\AspxCSharp\Details.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Details.cshtml</LastGenOutput>
+    </Content>
+    <Content Include="CodeTemplates\AddView\AspxCSharp\Edit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Edit.cshtml</LastGenOutput>
+    </Content>
+    <Content Include="CodeTemplates\AddView\AspxCSharp\Empty.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Empty.cshtml</LastGenOutput>
+    </Content>
+    <Content Include="CodeTemplates\AddView\AspxCSharp\List.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>List.cshtml</LastGenOutput>
+    </Content>
     <Content Include="Content\kendo\2013.2.716\Black\editor.png" />
     <Content Include="Content\kendo\2013.2.716\Black\imagebrowser.png" />
     <Content Include="Content\kendo\2013.2.716\Black\loading-image.gif" />
@@ -867,7 +887,7 @@
     <Content Include="Content\themes\assets\font-awesome\font\fontawesome-webfont.woff" />
     <Content Include="Content\themes\assets\font-awesome\font\fontawesome-webfont_162a16fe.eot" />
     <Content Include="Areas\Admin\Views\Web.config" />
-    <Content Include="Areas\Admin\Views\Shared\_PageHeader.cshtml" />
+    <Content Include="Images\trung.jpg" />
     <Content Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -887,30 +907,6 @@
     <Content Include="CodeTemplates\AddController\ControllerWithContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ControllerWithContext.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeTemplates\AddView\AspxCSharp\Create.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Create.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeTemplates\AddView\AspxCSharp\Delete.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Delete.cshtml</LastGenOutput>
-    </Content>
-    <Content Include="CodeTemplates\AddView\AspxCSharp\Details.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Details.cshtml</LastGenOutput>
-    </Content>
-    <Content Include="CodeTemplates\AddView\AspxCSharp\Edit.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Edit.cshtml</LastGenOutput>
-    </Content>
-    <Content Include="CodeTemplates\AddView\AspxCSharp\Empty.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Empty.cshtml</LastGenOutput>
-    </Content>
-    <Content Include="CodeTemplates\AddView\AspxCSharp\List.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>List.cshtml</LastGenOutput>
     </Content>
     <Content Include="CodeTemplates\AddView\CSHTML\Create.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -1222,7 +1218,6 @@
     <Content Include="Areas\Admin\Views\HoatDongXaHoi\Details.cshtml" />
     <Content Include="Areas\Admin\Views\HoatDongXaHoi\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\HoatDongXaHoi\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\MonTinChi\Index.cshtml" />
     <Content Include="Areas\Admin\Views\MonTinChi\Details.cshtml" />
     <Content Include="Areas\Admin\Views\MonTinChi\Create.cshtml" />
     <Content Include="Areas\Admin\Views\MonTinChi\Edit.cshtml" />
@@ -1255,6 +1250,8 @@
     <Content Include="Scripts\jqGrid\jquery-1.7.2.min.js" />
     <Content Include="Scripts\jqGrid\jquery.jqGrid.min.js" />
     <Content Include="Scripts\jqGrid\jquery.jqGrid.src.js" />
+    <Content Include="Areas\Admin\Views\DanhSachLopTC\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\MonTinChi\Index.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -1414,11 +1411,7 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Header.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Footer.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Sidebar.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

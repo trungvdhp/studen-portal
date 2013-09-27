@@ -54,24 +54,21 @@ namespace StudentPortal.Controllers
 		{
 			return View();
 		}
-
         public ActionResult getChuyenNganh(string TuKhoa)
         {
             int ID_sv = SinhVien.GetIdSv(TuKhoa);
-            var chuyennganhs = SinhVien.getChuyenNganh(ID_sv);
             JsonResult result = new JsonResult();
-            result.Data = new SelectList(chuyennganhs , "ID_dt", "Chuyen_nganh");
+            result.Data = new SelectList(SinhVien.getChuyenNganh(ID_sv), "ID_dt", "Chuyen_nganh");
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
-
         //[Authorize(Roles = "TraCuu.NamHoc")]
-		public ActionResult NamHoc(string TuKhoa)
+		public ActionResult NamHoc(string TuKhoa, int ID_dt)
 		{
 			int ID_sv = SinhVien.GetIdSv(TuKhoa);
 			DHHHContext db = new DHHHContext();
 
-			var namhoc = db.MARK_Diem_TC.Where(t => t.ID_sv == ID_sv).Select(t => new
+			var namhoc = db.MARK_Diem_TC.Where(t => t.ID_sv == ID_sv && t.ID_dt==ID_dt).Select(t => new
 			{
 				Nam_hoc = t.Nam_hoc
 			}).Distinct().OrderBy(t => t.Nam_hoc).ToList();
@@ -83,12 +80,12 @@ namespace StudentPortal.Controllers
 		}
 
         //[Authorize(Roles = "TraCuu.HocKy")]
-		public ActionResult HocKy(string TuKhoa, string NamHoc)
+		public ActionResult HocKy(string TuKhoa, string NamHoc, int ID_dt)
 		{
 			int ID_sv = SinhVien.GetIdSv(TuKhoa);
 			DHHHContext db = new DHHHContext();
 
-			var hocky = db.MARK_Diem_TC.Where(t => t.ID_sv == ID_sv && t.Nam_hoc == NamHoc).Select(t => new
+			var hocky = db.MARK_Diem_TC.Where(t => t.ID_sv == ID_sv && t.Nam_hoc == NamHoc && t.ID_dt==ID_dt).Select(t => new
 			{
 				Hoc_ky = t.Hoc_ky
 			}).Distinct().OrderBy(t => t.Hoc_ky).ToList();
@@ -100,13 +97,14 @@ namespace StudentPortal.Controllers
 		}
 
         //[Authorize(Roles = "TraCuu.DiemHocTap")]
-		public ActionResult DiemHocTap([DataSourceRequest] DataSourceRequest request, string TuKhoa, string NamHoc, string HocKy,int ID_dt)
+		public ActionResult DiemHocTap([DataSourceRequest] DataSourceRequest request, string TuKhoa, string NamHoc, string HocKy,int? ID_dt)
 		{
+            if (TuKhoa == null || ID_dt == null) return null;
 			int ID_sv = SinhVien.GetIdSv(TuKhoa);
 			DHHHContext db = new DHHHContext();
 			int hk = HocKy == "" ? 0 : Convert.ToInt32(HocKy);
 
-			var diem = SinhVien.GetDiemHocTap(ID_sv,ID_dt);
+			var diem = SinhVien.GetDiemHocTap(ID_sv,(int)ID_dt);
 			if (NamHoc != "") diem = diem.Where(t => t.Nam_hoc == NamHoc).ToList();
 			if (hk != 0) diem = diem.Where(t => t.Hoc_ky == hk).ToList();
 			return Json(diem.ToDataSourceResult(request));

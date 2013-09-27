@@ -18,98 +18,129 @@
             <div class="portlet-body form">
                 <p>
                     @(Html.Kendo().AutoComplete()
-        .Name("TuKhoa")
-        .Filter("startswith")
-        .DataTextField("Text")
-        .Placeholder("Nhập từ khóa...")
-        .HtmlAttributes(new { style = "width: 300px" })
-                            //.Template("${data.Text}")
-        .DataSource(source =>
-        {
-            source.Read(read =>
-            {
-                read.Action("TuKhoa", "TraCuu")
-                    .Data("getTuKhoa");
-            })
-            .ServerFiltering(true);
-        })
-)
+                        .Name("TuKhoa")
+                        .Filter("startswith")
+                        .DataTextField("Text")
+                        .Placeholder("Nhập từ khóa...")
+                        .HtmlAttributes(new { style = "width: 300px" })
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("TuKhoa", "TraCuu")
+                                    .Data("getTuKhoa");
+                            })
+                            .ServerFiltering(true);
+                        })
+                        .Events(e => {
+                            e.Change("reloadChuyenNganh");
+                        })
+                    )
+                </p>
+                <p>
+                    @(Html.Kendo().DropDownList()
+                        .Name("ID_dt")
+                        .OptionLabel("Chọn chuyên ngành")
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .HtmlAttributes(new { style = "width:200px;" })
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("getChuyenNganh", "TraCuu")
+                                    .Data("getTuKhoa")
+                                    ;
+                            })
+                            .ServerFiltering(true)
+                            ;
+                        })
+                        //.Enable(false)
+                        .AutoBind(false)
+                        //.CascadeFrom("TuKhoa")
+                    )
+
 
                     @(Html.Kendo().DropDownList()
-    .Name("NamHoc")
-    .OptionLabel("Toàn khóa")
-    .HtmlAttributes(new { style = "width:120px" })
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("NamHoc", "TraCuu")
-                .Data("getTuKhoa");
-        });
-    })
-                            //.Enable(false)
-    .AutoBind(false)
-    .CascadeFrom("TuKhoa")
-)
+                        .Name("NamHoc")
+                        .OptionLabel("Toàn khóa")
+                        .HtmlAttributes(new { style = "width:120px" })
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("NamHoc", "TraCuu")
+                                    .Data("getTuKhoa");
+                            })
+                            .ServerFiltering(true)
+                            ;
+                        })
+                        //.Enable(false)
+                        .AutoBind(false)
+                        .CascadeFrom("ID_dt")
+                    )
 
                     @(Html.Kendo().DropDownList()
-    .Name("HocKy")
-    .HtmlAttributes(new { style = "width:120px" })
-    .OptionLabel("Cả năm")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("HocKy", "TraCuu")
-                .Data("getTuKhoa");
-        }).ServerFiltering(true);
-    })
-    .Enable(false)
-    .AutoBind(false)
-        .CascadeFrom("NamHoc")
-)
+                        .Name("HocKy")
+                        .HtmlAttributes(new { style = "width:120px" })
+                        .OptionLabel("Cả năm")
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("HocKy", "TraCuu")
+                                    .Data("getTuKhoa");
+                            }).ServerFiltering(true);
+                        })
+                        //.Enable(false)
+                        .AutoBind(false)
+                        .CascadeFrom("NamHoc")
+                    )
                     <button class="k-button" id="TraCuuButton">Tra cứu</button>
                 </p>
+                <p></p>
                 @(Html.Kendo().Grid<StudentPortal.ViewModels.DiemHocTap>()
-    .Name("GridBangDiem")
-    .Columns(columns =>
-    {
-        columns.Bound(diem => diem.Ma_mon).Width(50);
-        columns.Bound(diem => diem.Ten_mon).Width(150);
-        columns.Bound(diem => diem.He_so).Width(30);
-        columns.Bound(diem => diem.X).Width(30);
-        columns.Bound(diem => diem.Y).Width(30);
-        columns.Bound(diem => diem.Z).Width(30).Format("{0:0.00}");
-        columns.Bound(diem => diem.Diem_chu).Width(50);
-        columns.Bound(diem => diem.Nam_hoc).Width(100).Hidden();
-        columns.Bound(diem => diem.Hoc_ky).Width(50).Hidden();
-    })
-    .Groupable()
-    .Pageable()
-    .Sortable()
-    .Scrollable()
-    .Pageable(pager => pager.Enabled(false))
-    .DataSource(
-        dataSource => dataSource.Ajax()
-                .Group(group => group.Add(diem => diem.Nam_hoc))
-                .Group(group => group.Add(diem => diem.Hoc_ky))
-            .Read(read => read.Action("DiemHocTap", "TraCuu").Data("getTuKhoa"))
-    )
-    .HtmlAttributes(new { style = "height:400px" })
-)
-
+                    .Name("GridBangDiem")
+                    .Columns(columns =>
+                    {
+                        columns.Bound(diem => diem.Ma_mon).Width(50);
+                        columns.Bound(diem => diem.Ten_mon).Width(150);
+                        columns.Bound(diem => diem.He_so).Width(30);
+                        columns.Bound(diem => diem.X).Width(30);
+                        columns.Bound(diem => diem.Y).Width(30);
+                        columns.Bound(diem => diem.Z).Width(30).Format("{0:0.00}");
+                        columns.Bound(diem => diem.Diem_chu).Width(50);
+                        columns.Bound(diem => diem.Nam_hoc).Width(100).Hidden();
+                        columns.Bound(diem => diem.Hoc_ky).Width(50).Hidden();
+                    })
+                    .Groupable()
+                    .Pageable()
+                    .Sortable()
+                    .Pageable(pager => pager.Enabled(false))
+                    .DataSource(
+                        dataSource => dataSource.Ajax()
+                                .Group(group => group.Add(diem => diem.Nam_hoc))
+                                .Group(group => group.Add(diem => diem.Hoc_ky))
+                            .Read(read => read.Action("DiemHocTap", "TraCuu").Data("getTuKhoa"))
+                    )
+                    .HtmlAttributes(new {style="min-height:400px"})
+                )
             </div>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
+    function reloadChuyenNganh(e) {
+        $('#ID_dt').data('kendoDropDownList').dataSource.read();
+    }
     function getTuKhoa() {
         return {
+            ID_dt: $('#ID_dt').val(),
             TuKhoa: $("#TuKhoa").val(),
             NamHoc: $("#NamHoc").val(),
             HocKy: $("#HocKy").val()

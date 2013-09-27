@@ -29,8 +29,8 @@
 <!-- BEGIN BODY -->
 <body class="login">
 	<!-- BEGIN LOGO -->
-	<div class="logo">
-		<img src="~/Content/themes/assets/img/logo-big.png" alt="" />
+	<div class="logo" style="font-size:16pt;margin: 60px -14px 0;width:100%">
+		<a class="brand" href="index.html"><span style="color:#fff">CỔNG THÔNG TIN </span><span style="color:red">SINH VIÊN</span></a>
 	</div>
 	<!-- END LOGO -->
 	<!-- BEGIN LOGIN -->
@@ -40,7 +40,7 @@
   {
 	  @Html.AntiForgeryToken()
 @*<form class="form-vertical login-form" action="index.html" >*@
-			<h3 class="form-title">Login to your account</h3>
+			<h3 class="form-title">Đăng nhập</h3>
 			<div class="control-group">
 				<div class="controls">
 					<div class="input-icon left">
@@ -63,16 +63,16 @@
 				<label class="checkbox">
 					@Html.CheckBoxFor(m => m.RememberMe)
 					@*<input type="checkbox" />*@
-					Remember me
+					Ghi nhớ
 				</label>
-				<button id="login-btn" class="btn green pull-right" type="submit">Login <i class="m-icon-swapright m-icon-white"></i>
+				<button id="login-btn" class="btn green pull-right" type="submit">Đăng nhập <i class="m-icon-swapright m-icon-white"></i>
 				</button>
 			</div>
 			<div class="forget-password">
-				<h4>Forgot your password ?</h4>
+				<h4>Quên mật khẩu ?</h4>
 				<p>
-					no worries, click <a href="javascript:;" class="" id="forget-password">here</a>
-					to reset your password.
+					Click vào <a href="javascript:;" class="" id="forget-password">đây</a>
+					để lấy lại mật khẩu.
 				</p>
 			</div>
 @*</form>*@
@@ -80,8 +80,8 @@
 		<!-- END LOGIN FORM -->
 		<!-- BEGIN FORGOT PASSWORD FORM -->
 		<form class="form-vertical forget-form" action="index.html" />
-		<h3 class="">Forget Password ?</h3>
-		<p>Enter your e-mail address below to reset your password.</p>
+		<h3 class="">Quên mật khẩu ?</h3>
+		<p>Nhập địa chỉ email để đặt lại mật khẩu.</p>
 		<div class="control-group">
 			<div class="controls">
 				<div class="input-icon left">
@@ -92,9 +92,9 @@
 		</div>
 		<div class="form-actions">
 			<a href="javascript:;" id="back-btn" class="btn">
-				<i class="m-icon-swapleft"></i>Back
+				<i class="m-icon-swapleft"></i>&nbsp;Quay lại
 			</a>
-			<a href="javascript:;" id="forget-btn" class="btn green pull-right">Submit <i class="m-icon-swapright m-icon-white"></i>
+			<a href="javascript:;" id="forget-btn" class="btn green pull-right">Gửi <i class="m-icon-swapright m-icon-white"></i>
 			</a>
 		</div>
 		</form>
@@ -102,8 +102,8 @@
 	</div>
 	<!-- END LOGIN -->
 	<!-- BEGIN COPYRIGHT -->
-	<div class="copyright">
-		2013 &copy; Metronic. Admin Dashboard Template.
+	<div class="copyright" style="width:100%">
+		2013 &copy; Phòng quản trị mạng trường Đại học Hàng Hải.
 	</div>
 	<!-- END COPYRIGHT -->
 	<!-- BEGIN JAVASCRIPTS -->

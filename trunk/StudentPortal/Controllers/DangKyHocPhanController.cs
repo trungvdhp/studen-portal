@@ -18,7 +18,7 @@ using NodaTime;
 namespace StudentPortal.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
+    //[InitializeSimpleMembership]
     public class DangKyHocPhanController : BaseController
     {
         
@@ -82,7 +82,7 @@ namespace StudentPortal.Controllers
         public ActionResult getGiaiDoan(int ID_dt)
         {
             DHHHContext db = new DHHHContext();
-            var ID_sv = sinhVien[ID_dt].ID_sv;
+            var ID_sv = this.ID_sv;
             var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList();
             var suKienTinChis = new List<PLAN_SukiensTinChi_TC>();
             foreach (var idLopDK in idLopDKs)
@@ -160,7 +160,7 @@ namespace StudentPortal.Controllers
 
         public List<PLAN_SukiensTinChi_TC> getSuKienTinChiDK(int ID_dt)
         {
-            var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == sinhVien[ID_dt].ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == HocKyDangKy.Ky_dang_ky).Select(t => t.PLAN_LopTinChi_TC).ToList();
+            var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == this.ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == HocKyDangKy.Ky_dang_ky).Select(t => t.PLAN_LopTinChi_TC).ToList();
             var idLopDKs = lopDKs.Select(t => t.ID_lop_tc).ToList();
             var suKienTinChis = new List<PLAN_SukiensTinChi_TC>();
             foreach (var idLopDK in idLopDKs)
@@ -189,7 +189,7 @@ namespace StudentPortal.Controllers
                 return result;
             }
 
-            var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == sinhVien[ID_dt].ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky==HocKyDangKy.Ky_dang_ky).Select(t=>t.PLAN_LopTinChi_TC).ToList();
+            var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == this.ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky==HocKyDangKy.Ky_dang_ky).Select(t=>t.PLAN_LopTinChi_TC).ToList();
             var idLopDKs = lopDKs.Select(t => t.ID_lop_tc).ToList();
             var suKienTinChiDaDKs = this.getSuKienTinChiDK(ID_dt);
 
@@ -197,9 +197,24 @@ namespace StudentPortal.Controllers
             var lopTC = skLopTCs.First().PLAN_LopTinChi_TC;
             var ID_mon_tc = skLopTCs.First().PLAN_LopTinChi_TC.ID_mon_tc;
             
+            // Kiem tra gioi han sinh vien lop TC
+
+            if (lopTC.Da_dang_ky + 1 > lopTC.So_sv_max)
+            {
+                result.Data = new AjaxResult
+                {
+                    Status = AjaxStatus.ERROR,
+                    Title = "Thông báo",
+                    Data = { },
+                    Message = String.Format("Bạn không thể đăng ký vì lớp đã quá giới hạn số sinh viên đăng ký!", (int)CauHinh.get("So_TC_max")),
+                };
+                result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+                return result;
+            }
+
             // Kiem tra so tin chi 
             var hockyTruoc = this.getHocKyTruoc(ID_dt);
-            var xetLenLop = db.Mark_XetLenLop.Where(t => t.ID_sv == sinhVien[ID_dt].ID_sv && t.Hoc_ky == hockyTruoc.Hoc_ky && t.Nam_hoc == t.Nam_hoc);
+            var xetLenLop = db.Mark_XetLenLop.Where(t => t.ID_sv == this.ID_sv && t.Hoc_ky == hockyTruoc.Hoc_ky && t.Nam_hoc == t.Nam_hoc);
             if (xetLenLop.Count()!=0)
             {
                 var dkLenLop = xetLenLop.First();
@@ -240,7 +255,7 @@ namespace StudentPortal.Controllers
             LopTinChiViewModel loptrung = new LopTinChiViewModel();
 
             // Kiem tra mon hoc co nam trong danh sach mon duoc dang ky ko
-            var ID_dts = SinhVien.getChuyenNganh(sinhVien[ID_dt].ID_sv).Select(t=>t.ID_dt).ToList();
+            var ID_dts = SinhVien.getChuyenNganh(this.ID_sv).Select(t=>t.ID_dt).ToList();
             
             if (ID_dts.Contains(ID_dt))
             {
@@ -388,7 +403,7 @@ namespace StudentPortal.Controllers
             db.STU_DanhSachLopTinChi.Add(new STU_DanhSachLopTinChi
             {
                 ID_lop_tc = ID_lop_tc,
-                ID_sv = sinhVien[ID_dt].ID_sv,
+                ID_sv = this.ID_sv,
                 Duyet = 0,
             });
             db.SaveChanges();
@@ -408,8 +423,7 @@ namespace StudentPortal.Controllers
         public ActionResult HuyDangKy(int ID_lop_tc, int ID_dt)
         {
             var result = new JsonResult();
-
-            var lopTCs = db.STU_DanhSachLopTinChi.Where(t => t.ID_lop_tc == ID_lop_tc && t.ID_sv == sinhVien[ID_dt].ID_sv);
+            var lopTCs = db.STU_DanhSachLopTinChi.Where(t => t.ID_lop_tc == ID_lop_tc && t.ID_sv == this.ID_sv);
             if (lopTCs.Count() > 0)
             {
                 var lopTC = lopTCs.First();

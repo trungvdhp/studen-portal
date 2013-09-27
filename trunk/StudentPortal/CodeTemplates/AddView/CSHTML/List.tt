@@ -29,7 +29,7 @@ if(mvcHost.IsPartialView) {
 
 @{
     ViewBag.Title = "<#= mvcHost.ViewName#>";
-	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 <#
 if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 #>
@@ -65,7 +65,7 @@ if (!String.IsNullOrEmpty(mvcHost.MasterPageFile)) {
 }
 #>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Thêm", "Create", new { }, new { @class = "btn green" })
 </p>
 @(Html.Kendo().Grid<<#= Model.ModelType.Namespace #>.<#= Model.ModelType.Name #>>()
 	.Name("<#= modelName #>")
@@ -81,7 +81,7 @@ foreach (ModelProperty property in properties) {
     }
 }  
 #>
-        columns.Command(command => {command.Custom("Edit").Click("Edit"); command.Custom("Delete").Click("Delete");});
+        columns.Command(command => {command.Custom("Sửa").Click("Edit"); command.Custom("Xóa").Click("Delete");});
 	})
 	.Groupable()
 	.Pageable()
