@@ -73,14 +73,20 @@ namespace StudentPortal.Areas.Admin.Controllers
             return result;
         }
 
-
-        public ActionResult getLopTC(int ID_mon)
+        public ActionResult getLopTCKhac(int ID_mon,int ID_lop_tc)
         {
             var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon);
+            lopTinChis.Remove(lopTinChis.Single(t => t.ID_lop_tc == ID_lop_tc));
             JsonResult result = new JsonResult();
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             result.Data = new SelectList(lopTinChis, "ID_lop_tc", "Ten_lop_tc");
             return result;
+        }
+
+        public ActionResult getLopTC([DataSourceRequest] DataSourceRequest request, int ID_mon)
+        {
+            var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon);
+            return Json(lopTinChis.ToDataSourceResult(request));
         }
 
         public ActionResult getSinhVienDK([DataSourceRequest]DataSourceRequest request, int? ID_lop_tc)

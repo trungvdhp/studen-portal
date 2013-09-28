@@ -30,8 +30,8 @@ namespace StudentPortal.ViewModels
         [DisplayName("Mã môn")]
         public string Ma_mon { get; set; }
 
-        [DisplayName("Sĩ số")]
-        public int Si_so { get; set; }
+        [DisplayName("Số SV max")]
+        public int So_sv_max { get; set; }
 
         [DisplayName("Đã ĐK")]
         public int Da_dang_ky { get; set; }

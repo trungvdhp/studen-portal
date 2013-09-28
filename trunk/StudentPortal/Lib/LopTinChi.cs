@@ -45,7 +45,7 @@ namespace StudentPortal.Lib
                             Ten_lop_tc = Ten_lop_tc,
                             SuKienTinChi = listSuKienTinChi,
                             STT_lop = lopTinChi.STT_lop,
-                            Si_so = lopTinChi.So_sv_max,
+                            So_sv_max = lopTinChi.So_sv_max,
                             Ma_mon = Ky_hieu,
                             Chi_tiet = "",
                             Giang_vien = Giang_vien,
