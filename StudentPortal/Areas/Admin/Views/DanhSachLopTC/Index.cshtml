@@ -4,12 +4,6 @@
 }
 <div class="row-fluid">
     <div class="span12">
-
-        <h2>@ViewBag.Title</h2>
-
-        <p>
-            @Html.ActionLink("Thêm", "Create", new { }, new { @class = "btn green" })
-        </p>
         <p>
             @(Html.Kendo().DropDownList()
     .OptionLabel("Chọn hệ đào tạo")
@@ -40,22 +34,6 @@
     .CascadeFrom("He")
     .AutoBind(false)
 )
-            @* @(Html.Kendo().DropDownList()
-    .OptionLabel("Chọn chương trìn đào tạo")
-    .Name("ID_dt")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .HtmlAttributes(new { style = "width: 300px" })
-    .DataSource(source =>
-    {
-        source.Read(read =>{
-            read.Action("getChuongTrinhDaoTao", "DanhSachLopTC").Data("getFilters");
-        })
-        .ServerFiltering(true);
-    })
-    .AutoBind(false)
-    .CascadeFrom("ChuyenNganh")
-)*@
 
 
             @(Html.Kendo().DropDownList()
@@ -87,93 +65,157 @@
     })
     .AutoBind(false)
     .CascadeFrom("KyDangKy")
-)
-
-            @(Html.Kendo().DropDownList()
-        .OptionLabel("Chọn lớp tín chỉ")
-        .Name("LopTC")
-        .DataTextField("Text")
-    .DataValueField("Value")
-    .HtmlAttributes(new { style = "width:300px" })
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("getLopTC", "DanhSachLopTC").Data("getFilters");
-        }).ServerFiltering(true);
-    }
-    )
-    .AutoBind(false)
-    .CascadeFrom("MonTC")
-    .Events(e =>
-    {
-        e.Change("LopTC_change");
+    .Events(e=>{
+        e.Change("MonTC_change");
     })
-)
+)            
         </p>
-        @(Html.Kendo().Grid<StudentPortal.ViewModels.SinhVienViewModel>()
-    .Name("GridSinhVien")
-    .Columns(column =>
-    {
-        column.Template(@<text></text>)
-            .ClientTemplate(@"<input type='checkbox' value='#=ID_sv#' class='checkRow'/>")
-            .HeaderTemplate(@"<input type='checkbox' class='checkAll'/>")
-            .Width(30)
-            //.HtmlAttributes(new { style = "width:20px" })
-            //.HeaderHtmlAttributes(new { style = "width:20px" })
-            ;
-        column.Bound(t => t.Ma_sv)
-            //.HtmlAttributes(new { style = "width:50px" }).HeaderHtmlAttributes(new { style = "width:50px" })
-            .Width(60)
-            ;
-        column.Bound(t => t.Ho_ten)
-            ;
-        column.Bound(t => t.Lop)
-            //.HtmlAttributes(new { style = "width:80px" }).HeaderHtmlAttributes(new { style = "width:80px" })
-            .Width(90)
-            ;
-        column.Template(@<text></text>).ClientTemplate(@"#
-var label = 'Xác nhận';
-var action = 'DuyetDK';
-if(Duyet==1)
-{
-    action = 'BoDuyetDK';
-    label = 'Hủy';
-}
-#<a class='k-button-icontext k-button btnDuyet' href='javascript:;' ID_sv='#=ID_sv#' data-action='#=action#'>#=label#</a>")
-            //.HtmlAttributes(new { style = "width:80px" }).HeaderHtmlAttributes(new { style = "width:80px" })
-            .Width(90)
-            ;
-    })
-    .DataSource(source =>
-    {
-        source.Ajax().Read(read =>
-        {
-            read.Action("getSinhVienDK", "DanhSachLopTC").Data("getFilters");
-        });
-    })
+        
+        <div style="overflow:hidden">
+            <div class="span6">
+                @(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChiViewModel>()
+                    .Name("GridLopTC")
+                    .Columns(column =>
+                    {
+                        column.Bound(t => t.Ten_lop_tc);
+                        column.Bound(t => t.So_sv_max);
+                        column.Bound(t => t.Da_dang_ky);
+                    })
+                    .DataSource(source =>
+                    {
+                        source.Ajax().Read(read =>
+                        {
+                            read.Action("getLopTC", "DanhSachLopTC").Data("getFilters");
+                        });
+                    })
+                    .Groupable()
+                    .Pageable()
+                    .Sortable()
+                    .Selectable()
+                    .Pageable(pager => pager.PageSizes(new int[] { 10, 20, 30 }))
+                    .Filterable()
+                    .Events(e=>{
+                        e.Change("LopTC_change");
+                    })
+                    .Scrollable()
+                )
+            </div>
+        
+            <div class="span6">
+                @(Html.Kendo().Grid<StudentPortal.ViewModels.SinhVienViewModel>()
+                    .Name("GridSinhVien")
+                    .Columns(column =>
+                    {
+                        column.Template(@<text></text>)
+                            .ClientTemplate(@"<input type='checkbox' value='#=ID_sv#' class='checkRow'/>")
+                            .HeaderTemplate(@"<input type='checkbox' class='checkAll'/>")
+                            .Width(30)
+                            ;
+                        column.Bound(t => t.Ma_sv)
+                            .Width(60)
+                            ;
+                        column.Bound(t => t.Ho_ten)
+                            ;
+                        column.Bound(t => t.Lop)
+                            .Width(90)
+                            ;
+                        column.Template(@<text></text>).ClientTemplate(@"#
+                            var label = 'Xác nhận';
+                            var action = 'DuyetDK';
+                            if(Duyet==1)
+                            {
+                                action = 'BoDuyetDK';
+                                label = 'Hủy';
+                            }
+                            #<a class='k-button-icontext k-button btnDuyet' href='javascript:;' ID_sv='#=ID_sv#' data-action='#=action#'>#=label#</a>")
+                            .Width(90)
+                            ;
+                    })
+                    .DataSource(source =>
+                    {
+                        source.Ajax().Read(read =>
+                        {
+                            read.Action("getSinhVienDK", "DanhSachLopTC").Data("getFilters");
+                        });
+                    })
     
-    .Groupable()
-    .Pageable()
-    .Sortable()
-    //.Scrollable()
-    .Selectable()
-    .Pageable(pager => pager.PageSizes(new int[]{10,20,30})
-      )
-    .Events(e =>
-    {
-        e.DataBound("onDataBound");
-    })
-)
+                    .Groupable()
+                    .Pageable()
+                    .Sortable()
+                    .Selectable()
+                    
+                    .Pageable(pager => pager.PageSizes(new int[]{10,20,30})
+                      )
+                    .Events(e =>
+                    {
+                        e.DataBound("onDataBound");
+                    })
+                    .Filterable()
+                    .Scrollable()
+                )
+            </div>
+        </div>
         <p></p>
         <p>
-            <a href="javascript:;" class="btnDuyetSelected btn purple" data-action="DuyetDKs">Duyệt các sinh viên đã chọn</a> &nbsp;
-            <a href="javascript:;" class="btnDuyetSelected btn" data-action="BoDuyetDKs">Bỏ duyệt các sinh viên đã chọn</a>
+            <a href="javascript:;" class="btnDuyetSelected btn purple" data-action="DuyetDKs">Duyệt</a> &nbsp;
+            <a href="javascript:;" class="btnDuyetSelected btn" data-action="BoDuyetDKs">Bỏ duyệt</a>&nbsp;
+            <a href="javascript:;" class="btn blue" id="btnChuyenLop">Chuyển lớp</a>
+            <a href="#modalLopTC" id="modalChuyenLop" data-toggle="modal" style="display:none"></a>
         </p>
     </div>
 </div>
+<div id="modalLopTC" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+		<h3 id="myModalLabel1">Chuyển lớp tín chỉ</h3>
+	</div>
+	<div class="modal-body">
+		@(Html.Kendo().DropDownList()
+            .Name("DropDownLopTc")
+            .OptionLabel("Chọn lớp tín chỉ")
+            .DataTextField("Text")
+            .DataValueField("Value")
+
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("getLopTCKhac", "DanhSachLopTC").Data("getFilters");
+                })
+                .ServerFiltering(true);
+            })
+            .AutoBind(false)
+            .HtmlAttributes(new { style="width:300px"})
+        )
+    </div>
+	<div class="modal-footer">
+		<button class="btn yellow" id="btnXacNhanChuyen">Chuyển</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+	</div>
+</div>
 <script type="text/javascript">
     var selectedIDs = {};
+    var seletedIdLop = 0;
+    function isSelectedIDsEmpty() {
+        for (var i in selectedIDs)
+            if (selectedIDs[i])
+                return false;
+        return true;
+    }
+    function LopTC_change(arg) {
+        var selected = $.map(this.select(), function (item) {
+            return $(item);
+        });
+        var item = this.dataItem(selected[0]);
+        seletedIdLop = item.ID_lop_tc;
+        selectedIDs = {};
+        $('#GridSinhVien').data("kendoGrid").dataSource.read();
+        
+    }
+    function MonTC_change(e)
+    {
+        $('#GridLopTC').data("kendoGrid").dataSource.read();
+    }
     function onDataBound(e) {
         $('.checkRow').each(function (e) {
             if (selectedIDs[$(this).val()]) {
@@ -197,6 +239,13 @@ if(Duyet==1)
         else $('.checkAll').parent().removeClass('checked');
     }
     $(document).ready(function () {
+        $('#btnChuyenLop').click(function () {
+            if (isSelectedIDsEmpty()) {
+                alert("Không có sinh viên nào được chọn");
+                return;
+            }
+            $('#modalChuyenLop').click();
+        });
         $('.checkAll').change(function () {
             var checked = $(this).attr('checked') == 'checked';
             $('.checkRow').attr('checked', checked);
@@ -210,15 +259,19 @@ if(Duyet==1)
             checkAll(checked);
         });
         $('.btnDuyetSelected').click(function () {
+            if (isSelectedIDsEmpty()) {
+                alert("Không có sinh viên nào được chọn");
+                return;
+            }
             var IDs = [];
             var i=0;
             for (var id in selectedIDs)
                 if (selectedIDs[id]) IDs[i++] = id;
             $.ajax({
-                url: '/Admin/LopTinChi/' + $(this).attr('data-action'),
+                url: '/Admin/DanhSachLopTC/' + $(this).attr('data-action'),
                 data: {
                     IDs: IDs.join(),
-                    ID_lop_tc: $('#LopTC').val(),
+                    ID_lop_tc: seletedIdLop,
                 },
                 dataType: 'json',
                 success: function (o) {
@@ -230,11 +283,11 @@ if(Duyet==1)
         });
         $('.btnDuyet').live('click',function () {
             $.ajax({
-                url: '/Admin/LopTinChi/' + $(this).attr('data-action'),
+                url: '/Admin/DanhSachLopTC/' + $(this).attr('data-action'),
                 dataType: 'json',
                 data: {
                     ID_sv: $(this).attr('ID_sv'),
-                    ID_lop_tc: $('#LopTC').val(),
+                    ID_lop_tc: seletedIdLop,
                 },
                 success: function (o) {
                     alert(o.Message);
@@ -243,19 +296,13 @@ if(Duyet==1)
             });
         });
     })
-
-    function LopTC_change(e) {
-        selectedIDs = {};
-        $('#GridSinhVien').data("kendoGrid").dataSource.read();
-    }
     function getFilters() {
         return {
-            //ID_dt: $('#ID_dt').val(),
             ID_he: $('#He').val(),
             ID_chuyen_nganh: $('#ChuyenNganh').val(),
             Ky_dang_ky: $('#KyDangKy').val(),
             ID_mon: $('#MonTC').val(),
-            ID_lop_tc: $('#LopTC').val(),
+            ID_lop_tc: seletedIdLop,
         };
     }
     function Edit(e) {

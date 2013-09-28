@@ -7,9 +7,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using StudentPortal.ViewModels;
+using StudentPortal.Filters;
 
 namespace StudentPortal.Controllers
 {
+    [Authorize]
+    [InitializeSimpleMembership]
     public class ThoiKhoaBieuController : BaseController
     {
         public ThoiKhoaBieuController()
