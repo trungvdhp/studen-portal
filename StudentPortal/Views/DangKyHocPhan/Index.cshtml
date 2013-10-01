@@ -106,9 +106,8 @@
         columns.Bound(lopTC => lopTC.Giang_vien).HtmlAttributes(new { style = "width:100px" }).HeaderHtmlAttributes(new { style = "width:100px" });
         columns.Bound(lopTC => lopTC.Ma_mon).HtmlAttributes(new { style = "width:60px" }).HeaderHtmlAttributes(new { style = "width:60px" });
         columns.Bound(lopTC => lopTC.Chi_tiet);
-        columns.Bound(lopTC => lopTC.Si_so).HtmlAttributes(new { style = "width:50px" }).HeaderHtmlAttributes(new { style = "width:50px" });
+        columns.Bound(lopTC => lopTC.So_sv_max).HtmlAttributes(new { style = "width:50px" }).HeaderHtmlAttributes(new { style = "width:50px" });
         columns.Bound(lopTC => lopTC.Da_dang_ky).HtmlAttributes(new { style = "width:50px" }).HeaderHtmlAttributes(new { style = "width:50px" });
-        //columns.Command(command => command.Custom("Đăng ký").Click("btnDangKy_Click")).HtmlAttributes(new { style = "width:70px" }).HeaderHtmlAttributes(new { style = "width:70px" });
         columns.Template(@<text></text>).ClientTemplate(@"# 
 var btn = 'Đăng ký';
 var act = 'DangKy';
@@ -199,11 +198,10 @@ if(!Chua_dang_ky){
         deleteNotUseElements();
         $('.btnDangKy').live('click', function (e) {
             e.preventDefault();
-            //var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
             $.ajax({
                 url: '/DangKyHocPhan/'+$(this).attr('data-action'),
                 data: {
-                    ID_lop_tc: $(this).attr('ID_lop_tc'),//dataItem.ID_lop_tc,
+                    ID_lop_tc: $(this).attr('ID_lop_tc'),
                     ID_dt: $('#ID_dt').val()
                 },
                 dataType: 'json',

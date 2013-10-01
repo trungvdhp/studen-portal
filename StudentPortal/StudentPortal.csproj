@@ -168,10 +168,14 @@
   <ItemGroup>
     <Compile Include="Areas\Admin\Controllers\DanhSachLopTCController.cs" />
     <Compile Include="Areas\Admin\Controllers\ThongBaoController.cs" />
+    <Compile Include="Controllers\DangKyThiController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\ThoiKhoaBieuController.cs" />
     <Compile Include="Lib\CauHinh.cs" />
     <Compile Include="Lib\LopTinChi.cs" />
+    <Compile Include="Lib\Utilities.cs" />
     <Compile Include="Models\CauHinhModel.cs" />
+    <Compile Include="Models\InboxModel.cs" />
     <Compile Include="ViewModels\AjaxResult.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -490,6 +494,7 @@
     <Compile Include="ViewModels\HocKy.cs" />
     <Compile Include="ViewModels\KyDangKy.cs" />
     <Compile Include="ViewModels\LopTinChi.cs" />
+    <Compile Include="ViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\MonHoc.cs" />
     <Compile Include="ViewModels\SinhVien.cs" />
     <Compile Include="ViewModels\SuKienTinChi.cs" />
@@ -1422,6 +1427,11 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\DangKyHocPhan\Index.cshtml" />
     <Content Include="Views\ThoiKhoaBieu\Index.cshtml" />
+    <Content Include="Views\DangKyThi\Index.cshtml" />
+    <Content Include="Views\Message\Inbox.cshtml" />
+    <Content Include="Views\Message\Outbox.cshtml" />
+    <Content Include="Views\Message\Compose.cshtml" />
+    <Content Include="Views\Message\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

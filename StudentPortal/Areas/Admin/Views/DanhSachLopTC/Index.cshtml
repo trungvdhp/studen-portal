@@ -160,6 +160,8 @@
             <a href="javascript:;" class="btnDuyetSelected btn purple" data-action="DuyetDKs">Duyệt</a> &nbsp;
             <a href="javascript:;" class="btnDuyetSelected btn" data-action="BoDuyetDKs">Bỏ duyệt</a>&nbsp;
             <a href="javascript:;" class="btn blue" id="btnChuyenLop">Chuyển lớp</a>
+
+
             <a href="#modalLopTC" id="modalChuyenLop" data-toggle="modal" style="display:none"></a>
         </p>
     </div>
@@ -224,6 +226,14 @@
         });
         checkAll(true);
     }
+    function object2array(object)
+    {
+        var IDs = [];
+        var i=0;
+        for (var id in object)
+            if (object[id]) IDs[i++] = id;
+        return IDs;
+    }
     function checkAll(checked) {
 
         var checkAll = false;
@@ -239,6 +249,29 @@
         else $('.checkAll').parent().removeClass('checked');
     }
     $(document).ready(function () {
+
+        $('#btnXacNhanChuyen').click(function () {
+            if (isSelectedIDsEmpty()) {
+                alert("Không có sinh viên nào được chọn!");
+                return;
+            }
+            $.ajax({
+                url: '@Url.Action("ChuyenLop", "DanhSachLopTC")',
+                 type: 'post',
+                 data: {
+                     IDs: object2array(selectedIDs).join(),
+                     ID_lop_tc_cu: seletedIdLop,
+                     ID_lop_tc: $('#DropDownLopTc').val(),
+                 },
+                 dataType: 'json',
+                 success: function (o) {
+                     alert(o.Message);
+                     if (o.status == 1)
+                         $('#GridSinhVien').data('kendoGrid').dataSource.read();
+                 }
+             });
+        });
+
         $('#btnChuyenLop').click(function () {
             if (isSelectedIDsEmpty()) {
                 alert("Không có sinh viên nào được chọn");
@@ -263,10 +296,7 @@
                 alert("Không có sinh viên nào được chọn");
                 return;
             }
-            var IDs = [];
-            var i=0;
-            for (var id in selectedIDs)
-                if (selectedIDs[id]) IDs[i++] = id;
+            IDs = object2array(selectedIDs);
             $.ajax({
                 url: '/Admin/DanhSachLopTC/' + $(this).attr('data-action'),
                 data: {
