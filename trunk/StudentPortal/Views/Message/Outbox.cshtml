@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Tin đã gửi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row-fluid">
+    <div class="span12">
+        @(Html.Kendo().Grid<StudentPortal.ViewModels.MessageViewModel>()
+            .Name("GridInbox")
+            .Columns(column =>
+            {
+                column.Template(@<text></text>).ClientTemplate("<input type='checkbox' name='messages' class='checkRow' value='#=ID#'/>")
+                        .HeaderTemplate("<input type='checkbox' class='checkAll' />").Width(30);
+                column.Bound(t => t.Title).ClientTemplate(@"<a href='"+Url.Action("Detail","Message")+"/#=ID#' >#=Title#</a>");
+                column.Bound(t => t.To).Width(100);
+                column.Bound(t => t.Postdate).Width(100).Format("{0:hh:mm dd/MM/yyyy}");
+            })
+            .DataSource(source =>
+            {
+                source.Ajax().Read(read =>
+                {
+                    read.Action("getOutbox", "Message");
+                });
+            })
+            .Groupable()
+            .Filterable()
+            .Sortable()
+            .Selectable()
+            .Pageable(page => {
+                page.PageSizes(new int[] { 10, 20, 30 });
+            })
+            .Groupable()
+            .Scrollable()
+        )
+        <p></p>
+        <p><button class="btn btnXoa">Xóa</button></p>
+    </div>
+</div>

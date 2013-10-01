@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Soạn tin nhắn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/themes/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/themes/assets/jquery-tags-input/jquery.tagsinput.css" />
+<script type="text/javascript" src="~/Content/themes/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+<script type="text/javascript" src="~/Content/themes/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+<script type="text/javascript" src="~/Content/themes/assets/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <h4>Soạn tin nhắn</h4>
+            </div>
+            <div class="portlet-body form">
+                <form id="sendMessage" class="form-horizontal" action="@Url.Action("Send","Message",new {Area=""})">
+                    <div class="control-group">
+                        <label class="control-label">Gửi đến</label>
+                        <div class="controls">
+                            <input id="tags_1" type="text" class="m-wra tags" name="sendto" value="" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Tiêu đề</label>
+                        <div class="controls">
+                            <input type="text" class="span12" name="title" value="" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Nội dung</label>
+                        <div class="controls">
+                            <textarea class="span12 wysihtml5 m-wrap" rows="6" name ="content"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn blue" type="submit">Gửi</button> &nbsp;
+                        @*<button class="btn" type="button">Cancel</button>*@
+                        @Html.ActionLink("Hủy bỏ", "Inbox", "Message", new { Area = "" }, new { @class="btn"})
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#sendMessage').submit(function () {
+            $.ajax({
+                url: $(this).attr('action'),
+                dataType: 'json',
+                type: 'post',
+                data: $(this).serialize(),
+                success: function (o) {
+                    alert(o.Message);
+                }
+            });
+            return false;
+        });
+    });
+</script>

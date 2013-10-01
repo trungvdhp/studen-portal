@@ -51,7 +51,69 @@ namespace StudentPortal.Areas.Admin.Controllers
             return result;
         }
 
+        public ActionResult ChuyenLop(int ID_lop_tc, string IDs,int ID_lop_tc_cu)
+        {
+            JsonResult result = new JsonResult();
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            var ID_svs = Utilities.string2list(IDs);
+            try
+            {
+                foreach (var ID_sv in ID_svs)
+                {
+                    var dangky = db.STU_DanhSachLopTinChi.Single(t => t.ID_sv == ID_sv && t.ID_lop_tc == ID_lop_tc_cu);
+                    dangky.PLAN_LopTinChi_TC = db.PLAN_LopTinChi_TC.Single(t => t.ID_lop_tc == ID_lop_tc);
+                }
+                db.SaveChanges();
+                result.Data = new AjaxResult()
+                {
+                    Status = AjaxStatus.SUCCESS,
+                    Title = "Thông báo",
+                    Message = "Chuyển lớp thành công!",
+                };
+            }
+            catch (Exception)
+            {
+                result.Data = new AjaxResult()
+                {
+                    Status = AjaxStatus.ERROR,
+                    Title = "Thông báo",
+                    Message = "Đã có lỗi xảy ra!",
+                };
+            }
+            return result;
+        }
 
+        public ActionResult RutHocPhan(int ID_lop_tc, string IDs)
+        {
+            JsonResult result = new JsonResult();
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            var ID_svs = Utilities.string2list(IDs);
+            try
+            {
+                foreach (var ID_sv in ID_svs)
+                {
+                    var dangky = db.STU_DanhSachLopTinChi.Single(t => t.ID_sv == ID_sv && t.ID_lop_tc == ID_lop_tc);
+                    dangky.Rut_bot_hoc_phan = true;
+                }
+                db.SaveChanges();
+                result.Data = new AjaxResult()
+                {
+                    Status = AjaxStatus.SUCCESS,
+                    Title = "Thông báo",
+                    Message = "Đã thực hiện!",
+                };
+            }
+            catch (Exception)
+            {
+                result.Data = new AjaxResult()
+                {
+                    Status = AjaxStatus.ERROR,
+                    Title = "Thông báo",
+                    Message = "Đã có lỗi xảy ra!",
+                };
+            }
+            return result;
+        }
 
 
         public ActionResult getMonTC(int ID_chuyen_nganh, int Ky_dang_ky)

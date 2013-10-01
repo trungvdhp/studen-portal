@@ -248,7 +248,7 @@ namespace StudentPortal
 		//public DbSet<STU_XeploaiRenLuyen> STU_XeploaiRenLuyen { get; set; }
 		//public DbSet<STU_XetHocBong> STU_XetHocBong { get; set; }
 		public DbSet<STU_XuLy> STU_XuLy { get; set; }
-
+        public DbSet<InboxModel> Inbox { get; set; }
 		public DbSet<UserProfile> UserProfiles { get; set; }
 		public DbSet<webpages_Group> webpages_Group { get; set; }
 		public DbSet<webpages_Roles> webpages_Roles { get; set; }
