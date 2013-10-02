@@ -167,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\Controllers\DanhSachLopTCController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LopHanhChinhController.cs" />
     <Compile Include="Areas\Admin\Controllers\ThongBaoController.cs" />
     <Compile Include="Controllers\DangKyThiController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
@@ -493,6 +494,7 @@
     <Compile Include="ViewModels\DiemHocTap.cs" />
     <Compile Include="ViewModels\HocKy.cs" />
     <Compile Include="ViewModels\KyDangKy.cs" />
+    <Compile Include="ViewModels\LopHanhChinh.cs" />
     <Compile Include="ViewModels\LopTinChi.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\MonHoc.cs" />
@@ -1256,11 +1258,13 @@
     <Content Include="Scripts\jqGrid\jquery.jqGrid.src.js" />
     <Content Include="Areas\Admin\Views\DanhSachLopTC\Index.cshtml" />
     <Content Include="Areas\Admin\Views\MonTinChi\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\LopHanhChinh\Index.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.b4byb0o.js" />
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.toastmessage-min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
