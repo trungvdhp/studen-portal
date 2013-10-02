@@ -123,9 +123,21 @@ namespace StudentPortal.Controllers
 
                     }
                 }
+                result.Data = new AjaxResult()
+                {
+                    Title = "Thông báo",
+                    Message = "Xóa tin nhắn thành công!",
+                    Status = AjaxStatus.SUCCESS
+                };
             }
             catch (Exception ex)
             {
+                result.Data = new AjaxResult()
+                {
+                    Title = "Thông báo",
+                    Message = ex.Message,
+                    Status = AjaxStatus.ERROR
+                };
             }
 
 

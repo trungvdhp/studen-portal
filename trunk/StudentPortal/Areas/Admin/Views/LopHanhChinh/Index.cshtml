@@ -1,0 +1,188 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <p>
+            @(Html.Kendo().DropDownList()
+                .OptionLabel("Chọn hệ đào tạo")
+                .Name("He")
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .HtmlAttributes(new { style = "width: 200px" })
+                .DataSource(source =>
+                {
+                    source.Read("getHeDaoTao", "LopHanhChinh");
+                })
+            )
+
+            @(Html.Kendo().DropDownList()
+                .OptionLabel("Chọn chuyên ngành")
+                .Name("ChuyenNganh")
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .HtmlAttributes(new { style = "width: 200px" })
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("getChuyenNganh", "LopHanhChinh").Data("getFilters");
+                    })
+                    .ServerFiltering(true);
+                })
+                .CascadeFrom("He")
+                .AutoBind(false)
+            )
+            @(Html.Kendo().DropDownList()
+                .Name("KhoaHoc")
+                .OptionLabel("Chọn khóa")
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("getKhoahoc", "LopHanhChinh").Data("getFilters");
+                    })
+                    .ServerFiltering(true);
+                })
+                .AutoBind(false)
+                .HtmlAttributes(new { style = "width: 100px" })
+                .Events(e => {
+                    e.Change("reloadGrid");
+                })
+            )
+        </p>
+        <div style="overflow: hidden">
+            <div class="span6">
+                @(Html.Kendo().Grid<StudentPortal.ViewModels.LopHanhChinhViewModel>()
+                    .Name("GridLop")
+                    .Columns(column =>
+                    {
+                        column.Bound(t => t.Ten_lop).Width(80);
+                        column.Bound(t => t.Nien_khoa);
+                    })
+                    .DataSource(source =>
+                    {
+                        source.Ajax().Read(read =>
+                        {
+                            read.Action("getLopHC", "LopHanhChinh").Data("getFilters");
+                        });
+                    })
+                    .Groupable()
+                    .Sortable()
+                    .Filterable()
+                    .Pageable()
+                    .Selectable()
+                    .Events(e =>
+                    {
+                        e.Change("reloadSinhVien");
+                    })
+                    .Pageable(page => {
+                        page.PageSizes(new int[] { 10, 20, 30 });
+                    })
+                    .Scrollable()
+                    .HtmlAttributes(new{style="height:auto"})
+                )
+                
+            </div>
+            <div class="span6">
+                @(Html.Kendo().Grid<StudentPortal.ViewModels.SinhVienViewModel>()
+                    .Name("GridSinhVien")
+                    .Columns(column =>
+                    {
+                        column.Template(@<text></text>).ClientTemplate("<input type='checkbox' class='checkRow' value='#=ID_sv#' />")
+                            .HeaderTemplate("<input type='checkbox' class='checkAll' />").Width(30);
+                        column.Bound(t => t.Ma_sv).Width(80);
+                        column.Bound(t => t.Ho_ten);
+                        //column.Bound(t => t.);
+                        //column.Bound(t => t);
+                    })
+                    .DataSource(source =>
+                    {
+                        source.Ajax().Read(read =>
+                        {
+                            read.Action("getSinhVien", "LopHanhChinh").Data("getFilters");
+                        });
+                    })
+                    .Groupable()
+                    .Sortable()
+                    .Filterable()
+                    .Pageable()
+                    .Selectable()
+                    .Pageable(page =>
+                    {
+                        page.PageSizes(new int[] { 10, 20, 30 });
+                    })
+                    .Scrollable()
+                    .HtmlAttributes(new { style = "height:auto" })
+                    .Events(e => {
+                        e.DataBound("GridSinhVien_DataBound");
+                    })
+                )
+            </div>
+        </div>
+        <p></p>
+        <p>
+            <button class="btn blue btnDangKy">Đăng ký vào lớp học phần</button>
+            <a href="#modalLopTC" id="btnDangKy" data-toggle="modal" style="display:none"></a>
+        </p>
+    </div>
+</div>
+
+<div id="modalLopTC" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+		<h3 id="myModalLabel1">Chọn lớp tín chỉ</h3>
+	</div>
+	<div class="modal-body">
+		
+    </div>
+	<div class="modal-footer">
+		<button class="btn yellow" id="btnXacNhanChuyen">Đăng ký</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+	</div>
+</div>
+<script type="text/javascript" src="~/Scripts/jquery.b4byb0o.js"></script>
+<script>
+    var selectedID = 0;
+    function GridSinhVien_DataBound() {
+        $('.checkAll').updateCheckRow({ changeElement: "$('.checkAll').parent()" });
+    }
+    $(document).ready(function () {
+        
+        $('.checkAll').initCheckAll({
+            changeElement: "$('.checkAll').parent()",
+        });
+        $('.btnDangKy').click(function () {
+            if ($('.checkAll').isSelectedIDsEmpty()) {
+                alert("Không có sinh viên nào được chọn!");
+                return;
+            }
+            $('#btnDangKy').click();
+        });
+    });
+    function reloadSinhVien(e) {
+        var selected = $.map(this.select(), function (item) {
+            return $(item);
+        });
+        var item = this.dataItem(selected[0]);
+        selectedID = item.ID_lop;
+
+        $('#GridSinhVien').data('kendoGrid').dataSource.read();
+    }
+    
+    function reloadGrid() {
+        $('#GridLop').data("kendoGrid").dataSource.read();
+    }
+    function getFilters() {
+        return {
+            ID_lop: selectedID,
+            ID_he: $('#He').val(),
+            ID_chuyen_nganh: $('#ChuyenNganh').val(),
+            Khoa_hoc: $('#KhoaHoc').val(),
+        };
+    }
+</script>

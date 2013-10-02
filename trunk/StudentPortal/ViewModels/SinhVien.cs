@@ -18,6 +18,9 @@ namespace StudentPortal.ViewModels
         [DisplayName("Mã SV")]
         public string Ma_sv { get; set; }
 
+        [DisplayName("Ngày sinh")]
+        public DateTime Ngay_sinh { get; set; }
+
         public int Duyet;
 
     }
