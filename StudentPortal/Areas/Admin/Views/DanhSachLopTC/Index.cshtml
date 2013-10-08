@@ -5,6 +5,19 @@
 <div class="row-fluid">
     <div class="span12">
         <p>
+             @(Html.Kendo().DropDownList()
+    .OptionLabel("Chọn kỳ đăng ký")
+    .Name("KyDangKy")
+    .DataTextField("Text")
+    .DataValueField("Value")
+    .DataSource(source =>
+    {
+        source.Read("getKyDangKy", "DanhSachLopTC")
+        .ServerFiltering(true);
+    })
+    
+    .AutoBind(false)
+)
             @(Html.Kendo().DropDownList()
     .OptionLabel("Chọn hệ đào tạo")
     .Name("He")
@@ -15,6 +28,7 @@
     {
         source.Read("getHeDaoTao", "DanhSachLopTC");
     })
+    .CascadeFrom("KyDangKy")
 )
 
             @(Html.Kendo().DropDownList()
@@ -35,21 +49,6 @@
     .AutoBind(false)
 )
 
-
-            @(Html.Kendo().DropDownList()
-    .OptionLabel("Chọn kỳ đăng ký")
-    .Name("KyDangKy")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .DataSource(source =>
-    {
-        source.Read("getKyDangKy", "DanhSachLopTC")
-        .ServerFiltering(true);
-    })
-    .CascadeFrom("ChuyenNganh")
-    .AutoBind(false)
-)
-
             @(Html.Kendo().DropDownList()
     .OptionLabel("Chọn môn tín chỉ")
     .Name("MonTC")
@@ -64,7 +63,7 @@
         }).ServerFiltering(true);
     })
     .AutoBind(false)
-    .CascadeFrom("KyDangKy")
+    .CascadeFrom("ChuyenNganh")
     .Events(e=>{
         e.Change("MonTC_change");
     })
@@ -250,6 +249,7 @@
     }
     $(document).ready(function () {
 
+        
         $('#btnXacNhanChuyen').click(function () {
             if (isSelectedIDsEmpty()) {
                 alert("Không có sinh viên nào được chọn!");
@@ -271,7 +271,7 @@
                  }
              });
         });
-
+        
         $('#btnChuyenLop').click(function () {
             if (isSelectedIDsEmpty()) {
                 alert("Không có sinh viên nào được chọn");

@@ -36,99 +36,106 @@ namespace StudentPortal.Lib
 			return 0;
 
 		}
+
+        private static Dictionary<string, List<DiemHocTap>> _diemHocTap = new Dictionary<string, List<DiemHocTap>>();
         public static List<DiemHocTap> GetDiemHocTap(int ID_sv,int ID_dt)
         {
-            DHHHContext db = new DHHHContext();
-
-            var diem = db.MARK_DiemThanhPhan_TC.Where(t => t.MARK_Diem_TC.ID_dt==ID_dt&&t.MARK_Diem_TC.ID_sv == ID_sv && t.MARK_ThanhPhanMon_TC.Ky_hieu == "X").Select(t => new DiemHocTap
+            if (!_diemHocTap.ContainsKey(ID_sv + "_" + ID_dt))
             {
-                Id_diem = t.MARK_Diem_TC.ID_diem,
-                ID_mon = t.MARK_Diem_TC.ID_mon,
-                Ma_mon = t.MARK_Diem_TC.MARK_MonHoc.Ky_hieu,
-                Ten_mon = t.MARK_Diem_TC.MARK_MonHoc.Ten_mon,
-                X = t.Diem,
-                Hoc_ky = t.Hoc_ky_TP,
-                Nam_hoc = t.Nam_hoc_TP
-            }).ToList();
 
-            //
-            Dictionary<int, float> heso = new Dictionary<int, float>();
-            var temp = db.PLAN_ChuongTrinhDaoTaoChiTiet.Select(t => new { He_so = t.He_so, ID_mon = t.ID_mon }).ToList();
-            foreach (var t in temp)
-                if (!heso.ContainsKey(t.ID_mon))
-                    heso.Add(t.ID_mon, t.He_so != null ? (float)t.He_so : 0);
-            //
-            Dictionary<string, float> tongdiem = new Dictionary<string, float>();
-            Dictionary<string, float> tongheso = new Dictionary<string, float>();
-            Dictionary<int, float> listdiem = new Dictionary<int, float>();
-            Dictionary<int, float> listheso = new Dictionary<int, float>();
-            foreach (var d in diem)
-            {
-                string key = d.Nam_hoc + "-" + d.Hoc_ky;
-                if (d.Diem_chu == null) d.Diem_chu = "";
+                DHHHContext db = new DHHHContext();
 
-                var q = db.MARK_DiemThi_TC.Where(t => t.ID_diem == d.Id_diem && t.Nam_hoc_thi == d.Nam_hoc && t.Hoc_ky_thi == d.Hoc_ky);
-                if (q.Count() > 0)
+                var diem = db.MARK_DiemThanhPhan_TC.Where(t => t.MARK_Diem_TC.ID_dt == ID_dt && t.MARK_Diem_TC.ID_sv == ID_sv && t.MARK_ThanhPhanMon_TC.Ky_hieu == "X").Select(t => new DiemHocTap
                 {
-                    var dt = q.First();
-                    d.Y = dt.Diem_thi;
-                    d.Z = dt.TBCMH;
-                    d.Diem_chu = dt.Diem_chu;
-                }
+                    Id_diem = t.MARK_Diem_TC.ID_diem,
+                    ID_mon = t.MARK_Diem_TC.ID_mon,
+                    Ma_mon = t.MARK_Diem_TC.MARK_MonHoc.Ky_hieu,
+                    Ten_mon = t.MARK_Diem_TC.MARK_MonHoc.Ten_mon,
+                    X = t.Diem,
+                    Hoc_ky = t.Hoc_ky_TP,
+                    Nam_hoc = t.Nam_hoc_TP
+                }).ToList();
 
-                if (heso.ContainsKey(d.ID_mon))
+                //
+                Dictionary<int, float> heso = new Dictionary<int, float>();
+                var temp = db.PLAN_ChuongTrinhDaoTaoChiTiet.Select(t => new { He_so = t.He_so, ID_mon = t.ID_mon }).ToList();
+                foreach (var t in temp)
+                    if (!heso.ContainsKey(t.ID_mon))
+                        heso.Add(t.ID_mon, t.He_so != null ? (float)t.He_so : 0);
+                //
+                Dictionary<string, float> tongdiem = new Dictionary<string, float>();
+                Dictionary<string, float> tongheso = new Dictionary<string, float>();
+                Dictionary<int, float> listdiem = new Dictionary<int, float>();
+                Dictionary<int, float> listheso = new Dictionary<int, float>();
+                foreach (var d in diem)
                 {
-                    d.He_so = heso[d.ID_mon];
-                    if (!tongdiem.ContainsKey(key))
+                    string key = d.Nam_hoc + "-" + d.Hoc_ky;
+                    if (d.Diem_chu == null) d.Diem_chu = "";
+
+                    var q = db.MARK_DiemThi_TC.Where(t => t.ID_diem == d.Id_diem && t.Nam_hoc_thi == d.Nam_hoc && t.Hoc_ky_thi == d.Hoc_ky);
+                    if (q.Count() > 0)
                     {
-                        tongdiem.Add(key, DiemHe4[d.Diem_chu] * d.He_so);
-                        tongheso.Add(key, d.He_so);
-                    }
-                    else
-                    {
-                        tongdiem[key] += DiemHe4[d.Diem_chu] * d.He_so;
-                        tongheso[key] += d.He_so;
+                        var dt = q.First();
+                        d.Y = dt.Diem_thi;
+                        d.Z = dt.TBCMH;
+                        d.Diem_chu = dt.Diem_chu;
                     }
 
-                    if (!listdiem.ContainsKey(d.ID_mon))
+                    if (heso.ContainsKey(d.ID_mon))
                     {
-                        if (DiemHe4[d.Diem_chu] != 0)
+                        d.He_so = heso[d.ID_mon];
+                        if (!tongdiem.ContainsKey(key))
                         {
-                            listdiem.Add(d.ID_mon, DiemHe4[d.Diem_chu]);
-                            listheso.Add(d.ID_mon, d.He_so);
+                            tongdiem.Add(key, DiemHe4[d.Diem_chu] * d.He_so);
+                            tongheso.Add(key, d.He_so);
                         }
-                    }
-                    else if (DiemHe4[d.Diem_chu] > listdiem[d.ID_mon]) listdiem[d.ID_mon] = DiemHe4[d.Diem_chu];
-                }
-            }
+                        else
+                        {
+                            tongdiem[key] += DiemHe4[d.Diem_chu] * d.He_so;
+                            tongheso[key] += d.He_so;
+                        }
 
-            Regex regex = new Regex(@"(?<namhoc>.+)-(?<hocky>\d)");
-            foreach (string key in tongdiem.Keys)
-            {
-                Match match = regex.Match(key);
+                        if (!listdiem.ContainsKey(d.ID_mon))
+                        {
+                            if (DiemHe4[d.Diem_chu] != 0)
+                            {
+                                listdiem.Add(d.ID_mon, DiemHe4[d.Diem_chu]);
+                                listheso.Add(d.ID_mon, d.He_so);
+                            }
+                        }
+                        else if (DiemHe4[d.Diem_chu] > listdiem[d.ID_mon]) listdiem[d.ID_mon] = DiemHe4[d.Diem_chu];
+                    }
+                }
+
+                Regex regex = new Regex(@"(?<namhoc>.+)-(?<hocky>\d)");
+                foreach (string key in tongdiem.Keys)
+                {
+                    Match match = regex.Match(key);
+                    diem.Add(new DiemHocTap
+                    {
+                        Nam_hoc = match.Groups["namhoc"].ToString(),
+                        Hoc_ky = Convert.ToInt32(match.Groups["hocky"].ToString()),
+                        Z = tongdiem[key] / tongheso[key],
+                        Ten_mon = "TBMHK"
+                    });
+                }
+                float tongdiemtichluy = 0;
+                float tonghesotichluy = 0;
+                foreach (var id in listdiem.Keys)
+                {
+                    tongdiemtichluy += listdiem[id] * listheso[id];
+                    tonghesotichluy += listheso[id];
+                }
                 diem.Add(new DiemHocTap
                 {
-                    Nam_hoc = match.Groups["namhoc"].ToString(),
-                    Hoc_ky = Convert.ToInt32(match.Groups["hocky"].ToString()),
-                    Z = tongdiem[key] / tongheso[key],
-                    Ten_mon = "TBMHK"
+                    Nam_hoc = "Cả năm",
+                    Z = tongdiemtichluy / tonghesotichluy,
+                    Ten_mon = "Điểm tích lũy",
+                    Hoc_ky = 0
                 });
+                _diemHocTap[ID_sv + "_" + ID_dt] = diem;
             }
-            float tongdiemtichluy = 0;
-            float tonghesotichluy = 0;
-            foreach (var id in listdiem.Keys)
-            {
-                tongdiemtichluy += listdiem[id] * listheso[id];
-                tonghesotichluy += listheso[id];
-            }
-            diem.Add(new DiemHocTap
-            {
-                Nam_hoc = "Cả năm",
-                Z = tongdiemtichluy / tonghesotichluy,
-                Ten_mon = "Điểm tích lũy",
-                Hoc_ky = 0
-            });
-            return diem;
+            return _diemHocTap[ID_sv + "_" + ID_dt];
         }
 		public static List<BienLaiThu> GetBienLai(int ID_sv)
 		{
@@ -171,20 +178,20 @@ namespace StudentPortal.Lib
             var sinhVien = db.STU_DanhSach.Where(t => t.STU_HoSoSinhVien.Ma_sv == profile.UserName).ToList();
             return sinhVien;
         }
-        //public static List<DiemHocTap> GetBangDiem(int ID_sv)
-        //{
-        //    var diems = GetDiemHocTap(ID_sv);
-        //    //var bangdiem = new List<DiemHocTap>();
-        //    Dictionary<int, DiemHocTap> bangdiem = new Dictionary<int, DiemHocTap>();
-        //    foreach (var diem in diems)
-        //    {
-        //        if (!bangdiem.ContainsKey(diem.ID_mon))
-        //            bangdiem[diem.ID_mon] = diem;
-        //        else if (diem.Z > bangdiem[diem.ID_mon].Z)
-        //            bangdiem[diem.ID_mon] = diem;
-        //    }
-        //    return bangdiem.Values.ToList();
-        //}
+        public static List<DiemHocTap> GetBangDiem(int ID_sv, int ID_dt)
+        {
+            var diems = GetDiemHocTap(ID_sv,ID_dt);
+            //var bangdiem = new List<DiemHocTap>();
+            Dictionary<int, DiemHocTap> bangdiem = new Dictionary<int, DiemHocTap>();
+            foreach (var diem in diems)
+            {
+                if (!bangdiem.ContainsKey(diem.ID_mon))
+                    bangdiem[diem.ID_mon] = diem;
+                else if (diem.Z > bangdiem[diem.ID_mon].Z)
+                    bangdiem[diem.ID_mon] = diem;
+            }
+            return bangdiem.Values.ToList();
+        }
         public static void GetHocKyHienTai(STU_DanhSach sinhVien)
         {
 
@@ -211,7 +218,15 @@ namespace StudentPortal.Lib
                 return _lop;
             }
         }
-        
+        public static HocKy GetHocKyTruoc(int ID_sv, int ID_dt)
+        {
+            var hocky = SinhVien.GetDiemHocTap(ID_sv, ID_dt).Select(t => new HocKy
+            {
+                Hoc_ky = t.Hoc_ky,
+                Nam_hoc = t.Nam_hoc,
+            }).Distinct().OrderByDescending(t => t.Nam_hoc).ThenByDescending(t => t.Hoc_ky).ToList();
+            return hocky.First();
+        }
         //public static HocKy GetHocKyTruoc(STU_DanhSach sinhVien)
         //{
         //    var diemhoctap = GetDiemHocTap(sinhVien.ID_sv);

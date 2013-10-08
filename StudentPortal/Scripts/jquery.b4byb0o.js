@@ -28,18 +28,21 @@ Description: Some utilities for forms
     };
 
     $.fn.extend({
-
+        // for CheckAll
         isSelectedIDsEmpty:function()
         {
-            return $(this).each(function(){
+            //return $(this).each(function(){
                 var selectedIDs = $(this).data('value');
-                for (var i in selectedIDs)
-                    if (selectedIDs[i])
+                var s = '';
+                for (var i in selectedIDs) {
+                    s += i;
+                    if (selectedIDs[i]) {
                         return false;
+                    }
+                }
                 return true;
-            });
+            //});
         },
-
         selectedIDsToString: function()
         {
             function object2array(object) {
@@ -49,12 +52,18 @@ Description: Some utilities for forms
                     if (object[id]) IDs[i++] = id;
                 return IDs;
             }
-            return $(this).each(function(){
-                var selectedIDs = $(this).data('value');
-                return object2array(selectedIDs).join();
-            });
+            var selectedIDs = $(this).data('value');
+            return object2array(selectedIDs).join();
         },
-
+        selectedIDs: function () {
+            var result = [];
+            var IDs = $(this).data('value');
+            var k=0;
+            for (var i in IDs)
+                if (IDs[i])
+                    result[k++] = i;
+            return result;
+        },
         updateCheckRow: function(options)
         {
             var defaults = {
@@ -68,7 +77,6 @@ Description: Some utilities for forms
                 var _this = $(this);
                 var selectedIDs = _this.data('value');
                 $(options.checkRow).each(function (e) {
-
                     if (selectedIDs[$(this).val()]) {
                         $(this).attr('checked', true);
                     }
@@ -108,6 +116,46 @@ Description: Some utilities for forms
                 });
 
             });
+        },
+
+
+        // for AjaxQueue
+
+        ajaxQueue: function (options) {
+            var defaults = {
+                urls: [],
+                datas: [],
+                type: 'post',
+                processChanged: function () { },
+                processCompleted: function () { }
+            };
+
+            options = $.extend({}, defaults, options);
+            var n = options.datas.length;
+
+            _this = $(this);
+
+            _this.data('percent', 0);
+
+            var sendRequest = function (i) {
+                $.ajax({
+                    url: options.urls[i],
+                    data: options.datas[i],
+                    type: options.type,
+                    success: function (o) {
+                        _this.data('percent', 100 * i / n);
+                        options.processChanged(o);
+                        if (i == n)
+                        {
+                            options.processCompleted(o);
+                            return;
+                        }
+                        sendRequest(i + 1);
+                    }
+                })
+            }
+
+            sendRequest(0);
         }
     });
 }(jQuery));

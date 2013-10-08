@@ -11,6 +11,8 @@ namespace StudentPortal
 		public string Title { get; set; }
 		public string Message { get; set; }
 		public object Data { get; set; }
+        public string Redirect { get; set; }
+        public object Errors { get; set; }
 	}
 	public enum AjaxStatus
 	{

@@ -8,7 +8,7 @@
             .Name("GridInbox")
             .Columns(column =>
             {
-                column.Template(@<text></text>).ClientTemplate("<input type='checkbox' name='messages' class='checkRow' value='#=ID#'/>")
+                column.Template(@<text></text>).ClientTemplate("&nbsp;<input type='checkbox' name='messages' class='checkRow' value='#=ID#'/>")
                         .HeaderTemplate("<input type='checkbox' class='checkAll' />").Width(30);
                 column.Bound(t => t.Title).ClientTemplate(@"<a href='"+Url.Action("Detail","Message")+"/#=ID#' >#=Title#</a>");
                 column.Bound(t => t.To).Width(100);

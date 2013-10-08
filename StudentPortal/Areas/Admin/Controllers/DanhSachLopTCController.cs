@@ -124,7 +124,7 @@ namespace StudentPortal.Areas.Admin.Controllers
                 .Where(t => t.PLAN_ChuongTrinhDaoTao.ID_chuyen_nganh == ID_chuyen_nganh)
                 .Select(t => t.ID_mon).Distinct()
                 .ToList();
-            var monMos = db.PLAN_MonTinChi_TC.Where(t => t.Ky_dang_ky == Ky_dang_ky).Select(t => t.MARK_MonHoc).ToList();
+            var monMos = db.PLAN_MonTinChi_TC.Where(t => t.Ky_dang_ky == Ky_dang_ky).Select(t => t.MARK_MonHoc).Distinct().ToList();
             var monHeDTs = new List<MARK_MonHoc>();
             foreach (var mon in monMos)
             {
@@ -135,9 +135,9 @@ namespace StudentPortal.Areas.Admin.Controllers
             return result;
         }
 
-        public ActionResult getLopTCKhac(int ID_mon,int ID_lop_tc)
+        public ActionResult getLopTCKhac(int ID_mon,int ID_lop_tc, int Ky_dang_ky)
         {
-            var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon);
+            var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon, Ky_dang_ky);
             lopTinChis.Remove(lopTinChis.Single(t => t.ID_lop_tc == ID_lop_tc));
             JsonResult result = new JsonResult();
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
@@ -145,9 +145,9 @@ namespace StudentPortal.Areas.Admin.Controllers
             return result;
         }
 
-        public ActionResult getLopTC([DataSourceRequest] DataSourceRequest request, int ID_mon)
+        public ActionResult getLopTC([DataSourceRequest] DataSourceRequest request, int ID_mon, int Ky_dang_ky)
         {
-            var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon);
+            var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon,Ky_dang_ky);
             return Json(lopTinChis.ToDataSourceResult(request));
         }
 

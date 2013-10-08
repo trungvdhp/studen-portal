@@ -34,6 +34,9 @@
                 })
                 .CascadeFrom("He")
                 .AutoBind(false)
+                .Events(e => {
+                    e.Change("reloadGrid");
+                })
             )
             @(Html.Kendo().DropDownList()
                 .Name("KhoaHoc")
@@ -50,9 +53,11 @@
                 })
                 .AutoBind(false)
                 .HtmlAttributes(new { style = "width: 100px" })
-                .Events(e => {
+                .Events(e =>
+                {
                     e.Change("reloadGrid");
                 })
+                .CascadeFrom("ChuyenNganh")
             )
         </p>
         <div style="overflow: hidden">
@@ -78,7 +83,7 @@
                     .Selectable()
                     .Events(e =>
                     {
-                        e.Change("reloadSinhVien");
+                        e.Change("GridLop_change");
                     })
                     .Pageable(page => {
                         page.PageSizes(new int[] { 10, 20, 30 });
@@ -93,7 +98,7 @@
                     .Name("GridSinhVien")
                     .Columns(column =>
                     {
-                        column.Template(@<text></text>).ClientTemplate("<input type='checkbox' class='checkRow' value='#=ID_sv#' />")
+                        column.Template(@<text></text>).ClientTemplate("&nbsp;<input type='checkbox' class='checkRow' value='#=ID_sv#' />")
                             .HeaderTemplate("<input type='checkbox' class='checkAll' />").Width(30);
                         column.Bound(t => t.Ma_sv).Width(80);
                         column.Bound(t => t.Ho_ten);
@@ -138,16 +143,71 @@
 		<h3 id="myModalLabel1">Chọn lớp tín chỉ</h3>
 	</div>
 	<div class="modal-body">
-		
+		@(Html.Kendo().AutoComplete()
+            .Name("MonHoc")
+            .Placeholder("Nhập mã môn")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("getMonTC", "LopHanhChinh", new { Area = "Admin" }).Data("getFilters");
+                })
+                .ServerFiltering(false);
+            })
+            .Filter("contains")
+            .DataTextField("Text")
+            .HtmlAttributes(new { style = "width:300px" })
+            .Events(e => {
+                e.Change("loadGridLopTC");
+            })
+        )
+        <p></p>
+        @(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChiViewModel>()
+            .Name("GridLopTC")
+            .Columns(column =>
+            {
+                column.Bound(t => t.Ten_lop_tc);
+                column.Bound(t => t.So_sv_max).Width(50);
+                column.Bound(t => t.Da_dang_ky).Width(50);
+            })
+            .DataSource(source =>
+            {
+                source.Ajax().Read(read =>
+                {
+                    read.Action("getLopTC", "LopHanhChinh", new { Area = "Admin" }).Data("getFilters");
+                });
+            })
+            .Scrollable()
+            .Selectable()
+            .Sortable()
+            .Events(e => {
+                e.Change("GridLopTC_change");
+            })
+        )
+        <p></p>
+        <div id="DangKyProgress" class="progress" style="display:none">
+			<div class="bar" style="width: 0%;"></div>
+		</div>
     </div>
 	<div class="modal-footer">
-		<button class="btn yellow" id="btnXacNhanChuyen">Đăng ký</button>
+		<button class="btn yellow" id="btnXacNhanDK">Đăng ký</button>
         <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
 	</div>
 </div>
 <script type="text/javascript" src="~/Scripts/jquery.b4byb0o.js"></script>
 <script>
     var selectedID = 0;
+    var selectedIDLopTC = 0;
+    function GridLopTC_change(e) {
+        var selected = $.map(this.select(), function (item) {
+            return $(item);
+        });
+        var item = this.dataItem(selected[0]);
+        selectedIDLopTC = item.ID_lop_tc;
+    }
+    function loadGridLopTC() {
+        $('#GridLopTC').data('kendoGrid').dataSource.read();
+    }
     function GridSinhVien_DataBound() {
         $('.checkAll').updateCheckRow({ changeElement: "$('.checkAll').parent()" });
     }
@@ -161,10 +221,46 @@
                 alert("Không có sinh viên nào được chọn!");
                 return;
             }
+            $('#MonHoc').data('kendoAutoComplete').dataSource.read();
+            $('#MonHoc').val("");
             $('#btnDangKy').click();
         });
+
+        $('#btnXacNhanDK').click(function () {
+            if (selectedIDLopTC == 0) {
+                alert("Bạn phải chọn Lớp tín chỉ cần đăng ký trước!");
+                return;
+            }
+            var ID_svs = $('.checkAll').selectedIDs();
+            var datas = [];
+            var urls = [];
+            var k = 0;
+            for (var ID_sv in ID_svs) {
+                datas[k] = {
+                    ID_sv: ID_sv,
+                    ID_lop_tc: selectedIDLopTC,
+                    ID_lop: selectedID,
+                };
+                urls[k++] = '@Url.Action("DangKy","LopHanhChinh")';
+            }
+            $('#DangKyProgress').show();
+            $('#DangKyProgress').ajaxQueue({
+                urls: urls,
+                datas: datas,
+                processChanged: function (o) {
+                    $('#DangKyProgress .bar').css('width', $('#DangKyProgress').data('percent') + '%');
+                },
+                processCompleted: function(o)
+                {
+                    alert('Đăng ký thành công');
+                    $('#DangKyProgress').fadeOut(500, function () {
+                        $('#DangKyProgress .bar').css('width', '0');
+                    });
+                }
+            });
+        });
     });
-    function reloadSinhVien(e) {
+    function GridLop_change(e) {
         var selected = $.map(this.select(), function (item) {
             return $(item);
         });
@@ -172,8 +268,8 @@
         selectedID = item.ID_lop;
 
         $('#GridSinhVien').data('kendoGrid').dataSource.read();
+        $('.checkAll').data('value', {});
     }
-    
     function reloadGrid() {
         $('#GridLop').data("kendoGrid").dataSource.read();
     }
@@ -183,6 +279,7 @@
             ID_he: $('#He').val(),
             ID_chuyen_nganh: $('#ChuyenNganh').val(),
             Khoa_hoc: $('#KhoaHoc').val(),
+            Tu_khoa: $('#MonHoc').val(),
         };
     }
 </script>

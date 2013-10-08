@@ -64,6 +64,7 @@
     .AutoBind(false)
 )
         </p>
+        <p style="overflow: hidden"><a href="#modalLopTC" data-toggle="modal" class="btn red pull-right" id="btnChiTietHP">Xem chi tiết học phần</a></p>
         <script>
             var Thu = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]; //Array();
             var Tong_so_tiet = '@ViewBag.Tong_so_tiet';
@@ -102,6 +103,36 @@
         <p></p>
     </div>
 </div>
+<div id="modalLopTC" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+		<h3 id="myModalLabel1">Chi tiết học phần đăng ký</h3>
+	</div>
+	<div class="modal-body">
+		@(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChiViewModel>()
+            .Name("GridChiTietHocPhan")
+            .Columns(column =>
+            {
+                column.Bound(t => t.Ten_lop_tc);
+                column.Bound(t => t.So_tin_chi).Width(50);
+                column.Bound(t => t.Hoc_phi).Width(80);
+                //column.Bound(t => t.Chi_tiet);
+                //column.Bound(t => t.Ten_lop_tc);
+            })
+            .DataSource(source => {
+                source.Ajax().Read(read => {
+                    read.Action("getChiTietHocPhan", "DangKyHocPhan", new { Area = ""}).Data("getFilters");
+                });
+            })
+            .Filterable()
+            .Sortable()
+        )
+    </div>
+	<div class="modal-footer">
+		@*<button class="btn yellow" id="btnXacNhanChuyen">Chuyển</button>*@
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+	</div>
+</div>
 <script>
     function deleteNotUseElements() {
         $('.k-reset.k-header.k-toolbar.k-scheduler-navigation').css("display", "none");
@@ -125,5 +156,8 @@
     }
     $(document).ready(function () {
         deleteNotUseElements();
+        $('#btnChiTietHP').click(function () {
+            $('#GridChiTietHocPhan').data('kendoGrid').dataSource.read();
+        });
     });
 </script>

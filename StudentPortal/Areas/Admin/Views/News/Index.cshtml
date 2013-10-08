@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Trang tin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row-fluid">
+    <div class="span12">
+        <p>@Html.ActionLink("Tin mới","Create", "News", new { @class="btn blue" })</p>
+        @(Html.Kendo().Grid<StudentPortal.ViewModels.NewsViewModel>()
+            .Name("GridNews")
+            .Columns(column =>
+            {
+                column.Template(@<text></text>).ClientTemplate("&nbsp;<input type='checkbox' name='messages' class='checkRow' value='#=Id#'/>")
+                        .HeaderTemplate("<input type='checkbox' class='checkAll' />").Width(30);
+                column.Bound(t => t.Title).ClientTemplate(@"<a href='" + Url.Action("Index", "News", new { Area=""}) + "/#=Id#' >#=Title#</a>");
+                column.Bound(t => t.PostDate).Width(100).Format("{0:hh:mm dd/MM/yyyy}");
+                column.Bound(t => t.User).Width(100);
+                column.Bound(t => t.LastEditUser).Width(100);
+                column.Template(@<text></text>).ClientTemplate("<a href=\""+ Url.Action("Update","News")+ "?Id=#=Id#\">Sửa</a>").Width(50);
+            })
+            .DataSource(source =>
+            {
+                source.Ajax().Read(read =>
+                {
+                    read.Action("Read", "News", new { Area="Admin"});
+                });
+            })
+            .Groupable()
+            .Filterable()
+            .Sortable()
+            .Selectable()
+            .Pageable(page => {
+                page.PageSizes(new int[] { 10, 20, 30 });
+            })
+            .Groupable()
+            .Scrollable()
+        )
+        <p></p>
+        <p><button class="btn btnXoa">Xóa</button></p>
+    </div>
+</div>
+<script src="~/Scripts/jquery.b4byb0o.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.checkAll').initCheckAll({
+            toggleClass: "checked",
+            changeElement: "$('.checkAll').parent()"
+        });
+        $('.btnXoa').click(function () {
+            $.ajax({
+                url: '@Url.Action("Delete", "News", new { Area= "Admin"})',
+                dataType: 'json',
+                type: 'post',
+                data: {
+                    IDs: $('.checkAll').selectedIDsToString()
+                },
+                success: function (o) {
+                    alert(o.Message);
+                    $('#GridNews').data('kendoGrid').dataSource.read();
+                }
+            });
+        });
+    });
+</script>

@@ -64,6 +64,7 @@ namespace StudentPortal.Lib
         }
 
         private static List<int> _khoaDangHoc;
+
         public static List<int> getKhoaDangHoc()
         {
             if (_khoaDangHoc == null)

@@ -26,7 +26,9 @@ namespace StudentPortal
         private Dictionary<int, List<DiemHocTap>> _bangdiem = new Dictionary<int, List<DiemHocTap>>();
         private Dictionary<int, HocKy> _hocKyTruoc = new Dictionary<int, HocKy>();
         private bool _hetHanDK;
-        private Dictionary<string, List<PLAN_MonTinChi_TC>> _dicMonDangKy = new Dictionary<string, List<PLAN_MonTinChi_TC>>();
+        private Dictionary<string, List<MARK_MonHoc>> _dicMonDangKy = new Dictionary<string, List<MARK_MonHoc>>();
+        private int _iD_sv = 0;
+        private List<ChuyenNganh> _chuyenNganh;
 
         protected int itemsPerPage;
         protected DHHHContext db = new DHHHContext();
@@ -126,142 +128,15 @@ namespace StudentPortal
             }
             return _hocKyTruoc[ID_dt];
         }
-        protected List<PLAN_MonTinChi_TC> getMonDangKy(string KieuDK, int ID_dt)
+        protected List<MARK_MonHoc> getMonDangKy(KieuDangKy KieuDK, int ID_dt)
         {
-            if (!_dicMonDangKy.ContainsKey(KieuDK + ID_dt))
+            string key = KieuDK + "_" + ID_dt;
+            if (!_dicMonDangKy.ContainsKey(key))
             {
-                var monDK = new List<PLAN_MonTinChi_TC>();
-                var chuongtrinhDaotao = db.PLAN_ChuongTrinhDaoTao.Single(t =>
-                    t.ID_dt == ID_dt
-                   );
-                if (chuongtrinhDaotao != null)
-                {
-                    var monChuongTrinhKhung = ChuongTrinhDaoTao.getMonHoc(chuongtrinhDaotao.ID_dt);
-                    var idMonChuongTrinhKhung = monChuongTrinhKhung.Select(t => t.ID_mon).ToList();
-                    var quydinhDangkys = DangKyHocPhan.GetQuyDinhDangKy(sinhVien[ID_dt]);
-
-                    if (quydinhDangkys.Count > 0)
-                    {
-                        var hockyDangky = quydinhDangkys[0];
-
-
-                        var monDangMo = db.PLAN_SukiensTinChi_TC
-                            .Where(t => t.Ky_dang_ky == hockyDangky.Ky_dang_ky)
-                            .Select(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC)
-                            .Distinct()
-                            .ToList();
-                        var lopHC = sinhVien[ID_dt].STU_Lop;
-                        var phamviDKs = db.PLAN_PhamViDangKy_TC
-                            .Where(t => t.ID_he == 0 || t.ID_he == lopHC.ID_he)
-                            .Where(t => t.ID_khoa == 0 || t.ID_khoa == lopHC.ID_khoa)
-                            .Where(t => t.ID_nganh == 0 || t.ID_nganh == lopHC.STU_ChuyenNganh.ID_nganh)
-                            .Where(t => t.ID_chuyen_nganh == lopHC.ID_chuyen_nganh || t.ID_chuyen_nganh == 0)
-                            .Where(t => t.Khoa_hoc == lopHC.Khoa_hoc || t.Khoa_hoc == 0)
-                            .ToList();
-                        var monTrongPhamViDKs = phamviDKs.Select(t => t.ID_mon_tc).ToList();
-
-                        List<PLAN_MonTinChi_TC> monDuocDK = new List<PLAN_MonTinChi_TC>();
-
-                        foreach (var mon in monDangMo)
-                        {
-                            if (idMonChuongTrinhKhung.Contains(mon.ID_mon) && monTrongPhamViDKs.Contains(mon.ID_mon_tc))
-                                monDuocDK.Add(mon);
-                        }
-
-                        var bangdiem = this.getBangDiem(ID_dt);
-                        var dicBangdiem = bangdiem.ToDictionary(t => t.ID_mon, t => t.Z);
-                        var monRangBuoc = db.PLAN_ChuongTrinhDaoTaoRangBuoc.Where(t => t.ID_dt == chuongtrinhDaotao.ID_dt).ToList();
-                        var dicMonRangBuoc = monRangBuoc.ToDictionary(t => t.ID_mon, t => t);
-                        switch (KieuDK)
-                        {
-                            case "tien_do":
-                                foreach (var mon in monDuocDK)
-                                {
-                                    if (!dicBangdiem.ContainsKey(mon.ID_mon) &&
-                                            (!dicMonRangBuoc.ContainsKey(mon.ID_mon) ||
-                                                (dicBangdiem.ContainsKey(dicMonRangBuoc[mon.ID_mon].ID_mon_rb) &&
-                                                    (dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc == 0 ||
-                                                        bangdiem[dicMonRangBuoc[mon.ID_mon].ID_mon_rb].Z >= dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    {
-                                        monDK.Add(mon);
-                                    }
-                                }
-                                break;
-                            case "cai_thien":
-                                foreach (var mon in monDuocDK)
-                                {
-                                    if (dicBangdiem.ContainsKey(mon.ID_mon) && dicBangdiem[mon.ID_mon] <= SinhVien.DiemHe4["C+"] &&
-                                        (!dicMonRangBuoc.ContainsKey(mon.ID_mon) ||
-                                                (dicBangdiem.ContainsKey(dicMonRangBuoc[mon.ID_mon].ID_mon_rb) &&
-                                                    (dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc == 0 ||
-                                                        bangdiem[dicMonRangBuoc[mon.ID_mon].ID_mon_rb].Z >= dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc
-                                                    )
-                                                )
-                                            )
-                                        )
-                                        monDK.Add(mon);
-                                }
-                                break;
-                            case "hoc_lai":
-                                foreach (var mon in monDuocDK)
-                                {
-                                    if (dicBangdiem.ContainsKey(mon.ID_mon) && dicBangdiem[mon.ID_mon] < SinhVien.DiemHe4["D"] &&
-                                        (!dicMonRangBuoc.ContainsKey(mon.ID_mon) ||
-                                                (dicBangdiem.ContainsKey(dicMonRangBuoc[mon.ID_mon].ID_mon_rb) &&
-                                                    (dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc == 0 ||
-                                                        bangdiem[dicMonRangBuoc[mon.ID_mon].ID_mon_rb].Z >= dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc
-                                                    )
-                                                )
-                                            )
-                                        )
-                                        monDK.Add(mon);
-                                }
-                                break;
-                            default:
-                                foreach (var mon in monDuocDK)
-                                {
-                                    if ((dicBangdiem.ContainsKey(mon.ID_mon) && dicBangdiem[mon.ID_mon] < SinhVien.DiemHe4["D"] &&
-                                        (!dicMonRangBuoc.ContainsKey(mon.ID_mon) ||
-                                                (dicBangdiem.ContainsKey(dicMonRangBuoc[mon.ID_mon].ID_mon_rb) &&
-                                                    (dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc == 0 ||
-                                                        bangdiem[dicMonRangBuoc[mon.ID_mon].ID_mon_rb].Z >= dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc
-                                                    )
-                                                )
-                                            )
-                                        ) || (!dicBangdiem.ContainsKey(mon.ID_mon) &&
-                                            (!dicMonRangBuoc.ContainsKey(mon.ID_mon) ||
-                                                (dicBangdiem.ContainsKey(dicMonRangBuoc[mon.ID_mon].ID_mon_rb) &&
-                                                    (dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc == 0 ||
-                                                        bangdiem[dicMonRangBuoc[mon.ID_mon].ID_mon_rb].Z >= dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc
-                                                    )
-                                                )
-                                            )
-                                        ) || (dicBangdiem.ContainsKey(mon.ID_mon) && dicBangdiem[mon.ID_mon] <= SinhVien.DiemHe4["C+"] &&
-                                        (!dicMonRangBuoc.ContainsKey(mon.ID_mon) ||
-                                                (dicBangdiem.ContainsKey(dicMonRangBuoc[mon.ID_mon].ID_mon_rb) &&
-                                                    (dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc == 0 ||
-                                                        bangdiem[dicMonRangBuoc[mon.ID_mon].ID_mon_rb].Z >= dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc
-                                                    )
-                                                )
-                                            )
-                                        ))
-
-                                        monDK.Add(mon);
-                                }
-                                break;
-                        }
-
-                    }
-                }
-                _dicMonDangKy[KieuDK + ID_dt] = monDK;
+                _dicMonDangKy[key] = DangKyHocPhan.getMonDangKy(sinhVien[ID_dt],KieuDK,ID_dt);
             }
-            return _dicMonDangKy[KieuDK + ID_dt];
+            return _dicMonDangKy[key];
         }
-        private List<ChuyenNganh> _chuyenNganh;
         protected List<ChuyenNganh> ChuyenNganh
         {
             get
@@ -273,7 +148,6 @@ namespace StudentPortal
                 return _chuyenNganh;
             }
         }
-        private int _iD_sv = 0;
         protected int ID_sv
         {
             get

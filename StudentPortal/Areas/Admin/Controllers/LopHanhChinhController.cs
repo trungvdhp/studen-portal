@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using StudentPortal.ViewModels;
+using StudentPortal.Lib;
+using System.Threading;
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
@@ -74,6 +76,62 @@ namespace StudentPortal.Areas.Admin.Controllers
             }).ToList();
 
             return Json(sinhviens.ToDataSourceResult(request));
+        }
+        public ActionResult getMonTC(int ID_lop)
+        {
+            JsonResult result = new JsonResult();
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+
+            var lop = db.STU_Lop.Single(t=>t.ID_lop == ID_lop);
+            result.Data = ChuongTrinhDaoTao.getMonHoc(lop.ID_dt).Select(t => new
+            {
+                Text = t.Ky_hieu + " " + t.Ten_mon
+            }).ToList();
+
+            return result;
+        }
+
+        public ActionResult getLopTC([DataSourceRequest]DataSourceRequest request, string Tu_khoa)
+        {
+            var kyhieu = Tu_khoa.Split(' ')[0];
+            try
+            {
+                var mon = db.MARK_MonHoc.Single(t => t.Ky_hieu == kyhieu);
+                return Json(DangKyHocPhan.getLopTinChi(mon.ID_mon, this.HocKyDangKy.Ky_dang_ky).ToDataSourceResult(request));
+            }
+            catch (Exception)
+            {
+                return Json(new {});
+            }
+        }
+
+        public ActionResult DangKy(int ID_lop_tc, int ID_sv,int ID_lop)
+        {
+            var result = new JsonResult();
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+
+            try
+            {
+                var lopHC = db.STU_Lop.Single(t => t.ID_lop == ID_lop);
+                DangKyHocPhan.DangKy(ref db, ID_sv, ID_lop_tc, lopHC.ID_dt, HocKyDangKy.Ky_dang_ky);
+                result.Data = new AjaxResult
+                {
+                    Status = AjaxStatus.SUCCESS,
+                    Title = "Thông báo",
+                    Message = "Đã đăng ký thành công!"
+                };
+            }
+            catch (Exception e)
+            {
+                result.Data = new AjaxResult
+                {
+                    Status = AjaxStatus.ERROR,
+                    Title = "Thông báo",
+                    Message = e.Message,
+                };
+            }
+
+            return result;
         }
     }
 }

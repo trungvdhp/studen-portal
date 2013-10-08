@@ -36,133 +36,161 @@
             var idTiet = 0;
         </script>
         @(Html.Kendo().DropDownList()
-    .Name("KieuDK")
-    .OptionLabel("Chọn kiểu đăng ký")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .HtmlAttributes(new { style = "width:200px;" })
-    .BindTo(new List<SelectListItem>(){
-        new SelectListItem(){
-            Text="Tiến độ học", 
-            Value="tien_do",
-        },
-        new SelectListItem(){
-            Text="Học cải thiện", 
-            Value="cai_thien",
-        },
-        new SelectListItem(){
-            Text="Học lại", 
-            Value="hoc_lai",
-        },
-    })
-)
+            .Name("KieuDK")
+            .OptionLabel("Chọn kiểu đăng ký")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .HtmlAttributes(new { style = "width:200px;" })
+            .BindTo(new List<SelectListItem>(){
+                new SelectListItem(){
+                    Text="Tiến độ học", 
+                    Value= @StudentPortal.ViewModels.KieuDangKy.TIENDO.ToString(),
+                },
+                new SelectListItem(){
+                    Text="Học cải thiện", 
+                    Value= @StudentPortal.ViewModels.KieuDangKy.CAITHIEN.ToString(),
+                },
+                new SelectListItem(){
+                    Text="Học lại", 
+                    Value= @StudentPortal.ViewModels.KieuDangKy.HOCLAI.ToString(),
+                },
+            })
+        )
 
 
         @(Html.Kendo().DropDownList()
-    .Name("IDMon")
-    .OptionLabel("Chọn môn")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .HtmlAttributes(new { style = "width:300px;" })
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("getMonHoc", "DangKyHocPhan").Data("getFilters");
-        })
-        .ServerFiltering(true);
-    })
-    .AutoBind(false)
-    .Events(e=> {
-        e.Change("reloadGridLopTC");
-    })
-    .CascadeFrom("KieuDK")
-)
+            .Name("IDMon")
+            .OptionLabel("Chọn môn")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .HtmlAttributes(new { style = "width:300px;" })
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("getMonHoc", "DangKyHocPhan").Data("getFilters");
+                })
+                .ServerFiltering(true);
+            })
+            .AutoBind(false)
+            .Events(e=> {
+                e.Change("reloadGridLopTC");
+            })
+            .CascadeFrom("KieuDK")
+        )
           @(Html.Kendo().DropDownList()
-    .Name("IDGiaiDoan")
-    .DataTextField("Text")
-    .OptionLabel("Chọn giai đoạn")
-    .DataValueField("Value")
-    .HtmlAttributes(new { style = "width:200px;" })
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("getGiaiDoan", "DangKyHocPhan").Data("getFilters");
-        });
-    })
-    .Events(e =>{
-        e.Change("reloadScheduler");
-    })
-    .AutoBind(false)
-)
+            .Name("IDGiaiDoan")
+            .DataTextField("Text")
+            .OptionLabel("Chọn giai đoạn")
+            .DataValueField("Value")
+            .HtmlAttributes(new { style = "width:200px;" })
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("getGiaiDoan", "DangKyHocPhan").Data("getFilters");
+                });
+            })
+            .Events(e =>{
+                e.Change("reloadScheduler");
+            })
+            .AutoBind(false)
+        )
     </p>
         <p></p>
         @(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChiViewModel>()
-    .Name("GridLopTC")
-    .Columns(columns =>
-    {
-        columns.Bound(lopTC => lopTC.Ten_lop_tc);
-        columns.Bound(lopTC => lopTC.Giang_vien).HtmlAttributes(new { style = "width:100px" }).HeaderHtmlAttributes(new { style = "width:100px" });
-        columns.Bound(lopTC => lopTC.Ma_mon).HtmlAttributes(new { style = "width:60px" }).HeaderHtmlAttributes(new { style = "width:60px" });
-        columns.Bound(lopTC => lopTC.Chi_tiet);
-        columns.Bound(lopTC => lopTC.So_sv_max).HtmlAttributes(new { style = "width:50px" }).HeaderHtmlAttributes(new { style = "width:50px" });
-        columns.Bound(lopTC => lopTC.Da_dang_ky).HtmlAttributes(new { style = "width:50px" }).HeaderHtmlAttributes(new { style = "width:50px" });
-        columns.Template(@<text></text>).ClientTemplate(@"# 
-var btn = 'Đăng ký';
-var act = 'DangKy';
-if(!Chua_dang_ky){
-    btn='Hủy';
-    act = 'HuyDangKy';
-};
-#
-<a ID_lop_tc='#=ID_lop_tc#' data-action='#=act#' class=""k-button-icontext k-button btnDangKy"" href=""\#"">#= btn #</a>")
-    .HtmlAttributes(new { style = "width:70px" }).HeaderHtmlAttributes(new { style = "width:70px" });
-    })
-    .Pageable()
-    .Sortable()
-    .Scrollable()
-    .Selectable()
-    .Pageable(pager => pager.Enabled(false))
-    .DataSource(
-        dataSource => dataSource.Ajax()
-            .Read(read => read.Action("getLopTC", "DangKyHocPhan").Data("getFilters"))
-    )
+            .Name("GridLopTC")
+            .Columns(columns =>
+            {
+                columns.Bound(lopTC => lopTC.Ten_lop_tc);
+                columns.Bound(lopTC => lopTC.Giang_vien).HtmlAttributes(new { style = "width:100px" }).HeaderHtmlAttributes(new { style = "width:100px" });
+                columns.Bound(lopTC => lopTC.Ma_mon).HtmlAttributes(new { style = "width:60px" }).HeaderHtmlAttributes(new { style = "width:60px" });
+                columns.Bound(lopTC => lopTC.Chi_tiet);
+                columns.Bound(lopTC => lopTC.So_sv_max).HtmlAttributes(new { style = "width:50px" }).HeaderHtmlAttributes(new { style = "width:50px" });
+                columns.Bound(lopTC => lopTC.Da_dang_ky).HtmlAttributes(new { style = "width:50px" }).HeaderHtmlAttributes(new { style = "width:50px" });
+                columns.Template(@<text></text>).ClientTemplate(@"# 
+        var btn = 'Đăng ký';
+        var act = 'DangKy';
+        if(!Chua_dang_ky){
+            btn='Hủy';
+            act = 'HuyDangKy';
+        };
+        #
+        <a ID_lop_tc='#=ID_lop_tc#' data-action='#=act#' class=""k-button-icontext k-button btnDangKy"" href=""\#"">#= btn #</a>")
+            .HtmlAttributes(new { style = "width:70px" }).HeaderHtmlAttributes(new { style = "width:70px" });
+            })
+            .Pageable()
+            .Sortable()
+            .Scrollable()
+            .Selectable()
+            .Pageable(pager => pager.Enabled(false))
+            .DataSource(
+                dataSource => dataSource.Ajax()
+                    .Read(read => read.Action("getLopTC", "DangKyHocPhan").Data("getFilters"))
+            )
     
-)
-
-       <p></p>
-        
-        @(Html.Kendo().Scheduler<StudentPortal.ViewModels.ThoiKhoaBieu>()
-    .Name("scheduler")
-
-    .StartTime(DateTime.Now.Date)
-    .EndTime(DateTime.Now.Date.AddHours((int)ViewBag.Tong_so_tiet))
-    .DateHeaderTemplate("<strong># if(idThu==7) idThu=0; # #=Thu[idThu]# # idThu++; #</strong>")
-    .MajorTimeHeaderTemplate("# if(idTiet==Tong_so_tiet) idTiet=0; # #=Tiet[idTiet]# # idTiet++;# ")
-    .EventTemplate("<div class=\"time_event\" data-color=\"#=Color#\"><dl><dd>#= title #<dd></dl></div>")
-    .Views(views =>
-    {
-        views.WeekView(); 
-    })
-    .Editable(false)
-    .Events(e => {
-        e.DataBound("onDataBound");
-    })
-    .DataSource(d => d
-        .Model(m =>
-        {
-            m.Id(f => f.Id);
-            m.Field(f => f.ID_lop_tc).DefaultValue(1);
-        })
-        .Read(read=>read.Action("getThoiKhoaBieu", "DangKyHocPhan").Data("getFilters"))
-    )
+        )
+                <p></p>
+                <p style="overflow: hidden"><a href="#modalLopTC" data-toggle="modal" class="btn red pull-right" id="btnChiTietHP">Xem chi tiết học phần</a></p>
+                @(Html.Kendo().Scheduler<StudentPortal.ViewModels.ThoiKhoaBieu>()
+            .Name("scheduler")
     
-)
+            .StartTime(DateTime.Now.Date)
+            .EndTime(DateTime.Now.Date.AddHours((int)ViewBag.Tong_so_tiet))
+            .DateHeaderTemplate("<strong># if(idThu==7) idThu=0; # #=Thu[idThu]# # idThu++; #</strong>")
+            .MajorTimeHeaderTemplate("# if(idTiet==Tong_so_tiet) idTiet=0; # #=Tiet[idTiet]# # idTiet++;# ")
+            .EventTemplate("<div class=\"time_event\" data-color=\"#=Color#\"><dl><dd>#= title #<dd></dl></div>")
+            .Views(views =>
+            {
+                views.WeekView(); 
+            })
+    
+            .Editable(false)
+            .Events(e => {
+                e.DataBound("onDataBound");
+            })
+            .DataSource(d => d
+                .Model(m =>
+                {
+                    m.Id(f => f.Id);
+                    m.Field(f => f.ID_lop_tc).DefaultValue(1);
+                })
+                .Read(read=>read.Action("getThoiKhoaBieu", "DangKyHocPhan").Data("getFilters"))
+            )
+    
+        )
         <p></p>
     </div>
 </div>
-
+<div id="modalLopTC" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+		<h3 id="myModalLabel1">Chi tiết học phần đăng ký</h3>
+	</div>
+	<div class="modal-body">
+		@(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChiViewModel>()
+            .Name("GridChiTietHocPhan")
+            .Columns(column =>
+            {
+                column.Bound(t => t.Ten_lop_tc);
+                column.Bound(t => t.So_tin_chi).Width(50);
+                column.Bound(t => t.Hoc_phi).Width(80);
+                //column.Bound(t => t.Chi_tiet);
+                //column.Bound(t => t.Ten_lop_tc);
+            })
+            .DataSource(source => {
+                source.Ajax().Read(read => {
+                    read.Action("getChiTietHocPhan", "DangKyHocPhan", new { Area = ""}).Data("getFilters");
+                });
+            })
+            .Filterable()
+            .Sortable()
+        )
+    </div>
+	<div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+	</div>
+</div>
 <script>
     function chonChuyenNganh() {
         $("#ID_dt").data("kendoDropDownList").value(1);
@@ -189,6 +217,7 @@ if(!Chua_dang_ky){
         $('.k-reset.k-header.k-toolbar.k-scheduler-navigation').css("display", "none");
         $('.k-scheduler-table.k-scheduler-header-all-day').css("display", "none");
         $('.k-scheduler-times-all-day').parent().css("display", "none");
+        $('.k-floatwrap.k-header.k-scheduler-toolbar.k-secondary').css('display', 'none');
     }
     function reloadGridLopTC(e) {
         $("#GridLopTC").data("kendoGrid").dataSource.read();
@@ -215,6 +244,9 @@ if(!Chua_dang_ky){
 
                 }
             });
+        });
+        $('#btnChiTietHP').click(function () {
+            $('#GridChiTietHocPhan').data('kendoGrid').dataSource.read();
         });
     });
 

@@ -42,7 +42,7 @@
     .Columns(columns =>
     {
         columns.Bound(c => c.RoleId)
-            .ClientTemplate("<input type='checkbox' class='checkRow' value='#= RoleId #'/>")
+            .ClientTemplate("&nbsp;<input type='checkbox' class='checkRow' value='#= RoleId #'/>")
             .HeaderTemplate("<input type='checkbox' class='checkAll' />")
             .Width(40)
             .Title("")

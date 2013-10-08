@@ -10,7 +10,6 @@ namespace StudentPortal.Lib
     public class LopTinChi
     {
         private static Dictionary<int, LopTinChiViewModel> _cacheDicLopTC = new Dictionary<int, LopTinChiViewModel>();
-
         public static Dictionary<int, StudentPortal.ViewModels.LopTinChiViewModel> getListDetails(List<PLAN_SukiensTinChi_TC> sukienTinChis)
         {
             DHHHContext db = new DHHHContext();
@@ -23,10 +22,11 @@ namespace StudentPortal.Lib
                     if (!dicLopTinChi.ContainsKey(sukienTinChi.ID_lop_tc))
                     {
                         var lopTinChi = sukienTinChi.PLAN_LopTinChi_TC;
-                        string Ten_mon = lopTinChi.PLAN_MonTinChi_TC.MARK_MonHoc.Ten_mon;
-                        string Ky_hieu_lop_tc = lopTinChi.PLAN_MonTinChi_TC.Ky_hieu_lop_tc;
+                        var monTinChi = lopTinChi.PLAN_MonTinChi_TC;
+                        string Ten_mon = monTinChi.MARK_MonHoc.Ten_mon;
+                        string Ky_hieu_lop_tc = monTinChi.Ky_hieu_lop_tc;
                         int STT_lop = lopTinChi.STT_lop;
-                        string Ky_hieu = lopTinChi.PLAN_MonTinChi_TC.MARK_MonHoc.Ky_hieu;
+                        string Ky_hieu = monTinChi.MARK_MonHoc.Ky_hieu;
                         string Ten_lop_tc = "";
                         if (lopTinChi.ID_lop_lt == 0)
                         {
@@ -37,7 +37,7 @@ namespace StudentPortal.Lib
                         string Giang_vien = "";
                         if (lopTinChi.ID_cb != 0)
                             Giang_vien = lopTinChi.PLAN_GiaoVien.Ho_ten;
-
+                        
                         dicLopTinChi.Add(sukienTinChi.ID_lop_tc, new StudentPortal.ViewModels.LopTinChiViewModel
                         {
                             ID_lop_lt = lopTinChi.ID_lop_lt,
@@ -49,6 +49,8 @@ namespace StudentPortal.Lib
                             Ma_mon = Ky_hieu,
                             Chi_tiet = "",
                             Giang_vien = Giang_vien,
+                            So_tin_chi = monTinChi.So_tin_chi,
+                            He_so = monTinChi.He_so,
                         });
                     }
                     var Chi_tiet = string.Format("Từ {0} đến {1}", sukienTinChi.Tu_ngay.ToString("dd/MM/yyyy"), sukienTinChi.Den_ngay.ToString("dd/MM/yyyy"));
