@@ -37,13 +37,13 @@ namespace StudentPortal.Controllers
         }
 
         
-        public ActionResult getMonHoc(string KieuDK, int ID_dt)
+        public ActionResult getMonHoc(KieuDangKy KieuDK, int ID_dt)
         {
             JsonResult result = new JsonResult();
             DHHHContext db = new DHHHContext();
             var monDK = this.getMonDangKy(KieuDK,ID_dt).Select(t=>new {
                 ID_mon = t.ID_mon,
-                Ten_mon = t.MARK_MonHoc.Ten_mon,
+                Ten_mon = t.Ten_mon,
             });
             result.Data = new SelectList(monDK, "ID_mon", "Ten_mon");
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
@@ -54,7 +54,7 @@ namespace StudentPortal.Controllers
         {
             DHHHContext db = new DHHHContext();
             if (ID_dt == null) return null;
-            var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon);
+            var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon, this.HocKyDangKy.Ky_dang_ky);
             var ID_sv = sinhVien[(int)ID_dt].ID_sv;
             var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList();
 
@@ -118,7 +118,14 @@ namespace StudentPortal.Controllers
             foreach (var idLopDK in idLopDKs)
             {
                 var lopDK_SKTCs = db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == idLopDK).ToList();
-                dicLopTinChiColor[idLopDK] = String.Format("rgb({0},{1},{2})", rand.Next(104, 212), rand.Next(104, 212), rand.Next(104, 212));
+                var loptc = lopDK_SKTCs.First().PLAN_LopTinChi_TC;
+                var id_lop_tc = loptc.ID_mon_tc;
+                var stt = loptc.STT_lop;
+                int r,g,b;
+                g = (idLopDK %16)*16;
+                b= (id_lop_tc%16)*16;
+                r = (stt % 16) * 16;
+                dicLopTinChiColor[idLopDK] = String.Format("rgb({0},{1},{2})", r,g,b);
                 foreach (var lopDK_SKTC in lopDK_SKTCs)
                     suKienTinChis.Add(lopDK_SKTC);
             }
@@ -188,94 +195,14 @@ namespace StudentPortal.Controllers
                 result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
                 return result;
             }
-
-            var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == this.ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky==HocKyDangKy.Ky_dang_ky).Select(t=>t.PLAN_LopTinChi_TC).ToList();
-            var idLopDKs = lopDKs.Select(t => t.ID_lop_tc).ToList();
+            
             var suKienTinChiDaDKs = this.getSuKienTinChiDK(ID_dt);
 
             var skLopTCs = db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == ID_lop_tc).ToList();
-            var lopTC = skLopTCs.First().PLAN_LopTinChi_TC;
-            var ID_mon_tc = skLopTCs.First().PLAN_LopTinChi_TC.ID_mon_tc;
-            
-            // Kiem tra gioi han sinh vien lop TC
-
-            if (lopTC.Da_dang_ky + 1 > lopTC.So_sv_max)
-            {
-                result.Data = new AjaxResult
-                {
-                    Status = AjaxStatus.ERROR,
-                    Title = "Thông báo",
-                    Data = { },
-                    Message = String.Format("Bạn không thể đăng ký vì lớp đã quá giới hạn số sinh viên đăng ký!", (int)CauHinh.get("So_TC_max")),
-                };
-                result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                return result;
-            }
-
-            // Kiem tra so tin chi 
-            var hockyTruoc = this.getHocKyTruoc(ID_dt);
-            var xetLenLop = db.Mark_XetLenLop.Where(t => t.ID_sv == this.ID_sv && t.Hoc_ky == hockyTruoc.Hoc_ky && t.Nam_hoc == t.Nam_hoc);
-            if (xetLenLop.Count()!=0)
-            {
-                var dkLenLop = xetLenLop.First();
-                if (dkLenLop.Lan_canh_bao == 0)
-                {
-                    if (lopDKs.Sum(t => t.PLAN_MonTinChi_TC.So_tin_chi) > (int)CauHinh.get("So_TC_max"))
-                    {
-                        result.Data = new AjaxResult
-                        {
-                            Status = AjaxStatus.ERROR,
-                            Title = "Thông báo",
-                            Data = { },
-                            Message = String.Format("Bạn không thể đăng ký quá {0} tín chỉ!", (int)CauHinh.get("So_TC_max")),
-                        };
-                        result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                        return result;
-                    }
-                }
-                else
-                {
-                    if (lopDKs.Sum(t => t.PLAN_MonTinChi_TC.So_tin_chi) > (int)CauHinh.get("So_TC_CC_max"))
-                    {
-                        result.Data = new AjaxResult
-                        {
-                            Status = AjaxStatus.ERROR,
-                            Title = "Thông báo",
-                            Data = { },
-                            Message = String.Format("Bạn đang bị cảnh cáo nên không thể đăng ký quá {0} tín chỉ!", (int)CauHinh.get("So_TC_CC_max")),
-                        };
-                        result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                        return result;
-                    }
-                }
-
-            }
-            
-            
-            LopTinChiViewModel loptrung = new LopTinChiViewModel();
-
-            // Kiem tra mon hoc co nam trong danh sach mon duoc dang ky ko
-            var ID_dts = SinhVien.getChuyenNganh(this.ID_sv).Select(t=>t.ID_dt).ToList();
-            
-            if (ID_dts.Contains(ID_dt))
-            {
-                var IdMonDKs = this.getMonDangKy("",ID_dt).Select(t => t.ID_mon).ToList();
-                if (!IdMonDKs.Contains(lopTC.PLAN_MonTinChi_TC.ID_mon))
-                {
-                    result.Data = new AjaxResult
-                    {
-                        Status = AjaxStatus.ERROR,
-                        Title = "Thông báo",
-                        Data = { },
-                        Message = String.Format("Bạn đang đăng ký môn ngoài chương trình đào tạo!"),
-                    };
-                    result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                    return result;
-                }
-            }
-
-            
+                        
             // Kiem tra trung lich hoc
+
+            LopTinChiViewModel loptrung = new LopTinChiViewModel();
             foreach (var sktcNew in skLopTCs)
             {
                 foreach (var sktc in suKienTinChiDaDKs)
@@ -305,116 +232,26 @@ namespace StudentPortal.Controllers
                     }
                 }
             }
-            
-            
-            // Kiem tra mon da dang ky truoc do hay chua
-            var idMonDangKys = suKienTinChiDaDKs.Select(t => t.PLAN_LopTinChi_TC.ID_mon_tc).Distinct().ToList();
-            if (idMonDangKys.Contains(ID_mon_tc))
+            try
+            {
+                DangKyHocPhan.DangKy(ref db, ID_sv, ID_lop_tc, ID_dt, HocKyDangKy.Ky_dang_ky);
+                result.Data = new AjaxResult
+                {
+                    Status = AjaxStatus.SUCCESS,
+                    Title = "Thông báo",
+                    Message = "Đã đăng ký thành công!"
+                };
+            }
+            catch (Exception e)
             {
                 result.Data = new AjaxResult
                 {
                     Status = AjaxStatus.ERROR,
                     Title = "Thông báo",
-                    Data = { },
-                    Message = String.Format("Bạn đã đăng ký lớp cho môn học này. Để đăng ký lớp này, bạn phải hủy lớp đã có!"),
+                    Message = e.Message,
                 };
-                result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                return result;
             }
             
-            // Kiem tra mon dang ky tuong duong
-            var monTuongduongs = db.PLAN_ChuongTrinhDaoTaoMonTuongDuong.Where(t => t.ID_dt == ID_dt).Select(t => new
-            {
-                ID_mon = t.ID_mon,
-                ID_mon_tuong_duong = t.ID_mon_tuong_duong,
-            }).ToDictionary(t => t.ID_mon, t => t.ID_mon_tuong_duong);
-            
-            var daDkMonTuongDuong = false;
-            foreach (var idMon in idMonDangKys)
-            {
-                
-                if(monTuongduongs.ContainsKey(idMon) && monTuongduongs[idMon]==lopTC.PLAN_MonTinChi_TC.ID_mon)
-                {
-                    daDkMonTuongDuong = true;
-                    break;
-                }
-            }
-            if (daDkMonTuongDuong)
-            {
-                result.Data = new AjaxResult
-                {
-                    Status = AjaxStatus.ERROR,
-                    Title = "Thông báo",
-                    Data = { },
-                    Message = String.Format("Bạn đã đămg ký môn tương đương với môn học này rồi!"),
-                };
-                result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                return result;
-            }
-
-            // Kiem tra mon da hoc tuong duong
-            var monDaHoc = this.getBangDiem(ID_dt).ToDictionary(t=> t.ID_mon,t=>t);
-            foreach (var mon in monDaHoc.Values)
-            {
-                if (monTuongduongs.ContainsKey(mon.ID_mon) && SinhVien.DiemHe4[monDaHoc[mon.ID_mon].Diem_chu] >= SinhVien.DiemHe4["C+"])
-                {
-                    result.Data = new AjaxResult
-                    {
-                        Status = AjaxStatus.ERROR,
-                        Title = "Thông báo",
-                        Data = { },
-                        Message = String.Format("Bạn đã học môn tương đương của môn học này rồi!"),
-                    };
-                    result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                    return result;
-                }
-            }
-            // Kiem tra mon rang buoc
-            var monRangBuoc = db.PLAN_ChuongTrinhDaoTaoRangBuoc.Where(t=>t.ID_dt==ID_dt ).ToDictionary(t => t.ID_mon, t => t);
-            if (monRangBuoc.ContainsKey(lopTC.PLAN_MonTinChi_TC.ID_mon))
-            {
-                if ( monDaHoc.ContainsKey(monRangBuoc[lopTC.PLAN_MonTinChi_TC.ID_mon].ID_mon_rb) && monRangBuoc[lopTC.PLAN_MonTinChi_TC.ID_mon].Diem_rang_buoc > monDaHoc[monRangBuoc[lopTC.PLAN_MonTinChi_TC.ID_mon].ID_mon_rb].Z)
-                {
-                    result.Data = new AjaxResult
-                    {
-                        Status = AjaxStatus.ERROR,
-                        Title = "Thông báo",
-                        Data = { },
-                        Message = String.Format("Bạn phải học môn {0} trước và có điểm đạt tối thiểu {1:1} có thể đăng ký môn này!", monRangBuoc[lopTC.PLAN_MonTinChi_TC.ID_mon].Mon_Rang_Buoc.Ten_mon, monRangBuoc[lopTC.PLAN_MonTinChi_TC.ID_mon].Diem_rang_buoc),
-                    };
-                    result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                    return result;
-                }
-                else
-                {
-                    result.Data = new AjaxResult
-                    {
-                        Status = AjaxStatus.ERROR,
-                        Title = "Thông báo",
-                        Data = { },
-                        Message = String.Format("Bạn phải học môn {0} trước mới có thể đăng ký môn này!", monRangBuoc[lopTC.PLAN_MonTinChi_TC.ID_mon].Mon_Rang_Buoc.Ten_mon),
-                    };
-                    result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                    return result;
-                }
-            }
-            
-
-            db.STU_DanhSachLopTinChi.Add(new STU_DanhSachLopTinChi
-            {
-                ID_lop_tc = ID_lop_tc,
-                ID_sv = this.ID_sv,
-                Duyet = 0,
-            });
-            db.SaveChanges();
-
-            result.Data = new AjaxResult
-            {
-                Status = AjaxStatus.SUCCESS,
-                Title = "Thông báo",
-                Data = { },
-                Message = "Đã đăng ký thành công!"
-            };
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
 
@@ -451,6 +288,32 @@ namespace StudentPortal.Controllers
                 result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
                 return result;
             }
+        }
+
+        public ActionResult getChiTietHocPhan([DataSourceRequest]DataSourceRequest request ,int ID_dt)
+        {
+            var lop = sinhVien[ID_dt].STU_Lop;
+            var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList();
+            var suKienTinChis = new List<PLAN_SukiensTinChi_TC>();
+            foreach (var idLopDK in idLopDKs)
+            {
+                var lopDK_SKTCs = db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == idLopDK).ToList();
+                foreach (var lopDK_SKTC in lopDK_SKTCs)
+                    suKienTinChis.Add(lopDK_SKTC);
+            }
+            var lopTCs = LopTinChi.getListDetails(suKienTinChis).Values.ToList();
+            try
+            {
+                var muchocphi = HocPhi.getMucHocPhi(db,HocKyDangKy.Ky_dang_ky,lop.ID_he,lop.ID_chuyen_nganh,lop.Khoa_hoc);
+
+                for (var i = 0; i < lopTCs.Count(); i++)
+                {
+                    lopTCs[i].Hoc_phi = lopTCs[i].He_so * (int)muchocphi.So_tien;
+                }
+
+            }
+            catch (Exception) { }
+            return Json(lopTCs.ToDataSourceResult(request));
         }
     }
 }

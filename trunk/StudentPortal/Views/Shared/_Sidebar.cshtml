@@ -14,12 +14,13 @@
 			<!-- END RESPONSIVE QUICK SEARCH FORM -->
 			<!-- BEGIN SIDEBAR MENU -->
 			<ul>
-				<li class="active">
+				<li class="">
 					<a href="index.html">
 					<i class="icon-home"></i> Dashboard
 					<span class="selected"></span>
 					</a>					
 				</li>
+                @if(User.IsInRole("SinhVien")){
 				<li class="has-sub">
 					<a href="javascript:;" class="">
 					<i class="icon-bookmark-empty"></i> Tra cứu
@@ -27,59 +28,54 @@
 					</a>
 					<ul class="sub">
 						<li><a class="" href="@Url.Action("Diem", "TraCuu", new { Area = ""})">Điểm</a></li>
-						<li><a class="" href="@Url.Action("ThuChi","TraCuu", new { Area = ""})">Thu chi</a></li>
+						<li><a class="" href="@Url.Action("ThuChi","TraCuu", new { Area = ""})">Hành chính</a></li>
 					</ul>
 				</li>
+                }
+            @if (User.IsInRole("Dashboard") || User.IsInRole("RootAdmin"))
+            {
 				<li class="has-sub">
 					<a href="javascript:;" class="">
 					<i class="icon-table"></i> Quản lý đăng ký học
 					<span class="arrow"></span>
 					</a>
 					<ul class="sub">
-						<li><a class="" href="@Url.Action("Index","MonTinChi", new { Area = "Admin" })">Môn tín chỉ</a></li>
-						<li><a class="" href="@Url.Action("Index","LopTinChi", new { Area = "Admin" })">Lớp tín chỉ</a></li>
-						<li><a class="" href="@Url.Action("Index","DanhSachLopTC", new { Area = "Admin" })">Danh sách SV đăng ký</a></li>
+						@if(User.IsInRole("MonTinChi.Index")){ <li><a class="" href="@Url.Action("Index","MonTinChi", new { Area = "Admin" })">Môn tín chỉ</a></li>}
+						@if(User.IsInRole("LopTinChi.Index")){ <li><a class="" href="@Url.Action("Index","LopTinChi", new { Area = "Admin" })">Lớp tín chỉ</a></li>}
+						@if(User.IsInRole("DanhSachLopTC.Index")){ <li><a class="" href="@Url.Action("Index","DanhSachLopTC", new { Area = "Admin" })">Danh sách SV đăng ký</a></li>}
 					</ul>
 				</li>
+                if(User.IsInRole("RootAdmin")){
 				<li class="has-sub">
 					<a href="javascript:;" class="">
 					<i class="icon-th-list"></i> Hệ thống
 					<span class="arrow"></span>
 					</a>
 					<ul class="sub">
-						<li><a class="" href="@Url.Action("Index","Roles", new { Area = "Admin" })">Quyền</a></li>
-						<li><a class="" href="@Url.Action("Index","Group", new { Area = "Admin" })">Nhóm</a></li>
-						<li><a class="" href="@Url.Action("Index","User", new { Area = "Admin" })">Người dùng</a></li>
-					</ul>
+						@if(User.IsInRole("Roles.Index")){ <li><a class="" href="@Url.Action("Index","Roles", new { Area = "Admin" })">Quyền</a></li> }
+						@if(User.IsInRole("Group.Index")){ <li><a class="" href="@Url.Action("Index","Group", new { Area = "Admin" })">Nhóm</a></li>}
+						@if(User.IsInRole("User.Index")){ <li><a class="" href="@Url.Action("Index","User", new { Area = "Admin" })">Người dùng</a></li>}
+					</ul>   
 				</li>
-				@*<li><a class="" href="grids.html"><i class="icon-th"></i> Grids & Portlets</a></li>
-				<li class="has-sub">
-					<a href="javascript:;" class="">
-					<i class="icon-map-marker"></i> Maps
-					<span class="arrow"></span>
-					</a>
-					<ul class="sub">
-						<li><a class="" href="maps_google.html">Google Maps</a></li>
-						<li><a class="" href="maps_vector.html">Vector Maps</a></li>
-					</ul>
-				</li>
-				<li><a class="" href="charts.html"><i class="icon-bar-chart"></i> Visual Charts</a></li>
-				<li><a class="" href="calendar.html"><i class="icon-calendar"></i> Calendar</a></li>
-				<li><a class="" href="gallery.html"><i class="icon-camera"></i> Gallery</a></li>
-				<li class="has-sub">
-					<a href="javascript:;" class="">
-					<i class="icon-briefcase"></i> Extra
-					<span class="arrow"></span>
-					</a>
-					<ul class="sub">
-						<li><a class="" href="extra_pricing_table.html">Pricing Tables</a></li>
-						<li><a class="" href="extra_404.html">404 Page</a></li>
-						<li><a class="" href="extra_500.html">500 Page</a></li>
-						<li><a class="" href="extra_blank.html">Blank Page</a></li>
-					</ul>
-				</li>
-				<li><a class="" href="login.html"><i class="icon-user"></i> Login Page</a></li>*@
+                }
+            }
 			</ul>
 			<!-- END SIDEBAR MENU -->
 		</div>
 		<!-- END SIDEBAR -->
+<script>
+    $(document).ready(function () {
+        $('.has-sub').each(function () {
+            if ($(this).find('ul.sub').children().length == 0) {
+                $(this).css('display', 'none');
+            }
+        });
+        var locationPath = location.pathname;
+        $('.has-sub .sub>li>a').each(function () {
+            if (locationPath.indexOf($(this).attr('href')) >= 0) {
+                $(this).parent().addClass('active');
+                $(this).parent().parent().parent().addClass('active');
+            }
+        });
+    });
+</script>

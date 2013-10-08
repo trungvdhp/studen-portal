@@ -12,7 +12,6 @@ using StudentPortal.Filters;
 namespace StudentPortal.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
     public class ThoiKhoaBieuController : BaseController
     {
         public ThoiKhoaBieuController()
@@ -124,6 +123,35 @@ namespace StudentPortal.Controllers
                 Title = dicLopTC[t.ID_lop_tc].Ten_lop_tc,
                 Color = dicLopTinChiColor[t.ID_lop_tc],
             }).ToDataSourceResult(request));
+        }
+        public ActionResult getChiTietHocPhan([DataSourceRequest]DataSourceRequest request, int ID_dt)
+        {
+            var lop = sinhVien[ID_dt].STU_Lop;
+            var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList();
+            var suKienTinChis = new List<PLAN_SukiensTinChi_TC>();
+            foreach (var idLopDK in idLopDKs)
+            {
+                var lopDK_SKTCs = db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == idLopDK).ToList();
+                foreach (var lopDK_SKTC in lopDK_SKTCs)
+                    suKienTinChis.Add(lopDK_SKTC);
+            }
+            var lopTCs = LopTinChi.getListDetails(suKienTinChis).Values.ToList();
+            try
+            {
+                var muchocphis = db.ACC_MucHocPhiTinChi.Where(t => t.Hoc_ky == HocKyDangKy.Hoc_ky && t.Nam_hoc == HocKyDangKy.Nam_hoc).ToList();
+                muchocphis = muchocphis.Where(t => t.ID_he == lop.ID_he || t.ID_he == 0).ToList();
+                muchocphis = muchocphis.Where(t => t.ID_chuyen_nganh == lop.ID_chuyen_nganh || t.ID_chuyen_nganh == 0).ToList();
+                muchocphis = muchocphis.Where(t => t.Khoa_hoc == lop.Khoa_hoc || t.Khoa_hoc == 0).ToList();
+                var muchocphi = muchocphis.First();
+
+                for (var i = 0; i < lopTCs.Count(); i++)
+                {
+                    lopTCs[i].Hoc_phi = lopTCs[i].He_so * (int)muchocphi.So_tien;
+                }
+
+            }
+            catch (Exception) { }
+            return Json(lopTCs.ToDataSourceResult(request));
         }
     }
 }

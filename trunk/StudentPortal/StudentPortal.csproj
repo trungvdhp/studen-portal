@@ -168,15 +168,19 @@
   <ItemGroup>
     <Compile Include="Areas\Admin\Controllers\DanhSachLopTCController.cs" />
     <Compile Include="Areas\Admin\Controllers\LopHanhChinhController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ThongBaoController.cs" />
     <Compile Include="Controllers\DangKyThiController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\ThoiKhoaBieuController.cs" />
     <Compile Include="Lib\CauHinh.cs" />
+    <Compile Include="Lib\HocPhi.cs" />
     <Compile Include="Lib\LopTinChi.cs" />
     <Compile Include="Lib\Utilities.cs" />
     <Compile Include="Models\CauHinhModel.cs" />
     <Compile Include="Models\InboxModel.cs" />
+    <Compile Include="Models\NewsModel.cs" />
     <Compile Include="ViewModels\AjaxResult.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -260,7 +264,7 @@
     <Compile Include="Areas\Admin\Models\ACC_MucThuKhacSinhVien.cs" />
     <Compile Include="Areas\Admin\Models\ACC_MucThuKhacSinhVienCopy.cs" />
     <Compile Include="Areas\Admin\Models\ACC_ThiLai.cs" />
-    <Compile Include="Areas\Admin\Models\DHHH.Context.cs" />
+    <Compile Include="Models\DHHH.Context.cs" />
     <Compile Include="Areas\Admin\Models\MARK_ChungChiSinhVien_TC.cs" />
     <Compile Include="Areas\Admin\Models\Mark_DanhSachChuaTotNghiep.cs" />
     <Compile Include="Areas\Admin\Models\Mark_DanhSachHoctiep.cs" />
@@ -493,11 +497,13 @@
     <Compile Include="ViewModels\ChuyenNganh.cs" />
     <Compile Include="ViewModels\DiemHocTap.cs" />
     <Compile Include="ViewModels\HocKy.cs" />
+    <Compile Include="ViewModels\KieuDangKy.cs" />
     <Compile Include="ViewModels\KyDangKy.cs" />
     <Compile Include="ViewModels\LopHanhChinh.cs" />
-    <Compile Include="ViewModels\LopTinChi.cs" />
+    <Compile Include="ViewModels\LopTinChiViewModel.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\MonHoc.cs" />
+    <Compile Include="ViewModels\NewsViewModel.cs" />
     <Compile Include="ViewModels\SinhVien.cs" />
     <Compile Include="ViewModels\SuKienTinChi.cs" />
     <Compile Include="ViewModels\ThoiKhoaBieu.cs" />
@@ -1259,6 +1265,9 @@
     <Content Include="Areas\Admin\Views\DanhSachLopTC\Index.cshtml" />
     <Content Include="Areas\Admin\Views\MonTinChi\Index.cshtml" />
     <Content Include="Areas\Admin\Views\LopHanhChinh\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\News\Update.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -1266,6 +1275,7 @@
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
     <Content Include="Scripts\jquery.b4byb0o.js" />
     <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jquery.formParse.js" />
     <Content Include="Scripts\jquery.toastmessage-min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -1436,6 +1446,7 @@
     <Content Include="Views\Message\Outbox.cshtml" />
     <Content Include="Views\Message\Compose.cshtml" />
     <Content Include="Views\Message\Detail.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

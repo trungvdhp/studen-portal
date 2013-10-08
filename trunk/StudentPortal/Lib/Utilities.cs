@@ -14,11 +14,15 @@ namespace StudentPortal.Lib
         /// <returns></returns>
         public static List<int> string2list(string str)
         {
-            var buf = str.Split(new char[]{','});
+            var buf = str.Split(',');
             var intList = new List<int>();
             foreach (var s in buf)
             {
-                intList.Add(Convert.ToInt32(s));
+                try
+                {
+                    intList.Add(Convert.ToInt32(s));
+                }
+                catch (Exception) { }
             }
             return intList;
         }
