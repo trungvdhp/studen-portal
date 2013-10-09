@@ -15,55 +15,83 @@
 			<!-- BEGIN SIDEBAR MENU -->
 			<ul>
 				<li class="">
-					<a href="index.html">
-					<i class="icon-home"></i> Dashboard
+					<a href="@Url.Action("Index", "Dashboard", new { Area=  "Admin"})">
+					<i class="icon-home"></i> Bảng điều khiển
 					<span class="selected"></span>
 					</a>					
 				</li>
-                @if(User.IsInRole("SinhVien")){
+                
 				<li class="has-sub">
 					<a href="javascript:;" class="">
-					<i class="icon-bookmark-empty"></i> Tra cứu
+					<i class="icon-bookmark-empty"></i> Sinh Viên
+					<span class="arrow"></span>
+					</a>
+					<ul class="sub">
+                        <li><a class="" href="@Url.Action("Index", "DangKyHocPhan", new { Area = ""})">Đăng ký học</a></li>
+                        <li><a class="" href="@Url.Action("Index", "ThoiKhoaBieu", new { Area = ""})">Thời khóa biểu</a></li>
+
+					</ul>
+				</li>
+                <li class="has-sub">
+					<a href="javascript:;" class="">
+					<i class="icon-envelope"></i> Tin nhắn
+					<span class="arrow"></span>
+					</a>
+					<ul class="sub">
+                        <li><a class="" href="@Url.Action("Compose", "Message", new { Area = ""})">Soạn tin</a></li>
+						<li><a class="" href="@Url.Action("Inbox", "Message", new { Area = ""})">Hộp thư đến</a></li>
+						<li><a class="" href="@Url.Action("Outbox","Message", new { Area = ""})">Tin đã gửi</a></li>
+					</ul>
+				</li>
+                <li class="has-sub">
+					<a href="javascript:;" class="">
+					<i class="icon-search"></i> Tra cứu
 					<span class="arrow"></span>
 					</a>
 					<ul class="sub">
 						<li><a class="" href="@Url.Action("Diem", "TraCuu", new { Area = ""})">Điểm</a></li>
-						<li><a class="" href="@Url.Action("ThuChi","TraCuu", new { Area = ""})">Hành chính</a></li>
+						<li><a class="" href="@Url.Action("ThuChi","TraCuu", new { Area = ""})">Tài chính</a></li>
 					</ul>
 				</li>
-                }
-            @if (User.IsInRole("Dashboard") || User.IsInRole("RootAdmin"))
-            {
+                <li class="has-sub">
+					<a href="javascript:;" class="">
+					<i class="icon-bullhorn"></i> Trang tin
+					<span class="arrow"></span>
+					</a>
+					<ul class="sub">
+						<li><a class="" href="@Url.Action("Create", "News", new { Area = ""})">Tạo mới</a></li>
+						<li><a class="" href="@Url.Action("Index","News", new { Area = ""})">Tin đã đăng</a></li>
+					</ul>
+				</li>
 				<li class="has-sub">
 					<a href="javascript:;" class="">
 					<i class="icon-table"></i> Quản lý đăng ký học
 					<span class="arrow"></span>
 					</a>
 					<ul class="sub">
-						@if(User.IsInRole("MonTinChi.Index")){ <li><a class="" href="@Url.Action("Index","MonTinChi", new { Area = "Admin" })">Môn tín chỉ</a></li>}
-						@if(User.IsInRole("LopTinChi.Index")){ <li><a class="" href="@Url.Action("Index","LopTinChi", new { Area = "Admin" })">Lớp tín chỉ</a></li>}
-						@if(User.IsInRole("DanhSachLopTC.Index")){ <li><a class="" href="@Url.Action("Index","DanhSachLopTC", new { Area = "Admin" })">Danh sách SV đăng ký</a></li>}
+						<li><a class="" href="@Url.Action("Index","MonTinChi", new { Area = "Admin" })">Môn tín chỉ</a></li>
+						<li><a class="" href="@Url.Action("Index","LopTinChi", new { Area = "Admin" })">Lớp tín chỉ</a></li>
+						<li><a class="" href="@Url.Action("Index","DanhSachLopTC", new { Area = "Admin" })">Danh sách đăng ký</a></li>
+                        <li><a class="" href="@Url.Action("Index","LopHanhChinh", new { Area = "Admin" })">Lớp hành chính</a></li>
 					</ul>
 				</li>
-                if(User.IsInRole("RootAdmin")){
 				<li class="has-sub">
 					<a href="javascript:;" class="">
 					<i class="icon-th-list"></i> Hệ thống
 					<span class="arrow"></span>
 					</a>
 					<ul class="sub">
-						@if(User.IsInRole("Roles.Index")){ <li><a class="" href="@Url.Action("Index","Roles", new { Area = "Admin" })">Quyền</a></li> }
-						@if(User.IsInRole("Group.Index")){ <li><a class="" href="@Url.Action("Index","Group", new { Area = "Admin" })">Nhóm</a></li>}
-						@if(User.IsInRole("User.Index")){ <li><a class="" href="@Url.Action("Index","User", new { Area = "Admin" })">Người dùng</a></li>}
+						<li><a class="" href="@Url.Action("Index","Roles", new { Area = "Admin" })">Quyền</a></li>
+						<li><a class="" href="@Url.Action("Index","Group", new { Area = "Admin" })">Nhóm</a></li>
+						<li><a class="" href="@Url.Action("Index","User", new { Area = "Admin" })">Người dùng</a></li>
 					</ul>   
 				</li>
-                }
-            }
 			</ul>
 			<!-- END SIDEBAR MENU -->
 		</div>
 		<!-- END SIDEBAR -->
 <script>
+    String.prototype.trim = function () { return this.replace(/^\s+|\s+$/g, ''); };
     $(document).ready(function () {
         $('.has-sub').each(function () {
             if ($(this).find('ul.sub').children().length == 0) {
@@ -71,10 +99,19 @@
             }
         });
         var locationPath = location.pathname;
-        $('.has-sub .sub>li>a').each(function () {
+        $('.page-sidebar ul>li>a').each(function () {
+            if (locationPath.indexOf($(this).attr('href')) >= 0) {
+                $(this).parent().addClass('active');
+            }
+        });
+        $('.page-sidebar .has-sub .sub>li>a').each(function () {
             if (locationPath.indexOf($(this).attr('href')) >= 0) {
                 $(this).parent().addClass('active');
                 $(this).parent().parent().parent().addClass('active');
+                var _parent = $(this).parent().parent().parent().find('>a');
+                var parentHtml = '<span class="icon-angle-right"></span><a href="' + _parent.attr('href') + '">' + _parent.text().trim() + "</a>";
+                $('.breadcrumb>li').children().last().after(parentHtml);
+                $('.breadcrumb>li').children().last().after('<span class="icon-angle-right"></span>'+$(this).parent().html());
             }
         });
     });
