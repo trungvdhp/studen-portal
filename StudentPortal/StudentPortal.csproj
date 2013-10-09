@@ -170,6 +170,7 @@
     <Compile Include="Areas\Admin\Controllers\LopHanhChinhController.cs" />
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ThongBaoController.cs" />
+    <Compile Include="Controllers\ChuongTrinhKhungController.cs" />
     <Compile Include="Controllers\DangKyThiController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
@@ -506,6 +507,7 @@
     <Compile Include="ViewModels\NewsViewModel.cs" />
     <Compile Include="ViewModels\SinhVien.cs" />
     <Compile Include="ViewModels\SuKienTinChi.cs" />
+    <Compile Include="ViewModels\TBMHK.cs" />
     <Compile Include="ViewModels\ThoiKhoaBieu.cs" />
     <Compile Include="ViewModels\User.cs" />
   </ItemGroup>
