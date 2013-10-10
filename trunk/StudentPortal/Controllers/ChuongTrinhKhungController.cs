@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using StudentPortal.Lib;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 
 namespace StudentPortal.Controllers
 {
@@ -16,9 +18,9 @@ namespace StudentPortal.Controllers
             return View();
         }
 
-        //public ActionResult Read(int ID_dt)
-        //{
+        public ActionResult Read([DataSourceRequest] DataSourceRequest request, int ID_dt)
+        {
             
-        //}
+        }
     }
 }

@@ -503,6 +503,7 @@
     <Compile Include="ViewModels\LopHanhChinh.cs" />
     <Compile Include="ViewModels\LopTinChiViewModel.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
+    <Compile Include="ViewModels\MonChuongTrinhKhungViewModel.cs" />
     <Compile Include="ViewModels\MonHoc.cs" />
     <Compile Include="ViewModels\NewsViewModel.cs" />
     <Compile Include="ViewModels\SinhVien.cs" />
