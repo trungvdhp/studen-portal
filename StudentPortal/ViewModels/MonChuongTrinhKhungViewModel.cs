@@ -19,15 +19,15 @@ namespace StudentPortal.ViewModels
         public string Ky_hieu { get; set; }
         
         [Display(Name = "Số TC")]
-        public int So_TC { get; set; }
+        public float? So_TC { get; set; }
 
         [Display(Name = "Lý thuyết")]
-        public int Ly_thuyet { get; set; }
+        public int? Ly_thuyet { get; set; }
 
         [Display(Name = "Thực hành")]
-        public int Thuc_hanh { get; set; }
+        public int? Thuc_hanh { get; set; }
 
-        public int He_so { get; set; }
+        public float? He_so { get; set; }
 
         [Display(Name = "Ràng buộc")]
         public string Rang_buoc { get; set; }

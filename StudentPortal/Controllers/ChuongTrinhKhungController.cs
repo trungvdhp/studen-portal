@@ -54,8 +54,15 @@ namespace StudentPortal.Controllers
 
         public ActionResult Read([DataSourceRequest] DataSourceRequest request, int ID_he,int ID_khoa,int Khoa_hoc, int ID_chuyen_nganh)
         {
-            var chuongtrinhdaotao = db.PLAN_ChuongTrinhDaoTao.Single(t => t.ID_he == ID_he && t.ID_khoa == ID_khoa && t.Khoa_hoc == Khoa_hoc && t.ID_chuyen_nganh == ID_chuyen_nganh);
-            return Json(ChuongTrinhDaoTao.getChuongTrinhKhung(chuongtrinhdaotao.ID_dt).ToDataSourceResult(request));
+            //try
+            //{
+                var chuongtrinhdaotao = db.PLAN_ChuongTrinhDaoTao.Single(t => t.ID_he == ID_he && t.ID_khoa == ID_khoa && t.Khoa_hoc == Khoa_hoc && t.ID_chuyen_nganh == ID_chuyen_nganh);
+                return Json(ChuongTrinhDaoTao.getChuongTrinhKhung(chuongtrinhdaotao.ID_dt).ToDataSourceResult(request));
+            //}
+            //catch (Exception)
+            //{
+            //    return Json(new { });
+            //}
         }
     }
 }

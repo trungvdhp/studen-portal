@@ -91,7 +91,7 @@
                         column.Bound(t => t.So_TC).Width(50);
                         column.Bound(t => t.Ly_thuyet).Width(70);
                         column.Bound(t => t.Thuc_hanh).Width(70);
-                        column.Template(@<text></text>).ClientTemplate("#=getHtmlNewLinesString(Rang_buoc)#");
+                        column.Template(@<text></text>).ClientTemplate("#=getHtmlNewLinesString(Rang_buoc)#").HeaderTemplate("Ràng buộc");
                     })
                     .DataSource(source =>
                     {
@@ -127,6 +127,7 @@
     }
     function ID_chuyen_nganh_Load() {
         $('#ID_chuyen_nganh').data('kendoDropDownList').dataSource.read();
+        GridMon_Load();
     }
     function GridMon_Load() {
         $('#GridMon').data("kendoGrid").dataSource.read();
