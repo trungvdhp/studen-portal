@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using StudentPortal.ViewModels;
 
 namespace StudentPortal.Lib
 {
 	public class ChuongTrinhDaoTao
 	{
+        private static List<int> _khoaDangHoc;
+
 		public static List<int> getMonHoc(int ID_he, int ID_khoa, int Ky_thu)
 		{
 			DHHHContext db= new DHHHContext();
@@ -63,8 +66,6 @@ namespace StudentPortal.Lib
             return monHoc;
         }
 
-        private static List<int> _khoaDangHoc;
-
         public static List<int> getKhoaDangHoc()
         {
             if (_khoaDangHoc == null)
@@ -73,6 +74,12 @@ namespace StudentPortal.Lib
                 _khoaDangHoc = db.STU_Lop.Where(t => t.Ra_truong == false && t.ID_dt != 0).Select(t => t.Khoa_hoc).ToList();
             }
             return _khoaDangHoc;
+        }
+
+        public static List<MonChuongTrinhKhungViewModel> getChuongTrinhKhung(int ID_dt)
+        {
+            var db = new DHHHContext();
+            var result = db.PLAN_ChuongTrinhDaoTaoChiTiet.Where(t => t.ID_dt == ID_dt);
         }
 	}
 }
