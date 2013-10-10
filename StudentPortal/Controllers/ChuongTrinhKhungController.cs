@@ -16,9 +16,9 @@ namespace StudentPortal.Controllers
             return View();
         }
 
-        public ActionResult Read(int ID_dt)
-        {
+        //public ActionResult Read(int ID_dt)
+        //{
             
-        }
+        //}
     }
 }
