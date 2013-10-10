@@ -1,0 +1,134 @@
+﻿@{
+    ViewBag.Title = "Chương trình đào tạo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <p>
+                @(Html.Kendo().DropDownList()
+                    .Name("ID_he")
+                    .OptionLabel("Chọn hệ đào tạo")
+                    .HtmlAttributes(new { style = "width:150px"})
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        {
+                            read.Action("getHe", "ChuongTrinhKhung", new { Area = "" }).Data("getFilters");
+                        })
+                        .ServerFiltering(true);
+                    })
+                    .Events(e => {
+                        e.Change("ID_chuyen_nganh_Load");
+                    })
+                )
+                @(Html.Kendo().DropDownList()
+                    .Name("ID_khoa")
+                    .OptionLabel("Chọn khoa")
+                    .HtmlAttributes(new { style = "width:200px"})
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .DataSource(source => {
+                        source.Read(read => {
+                            read.Action("getKhoa", "ChuongTrinhKhung", new { Area=""}).Data("getFilters");
+                        })
+                        .ServerFiltering(true);
+                    })
+                    .CascadeFrom("ID_he")
+                    .Events(e => {
+                        e.Change("ID_chuyen_nganh_Load");
+                    })
+                )
+                @(Html.Kendo().DropDownList()
+                    .Name("Khoa_hoc")
+                    .OptionLabel("Khóa học")
+                    .HtmlAttributes(new { style = "width:80px" })
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        {
+                            read.Action("getKhoaHoc", "ChuongTrinhKhung", new { Area = "" }).Data("getFilters");
+                        })
+                        .ServerFiltering(true);
+                    })
+                    .CascadeFrom("ID_khoa")
+                    .Events(e => {
+                        e.Change("ID_chuyen_nganh_Load");
+                    })
+                )
+                @(Html.Kendo().DropDownList()
+                    .Name("ID_chuyen_nganh")
+                    .HtmlAttributes(new { style = "width:300px" })
+                    .OptionLabel("Chọn chuyên ngành")
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        {
+                            read.Action("getChuyenNganh", "ChuongTrinhKhung", new { Area = "" }).Data("getFilters");
+                        })
+                        .ServerFiltering(true);
+                    })
+                    .CascadeFrom("Khoa_hoc")
+                    .Events(e => {
+                        e.Change("GridMon_Load");
+                    })
+                )
+            </p>
+            @*<div class="span4">*@
+                @(Html.Kendo().Grid<StudentPortal.ViewModels.MonChuongTrinhKhungViewModel>()
+                    .Name("GridMon")
+                    .Columns(column =>
+                    {
+                        column.Bound(t => t.Ky_hieu).Width(80);
+                        column.Bound(t => t.Ten_mon);
+                        column.Bound(t => t.So_TC).Width(50);
+                        column.Bound(t => t.Ly_thuyet).Width(70);
+                        column.Bound(t => t.Thuc_hanh).Width(70);
+                        column.Template(@<text></text>).ClientTemplate("#=getHtmlNewLinesString(Rang_buoc)#");
+                    })
+                    .DataSource(source =>
+                    {
+                        source.Ajax().Read(read =>
+                        {
+                            read.Action("Read", "ChuongTrinhKhung", new { Area = "" }).Data("getFilters");
+                        });
+                    })
+                    .Sortable()
+                    .Pageable(page =>
+                    {
+                        page.PageSizes(new int[] { 50,100,200 });
+                    })
+                    //.Scrollable()
+                )
+            @*</div>*@
+        </div>
+
+    </div>
+</div>
+<script>
+    function getHtmlNewLinesString(text) {
+        var regexp = new RegExp('\n', 'g');
+        return text.replace(regexp, '<br>');
+    }
+    function getFilters() {
+        return {
+            ID_he: $('#ID_he').val(),
+            ID_khoa: $('#ID_khoa').val(),
+            Khoa_hoc: $('#Khoa_hoc').val(),
+            ID_chuyen_nganh: $('#ID_chuyen_nganh').val(),
+        }
+    }
+    function ID_chuyen_nganh_Load() {
+        $('#ID_chuyen_nganh').data('kendoDropDownList').dataSource.read();
+    }
+    function GridMon_Load() {
+        $('#GridMon').data("kendoGrid").dataSource.read();
+    }
+</script>

@@ -78,7 +78,7 @@ namespace StudentPortal.Controllers
             DHHHContext db = new DHHHContext();
             if (ID_dt == null) return null;
             var ID_sv = sinhVien[(int)ID_dt].ID_sv;
-            var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList();
+            var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == HocKyDangKy.Ky_dang_ky).Select(t => t.ID_lop_tc).ToList();
             var suKienTinChis = new List<PLAN_SukiensTinChi_TC>();
             var dicLopTinChiColor = new Dictionary<int, string>();
             Random rand = new Random();

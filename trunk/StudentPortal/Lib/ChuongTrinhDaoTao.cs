@@ -79,7 +79,43 @@ namespace StudentPortal.Lib
         public static List<MonChuongTrinhKhungViewModel> getChuongTrinhKhung(int ID_dt)
         {
             var db = new DHHHContext();
-            var result = db.PLAN_ChuongTrinhDaoTaoChiTiet.Where(t => t.ID_dt == ID_dt);
+            var result = db.PLAN_ChuongTrinhDaoTaoChiTiet.Where(t => t.ID_dt == ID_dt).Select(t => new MonChuongTrinhKhungViewModel { 
+                ID_mon = t.ID_mon,
+                Ten_mon = t.MARK_MonHoc.Ten_mon,
+                So_TC = (int) t.So_hoc_trinh,
+                Ly_thuyet = (int)t.Ly_thuyet,
+                Thuc_hanh = (int)t.Thuc_hanh,
+                He_so = (int) t.He_so,
+                Ky_hieu = t.MARK_MonHoc.Ky_hieu,
+                Rang_buoc = t.Tu_chon==true?"Tự chọn":""
+            }).ToList();
+
+            var monRangBuocs = db.PLAN_ChuongTrinhDaoTaoRangBuoc.Where(t => t.ID_dt == ID_dt).ToList();
+            var dicMonRangBuocs = new Dictionary<int, List<PLAN_ChuongTrinhDaoTaoRangBuoc>>();
+            foreach (var monRangBuoc in monRangBuocs)
+            {
+                if (!dicMonRangBuocs.ContainsKey(monRangBuoc.ID_mon))
+                {
+                    dicMonRangBuocs.Add(monRangBuoc.ID_mon, new List<PLAN_ChuongTrinhDaoTaoRangBuoc>());
+                }
+                if(dicMonRangBuocs[monRangBuoc.ID_mon].Count(t=>t.ID_mon_rb==monRangBuoc.ID_mon_rb)==0)
+                    dicMonRangBuocs[monRangBuoc.ID_mon].Add(monRangBuoc);
+            }
+            for (int i = 0; i < result.Count; i++)
+            {
+                var ID_mon = result[i].ID_mon;
+                if (dicMonRangBuocs.ContainsKey(ID_mon))
+                {
+                    bool first = true;
+                    foreach (var monRangBuoc in dicMonRangBuocs[ID_mon])
+                    {
+                        if (!first) result[i].Rang_buoc += "\n";
+                        first = false;
+                        result[i].Rang_buoc += String.Format("{0}: {1}",monRangBuoc.PLAN_LoaiRangBuoc.Ten_rang_buoc,monRangBuoc.Mon_Rang_Buoc.Ten_mon);
+                    }
+                }
+            }
+            return result;
         }
 	}
 }
