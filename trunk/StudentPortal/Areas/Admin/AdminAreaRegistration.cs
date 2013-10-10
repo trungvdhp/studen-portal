@@ -21,7 +21,8 @@ namespace StudentPortal.Areas
                     controller = "Dashboard",
                     action = "Index",
                     id = UrlParameter.Optional 
-                }
+                },
+                new[] { "StudentPortal.Areas.Admin.Controllers" }
             );
         }
     }

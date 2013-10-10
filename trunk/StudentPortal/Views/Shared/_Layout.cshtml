@@ -11,7 +11,7 @@
 <!-- BEGIN HEAD -->
 <head>
 	<meta charset="utf-8" />
-	<title>Metronic | Admin Dashboard Template</title>
+	<title>Cổng thông tin sinh viên</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
@@ -118,7 +118,11 @@
 	<script>
 		jQuery(document).ready(function () {
 			//App.setPage("index");  // set current page
-			App.init(); // init the rest of plugins and elements
+		    App.init(); // init the rest of plugins and elements
+		    $(document).ready(function () {
+		        var title = $(this).attr('title');
+		        $(this).attr('title', title + ' • ' + $("<div/>").html('@ViewBag.Title').text());
+		    });
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->
