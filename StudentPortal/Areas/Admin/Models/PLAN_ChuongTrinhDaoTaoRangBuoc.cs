@@ -34,15 +34,18 @@ namespace StudentPortal
         public int ID_mon_rb { get; set; }
 		
 		[Display(Name = "Loại ràng buộc")]
+        [ForeignKey("PLAN_LoaiRangBuoc")]
         public int Loai_rang_buoc { get; set; }
 
         [Display(Name = "Diểm ràng buộc")]
-        public float Diem_rang_buoc { get; set; }
+        public float? Diem_rang_buoc { get; set; }
 		
 		public virtual STU_DoiTuong STU_DoiTuong { get; set; }
 		
 		public virtual MARK_MonHoc MARK_MonHoc { get; set; }
 
         public virtual MARK_MonHoc Mon_Rang_Buoc { get; set; }
+
+        public virtual PLAN_LoaiRangBuoc PLAN_LoaiRangBuoc { get; set; }
     }
 }

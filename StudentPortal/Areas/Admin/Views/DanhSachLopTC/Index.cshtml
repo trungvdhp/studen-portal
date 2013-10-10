@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Danh sách lớp tín chỉ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -28,7 +29,7 @@
     {
         source.Read("getHeDaoTao", "DanhSachLopTC");
     })
-    .CascadeFrom("KyDangKy")
+    //.CascadeFrom("KyDangKy")
 )
 
             @(Html.Kendo().DropDownList()

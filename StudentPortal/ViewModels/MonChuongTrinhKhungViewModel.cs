@@ -15,10 +15,21 @@ namespace StudentPortal.ViewModels
         [Display(Name="Tên môn")]
         public string Ten_mon { get; set; }
 
-        [Display(Name = "Môn ràng buộc")]
-        public string Ten_mon_RB { get; set; }
+        [Display(Name = "Mã môn")]
+        public string Ky_hieu { get; set; }
+        
+        [Display(Name = "Số TC")]
+        public int So_TC { get; set; }
 
-        [Display(Name = "Kiểu ràng buộc")]
-        public string Quan_he_RB { get; set; }
+        [Display(Name = "Lý thuyết")]
+        public int Ly_thuyet { get; set; }
+
+        [Display(Name = "Thực hành")]
+        public int Thuc_hanh { get; set; }
+
+        public int He_so { get; set; }
+
+        [Display(Name = "Ràng buộc")]
+        public string Rang_buoc { get; set; }
     }
 }
