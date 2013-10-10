@@ -11,7 +11,7 @@
             {
                 column.Template(@<text></text>).ClientTemplate("&nbsp;<input type='checkbox' name='messages' class='checkRow' value='#=Id#'/>")
                         .HeaderTemplate("<input type='checkbox' class='checkAll' />").Width(30);
-                column.Bound(t => t.Title).ClientTemplate(@"<a href='" + Url.Action("Index", "News", new { Area=""}) + "/#=Id#' >#=Title#</a>");
+                column.Bound(t => t.Title).ClientTemplate(@"<a href='" + Url.Action("Details", "News", new { Area=""}) + "/#=Id#' >#=Title#</a>");
                 column.Bound(t => t.PostDate).Width(100).Format("{0:hh:mm dd/MM/yyyy}");
                 column.Bound(t => t.User).Width(100);
                 column.Bound(t => t.LastEditUser).Width(100);
