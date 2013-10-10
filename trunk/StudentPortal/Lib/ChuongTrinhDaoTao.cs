@@ -82,10 +82,10 @@ namespace StudentPortal.Lib
             var result = db.PLAN_ChuongTrinhDaoTaoChiTiet.Where(t => t.ID_dt == ID_dt).Select(t => new MonChuongTrinhKhungViewModel { 
                 ID_mon = t.ID_mon,
                 Ten_mon = t.MARK_MonHoc.Ten_mon,
-                So_TC = (int) t.So_hoc_trinh,
-                Ly_thuyet = (int)t.Ly_thuyet,
-                Thuc_hanh = (int)t.Thuc_hanh,
-                He_so = (int) t.He_so,
+                So_TC = t.So_hoc_trinh,
+                Ly_thuyet = t.Ly_thuyet,
+                Thuc_hanh = t.Thuc_hanh,
+                He_so =  t.He_so,
                 Ky_hieu = t.MARK_MonHoc.Ky_hieu,
                 Rang_buoc = t.Tu_chon==true?"Tự chọn":""
             }).ToList();
