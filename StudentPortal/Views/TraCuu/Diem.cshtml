@@ -100,7 +100,8 @@
                         .AutoBind(false)
                         .CascadeFrom("NamHoc")
                     )
-                    <button class="k-button" id="TraCuuButton">Tra cứu</button>
+                    <button class="btn blue" id="TraCuuButton">Tra cứu</button>&nbsp;
+                    <button class="btn green" id="btnXuatBangDiem">Xuất bảng điểm</button>
                 </p>
                 <p></p>
                 @(Html.Kendo().Grid<StudentPortal.ViewModels.DiemHocTap>()
@@ -120,6 +121,7 @@
                     .Groupable()
                     .Pageable()
                     .Sortable()
+                    .Selectable()
                     .Pageable(pager => pager.Enabled(false))
                     .DataSource(
                         dataSource => dataSource.Ajax()

@@ -194,7 +194,12 @@ namespace StudentPortal
                 ViewBag.FeedsCount = feeds.Count();
                 if (feeds.Count() > 0)
                 {
-                    ViewBag.Feeds = feeds.Take(10).ToList();
+                    ViewBag.Feeds = feeds.Select(t=>new InboxViewModel{
+                        Postdate = t.Postdate,
+                        Title = t.Title,
+                        From = t.FromUser.UserName,
+                        Id= t.ID,
+                    }).Take(10).ToList();
                 }
             }
         }
