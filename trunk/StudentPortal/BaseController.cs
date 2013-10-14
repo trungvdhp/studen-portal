@@ -190,6 +190,12 @@ namespace StudentPortal
                     }
                     
                 }
+                var feeds = db.Inbox.Where(t => t.To == userProfile.UserId && t.Type == InboxModel.INBOX && t.Status == false);
+                ViewBag.FeedsCount = feeds.Count();
+                if (feeds.Count() > 0)
+                {
+                    ViewBag.Feeds = feeds.Take(10).ToList();
+                }
             }
         }
     }

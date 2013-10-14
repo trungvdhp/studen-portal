@@ -51,6 +51,8 @@ namespace StudentPortal.ViewModels
         [DisplayName("Hệ số")]
         public int He_so { get; set; }
 
+        public bool Co_lop_TH { get; set; }
+
         public bool Chua_dang_ky { get; set; }
 
         public int ID_lop_lt { get; set; }

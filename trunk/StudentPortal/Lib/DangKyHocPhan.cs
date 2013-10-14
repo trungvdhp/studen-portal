@@ -94,9 +94,9 @@ namespace StudentPortal.Lib
             return result;
         }
 
-        public static void DangKy(ref DHHHContext db, int ID_sv, int ID_lop_tc, int ID_dt, int Ky_dang_ky)
+        public static void KiemTraDieuKienDangKy(ref DHHHContext db, int ID_sv, int ID_lop_tc, int ID_dt, PLAN_HocKyDangKy_TC HocKyDangKy)
         {
-            var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky).Select(t => t.PLAN_LopTinChi_TC).ToList();
+            var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == HocKyDangKy.Ky_dang_ky).Select(t => t.PLAN_LopTinChi_TC).ToList();
             var idLopDKs = lopDKs.Select(t => t.ID_lop_tc).ToList();
 
             var hockyTruoc = SinhVien.GetHocKyTruoc(ID_sv, ID_dt);
@@ -121,7 +121,13 @@ namespace StudentPortal.Lib
                 var dkLenLop = xetLenLop.First();
                 if (dkLenLop.Lan_canh_bao == 0)
                 {
-                    if (lopDKs.Sum(t => t.PLAN_MonTinChi_TC.So_tin_chi) > (int)CauHinh.get("So_TC_max"))
+                    // Kiem tra so tin chi max ky phu
+                    if (HocKyDangKy.Ky_phu && lopDKs.Sum(t => t.PLAN_MonTinChi_TC.So_tin_chi) > (int)CauHinh.get("So_TC_ky_phu"))
+                    {
+                        throw new Exception(String.Format("Bạn không thể đăng ký quá {0} tín chỉ!", (int)CauHinh.get("So_TC_ky_phu")));
+                    }
+                        // Kiem tra so tin chi max ky chinh
+                    else if (lopDKs.Sum(t => t.PLAN_MonTinChi_TC.So_tin_chi) > (int)CauHinh.get("So_TC_max"))
                     {
                         throw new Exception(String.Format("Bạn không thể đăng ký quá {0} tín chỉ!", (int)CauHinh.get("So_TC_max")));
                     }
@@ -199,13 +205,6 @@ namespace StudentPortal.Lib
                     throw new Exception(String.Format("Bạn phải học môn {0} trước mới có thể đăng ký môn này!", monRangBuoc[lopTC.PLAN_MonTinChi_TC.ID_mon].Mon_Rang_Buoc.Ten_mon));
                 }
             }
-            db.STU_DanhSachLopTinChi.Add(new STU_DanhSachLopTinChi
-            {
-                ID_lop_tc = ID_lop_tc,
-                ID_sv = ID_sv,
-                Duyet = 0,
-            });
-            db.SaveChanges();
         }
         /// <summary>
         /// Lấy danh sách các môn cần đăng ký của sinh viên

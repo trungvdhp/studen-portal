@@ -1,0 +1,8 @@
+D:\StudentPortal\DHHHContext\obj\Debug\DHHHContext.csprojResolveAssemblyReference.cache
+D:\StudentPortal\DHHHContext\bin\Debug\DHHHContext.dll.config
+D:\StudentPortal\DHHHContext\bin\Debug\DHHHContext.dll
+D:\StudentPortal\DHHHContext\bin\Debug\DHHHContext.pdb
+D:\StudentPortal\DHHHContext\bin\Debug\EntityFramework.dll
+D:\StudentPortal\DHHHContext\bin\Debug\EntityFramework.xml
+D:\StudentPortal\DHHHContext\obj\Debug\DHHHContext.dll
+D:\StudentPortal\DHHHContext\obj\Debug\DHHHContext.pdb

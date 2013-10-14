@@ -127,15 +127,7 @@ namespace StudentPortal.Controllers
         public ActionResult getChiTietHocPhan([DataSourceRequest]DataSourceRequest request, int ID_dt)
         {
             var lop = sinhVien[ID_dt].STU_Lop;
-            var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList();
-            var suKienTinChis = new List<PLAN_SukiensTinChi_TC>();
-            foreach (var idLopDK in idLopDKs)
-            {
-                var lopDK_SKTCs = db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == idLopDK).ToList();
-                foreach (var lopDK_SKTC in lopDK_SKTCs)
-                    suKienTinChis.Add(lopDK_SKTC);
-            }
-            var lopTCs = LopTinChi.getListDetails(suKienTinChis).Values.ToList();
+            var lopTCs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList().Select(t => LopTinChi.getDetails(t)).ToList();
             try
             {
                 var muchocphis = db.ACC_MucHocPhiTinChi.Where(t => t.Hoc_ky == HocKyDangKy.Hoc_ky && t.Nam_hoc == HocKyDangKy.Nam_hoc).ToList();
