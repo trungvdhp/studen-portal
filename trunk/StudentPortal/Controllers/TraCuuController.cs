@@ -201,10 +201,10 @@ namespace StudentPortal.Controllers
 		}
 
         //[Authorize(Roles = "TraCuu.BienLaiThu")]
-		public ActionResult BienLaiThu([DataSourceRequest] DataSourceRequest request, string TuKhoa, string NamHoc, String HocKy, String DotThu, string LanThu)
+		public ActionResult BienLaiThu([DataSourceRequest] DataSourceRequest request, string TuKhoa, string NamHoc, String HocKy, String DotThu, string LanThu,int ID_dt)
 		{
 			int ID_sv = SinhVien.GetIdSv(TuKhoa);
-			var bienlai = SinhVien.GetBienLai(ID_sv);
+			var bienlai = SinhVien.GetBienLai(ID_sv,ID_dt);
 			if (NamHoc != "") bienlai = bienlai.Where(t => t.Nam_hoc == NamHoc).ToList();
 			if (HocKy != "")
 			{

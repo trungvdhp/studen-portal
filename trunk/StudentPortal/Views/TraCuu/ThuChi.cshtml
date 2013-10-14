@@ -34,7 +34,34 @@
                         })
                         .ServerFiltering(true);
                     })
-            )
+                    .Events(e => {
+                            e.Change("TuKhoa_Change");
+                        })
+                    
+            )</p><p>
+
+                    @(Html.Kendo().DropDownList()
+                        .Name("ID_dt")
+                        .OptionLabel("Chọn chuyên ngành")
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .HtmlAttributes(new { style = "width:200px;" })
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("getChuyenNganh", "TraCuu")
+                                    .Data("getTuKhoa")
+                                    ;
+                            })
+                            .ServerFiltering(true)
+                            ;
+                        })
+                        //.Enable(false)
+                        .AutoBind(false)
+                        //.CascadeFrom("TuKhoa")
+                    )
+
                     @(Html.Kendo().DropDownList()
     .Name("NamHoc")
     .OptionLabel("Toàn khóa")
@@ -51,7 +78,7 @@
     })
                             //.Enable(false)
     .AutoBind(false)
-    .CascadeFrom("TuKhoa")
+    .CascadeFrom("ID_dt")
 )
 
                     @(Html.Kendo().DropDownList()
@@ -123,11 +150,12 @@
         columns.Bound(t => t.Nam_hoc).Hidden();
         columns.Bound(t => t.Hoc_ky).Hidden();
         columns.Bound(t => t.Dot_thu).Hidden();
-        columns.Bound(t => t.Ten_lan).Hidden();
+        columns.Template(@<text></text>).ClientTemplate("<div class='changeRowColor' Chua_dong='#=Chua_dong#'").Hidden();
     })
     .Groupable()
     .Pageable()
     .Sortable()
+    .Selectable()
     .Pageable(pager => pager.Enabled(false))
     .DataSource(
         dataSource => dataSource.Ajax()
@@ -137,16 +165,36 @@
                 .Group(group => group.Add(t => t.Ten_lan))
             .Read(read => read.Action("BienLaiThu", "TraCuu").Data("getTuKhoa"))
     )
-    .HtmlAttributes(new {style="min-height:400px"})
+    .Events(e => {
+        e.DataBound("GridBienLai_DataBound");
+    })
+    .HtmlAttributes(new { style = "min-height:400px" })
 )
             </div>
         </div>
     </div>
 </div>
-
+<style>
+    .chua_dong {
+        background-color:red;
+        border: 1px solid;
+        color: #fff;
+    }
+</style>
 <script type="text/javascript">
+    function TuKhoa_Change() {
+        $('#ID_dt').data('kendoDropDownList').dataSource.read();
+    }
+    function GridBienLai_DataBound() {
+        $('.changeRowColor').each(function () {
+            if ($(this).attr('Chua_dong') == 'true') {
+                $(this).parent().parent().addClass('chua_dong');
+            }
+        });
+    }
     function getTuKhoa() {
         return {
+            ID_dt: $('#ID_dt').val(),
             TuKhoa: $("#TuKhoa").val(),
             NamHoc: $("#NamHoc").val(),
             HocKy: $("#HocKy").val(),

@@ -88,20 +88,21 @@
                         <li>
                             <p>Bạn có @ViewBag.FeedsCount tin nhắn mới</p>
                         </li>
+                        @foreach(var feed in ViewBag.Feeds){
                         <li>
                             <a href="#">
-                                <span class="photo">
-                                    <img src="~/Content/themes/assets/img/avatar2.jpg" alt="" /></span>
+                                @*<span class="photo">
+                                    <img src="~/Content/themes/assets/img/avatar2.jpg" alt="" /></span>*@
                                 <span class="subject">
-                                    <span class="from">Lisa Wong</span>
-                                    <span class="time">Just Now</span>
+                                    <span class="from">@feed.From</span>
+                                    <span class="time">@feed.Postdate.ToString("dd/MM/yyyy")</span>
                                 </span>
-                                <span class="message">Vivamus sed auctor nibh congue nibh. auctor nibh
-								auctor nibh...
+                                <span class="message">@feed.Title
                                 </span>
                             </a>
                         </li>
-                        <li>
+                        }
+                       @* <li>
                             <a href="#">
                                 <span class="photo">
                                     <img src="~/Content/themes/assets/img/avatar3.jpg" alt="" /></span>
@@ -126,9 +127,9 @@
 								auctor nibh...
                                 </span>
                             </a>
-                        </li>
+                        </li>*@
                         <li class="external">
-                            <a href="#">See all messages <i class="m-icon-swapright"></i></a>
+                            <a href="#">Xem tất cả tin nhắn mới <i class="m-icon-swapright"></i></a>
                         </li>
                     </ul>
                 </li>
