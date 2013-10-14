@@ -90,14 +90,12 @@
                     })
                     .Groupable()
                     .Pageable()
-                    .Sortable()
                     .Selectable()
-                    .Pageable(pager => pager.PageSizes(new int[] { 10, 20, 30 }))
+                    .Pageable(pager => pager.PageSizes(new int[] { 50,100,200 }))
                     .Filterable()
                     .Events(e=>{
                         e.Change("LopTC_change");
                     })
-                    .Scrollable()
                 )
             </div>
         
@@ -141,17 +139,14 @@
     
                     .Groupable()
                     .Pageable()
-                    .Sortable()
                     .Selectable()
-                    
-                    .Pageable(pager => pager.PageSizes(new int[]{10,20,30})
+                    .Pageable(pager => pager.PageSizes(new int[]{50,100,200})
                       )
                     .Events(e =>
                     {
                         e.DataBound("onDataBound");
                     })
                     .Filterable()
-                    .Scrollable()
                 )
             </div>
         </div>

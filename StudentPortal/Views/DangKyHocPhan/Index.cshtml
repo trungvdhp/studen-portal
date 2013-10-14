@@ -116,7 +116,7 @@
             act = 'HuyDangKy';
         };
         #
-        <a ID_lop_tc='#=ID_lop_tc#' data-action='#=act#' class=""k-button-icontext k-button btnDangKy"" href=""\#"">#= btn #</a>")
+        #if(Co_lop_TH==false){#  <a ID_lop_tc='#=ID_lop_tc#' data-action='#=act#' class=""k-button-icontext k-button btnDangKy"" href=""\#"">#= btn #</a> #}#<div id='LopTC#=ID_lop_tc#' />")
             .HtmlAttributes(new { style = "width:70px" }).HeaderHtmlAttributes(new { style = "width:70px" });
             })
             .Pageable()
@@ -128,7 +128,10 @@
                 dataSource => dataSource.Ajax()
                     .Read(read => read.Action("getLopTC", "DangKyHocPhan").Data("getFilters"))
             )
-    
+            .Events(e => {
+                e.Change("GridLopTC_change");
+            })
+
         )
                 <p></p>
                 <p style="overflow: hidden"><a href="#modalLopTC" data-toggle="modal" class="btn red pull-right" id="btnChiTietHP">Xem chi tiết học phần</a></p>
@@ -139,7 +142,9 @@
             .EndTime(DateTime.Now.Date.AddHours((int)ViewBag.Tong_so_tiet))
             .DateHeaderTemplate("<strong># if(idThu==7) idThu=0; # #=Thu[idThu]# # idThu++; #</strong>")
             .MajorTimeHeaderTemplate("# if(idTiet==Tong_so_tiet) idTiet=0; # #=Tiet[idTiet]# # idTiet++;# ")
-            .EventTemplate("<div class=\"time_event\" data-color=\"#=Color#\"><dl><dd>#= title #<dd></dl></div>")
+            .EventTemplate(@"
+<a class=""btn black icn-only pull-right mini k-scheduler-remove"" data-action='HuyDangKy' ID_lop_tc='#=ID_lop_tc#'><i class=""icon-remove icon-white""></i></a>
+<div class=""time_event"" data-color=""#=Color#""><dl><dd>#= title #<dd></dl></div>")
             .Views(views =>
             {
                 views.WeekView(); 
@@ -148,6 +153,7 @@
             .Editable(false)
             .Events(e => {
                 e.DataBound("onDataBound");
+                
             })
             .DataSource(d => d
                 .Model(m =>
@@ -191,7 +197,53 @@
         <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
 	</div>
 </div>
+<style>
+    .loptc-selected {
+        box-shadow: none;
+        background-image: none;
+        background-color: orange;
+        border-color: orange;
+        color: #FFFFFF;
+    }
+    .k-scheduler-remove {
+        padding: 3px;
+    }
+    .k-event>a.k-scheduler-remove {
+        display:none;
+    }
+    .k-event:hover>a.k-scheduler-remove {
+        display:block;
+    }
+</style>
 <script>
+    $('.k-event>a.k-scheduler-remove').live('click', function () {
+        if (!confirm("Hủy đăng ký?")) return;
+        $.ajax({
+            url: '/DangKyHocPhan/' + $(this).attr('data-action'),
+            data: {
+                ID_lop_tc: $(this).attr('ID_lop_tc'),
+                ID_dt: $('#ID_dt').val()
+            },
+            dataType: 'json',
+            type: 'post',
+            success: function (e) {
+                $("#IDGiaiDoan").data("kendoDropDownList").dataSource.read();
+                $("#IDGiaiDoan").val(0);
+                reloadGridLopTC(e);
+                reloadScheduler();
+                alert(e.Message);
+            }
+        });
+    });
+    
+    function GridLopTC_change() {
+        var selected = $.map(this.select(), function (item) {
+            return $(item);
+        });
+        var item = this.dataItem(selected[0]);
+        $('.loptc-selected').removeClass('loptc-selected');
+        $('#LopTC' + item.ID_lop_lt).parent().parent().attr('class', 'loptc-selected');
+    }
     function chonChuyenNganh() {
         $("#ID_dt").data("kendoDropDownList").value(1);
         $("#scheduler").data("kendoScheduler").dataSource.read();
@@ -225,6 +277,7 @@
     $(document).ready(function () {
         reloadScheduler()
         deleteNotUseElements();
+
         $('.btnDangKy').live('click', function (e) {
             e.preventDefault();
             $.ajax({

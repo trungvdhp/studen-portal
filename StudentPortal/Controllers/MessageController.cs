@@ -47,19 +47,24 @@ namespace StudentPortal.Controllers
                     if (db.UserProfiles.Count(t => t.UserName == user) > 0)
                     {
                         var ToUser = db.UserProfiles.Single(t => t.UserName == user);
-                        var inbox = new InboxModel()
+                        db.Inbox.Add(new InboxModel()
                         {
-                            
                             Title = title,
                             Contents = content,
                             To = ToUser.UserId,
                             From = userProfile.UserId,
                             Postdate = DateTime.Now,
                             Type = InboxModel.INBOX,
-                        };
-                        db.Inbox.Add(inbox);
-                        inbox.Type = InboxModel.OUTBOX;
-                        db.Inbox.Add(inbox);
+                        });
+                        db.Inbox.Add(new InboxModel()
+                        {
+                            Title = title,
+                            Contents = content,
+                            To = ToUser.UserId,
+                            From = userProfile.UserId,
+                            Postdate = DateTime.Now,
+                            Type = InboxModel.OUTBOX,
+                        });
                     }else if(db.STU_Lop.Count(t=>t.Ten_lop==user)>0){
                         var ID_lop = db.STU_Lop.Single(t=>t.Ten_lop==user).ID_lop;
                         var Usernames = db.STU_DanhSach.Where(t => t.ID_lop == ID_lop).Select(t => t.STU_HoSoSinhVien.Ma_sv).ToList();
@@ -68,7 +73,7 @@ namespace StudentPortal.Controllers
                             if (db.UserProfiles.Count(t => t.UserName == username) > 0)
                             {
                                 var ToUser = db.UserProfiles.Single(t => t.UserName == username);
-                                var inbox = new InboxModel()
+                                db.Inbox.Add( new InboxModel()
                                 {
                                     Title = title,
                                     Contents = content,
@@ -76,10 +81,16 @@ namespace StudentPortal.Controllers
                                     From = userProfile.UserId,
                                     Postdate = DateTime.Now,
                                     Type = InboxModel.INBOX,
-                                };
-                                db.Inbox.Add(inbox);
-                                inbox.Type = InboxModel.OUTBOX;
-                                db.Inbox.Add(inbox);
+                                });
+                                db.Inbox.Add(new InboxModel()
+                                {
+                                    Title = title,
+                                    Contents = content,
+                                    To = ToUser.UserId,
+                                    From = userProfile.UserId,
+                                    Postdate = DateTime.Now,
+                                    Type = InboxModel.OUTBOX,
+                                });
                             }
                         }
                     }

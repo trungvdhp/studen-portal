@@ -51,6 +51,8 @@ namespace StudentPortal.Lib
                             Giang_vien = Giang_vien,
                             So_tin_chi = monTinChi.So_tin_chi,
                             He_so = monTinChi.He_so,
+                            Co_lop_TH = false,
+                            Da_dang_ky = lopTinChi.Da_dang_ky,
                         });
                     }
                     var Chi_tiet = string.Format("Từ {0} đến {1}", sukienTinChi.Tu_ngay.ToString("dd/MM/yyyy"), sukienTinChi.Den_ngay.ToString("dd/MM/yyyy"));
@@ -106,12 +108,17 @@ namespace StudentPortal.Lib
 
             foreach (var lopTinChi in dicLopTinChi.Values)
             {
+                if (lopTinChi.ID_lop_tc == 7511)
+                {
+                }
                 if(_cacheDicLopTC.ContainsKey(lopTinChi.ID_lop_tc))
                     continue;
                 if (lopTinChi.ID_lop_lt != 0 && dicLopTinChi.ContainsKey(lopTinChi.ID_lop_lt))
                 {
                     var lopLT = dicLopTinChi[lopTinChi.ID_lop_lt];
                     dicLopTinChi[lopTinChi.ID_lop_tc].Ten_lop_tc = String.Format("{0}.TH{1:00}", lopLT.Ten_lop_tc, lopTinChi.STT_lop);
+                    dicLopTinChi[lopTinChi.ID_lop_tc].ID_lop_lt = lopTinChi.ID_lop_lt;
+                    dicLopTinChi[lopTinChi.ID_lop_lt].Co_lop_TH = true;
                 }
                 _cacheDicLopTC[lopTinChi.ID_lop_tc] = dicLopTinChi[lopTinChi.ID_lop_tc];
             }
@@ -122,8 +129,11 @@ namespace StudentPortal.Lib
         {
             DHHHContext db = new DHHHContext();
 
-            var sukienTinChis = db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == ID_lop_tc).ToList();
+            var lopTC = db.PLAN_LopTinChi_TC.Single(t => t.ID_lop_tc == ID_lop_tc);
 
+            var sukienTinChis = db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == ID_lop_tc).ToList();
+            if (lopTC.ID_lop_lt != 0)
+                sukienTinChis.AddRange(db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == lopTC.ID_lop_lt).ToList());
             var dicLopTinChi = getListDetails(sukienTinChis);
 
             return dicLopTinChi.Values.ToList()[0];

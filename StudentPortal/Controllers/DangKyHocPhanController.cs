@@ -57,17 +57,20 @@ namespace StudentPortal.Controllers
             var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon, this.HocKyDangKy.Ky_dang_ky);
             var ID_sv = sinhVien[(int)ID_dt].ID_sv;
             var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList();
-
+            var coLopDK = false;
+            var tmp = new List<LopTinChiViewModel>();
             for (var i = 0; i < lopTinChis.Count; i++)
             {
                 lopTinChis[i].Chua_dang_ky = !idLopDKs.Contains(lopTinChis[i].ID_lop_tc);
                 if (!lopTinChis[i].Chua_dang_ky)
                 {
-                    var tmp = new List<LopTinChiViewModel>();
                     tmp.Add(lopTinChis[i]);
-                    return Json(tmp.ToDataSourceResult(request));
+                    coLopDK = true;
+                    //return Json(tmp.ToDataSourceResult(request));
                 }
             }
+            if (coLopDK)
+                return Json(tmp.ToDataSourceResult(request));
             return Json(lopTinChis.ToDataSourceResult(request));
         }
 
@@ -179,27 +182,12 @@ namespace StudentPortal.Controllers
             return suKienTinChis;
         }
 
-        public ActionResult DangKy(int ID_lop_tc, int ID_dt)
+        public void KiemTraTrungLich(int ID_lop_tc, int ID_dt)
         {
-            
-            JsonResult result = new JsonResult();
-            if (HetHanDK)
-            {
-                result.Data = new AjaxResult
-                {
-                    Status = AjaxStatus.ERROR,
-                    Title = "Thông báo",
-                    Data = { },
-                    Message = "Đã hết hạn đăng ký trực tuyến!",
-                };
-                result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                return result;
-            }
-            
             var suKienTinChiDaDKs = this.getSuKienTinChiDK(ID_dt);
 
             var skLopTCs = db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == ID_lop_tc).ToList();
-                        
+
             // Kiem tra trung lich hoc
 
             LopTinChiViewModel loptrung = new LopTinChiViewModel();
@@ -219,22 +207,63 @@ namespace StudentPortal.Controllers
                         (sktc.Tiet + sktc.So_tiet >= sktcNew.Tiet && sktc.Tiet + sktc.So_tiet <= sktcNew.Tiet + sktcNew.So_tiet))
                        )
                     {
-                        loptrung = LopTinChi.getDetails(sktc.ID_lop_tc);
-                        result.Data = new AjaxResult
-                        {
-                            Status = AjaxStatus.ERROR,
-                            Title = "Thông báo",
-                            Data = { },
-                            Message = String.Format("Lớp bạn đăng ký đã bị trùng lịch với {0}!", loptrung.Ten_lop_tc),
-                        };
-                        result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                        return result;
+                        throw new Exception(String.Format("Lớp bạn đăng ký đã bị trùng lịch với {0}!", loptrung.Ten_lop_tc));
                     }
                 }
             }
+        }
+
+        public ActionResult DangKy(int ID_lop_tc, int ID_dt)
+        {
+            
+            JsonResult result = new JsonResult();
+            if (HetHanDK)
+            {
+                result.Data = new AjaxResult
+                {
+                    Status = AjaxStatus.ERROR,
+                    Title = "Thông báo",
+                    Data = { },
+                    Message = "Đã hết hạn đăng ký trực tuyến!",
+                };
+                result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+                return result;
+            }
+            
             try
             {
-                DangKyHocPhan.DangKy(ref db, ID_sv, ID_lop_tc, ID_dt, HocKyDangKy.Ky_dang_ky);
+                var lopTC = db.PLAN_LopTinChi_TC.Single(t => t.ID_lop_tc == ID_lop_tc);
+
+                if (lopTC.ID_lop_lt == 0 && db.PLAN_LopTinChi_TC.Count(t => t.ID_lop_lt == ID_lop_tc) > 0)
+                {
+                    throw new Exception("Bạn phải đăng ký cả lớp thực hành của lớp lý thuyết này này");
+                }
+
+                KiemTraTrungLich(ID_lop_tc, ID_dt);
+                if (lopTC.ID_lop_lt > 0)
+                {
+                    KiemTraTrungLich(lopTC.ID_lop_lt, ID_dt);
+                    DangKyHocPhan.KiemTraDieuKienDangKy(ref db, ID_sv, lopTC.ID_lop_lt, ID_dt, HocKyDangKy);
+                }
+                DangKyHocPhan.KiemTraDieuKienDangKy(ref db, ID_sv, ID_lop_tc, ID_dt, HocKyDangKy);
+
+                db.STU_DanhSachLopTinChi.Add(new STU_DanhSachLopTinChi
+                {
+                    ID_lop_tc = ID_lop_tc,
+                    ID_sv = ID_sv,
+                    Duyet = 0,
+                });
+                if (lopTC.ID_lop_lt > 0)
+                {
+                    db.STU_DanhSachLopTinChi.Add(new STU_DanhSachLopTinChi
+                    {
+                        ID_lop_tc = lopTC.ID_lop_lt,
+                        ID_sv = ID_sv,
+                        Duyet = 0,
+                    });
+                }
+                db.SaveChanges();
+
                 result.Data = new AjaxResult
                 {
                     Status = AjaxStatus.SUCCESS,
@@ -260,11 +289,19 @@ namespace StudentPortal.Controllers
         public ActionResult HuyDangKy(int ID_lop_tc, int ID_dt)
         {
             var result = new JsonResult();
-            var lopTCs = db.STU_DanhSachLopTinChi.Where(t => t.ID_lop_tc == ID_lop_tc && t.ID_sv == this.ID_sv);
-            if (lopTCs.Count() > 0)
-            {
-                var lopTC = lopTCs.First();
+            try{
+                var lopTHs = db.STU_DanhSachLopTinChi.Where(t => t.PLAN_LopTinChi_TC.ID_lop_lt == ID_lop_tc && t.ID_sv == this.ID_sv);
+                foreach (var lopTH in lopTHs)
+                    db.STU_DanhSachLopTinChi.Remove(lopTH);
+                var lopTC = db.STU_DanhSachLopTinChi.Single(t=>t.ID_lop_tc==ID_lop_tc && t.ID_sv==this.ID_sv);
+
+                if (lopTC.PLAN_LopTinChi_TC.ID_lop_lt != 0)
+                {
+                    var lopLT = db.STU_DanhSachLopTinChi.Single(t => t.ID_lop_tc == lopTC.PLAN_LopTinChi_TC.ID_lop_lt && t.ID_sv == this.ID_sv);
+                    db.STU_DanhSachLopTinChi.Remove(lopLT);
+                }
                 db.STU_DanhSachLopTinChi.Remove(lopTC);
+
                 db.SaveChanges();
                 result.Data = new AjaxResult
                 {
@@ -273,11 +310,8 @@ namespace StudentPortal.Controllers
                     Data = { },
                     Message = String.Format("Hủy đăng ký lớp học phần {0} thành công!", LopTinChi.getDetails(lopTC.ID_lop_tc).Ten_lop_tc),
                 };
-                result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                return result;
             }
-            else
-            {
+            catch(Exception e){
                 result.Data = new AjaxResult
                 {
                     Status = AjaxStatus.ERROR,
@@ -285,23 +319,17 @@ namespace StudentPortal.Controllers
                     Data = { },
                     Message = String.Format("Không thể thực hiện hành động này!"),
                 };
-                result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-                return result;
             }
+                
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
         }
 
         public ActionResult getChiTietHocPhan([DataSourceRequest]DataSourceRequest request ,int ID_dt)
         {
             var lop = sinhVien[ID_dt].STU_Lop;
-            var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList();
-            var suKienTinChis = new List<PLAN_SukiensTinChi_TC>();
-            foreach (var idLopDK in idLopDKs)
-            {
-                var lopDK_SKTCs = db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == idLopDK).ToList();
-                foreach (var lopDK_SKTC in lopDK_SKTCs)
-                    suKienTinChis.Add(lopDK_SKTC);
-            }
-            var lopTCs = LopTinChi.getListDetails(suKienTinChis).Values.ToList();
+            var lopTCs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList().Select(t=>LopTinChi.getDetails(t)).ToList();
+            
             try
             {
                 var muchocphi = HocPhi.getMucHocPhi(db,HocKyDangKy.Ky_dang_ky,lop.ID_he,lop.ID_chuyen_nganh,lop.Khoa_hoc);

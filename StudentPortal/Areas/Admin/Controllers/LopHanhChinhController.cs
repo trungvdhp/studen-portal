@@ -113,7 +113,14 @@ namespace StudentPortal.Areas.Admin.Controllers
             try
             {
                 var lopHC = db.STU_Lop.Single(t => t.ID_lop == ID_lop);
-                DangKyHocPhan.DangKy(ref db, ID_sv, ID_lop_tc, lopHC.ID_dt, HocKyDangKy.Ky_dang_ky);
+                DangKyHocPhan.KiemTraDieuKienDangKy(ref db, ID_sv, ID_lop_tc, lopHC.ID_dt, HocKyDangKy);
+                db.STU_DanhSachLopTinChi.Add(new STU_DanhSachLopTinChi
+                {
+                    ID_lop_tc = ID_lop_tc,
+                    ID_sv = ID_sv,
+                    Duyet = 0,
+                });
+                db.SaveChanges();
                 result.Data = new AjaxResult
                 {
                     Status = AjaxStatus.SUCCESS,
