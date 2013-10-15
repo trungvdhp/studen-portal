@@ -261,10 +261,10 @@ namespace StudentPortal.Lib
             return hocky.First();
         }
 
-        public static int getHocKy(List<DiemHocTap> bangdiem,List<MARK_XepHangNamDaoTao_TC> xephang) 
+        public static int getNamHocThu(List<DiemHocTap> bangdiem,List<MARK_XepHangNamDaoTao_TC> xephang) 
         {
-            int soTC = bangdiem.Count(t => t.Ma_mon.Length > 0 && t.Diem_chu != "F");
-            return xephang.First(t => t.Tu_tin_chi <= soTC && t.Den_tin_chi <= soTC).Nam_thu;
+            int soTC = bangdiem.Count(t => t.Ma_mon!=null  && t.Diem_chu != "F");
+            return xephang.First(t => t.Tu_tin_chi <= soTC && t.Den_tin_chi >= soTC).Nam_thu;
         }
     }
 }
