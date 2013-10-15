@@ -26,6 +26,7 @@ namespace StudentPortal.Controllers
         {
             return View();
         }
+        
         public ActionResult Compose()
         {
             return View();
@@ -100,7 +101,8 @@ namespace StudentPortal.Controllers
                 {
                     Title = "Thông báo",
                     Message = "Đã gửi tin nhắn thành công!",
-                    Status = AjaxStatus.SUCCESS
+                    Status = AjaxStatus.SUCCESS,
+                    Redirect = Url.Action("Index","Message",new {Area=""})
                 };
             }
             catch (Exception e)
@@ -166,13 +168,9 @@ namespace StudentPortal.Controllers
                 Title = t.Title,
                 From = t.FromUser.UserName,
                 Postdate = t.Postdate,
-            }).ToList();//.Select(t=>new MessageViewModel{
-            //    index = i++,
-            //    ID = t.ID,
-            //    Title = t.Title,
-            //    From = t.From,
-            //    Postdate = t.Postdate,
-            //}).ToList();
+                Status = t.Status,
+                Warning = t.Warning,
+            }).ToList();
             return Json(messages.ToDataSourceResult(request));
         }
 
@@ -181,7 +179,15 @@ namespace StudentPortal.Controllers
             if (db.Inbox.Count(t => t.ID == ID) > 0)
             {
                 var message = db.Inbox.Single(t => t.ID == ID);
-                ViewBag.Message = message;
+                ViewBag.Message = new InboxViewModel() { 
+                    Id= message.ID,
+                    From = message.FromUser.UserName,
+                    Title = message.Title,
+                    Contents = message.Contents,
+                    Postdate = message.Postdate,
+                };
+                message.Status = true;
+                db.SaveChanges();
             }
             return View();
         }

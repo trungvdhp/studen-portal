@@ -3,8 +3,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row-fluid">
+<div class="container-fluid">
     <div class="span12">
-        @ViewBag.Message.Contents
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <h4>
+                    <i class="icon-envelope"></i>
+                    @ViewBag.Message.Title</h4>
+            </div>
+            <div class="portlet-body">
+                <div class="well" style="padding-bottom:5px">
+                    <strong>Người gửi: </strong><i>@ViewBag.Message.From</i><br />
+                    <strong>Ngày gửi: </strong><i>@ViewBag.Message.Postdate.ToString("hh:mm dd/MM/yyyy")</i>
+                </div>
+                <div class="alert alert-block alert-info fade in">
+                    @(new HtmlString(ViewBag.Message.Contents))
+                </div>
+                <p><a href="@Url.Action("Inbox", "Message", new { Area=""})" class="btn">Hộp thư đến</a></p>
+            </div>
+        </div>
     </div>
 </div>

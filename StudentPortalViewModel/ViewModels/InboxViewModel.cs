@@ -19,5 +19,7 @@ namespace StudentPortal.ViewModels
         [DisplayName("Người gửi")]
         public string From { get; set; }
 
+        [DisplayName("Nội dung")]
+        public string Contents { get; set; }
     }
 }

@@ -50,8 +50,8 @@ namespace StudentPortal
 
         public byte Type { get; set; }
 
-        public UserProfile FromUser { get; set; }
+        public virtual UserProfile FromUser { get; set; }
 
-        public UserProfile ToUser { get; set; }
+        public virtual UserProfile ToUser { get; set; }
     }
 }

@@ -28,7 +28,7 @@
                         @if(@ViewBag.NotificationsCount>0){
                             foreach(var notification in ViewBag.Notifications){
                         <li>
-                            <a href="@Url.Action("Details","Message",new {Id= notification.Id, Area=""})">
+                            <a href="@Url.Action("Detail","Message",new {Id= notification.Id, Area=""})">
                                 <span class="label label-success"><i class="icon-plus"></i></span>
                                 @notification.Title; 
 							
@@ -56,7 +56,7 @@
                         @if(ViewBag.FeedsCount>0){
                             foreach(var feed in ViewBag.Feeds){
                             <li>
-                                <a href="@Url.Action("Details","Message",new {Id= feed.Id, Area=""})">
+                                <a href="@Url.Action("Detail","Message",new {Id= feed.Id, Area=""})">
                                     <span class="subject">
                                         <span class="from">@feed.From</span>
                                         <span class="time">@feed.Postdate.ToString("dd/MM/yyyy")</span>

@@ -44,9 +44,9 @@ namespace StudentPortal.Models
         public int LastEditUserId { get; set; }
 
         [Display(Name = "Người tạo")]
-        public UserProfile User { get; set; }
+        public virtual UserProfile User { get; set; }
         
         [Display(Name = "Người sửa cuối")]
-        public UserProfile LastEditUser { get; set; }
+        public virtual UserProfile LastEditUser { get; set; }
     }
 }
