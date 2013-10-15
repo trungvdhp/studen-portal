@@ -260,15 +260,11 @@ namespace StudentPortal.Lib
             }).Distinct().OrderByDescending(t => t.Nam_hoc).ThenByDescending(t => t.Hoc_ky).ToList();
             return hocky.First();
         }
-        //public static HocKy GetHocKyTruoc(STU_DanhSach sinhVien)
-        //{
-        //    var diemhoctap = GetDiemHocTap(sinhVien.ID_sv);
-        //    var hocky = diemhoctap.Select(t => new HocKy
-        //    {
-        //        Hoc_ky = t.Hoc_ky,
-        //        Nam_hoc = t.Nam_hoc,
-        //    }).Distinct().OrderByDescending(t=>t.Nam_hoc).ThenByDescending(t=>t.Hoc_ky).ToList();
-        //    return hocky.First();
-        //}
+
+        public static int getHocKy(List<DiemHocTap> bangdiem,List<MARK_XepHangNamDaoTao_TC> xephang) 
+        {
+            int soTC = bangdiem.Count(t => t.Ma_mon.Length > 0 && t.Diem_chu != "F");
+            return xephang.First(t => t.Tu_tin_chi <= soTC && t.Den_tin_chi <= soTC).Nam_thu;
+        }
     }
 }
