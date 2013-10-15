@@ -135,8 +135,12 @@ namespace StudentPortal.Lib
             if (lopTC.ID_lop_lt != 0)
                 sukienTinChis.AddRange(db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == lopTC.ID_lop_lt).ToList());
             var dicLopTinChi = getListDetails(sukienTinChis);
+            if(dicLopTinChi.Values.Count>0)
+                return dicLopTinChi.Values.ToList()[0];
+            return new LopTinChiViewModel { 
+                ID_lop_tc = ID_lop_tc 
 
-            return dicLopTinChi.Values.ToList()[0];
+            };
         }
     }
 }

@@ -160,7 +160,7 @@ namespace StudentPortal.Controllers
         public ActionResult getInbox([DataSourceRequest] DataSourceRequest request)
         {
             //int i = 1;
-            var messages = db.Inbox.Where(t => t.To == userProfile.UserId).Select(t => new MessageViewModel
+            var messages = db.Inbox.Where(t => t.To == userProfile.UserId && t.Type == InboxModel.INBOX).Select(t => new MessageViewModel
             {
                 ID = t.ID,
                 Title = t.Title,
@@ -189,7 +189,7 @@ namespace StudentPortal.Controllers
 
         public ActionResult getOutbox([DataSourceRequest] DataSourceRequest request)
         {
-            var messages = db.Inbox.Where(t => t.From == userProfile.UserId).Select(t => new MessageViewModel
+            var messages = db.Inbox.Where(t => t.From == userProfile.UserId && t.Type==InboxModel.OUTBOX).Select(t => new MessageViewModel
             {
                 ID = t.ID,
                 Title = t.Title,

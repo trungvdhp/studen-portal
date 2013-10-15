@@ -121,6 +121,7 @@ namespace StudentPortal.Controllers
             foreach (var idLopDK in idLopDKs)
             {
                 var lopDK_SKTCs = db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == idLopDK).ToList();
+                if (lopDK_SKTCs.Count == 0) continue;
                 var loptc = lopDK_SKTCs.First().PLAN_LopTinChi_TC;
                 var id_lop_tc = loptc.ID_mon_tc;
                 var stt = loptc.STT_lop;

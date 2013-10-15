@@ -45,6 +45,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.label6 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -74,15 +76,18 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
             // backgroundWorker1
             // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // timer1
             // 
+            this.timer1.Interval = 3600;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // numericUpDown1
@@ -98,9 +103,8 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(15, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 4;
-            this.label1.Text = "label1";
             // 
             // progressBar1
             // 
@@ -170,6 +174,7 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label1);
@@ -185,18 +190,30 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(15, 120);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(93, 13);
+            this.label4.Size = new System.Drawing.Size(96, 13);
             this.label4.TabIndex = 4;
-            this.label4.Text = "Thời gian đã chạy";
+            this.label4.Text = "Thời gian đã chạy:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(646, 120);
+            this.label5.Location = new System.Drawing.Point(114, 120);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.Size = new System.Drawing.Size(0, 13);
             this.label5.TabIndex = 4;
-            this.label5.Text = "label1";
+            // 
+            // timer2
+            // 
+            this.timer2.Interval = 1000;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 70);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(0, 13);
+            this.label6.TabIndex = 4;
             // 
             // frmMain
             // 
@@ -239,6 +256,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Label label6;
     }
 }
 
