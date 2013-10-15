@@ -140,7 +140,7 @@ namespace StudentPortal.Lib
 		public static List<BienLaiThu> GetBienLai(int ID_sv,int ID_dt)
 		{
 			DHHHContext db = new DHHHContext();
-			var dicBienLai = db.ACC_BienLaiThuChiTiet.Where(t=>t.ACC_BienLaiThu.ID_sv==ID_sv).Select(t=> new BienLaiThu{
+			var dicBienLai = db.ACC_BienLaiThuChiTiet.Where(t=>t.ACC_BienLaiThu.ID_sv==ID_sv && t.ACC_BienLaiThu.Huy_phieu==false).Select(t=> new BienLaiThu{
 				Id_bien_lai = t.ID_bien_lai,
 				Nam_hoc = t.ACC_BienLaiThu.Nam_hoc,
 				Hoc_ky = t.ACC_BienLaiThu.Hoc_ky,
