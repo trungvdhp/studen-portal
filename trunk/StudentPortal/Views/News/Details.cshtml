@@ -1,11 +1,25 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Trang tin";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    StudentPortal.ViewModels.NewsViewModel News = (StudentPortal.ViewModels.NewsViewModel)ViewBag.News;
 }
-
-<h2>@ViewBag.News.Title</h2>
 <div class="container-fluid">
     <div class="rows-fluid">
-        <div>@ViewBag.News.Contents</div>
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <h4>
+                    <i class="icon-file"></i>
+                    @News.Title;
+                </h4>
+            </div>
+            <div class="portlet-body">
+                <div class="well">
+                    <i>Ngày gửi: @News.PostDate.ToString("hh:mm dd/MM/yyyy")</i>
+                </div>
+                <p>@(new HtmlString(News.Contents))</p>
+            </div>
+        </div>
+        
     </div>
 </div>

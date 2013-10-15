@@ -29,5 +29,9 @@ namespace StudentPortal.ViewModels
 
         [DisplayName("STT")]
         public int index { get; set; }
+
+        public bool Status { get; set; }
+
+        public bool Warning { get; set; }
     }
 }
