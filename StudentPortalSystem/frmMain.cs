@@ -140,9 +140,12 @@ namespace StudentPortalSystem
                     db.Inbox.Add(new InboxModel
                     {
                         Title = "Cảnh báo học tập",
+                        To = sinhvien.ID_sv,
+                        From = 10,
                         Contents = str,
                         Warning = true,
                         Type = InboxModel.INBOX,
+                        Postdate = DateTime.Now
                     });
                 }
 
@@ -152,7 +155,7 @@ namespace StudentPortalSystem
                     var str = "Các lớp học phần còn nợ học phí: \n";
                     foreach (var mon in bienlai)
                     {
-                        str += string.Format("{0}: {1}\n", mon.Ten_thu_chi, mon.So_tien);
+                        str += string.Format("{0}: {1}\n", mon.Noi_dung, mon.So_tien);
                     }
                     db.Inbox.Add(new InboxModel
                     {
@@ -160,6 +163,9 @@ namespace StudentPortalSystem
                         Contents = str,
                         Warning = true,
                         Type = InboxModel.INBOX,
+                        To = sinhvien.ID_sv,
+                        From = 10,
+                        Postdate = DateTime.Now
                     });
                 }
                 db.SaveChanges();
