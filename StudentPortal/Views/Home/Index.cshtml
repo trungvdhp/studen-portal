@@ -57,10 +57,10 @@
                                                 @{var max_length = 45;}
 												@if (news.Title.Length > max_length)
                                                 {
-                                                    <a href="@Url.Action("Index", "News", new {Area="" ,Id = news.Id})">@String.Format("{0}...", news.Title.Substring(0, max_length-3))</a>
+                                                    <a href="@Url.Action("Details", "News", new {Area="" ,Id = news.Id})">@String.Format("{0}...", news.Title.Substring(0, max_length-3))</a>
                                                 }
                                                 else{
-                                                    <a href="@Url.Action("Index", "News",new{Id=news.Id,Area="" })"> @news.Title</a>
+                                                    <a href="@Url.Action("Details", "News",new{Id=news.Id,Area="" })"> @news.Title</a>
                                                 }   
 											</div>
 										</div>
