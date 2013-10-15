@@ -158,18 +158,18 @@ namespace StudentPortal.Controllers
 		{
 			int ID_sv = SinhVien.GetIdSv(TuKhoa);
 			DHHHContext db = new DHHHContext();
-			var dothu = db.ACC_BienLaiThu.Where(t => t.ID_sv == ID_sv && t.Nam_hoc == NamHoc);
+			var dotthu = db.ACC_BienLaiThu.Where(t => t.ID_sv == ID_sv && t.Nam_hoc == NamHoc);
 			if (HocKy != "")
 			{
 				int Hoc_ky = Convert.ToInt32(HocKy);
-				dothu = dothu.Where(t => t.Hoc_ky == Hoc_ky);
+				dotthu = dotthu.Where(t => t.Hoc_ky == Hoc_ky);
 			}
-			var dotthu1 = dothu.Select(t => new
+			var dotthu1 = dotthu.Select(t => new
 			{
 				t.Dot_thu
 			}).Distinct().OrderBy(t => t.Dot_thu).ToList();
 			JsonResult result = new JsonResult();
-			result.Data = new SelectList(dothu, "Dot_thu", "Dot_thu");
+			result.Data = new SelectList(dotthu1, "Dot_thu", "Dot_thu");
 			result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
 			return result;
 		}
