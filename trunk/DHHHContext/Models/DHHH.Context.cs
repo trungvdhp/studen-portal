@@ -111,7 +111,7 @@ namespace StudentPortal
 		//public DbSet<MARK_XepHangHocLuc> MARK_XepHangHocLuc { get; set; }
 		//public DbSet<MARK_XepHangHocLuc_TC> MARK_XepHangHocLuc_TC { get; set; }
 		//public DbSet<MARK_XepHangNamDaoTao> MARK_XepHangNamDaoTao { get; set; }
-		//public DbSet<MARK_XepHangNamDaoTao_TC> MARK_XepHangNamDaoTao_TC { get; set; }
+        public DbSet<MARK_XepHangNamDaoTao_TC> MARK_XepHangNamDaoTao_TC { get; set; }
 		//public DbSet<MARK_XepHangTotNghiep> MARK_XepHangTotNghiep { get; set; }
 		//public DbSet<MARK_XepHangTotNghiep_TC> MARK_XepHangTotNghiep_TC { get; set; }
 		//public DbSet<MARK_XepLoaiChungChi> MARK_XepLoaiChungChi { get; set; }
