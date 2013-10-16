@@ -236,6 +236,10 @@ namespace StudentPortal
                     }
 
                 }
+                ViewBag.FullName = this.FullName;
+                ViewBag.IsUserLoggedIn = this.IsUserLoggedIn;
+                ViewBag.IsSinhVien = this.IsSinhVien;
+                ViewBag.IsGiaoVien = this.IsGiaoVien;
             }
             else
             {
@@ -245,13 +249,9 @@ namespace StudentPortal
                 {
                     WebSecurity.CreateUserAndAccount(guestUserName, guestPassword, new { GroupId = 3 });
                 }
-                WebSecurity.Login(guestUserName, guestPassword);
-                Redirect(Request.RawUrl);
+                
             }
-            ViewBag.FullName = this.FullName;
-            ViewBag.IsUserLoggedIn = this.IsUserLoggedIn;
-            ViewBag.IsSinhVien = this.IsSinhVien;
-            ViewBag.IsGiaoVien = this.IsGiaoVien;
+            
         }
     }
 }
