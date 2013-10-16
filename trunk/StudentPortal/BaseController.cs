@@ -29,6 +29,8 @@ namespace StudentPortal
         private Dictionary<string, List<MARK_MonHoc>> _dicMonDangKy = new Dictionary<string, List<MARK_MonHoc>>();
         private int _iD_sv = 0;
         private List<ChuyenNganh> _chuyenNganh;
+        private string _fullName;
+        private PLAN_GiaoVien _giaoVien;
 
         protected int itemsPerPage;
         protected DHHHContext db = new DHHHContext();
@@ -61,7 +63,8 @@ namespace StudentPortal
                 if (_HocKyDangKy == null)
                 {
                     var db = new DHHHContext();
-                    _HocKyDangKy = db.PLAN_HocKyDangKy_TC.Single(t => t.Chon_dang_ky == true);
+                    if(db.PLAN_HocKyDangKy_TC.Count(t => t.Chon_dang_ky == true)>0)
+                        _HocKyDangKy = db.PLAN_HocKyDangKy_TC.Single(t => t.Chon_dang_ky == true) ;
                 }
                 return _HocKyDangKy;
             }
@@ -157,15 +160,13 @@ namespace StudentPortal
                 return _iD_sv;
             }
         }
-        private string _fullName;
-        private PLAN_GiaoVien _giaoVien;
         protected PLAN_GiaoVien giaoVien
         {
             get
             {
                 if (_giaoVien == null)
                 {
-                    if(db.PLAN_GiaoVien.Count(t=>t.Ma_cb==userProfile.UserName)>0)
+                    if (userProfile!=null && db.PLAN_GiaoVien.Count(t => t.Ma_cb == userProfile.UserName) > 0)
                         _giaoVien=db.PLAN_GiaoVien.Single(t=>t.Ma_cb==userProfile.UserName);
                 }
                 return _giaoVien;
@@ -185,7 +186,7 @@ namespace StudentPortal
         {
             get
             {
-                return userProfile.UserName != CauHinh.get("Guest_UserName").ToString();
+                return userProfile!=null && userProfile.UserName != CauHinh.get("Guest_UserName").ToString();
             }
         }
         public bool IsSinhVien
@@ -245,6 +246,7 @@ namespace StudentPortal
                     WebSecurity.CreateUserAndAccount(guestUserName, guestPassword, new { GroupId = 3 });
                 }
                 WebSecurity.Login(guestUserName, guestPassword);
+                Redirect(Request.RawUrl);
             }
             ViewBag.FullName = this.FullName;
             ViewBag.IsUserLoggedIn = this.IsUserLoggedIn;

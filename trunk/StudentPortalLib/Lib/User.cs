@@ -15,7 +15,14 @@ namespace StudentPortal.Lib
         public static UserProfile getUserProfile(int UserId)
         {
             DHHHContext db = new DHHHContext();
-            return db.UserProfiles.Single(t => t.UserId == UserId);
+            try
+            {
+                return db.UserProfiles.Single(t => t.UserId == UserId);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
         private static Dictionary<string, string> _dicFullname = new Dictionary<string, string>();
         public static string getUserFullName(string UserName){
