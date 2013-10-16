@@ -12,10 +12,6 @@ namespace StudentPortal.Controllers
 {
 	public class TraCuuController : BaseController
 	{
-		//
-		// GET: /TraCuu/
-		DHHHContext db = new DHHHContext();
-
 
 		#region TuKhoa
         //[Authorize(Roles="TraCuu.TuKhoa")]
@@ -44,8 +40,6 @@ namespace StudentPortal.Controllers
 			return json;
 		}
 		#endregion
-
-
 
 		#region Diem
 

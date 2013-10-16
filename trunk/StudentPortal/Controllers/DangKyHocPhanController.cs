@@ -17,8 +17,7 @@ using NodaTime;
 
 namespace StudentPortal.Controllers
 {
-    [Authorize]
-    //[InitializeSimpleMembership]
+    [Authorize(Roles="SinhVien")]
     public class DangKyHocPhanController : BaseController
     {
         

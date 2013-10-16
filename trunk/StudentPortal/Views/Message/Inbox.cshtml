@@ -18,7 +18,7 @@
 </style>
 <div class="row-fluid">
     <div class="span12">
-        <p>@Html.ActionLink("Soạn tin","Compose", "Message", new { @class="btn blue" })</p>
+        <p>@Html.ActionLink("Soạn tin", "Compose", new { Area=""}, new { @class = "btn blue" })</p>
         @(Html.Kendo().Grid<StudentPortal.ViewModels.MessageViewModel>()
             .Name("GridInbox")
             .Columns(column =>

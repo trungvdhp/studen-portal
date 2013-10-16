@@ -9,17 +9,26 @@
             <div class="portlet-title">
                 <h4>
                     <i class="icon-envelope"></i>
-                    @ViewBag.Message.Title</h4>
+                    @ViewBag.Message.Title
+
+                </h4>
+                <i class="pull-right">@ViewBag.Message.Postdate.ToString("hh:mm dd/MM/yyyy")</i>
             </div>
             <div class="portlet-body">
-                <div class="well" style="padding-bottom:5px">
-                    <strong>Người gửi: </strong><i>@ViewBag.Message.From</i><br />
-                    <strong>Ngày gửi: </strong><i>@ViewBag.Message.Postdate.ToString("hh:mm dd/MM/yyyy")</i>
-                </div>
                 <div class="alert alert-block alert-info fade in">
                     @(new HtmlString(ViewBag.Message.Contents))
                 </div>
-                <p><a href="@Url.Action("Inbox", "Message", new { Area=""})" class="btn">Hộp thư đến</a></p>
+                <p>
+                    @if(ViewBag.Message.Type==StudentPortal.InboxModel.INBOX){
+                        <a href="@Url.Action("Compose", "Message", new { Area="", ToUser = ViewBag.FromUser})" class="btn blue">Trả lời</a>
+                    }
+                    <a href="@Url.Action("Compose", "Message", new { Area=""})" class="btn green">Chuyển tiếp</a>
+                    <a href="@Url.Action("Inbox", "Message", new { Area=""})" class="btn">Hộp thư đến</a>
+
+                </p>
+                <div class="well span4 pull-right">
+                    <strong><i>@ViewBag.Message.From</i></strong>
+                </div>
             </div>
         </div>
     </div>
