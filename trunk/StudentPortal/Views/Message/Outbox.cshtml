@@ -10,7 +10,7 @@
             {
                 column.Template(@<text></text>).ClientTemplate("&nbsp;<input type='checkbox' name='messages' class='checkRow' value='#=ID#'/>")
                         .HeaderTemplate("<input type='checkbox' class='checkAll' />").Width(30);
-                column.Bound(t => t.Title).ClientTemplate(@"<a href='"+Url.Action("Detail","Message")+"/#=ID#' >#=Title#</a>");
+                column.Bound(t => t.Title).ClientTemplate(@"<a href='" + Url.Action("Detail", "Message") + "/#=ID#' >#=Title#</a>");
                 column.Bound(t => t.To).Width(100);
                 column.Bound(t => t.Postdate).Width(100).Format("{0:hh:mm dd/MM/yyyy}");
             })
@@ -19,19 +19,57 @@
                 source.Ajax().Read(read =>
                 {
                     read.Action("getOutbox", "Message");
-                });
+                }).PageSize(50);
             })
             .Groupable()
             .Filterable()
             .Sortable()
             .Selectable()
-            .Pageable(page => {
-                page.PageSizes(new int[] { 10, 20, 30 });
+            .Pageable(page =>
+            {
+                page.PageSizes(new int[] {50,100,200 });
             })
             .Groupable()
             .Scrollable()
+            .Events(
+                e => { e.DataBound("GridInbox_DataBound"); }
+            )
         )
         <p></p>
         <p><button class="btn btnXoa">Xóa</button></p>
     </div>
 </div>
+<script src="~/Scripts/jquery.b4byb0o.js"></script>
+<script>
+    
+    function GridInbox_DataBound() {
+        $('.checkAll').updateCheckRow({ changeElement: "$('.checkAll').parent()" });
+        $('.message-title').each(function () {
+            e = $(this);
+            if (e.attr('Warning') == 'true')
+                e.parent().parent().addClass('message-title-warning');
+            if (e.attr('Status') == 'false')
+                e.addClass('message-title-unread');
+        });
+        
+    }
+    $(document).ready(function () {
+        $('.checkAll').initCheckAll({
+            changeElement: "$('.checkAll').parent()",
+        });
+        $('.btnXoa').click(function () {
+            $.ajax({
+                url: '@Url.Action("Delete", "Message", new { Area="" })',
+                dataType: 'json',
+                type: 'post',
+                data: {
+                    IDs: $('.checkAll').selectedIDsToString(),
+                },
+                success: function (o) {
+                    alert(o.Message);
+                    $('#GridInbox').data('kendoGrid').dataSource.read();
+                }
+            });
+        });
+    });
+</script>

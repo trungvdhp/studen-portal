@@ -38,5 +38,44 @@ namespace StudentPortal.Controllers
             }).OrderBy(t => t.Hoc_ky).ToList();
             return Json(diemTBMHKs);
         }
+
+        public ActionResult getNewFeeds()
+        {
+            var feeds = db.Inbox.Where(t => t.To == userProfile.UserId && t.Type == InboxModel.INBOX && t.Status == false && t.Warning == false);
+            var FeedsCount = feeds.Count();
+            List<InboxViewModel> Feeds = new List<InboxViewModel>();
+            List<InboxViewModel> Notifications = new List<InboxViewModel>();
+            if (feeds.Count() > 0)
+            {
+                Feeds = feeds.ToList().Select(t => new InboxViewModel
+                {
+                    Postdate = t.Postdate,
+                    Title = t.Title,
+                    From = Lib.User.getUserFullName(t.FromUser.UserName),
+                    Id = t.ID,
+                    Link = Url.Action("Detail", "Message", new { Area = "", Id = t.ID })
+                }).Take(10).ToList();
+            }
+            var notifications = db.Inbox.Where(t => t.To == userProfile.UserId && t.Type == InboxModel.INBOX && t.Status == false && t.Warning == true);
+            var NotificationsCount = notifications.Count();
+            if (notifications.Count() > 0)
+            {
+                Notifications = notifications.ToList().Select(t => new InboxViewModel
+                {
+                    Postdate = t.Postdate,
+                    Title = t.Title,
+                    From = Lib.User.getUserFullName(t.FromUser.UserName),
+                    Id = t.ID,
+                    Link = Url.Action("Detail", "Message", new { Area = "" ,Id = t.ID})
+                }).Take(10).ToList();
+            }
+            return Json(new { 
+                FeedsCount = FeedsCount,
+                NotificationsCount = NotificationsCount,
+                Feeds = Feeds,
+                Notifications = Notifications,
+
+            },JsonRequestBehavior.AllowGet);
+        }
     }
 }

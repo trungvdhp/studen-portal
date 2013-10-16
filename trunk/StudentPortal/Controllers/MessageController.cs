@@ -136,6 +136,7 @@ namespace StudentPortal.Controllers
 
                     }
                 }
+                db.SaveChanges();
                 result.Data = new AjaxResult()
                 {
                     Title = "Thông báo",
