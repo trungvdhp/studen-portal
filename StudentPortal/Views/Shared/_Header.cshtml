@@ -88,8 +88,10 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#"><i class="icon-user"></i>&nbsp;Hồ sơ</a></li>
+                            @if(ViewBag.IsSinhVien){
                             <li><a href="@Url.Action("Index", "ThoiKhoaBieu", new { Area=""})"><i class="icon-calendar"></i>&nbsp;Thời khóa biểu</a></li>
                             <li><a href="@Url.Action("Diem","TraCuu", new { Area=""})"><i class="icon-tasks"></i>&nbsp;Điểm học tập</a></li>
+                            }
                             <li class="divider"></li>
                             <li>
                                 @using (Html.BeginForm("LogOff", "Account", new { Area = "" }, FormMethod.Post, new { id = "logoutForm", style = "display:none;" }))
