@@ -15,12 +15,12 @@
 			<!-- BEGIN SIDEBAR MENU -->
 			<ul>
 				<li class="">
-					<a href="@Url.Action("Index", "Dashboard", new { Area=  "Admin"})">
-					<i class="icon-home"></i> Bảng điều khiển
+					<a href="@Url.Action("Index", "Home", new { Area=""})">
+					<i class="icon-home"></i> Trang chủ
 					<span class="selected"></span>
 					</a>					
 				</li>
-                
+                @if(ViewBag.IsSinhVien){
 				<li class="has-sub">
 					<a href="javascript:;" class="">
 					<i class="icon-bookmark-empty"></i> Sinh Viên
@@ -33,6 +33,7 @@
 
 					</ul>
 				</li>
+                }
                 <li class="has-sub">
 					<a href="javascript:;" class="">
 					<i class="icon-envelope"></i> Tin nhắn

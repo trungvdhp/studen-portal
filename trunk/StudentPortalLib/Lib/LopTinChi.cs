@@ -52,7 +52,7 @@ namespace StudentPortal.Lib
                             So_tin_chi = monTinChi.So_tin_chi,
                             He_so = monTinChi.He_so,
                             Co_lop_TH = false,
-                            Da_dang_ky = lopTinChi.Da_dang_ky,
+                            Cho_trong = lopTinChi.Cho_trong,
                         });
                     }
                     var Chi_tiet = string.Format("Từ {0} đến {1}", sukienTinChi.Tu_ngay.ToString("dd/MM/yyyy"), sukienTinChi.Den_ngay.ToString("dd/MM/yyyy"));

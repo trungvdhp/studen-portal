@@ -189,7 +189,6 @@
     <Compile Include="Areas\Admin\Controllers\DanhSachLopTinChiController.cs" />
     <Compile Include="Areas\Admin\Controllers\DanhSachNganh2Controller.cs" />
     <Compile Include="Areas\Admin\Controllers\DanTocController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\DiemRenLuyenController.cs" />
     <Compile Include="Areas\Admin\Controllers\DinhMucController.cs" />
     <Compile Include="Areas\Admin\Controllers\DoanController.cs" />
@@ -1173,7 +1172,6 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

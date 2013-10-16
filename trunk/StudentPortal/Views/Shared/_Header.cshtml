@@ -14,6 +14,8 @@
             <!-- END RESPONSIVE MENU TOGGLER -->
             <!-- BEGIN TOP NAVIGATION MENU -->
             <ul class="nav pull-right">
+                @if (ViewBag.IsUserLoggedIn)
+                {
                 <!-- BEGIN NOTIFICATION DROPDOWN -->
                 <li class="dropdown" id="header_notification_bar">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -74,15 +76,14 @@
                 </li>
                 <!-- END INBOX DROPDOWN -->
                 
-                @if (Request.IsAuthenticated)
-                {
+                
 
                     <!-- BEGIN USER LOGIN DROPDOWN -->
 
                     <li class="dropdown user">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img alt="" src="~/Images/trung.jpg" style="max-height:29px;max-width:29px;"/>
-                            <span class="username">@User.Identity.Name</span>
+                            <span class="username">@ViewBag.FullName</span>
                             <i class="icon-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu">
@@ -103,7 +104,7 @@
                     <!-- END USER LOGIN DROPDOWN -->
                 }else{
                     <li class="user">
-                        <a href="@Url.Action("Login","Account")">Đăng nhập</a>
+                        <a href="@Url.Action("Login", "Account", new { Area = "" })">Đăng nhập</a>
                     </li>
                 }
             </ul>
