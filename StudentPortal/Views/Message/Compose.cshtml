@@ -43,19 +43,23 @@
         </div>
     </div>
 </div>
+<script src="~/Scripts/jquery.formParse.js"></script>
 <script>
     $(document).ready(function () {
-        $('#sendMessage').submit(function () {
-            $.ajax({
-                url: $(this).attr('action'),
-                dataType: 'json',
-                type: 'post',
-                data: $(this).serialize(),
-                success: function (o) {
-                    alert(o.Message);
-                }
-            });
-            return false;
+        //$('#sendMessage').submit(function () {
+        //    $.ajax({
+        //        url: $(this).attr('action'),
+        //        dataType: 'json',
+        //        type: 'post',
+        //        data: $(this).serialize(),
+        //        success: function (o) {
+        //            alert(o.Message);
+        //        }
+        //    });
+        //    return false;
+        //});
+        $('#sendMessage').formParse({
+            ajax: true,
         });
     });
 </script>

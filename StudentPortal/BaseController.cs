@@ -235,30 +235,6 @@ namespace StudentPortal
                     }
 
                 }
-                var feeds = db.Inbox.Where(t => t.To == userProfile.UserId && t.Type == InboxModel.INBOX && t.Status == false && t.Warning == false);
-                ViewBag.FeedsCount = feeds.Count();
-                if (feeds.Count() > 0)
-                {
-                    ViewBag.Feeds = feeds.Select(t => new InboxViewModel
-                    {
-                        Postdate = t.Postdate,
-                        Title = t.Title,
-                        From = t.FromUser.UserName,
-                        Id = t.ID,
-                    }).Take(10).ToList();
-                }
-                var notifications = db.Inbox.Where(t => t.To == userProfile.UserId && t.Type == InboxModel.INBOX && t.Status == false && t.Warning == true);
-                ViewBag.NotificationsCount = notifications.Count();
-                if (notifications.Count() > 0)
-                {
-                    ViewBag.Notifications = notifications.Select(t => new InboxViewModel
-                    {
-                        Postdate = t.Postdate,
-                        Title = t.Title,
-                        From = t.FromUser.UserName,
-                        Id = t.ID,
-                    }).Take(10).ToList();
-                }
             }
             else
             {

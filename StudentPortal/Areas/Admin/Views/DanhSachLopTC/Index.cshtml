@@ -86,7 +86,7 @@
                         source.Ajax().Read(read =>
                         {
                             read.Action("getLopTC", "DanhSachLopTC").Data("getFilters");
-                        });
+                        }).PageSize(50);
                     })
                     .Groupable()
                     .Pageable()
@@ -134,7 +134,7 @@
                         source.Ajax().Read(read =>
                         {
                             read.Action("getSinhVienDK", "DanhSachLopTC").Data("getFilters");
-                        });
+                        }).PageSize(50);
                     })
     
                     .Groupable()

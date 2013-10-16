@@ -21,5 +21,7 @@ namespace StudentPortal.ViewModels
 
         [DisplayName("Nội dung")]
         public string Contents { get; set; }
+
+        public string Link { get; set; }
     }
 }

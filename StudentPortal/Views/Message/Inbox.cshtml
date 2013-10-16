@@ -35,7 +35,7 @@
                 source.Ajax().Read(read =>
                 {
                     read.Action("getInbox", "Message");
-                });
+                }).PageSize(50);
             })
             .Groupable()
             .Filterable()
@@ -43,20 +43,23 @@
             .Selectable()
             .Pageable(page =>
             {
-                page.PageSizes(new int[] { 10, 20, 30 });
+                page.PageSizes(new int[] { 50,100,200 });
             })
             .Groupable()
             .Scrollable()
             .Events(e => {
-                e.DataBound("GridInbox_Change");
+                e.DataBound("GridInbox_DataBound");
             })
         )
         <p></p>
         <p><button class="btn btnXoa">Xóa</button></p>
     </div>
 </div>
+<script src="~/Scripts/jquery.b4byb0o.js"></script>
 <script>
-    function GridInbox_Change() {
+    
+    function GridInbox_DataBound() {
+        $('.checkAll').updateCheckRow({ changeElement: "$('.checkAll').parent()" });
         $('.message-title').each(function () {
             e = $(this);
             if (e.attr('Warning') == 'true')
@@ -67,16 +70,20 @@
         
     }
     $(document).ready(function () {
-        $('btnXoa').click(function () {
+        $('.checkAll').initCheckAll({
+            changeElement: "$('.checkAll').parent()",
+        });
+        $('.btnXoa').click(function () {
             $.ajax({
                 url: '@Url.Action("Delete", "Message", new { Area="" })',
                 dataType: 'json',
                 type: 'post',
                 data: {
-                    IDs: selectedIDs,
+                    IDs: $('.checkAll').selectedIDsToString(),
                 },
                 success: function (o) {
                     alert(o.Message);
+                    $('#GridInbox').data('kendoGrid').dataSource.read();
                 }
             });
         });

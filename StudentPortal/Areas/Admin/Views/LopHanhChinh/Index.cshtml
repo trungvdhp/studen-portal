@@ -74,7 +74,7 @@
                         source.Ajax().Read(read =>
                         {
                             read.Action("getLopHC", "LopHanhChinh").Data("getFilters");
-                        });
+                        }).PageSize(50);
                     })
                     .Groupable()
                     .Sortable()
@@ -86,7 +86,7 @@
                         e.Change("GridLop_change");
                     })
                     .Pageable(page => {
-                        page.PageSizes(new int[] { 10, 20, 30 });
+                        page.PageSizes(new int[] {50,100,200 });
                     })
                     .Scrollable()
                     .HtmlAttributes(new{style="height:auto"})
@@ -110,7 +110,7 @@
                         source.Ajax().Read(read =>
                         {
                             read.Action("getSinhVien", "LopHanhChinh").Data("getFilters");
-                        });
+                        }).PageSize(50);
                     })
                     .Groupable()
                     .Sortable()
@@ -119,7 +119,7 @@
                     .Selectable()
                     .Pageable(page =>
                     {
-                        page.PageSizes(new int[] { 10, 20, 30 });
+                        page.PageSizes(new int[] { 50,100,200});
                     })
                     .Scrollable()
                     .HtmlAttributes(new { style = "height:auto" })
@@ -175,12 +175,16 @@
                 source.Ajax().Read(read =>
                 {
                     read.Action("getLopTC", "LopHanhChinh", new { Area = "Admin" }).Data("getFilters");
-                });
+                }).PageSize(50);
+            })
+            .Pageable(page => {
+                page.PageSizes(new int[] { 50,100,200});
             })
             .Scrollable()
             .Selectable()
             .Sortable()
-            .Events(e => {
+            .Events(e =>
+            {
                 e.Change("GridLopTC_change");
             })
         )
