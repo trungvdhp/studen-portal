@@ -11,7 +11,7 @@ namespace StudentPortal.Controllers
         //
         // GET: /Error/
 
-        public ActionResult Index(int Id)
+        public ActionResult Index(int? Id)
         {
             return View();
         }

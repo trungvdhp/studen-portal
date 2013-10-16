@@ -18,7 +18,14 @@ namespace StudentPortal.Controllers
 	{
 		[AllowAnonymous]
 		public ActionResult Login(string returnUrl)
-		{
+        {
+            if (!WebSecurity.IsAuthenticated)
+            {
+                var guestUserName = CauHinh.get("Guest_UserName").ToString();
+                var guestPassword = CauHinh.get("Guest_Password").ToString();
+                WebSecurity.Login(guestUserName, guestPassword);
+                return Redirect(returnUrl);
+            }
 			ViewBag.ReturnUrl = returnUrl;
 			return View();
 		}
