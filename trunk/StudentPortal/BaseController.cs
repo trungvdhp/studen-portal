@@ -175,12 +175,8 @@ namespace StudentPortal
             get {
                 if (_fullName == null || _fullName.Length == 0)
                 {
-                    if (sinhVien!=null && sinhVien.Count > 0)
-                        _fullName = sinhVien.Values.First().STU_HoSoSinhVien.Ho_ten;
-                    else if (giaoVien != null)
-                        _fullName = giaoVien.Ho_ten;
-                    else
-                        _fullName = userProfile.UserName;
+
+                    _fullName = Lib.User.getUserFullName(userProfile.UserName);
                 }
                 return _fullName;
             }

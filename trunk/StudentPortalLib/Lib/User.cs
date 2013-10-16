@@ -23,9 +23,15 @@ namespace StudentPortal.Lib
             {
                 DHHHContext db = new DHHHContext();
                 if (db.STU_HoSoSinhVien.Count(t => t.Ma_sv == UserName) > 0)
-                    _dicFullname[UserName]= db.STU_HoSoSinhVien.Single(t => t.Ma_sv == UserName).Ho_ten;
+                {
+                    var sv = db.STU_HoSoSinhVien.Single(t => t.Ma_sv == UserName);
+                    _dicFullname[UserName] = String.Format("{0} ({1})", sv.Ho_ten, sv.Ma_sv);
+                }
                 else if (db.PLAN_GiaoVien.Count(t => t.Ma_cb == UserName) > 0)
-                    _dicFullname[UserName] = db.PLAN_GiaoVien.Single(t => t.Ma_cb == UserName).Ho_ten;
+                {
+                    var gv = db.PLAN_GiaoVien.Single(t => t.Ma_cb == UserName);
+                    _dicFullname[UserName] = String.Format("{0} ({1})", gv.Ho_ten,gv.Ma_cb);
+                }
                 else _dicFullname[UserName] = UserName;
             }
             return _dicFullname[UserName];
