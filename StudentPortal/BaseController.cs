@@ -36,7 +36,7 @@ namespace StudentPortal
         {
             get
             {
-                if (_userProfile == null && WebSecurity.IsAuthenticated)
+                if (_userProfile == null)
                 {
                     _userProfile = StudentPortal.Lib.User.getUserProfile(WebSecurity.CurrentUserId);
                 }
@@ -157,6 +157,55 @@ namespace StudentPortal
                 return _iD_sv;
             }
         }
+        private string _fullName;
+        private PLAN_GiaoVien _giaoVien;
+        protected PLAN_GiaoVien giaoVien
+        {
+            get
+            {
+                if (_giaoVien == null)
+                {
+                    if(db.PLAN_GiaoVien.Count(t=>t.Ma_cb==userProfile.UserName)>0)
+                        _giaoVien=db.PLAN_GiaoVien.Single(t=>t.Ma_cb==userProfile.UserName);
+                }
+                return _giaoVien;
+            }
+        }
+        public string FullName { 
+            get {
+                if (_fullName == null || _fullName.Length == 0)
+                {
+                    if (sinhVien!=null && sinhVien.Count > 0)
+                        _fullName = sinhVien.Values.First().STU_HoSoSinhVien.Ho_ten;
+                    else if (giaoVien != null)
+                        _fullName = giaoVien.Ho_ten;
+                    else
+                        _fullName = userProfile.UserName;
+                }
+                return _fullName;
+            }
+        }
+        public bool IsUserLoggedIn
+        {
+            get
+            {
+                return userProfile.UserName != CauHinh.get("Guest_UserName").ToString();
+            }
+        }
+        public bool IsSinhVien
+        {
+            get
+            {
+                return sinhVien != null && sinhVien.Count > 0;
+            }
+        }
+        public bool IsGiaoVien
+        {
+            get
+            {
+                return !IsSinhVien && giaoVien != null;
+            }
+        }
         public BaseController()
         {
             itemsPerPage = Properties.Settings.Default.items_per_page;
@@ -188,17 +237,18 @@ namespace StudentPortal
                         if (!groupRoles.Contains(role))
                             Roles.RemoveUserFromRole(userProfile.UserName, role);
                     }
-                    
+
                 }
-                var feeds = db.Inbox.Where(t => t.To == userProfile.UserId && t.Type == InboxModel.INBOX && t.Status == false && t.Warning==false);
+                var feeds = db.Inbox.Where(t => t.To == userProfile.UserId && t.Type == InboxModel.INBOX && t.Status == false && t.Warning == false);
                 ViewBag.FeedsCount = feeds.Count();
                 if (feeds.Count() > 0)
                 {
-                    ViewBag.Feeds = feeds.Select(t=>new InboxViewModel{
+                    ViewBag.Feeds = feeds.Select(t => new InboxViewModel
+                    {
                         Postdate = t.Postdate,
                         Title = t.Title,
                         From = t.FromUser.UserName,
-                        Id= t.ID,
+                        Id = t.ID,
                     }).Take(10).ToList();
                 }
                 var notifications = db.Inbox.Where(t => t.To == userProfile.UserId && t.Type == InboxModel.INBOX && t.Status == false && t.Warning == true);
@@ -214,6 +264,20 @@ namespace StudentPortal
                     }).Take(10).ToList();
                 }
             }
+            else
+            {
+                var guestUserName = CauHinh.get("Guest_UserName").ToString();
+                var guestPassword = CauHinh.get("Guest_Password").ToString();
+                if (db.UserProfiles.Count(t => t.UserName == guestUserName) == 0)
+                {
+                    WebSecurity.CreateUserAndAccount(guestUserName, guestPassword, new { GroupId = 3 });
+                }
+                WebSecurity.Login(guestUserName, guestPassword);
+            }
+            ViewBag.FullName = this.FullName;
+            ViewBag.IsUserLoggedIn = this.IsUserLoggedIn;
+            ViewBag.IsSinhVien = this.IsSinhVien;
+            ViewBag.IsGiaoVien = this.IsGiaoVien;
         }
     }
 }

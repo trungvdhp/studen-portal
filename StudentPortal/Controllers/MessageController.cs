@@ -162,11 +162,11 @@ namespace StudentPortal.Controllers
         public ActionResult getInbox([DataSourceRequest] DataSourceRequest request)
         {
             //int i = 1;
-            var messages = db.Inbox.Where(t => t.To == userProfile.UserId && t.Type == InboxModel.INBOX).Select(t => new MessageViewModel
+            var messages = db.Inbox.Where(t => t.To == userProfile.UserId && t.Type == InboxModel.INBOX).ToList().Select(t => new MessageViewModel
             {
                 ID = t.ID,
                 Title = t.Title,
-                From = t.FromUser.UserName,
+                From = StudentPortal.Lib.User.getUserFullName(t.FromUser.UserName),
                 Postdate = t.Postdate,
                 Status = t.Status,
                 Warning = t.Warning,
@@ -181,7 +181,7 @@ namespace StudentPortal.Controllers
                 var message = db.Inbox.Single(t => t.ID == ID);
                 ViewBag.Message = new InboxViewModel() { 
                     Id= message.ID,
-                    From = message.FromUser.UserName,
+                    From = StudentPortal.Lib.User.getUserFullName(message.FromUser.UserName),
                     Title = message.Title,
                     Contents = message.Contents,
                     Postdate = message.Postdate,

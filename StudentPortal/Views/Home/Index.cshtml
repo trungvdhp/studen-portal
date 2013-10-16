@@ -4,6 +4,7 @@
 }
 <div id="dashboard">
     <div class="row-fluid">
+        @if(ViewBag.IsSinhVien){
         <div class="span8">
              @(Html.Kendo().Chart<StudentPortal.ViewModels.TBMHKViewModel>()
                 .Name("chart")
@@ -11,7 +12,7 @@
                 .Legend(legend => legend
                     .Position(ChartLegendPosition.Top)
                 )
-                .DataSource(ds => ds.Read(read => read.Action("getDiemHocKy", "Dashboard")))
+                .DataSource(ds => ds.Read(read => read.Action("getDiemHocKy", "Home")))
                 .Series(series => {
                     series.Area(model => model.Diem).Name("Điểm hệ 4");
                 })
@@ -30,7 +31,9 @@
                 )
             ) 
         </div>
-        <div class="span4">
+        }
+        <div />
+            <div class="@(ViewBag.IsSinhVien?"span4":"span12")">
             <div class="portlet box red">
 				<div class="portlet-title">
 					<h4><i class="icon-reorder"></i>Tin mới</h4>

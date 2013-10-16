@@ -109,7 +109,7 @@ namespace StudentPortal.Lib
 
             // Kiem tra gioi han sinh vien lop TC
 
-            if (lopTC.Da_dang_ky + 1 > lopTC.So_sv_max)
+            if (lopTC.Cho_trong <1)
             {
                 throw new Exception(String.Format("Bạn không thể đăng ký vì lớp đã quá giới hạn số sinh viên đăng ký!", (int)CauHinh.get("So_TC_max")));
             }

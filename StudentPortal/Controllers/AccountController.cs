@@ -69,7 +69,9 @@ namespace StudentPortal.Controllers
 		public ActionResult LogOff()
 		{
 			WebSecurity.Logout();
-
+            var guestUserName = CauHinh.get("Guest_UserName").ToString();
+            var guestPassword = CauHinh.get("Guest_Password").ToString();
+            WebSecurity.Login(guestUserName, guestPassword);
 			return RedirectToAction("Index", "Home");
 		}
 
