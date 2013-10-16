@@ -12,6 +12,7 @@ using System.Web.Script.Serialization;
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
+    //[Authorize(Roles="Admin.News")]
     public class NewsController : BaseController
     {
 
@@ -25,7 +26,9 @@ namespace StudentPortal.Areas.Admin.Controllers
         {
             return View();
         }
+        
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(string Title, string Contents, string Description)
         {
             db.News.Add(new NewsModel
@@ -82,6 +85,7 @@ namespace StudentPortal.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Update(int Id, string Title, string Description, string Contents)
         {
             var result = new JsonResult();

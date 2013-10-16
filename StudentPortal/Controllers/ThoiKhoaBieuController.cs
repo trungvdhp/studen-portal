@@ -11,7 +11,7 @@ using StudentPortal.Filters;
 
 namespace StudentPortal.Controllers
 {
-    [Authorize]
+    [Authorize(Roles="SinhVien")]
     public class ThoiKhoaBieuController : BaseController
     {
         public ThoiKhoaBieuController()

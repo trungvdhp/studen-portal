@@ -16,9 +16,9 @@ namespace StudentPortal.Controllers
             ViewBag.News = new NewsViewModel {
                 Title = news.Title,
                 Contents = news.Contents,
-                Description = news.Contents,
+                Description = news.Description,
                 PostDate = news.PostDate,
-                User = news.User.UserName,
+                User = Lib.User.getUserFullName(news.User.UserName),
                 
             };
             return View();

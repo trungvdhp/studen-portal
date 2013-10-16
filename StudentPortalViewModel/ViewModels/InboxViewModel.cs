@@ -23,5 +23,9 @@ namespace StudentPortal.ViewModels
         public string Contents { get; set; }
 
         public string Link { get; set; }
+
+        public string FromUser { get; set; }
+
+        public byte Type { get; set; }
     }
 }

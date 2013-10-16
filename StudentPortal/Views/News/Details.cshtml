@@ -12,13 +12,24 @@
                     <i class="icon-file"></i>
                     @News.Title;
                 </h4>
+                <div class="pull-right"><i>@News.PostDate.ToString("hh:mm dd/MM/yyyy")</i></div>
             </div>
             <div class="portlet-body">
-                <div class="well">
-                    <i>Ngày gửi: @News.PostDate.ToString("hh:mm dd/MM/yyyy")</i>
+                <div style="overflow:hidden">
+                    @if(News.Description!=null && News.Description.Length>0){
+                    <div class="well">
+                        <p>@(new HtmlString(News.Description))</p>
+                    </div>
+                    }
                 </div>
-                <p>@(new HtmlString(News.Contents))</p>
+                <div class="">@(new HtmlString(News.Contents))</div>
+                <address>
+                <div class="span4 well pull-right">
+                    <strong><i>@News.User</i></strong>
+                </div>
+                </address>
             </div>
+
         </div>
         
     </div>

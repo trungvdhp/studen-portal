@@ -10,6 +10,8 @@ using StudentPortal.Lib;
 
 namespace StudentPortal.Controllers
 {
+
+    //[Authorize(Roles="Message")]
     public class MessageController : BaseController
     {
 
@@ -27,8 +29,9 @@ namespace StudentPortal.Controllers
             return View();
         }
         
-        public ActionResult Compose()
+        public ActionResult Compose(string ToUser)
         {
+            ViewBag.ToUser = ToUser;
             return View();
         }
 
@@ -186,6 +189,8 @@ namespace StudentPortal.Controllers
                     Title = message.Title,
                     Contents = message.Contents,
                     Postdate = message.Postdate,
+                    FromUser = message.FromUser.UserName,
+                    Type = message.Type
                 };
                 message.Status = true;
                 db.SaveChanges();

@@ -16,9 +16,6 @@ namespace StudentPortal.Controllers
 {
 	public class AccountController : BaseController
 	{
-
-		DHHHContext db = new DHHHContext();
-		
 		[AllowAnonymous]
 		public ActionResult Login(string returnUrl)
 		{
@@ -57,7 +54,7 @@ namespace StudentPortal.Controllers
 			//WebSecurity.Login(model.UserName, model.Password);
 
 			// If we got this far, something failed, redisplay form
-			ModelState.AddModelError("", "The user name or password provided is incorrect.");
+			ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
 			return View(model);
 		}
 
