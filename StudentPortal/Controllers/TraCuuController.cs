@@ -43,7 +43,7 @@ namespace StudentPortal.Controllers
 
 		#region Diem
 
-        //[Authorize(Roles = "TraCuu.Diem")]
+        [Authorize(Roles = "TraCuu.Diem")]
 		public ActionResult Diem()
 		{
 			return View();
@@ -108,7 +108,7 @@ namespace StudentPortal.Controllers
 
 		#region Thu chi
 
-        //[Authorize(Roles = "TraCuu.ThuChi")]
+        [Authorize(Roles = "TraCuu.ThuChi")]
 		public ActionResult ThuChi()
 		{
 			return View();

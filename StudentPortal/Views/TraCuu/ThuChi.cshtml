@@ -175,14 +175,23 @@
         </div>
     </div>
 </div>
+@if(ViewBag.IsSinhVien){
+        <div id="SinhVien" Ma_sv ="@User.Identity.Name"></div>
+    }
 <style>
     .chua_dong {
-        background-color:red;
+        background-color:#F2DEDE;
         border: 1px solid;
-        color: #fff;
+        /*color: #fff;*/
     }
 </style>
 <script type="text/javascript">
+    $(document).ready(function () {
+        $('#SinhVien').each(function () {
+            $('#TuKhoa').val($(this).attr('Ma_sv'));
+
+        });
+    });
     function TuKhoa_Change() {
         $('#ID_dt').data('kendoDropDownList').dataSource.read();
     }

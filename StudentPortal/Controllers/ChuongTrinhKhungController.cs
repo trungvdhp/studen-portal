@@ -9,10 +9,11 @@ using Kendo.Mvc.UI;
 
 namespace StudentPortal.Controllers
 {
+    [Authorize(Roles="ChuongTrinhKhung")]
     public class ChuongTrinhKhungController : BaseController
     {
 
-
+        
         public ActionResult Index()
         {
             return View();

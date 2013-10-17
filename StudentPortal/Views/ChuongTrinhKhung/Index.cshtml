@@ -92,6 +92,7 @@
                         column.Bound(t => t.Ly_thuyet).Width(70);
                         column.Bound(t => t.Thuc_hanh).Width(70);
                         column.Template(@<text></text>).ClientTemplate("#=getHtmlNewLinesString(Rang_buoc)#").HeaderTemplate("Ràng buộc");
+                        column.Template(@<text></text>).ClientTemplate("<div class='changeRowColor' Rang_buoc='#=Rang_buoc#'").Hidden();
                     })
                     .DataSource(source =>
                     {
@@ -101,19 +102,33 @@
                         }).PageSize(50);
                     })
                     .Sortable()
-                    
+
                     .Pageable(page =>
                     {
-                        page.PageSizes(new int[] { 50,100,200 });
+                        page.PageSizes(new int[] { 50, 100, 200 });
                     })
-                    //.Scrollable()
+                    .Events(e => { e.DataBound("GridMon_DataBound"); })
                 )
             @*</div>*@
         </div>
 
     </div>
 </div>
+<style>
+    .Rang_buoc {
+        background-color:#F2DEDE;
+        border: 1px solid;
+        /*color: #fff;*/
+    }
+</style>
 <script>
+    function GridMon_DataBound() {
+        $('.changeRowColor').each(function () {
+            if ($(this).attr('Rang_buoc').length > 0) {
+                $(this).parent().parent().addClass('Rang_buoc');
+            }
+        });
+    }
     function getHtmlNewLinesString(text) {
         var regexp = new RegExp('\n', 'g');
         return text.replace(regexp, '<br>');

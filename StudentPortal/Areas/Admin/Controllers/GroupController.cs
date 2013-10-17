@@ -12,10 +12,9 @@ using StudentPortal.Models;
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
+    [Authorize(Roles="Group")]
     public class GroupController : BaseController
     {
-        private DHHHContext db = new DHHHContext();
-
         //
         // GET: /Admin/Group/
 

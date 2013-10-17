@@ -12,6 +12,7 @@ using StudentPortal.Models;
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
+    [Authorize(Roles="Roles")]
     public class RolesController : BaseController
     {
         private DHHHContext db = new DHHHContext();

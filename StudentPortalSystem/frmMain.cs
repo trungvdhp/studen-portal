@@ -25,6 +25,7 @@ namespace StudentPortalSystem
         int timer2count = 0;
         STU_DanhSach svHienTai;
         bool running = false;
+        bool pause = false;
         public frmMain()
         {
             InitializeComponent();
@@ -33,11 +34,13 @@ namespace StudentPortalSystem
         private void frmMain_Load(object sender, EventArgs e)
         {
             dicDiemDK.Add(1, 0.8f);
-            dicDiemDK.Add(2, 0.8f);
-            dicDiemDK.Add(3, 0.8f);
-            dicDiemDK.Add(4, 0.8f);
-            dicDiemDK.Add(5, 0.8f);
-            dicDiemDK.Add(6, 0.8f);
+            dicDiemDK.Add(2, 1.0f);
+            dicDiemDK.Add(3, 1.0f);
+            dicDiemDK.Add(4, 1.2f);
+            dicDiemDK.Add(5, 1.4f);
+            dicDiemDK.Add(6, 1.4f);
+            comboBox1.SelectedIndex = 0;
+            timer2count = 0;
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -49,16 +52,26 @@ namespace StudentPortalSystem
         {
             if (started)
             {
-                reloadBtnBatDau();
+                btnBatDau.Text = "Tiếp tục";
+                pause = true;
+                btnBatDau.Enabled = false;
+                backgroundWorker1.CancelAsync();
             }
             else
             {
+                if (pause)
+                {
+                    pause = false;
+                    //backgroundWorker1.RunWorkerAsync();
+                    //return;
+                }
                 started = true;
-                btnBatDau.Text = "Dừng";
+                btnBatDau.Text = "Tạm dừng";
                 numericUpDown1.ReadOnly = true;
                 comboBox1.Enabled = false;
                 dateTimePicker1.Enabled = false;
                 timer1.Start();
+                timer2.Start();
                 lastRun = dateTimePicker1.Value;
                 switch (Convert.ToInt32(comboBox1.SelectedValue))
                 {
@@ -75,7 +88,7 @@ namespace StudentPortalSystem
                         lastRun = lastRun.AddMonths(-(int)numericUpDown1.Value - 1);
                         break;
                 }
-                timer2count = 0;
+                label1.Text = "Đang tải dữ liệu...";
             }
         }
 
@@ -125,9 +138,9 @@ namespace StudentPortalSystem
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            int i = 0;
-            foreach (var sinhvien in SinhViens)
+            for (int i = progressBar1.Value; i < SinhViens.Count && !pause;i++ )
             {
+                var sinhvien = SinhViens[i];
                 svHienTai = sinhvien;
                 var bangdiem = SinhVien.GetBangDiem(sinhvien.ID_sv, sinhvien.STU_Lop.ID_dt);
                 var TBMHTHocKyCuoi = bangdiem.Where(t => t.Ma_mon == null).OrderByDescending(t => t.Nam_hoc).ThenByDescending(t => t.Hoc_ky).First().Z;
@@ -169,13 +182,13 @@ namespace StudentPortalSystem
                     });
                 }
                 db.SaveChanges();
-                backgroundWorker1.ReportProgress(i++);
+                backgroundWorker1.ReportProgress(i);
             }
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (timer2count == 0) timer2.Start();
+            
             progressBar1.Value = e.ProgressPercentage;
             label6.Text = String.Format("{0}/{1}", e.ProgressPercentage, progressBar1.Maximum);
             try
@@ -200,10 +213,21 @@ namespace StudentPortalSystem
         {
             running = false;
             timer2.Stop();
-            toolStripStatusLabel1.Text = String.Format("Tổng thời gian: {0}", TimeSpan.FromSeconds(timer2count).ToString("c"));
-            timer2count = 0;
-            //reloadBtnBatDau();
+            if(started) 
+                toolStripStatusLabel1.Text = String.Format("Tổng thời gian: {0}", TimeSpan.FromSeconds(timer2count).ToString("c"));
+            if (!pause)
+            {
+                timer2count = 0;
+                reloadBtnBatDau();
+            }
+            btnBatDau.Enabled = true;
+            started = false;
             lastRun = DateTime.Now;
+        }
+
+        private void comboBox1_DataSourceChanged(object sender, EventArgs e)
+        {
+            
         }
 
     }

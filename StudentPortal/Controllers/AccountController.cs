@@ -48,7 +48,7 @@ namespace StudentPortal.Controllers
 				{
 					if (GiaoVien.Exist(model.UserName) || SinhVien.Exits(model.UserName))
 					{
-						WebSecurity.CreateUserAndAccount(model.UserName, model.UserName, new { GroupId = 3});
+						WebSecurity.CreateUserAndAccount(model.UserName, model.UserName, new { GroupId = CauHinh.get("User_Groups")});
 						WebSecurity.Login(model.UserName, model.Password);
 						return RedirectToAction("Index", "Home");
 					}
@@ -150,9 +150,9 @@ namespace StudentPortal.Controllers
 		public ActionResult Manage(ManageMessageId? message)
 		{
 			ViewBag.StatusMessage =
-				message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-				: message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-				: message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
+				message == ManageMessageId.ChangePasswordSuccess ? "Mật khẩu của bạn đã được đổi."
+				: message == ManageMessageId.SetPasswordSuccess ? "Mật khẩu của bạn đã được đặt."
+				: message == ManageMessageId.RemoveLoginSuccess ? "Tài khoản liên kết đã được gỡ bỏ."
 				: "";
 			ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
 			ViewBag.ReturnUrl = Url.Action("Manage");
@@ -177,7 +177,9 @@ namespace StudentPortal.Controllers
 					bool changePasswordSucceeded;
 					try
 					{
+                        
 						changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
+
 					}
 					catch (Exception)
 					{
@@ -186,11 +188,29 @@ namespace StudentPortal.Controllers
 
 					if (changePasswordSucceeded)
 					{
+
+                        //try
+                        //{
+                        //    if (this.IsSinhVien)
+                        //    {
+                        //        var svs = db.STU_DanhSach.Where(t => t.STU_HoSoSinhVien.Ma_sv == userProfile.UserName);
+                        //        foreach (var sv in svs)
+                        //            sv.Mat_khau = model.NewPassword;
+                        //    }
+                        //    else if (this.IsGiaoVien)
+                        //    {
+                        //        var gv = db.PLAN_GiaoVien.Single(t => t.Ma_cb == userProfile.UserName);
+                        //    }
+                        //}
+                        //catch (Exception)
+                        //{
+                        //}
+
 						return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
 					}
 					else
 					{
-						ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+						ModelState.AddModelError("", "Mật khẩu hiện tại sai hoặc mật khẩu mới không hợp lệ.");
 					}
 				}
 			}

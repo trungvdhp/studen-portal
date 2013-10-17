@@ -117,6 +117,7 @@
                         columns.Bound(diem => diem.Diem_chu).Width(50);
                         columns.Bound(diem => diem.Nam_hoc).Width(100).Hidden();
                         columns.Bound(diem => diem.Hoc_ky).Width(50).Hidden();
+                        columns.Template(@<text></text>).ClientTemplate("<div class='changeRowColor' Diem_chu='#=Diem_chu#'").Hidden();
                     })
                     .Groupable()
                     .Pageable()
@@ -129,14 +130,37 @@
                                 .Group(group => group.Add(diem => diem.Hoc_ky))
                             .Read(read => read.Action("DiemHocTap", "TraCuu").Data("getTuKhoa"))
                     )
-                    .HtmlAttributes(new {style="min-height:400px"})
+                    .HtmlAttributes(new { style = "min-height:400px" })
+                            .Events(e => { e.DataBound("GridBangDiem_DataBound"); })
                 )
             </div>
         </div>
     </div>
 </div>
-
+@if(ViewBag.IsSinhVien){
+        <div id="SinhVien" Ma_sv ="@User.Identity.Name"></div>
+    }
+<style>
+    .Diem_F {
+        background-color:#F2DEDE;
+        border: 1px solid;
+        /*color: #fff;*/
+    }
+</style>
 <script type="text/javascript">
+    $(document).ready(function () {
+        $('#SinhVien').each(function () {
+            $('#TuKhoa').val($(this).attr('Ma_sv'));
+
+        });
+    });
+    function GridBangDiem_DataBound() {
+        $('.changeRowColor').each(function () {
+            if ($(this).attr('Diem_chu') == 'F') {
+                $(this).parent().parent().addClass('Diem_F');
+            }
+        });
+    }
     function reloadChuyenNganh(e) {
         $('#ID_dt').data('kendoDropDownList').dataSource.read();
     }

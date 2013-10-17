@@ -43,7 +43,7 @@
     {
         columns.Bound(c => c.RoleId)
             .ClientTemplate("&nbsp;<input type='checkbox' class='checkRow' value='#= RoleId #'/>")
-            .HeaderTemplate("<input type='checkbox' class='checkAll' />")
+            .HeaderTemplate("<input type='checkbox' class='checkAll'/>")
             .Width(40)
             .Title("")
             .HeaderHtmlAttributes(new { style = "text-align:center" })
@@ -76,45 +76,21 @@
         </div>
     </div>
 </div>
+<script src="~/Scripts/jquery.b4byb0o.js""></script>
 <script>
 
-    var selectedVals = @Html.Raw(Json.Encode(ViewBag.selectedVals))
-    selectedIDs = {};
-    for (var i in selectedVals)
-        selectedIDs[i] = true;
-
-
     function onDataBound(e) {
-        $('.checkRow').each(function (e) {
-            if (selectedIDs[$(this).val()]) {
-                $(this).attr('checked', true);
-            }
+        $('.checkAll').updateCheckRow({
+            changeElement: "$('.checkAll').parent()"
         });
-        checkAll(true);
-    }
-    function checkAll(checked) {
-
-        var checkAll = false;
-        if (checked) {
-            var checkAll = true;
-            $('.checkRow').each(function (e) {
-                if (!selectedIDs[$(this).val()]) checkAll = false;
-            });
-
-        }
-        $('.checkAll').attr('checked', checkAll);
-        if (checkAll) $('.checkAll').parent().addClass('checked');
-        else $('.checkAll').parent().removeClass('checked');
     }
 
     $(document).ready(function () {
+        $('.checkAll').initCheckAll({ changeElement: "$('.checkAll').parent()",selected: @Html.Raw(Json.Encode(ViewBag.selectedVals)) });
+        
         $('#groupForm').submit(function () {
-            selectedVals = [];
-            var j = 0;
-            for (var i in selectedIDs)
-                if (selectedIDs[i]) selectedVals[j++] = i;
 
-            $(this).find('[name="RoleIds"]').val(selectedVals);
+            $(this).find('[name="RoleIds"]').val( $('.checkAll').selectedIDsToString());
             $.ajax({
                 url: '@Url.Action("Edit")',
                 type: 'post',
@@ -128,18 +104,7 @@
             });
             return false;
         });
-        $('.checkAll').change(function () {
-            var checked = $(this).attr('checked') == 'checked';
-            $('.checkRow').attr('checked', checked);
-            $('.checkRow').each(function () {
-                selectedIDs[$(this).val()] = checked;
-            });
-        });
-        $('.checkRow').live('click', function () {
-            var checked = $(this).attr('checked') == 'checked';
-            selectedIDs[$(this).val()] = checked;
-            checkAll(checked);
-        });
+        
     });
 
     function gridRefresh() {
