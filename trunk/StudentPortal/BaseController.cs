@@ -80,6 +80,13 @@ namespace StudentPortal
                 return _quydinhDK;
             }
         }
+        protected bool KhongMoDK
+        {
+            get
+            {
+                return HocKyDangKy == null;
+            }
+        }
         protected bool HetHanDK
         {
             get
@@ -203,6 +210,7 @@ namespace StudentPortal
                 return !IsSinhVien && giaoVien != null;
             }
         }
+
         public BaseController()
         {
             itemsPerPage = Properties.Settings.Default.items_per_page;
@@ -223,17 +231,21 @@ namespace StudentPortal
                     var groupRoles = db.webpages_Groups_Roles.Where(t => t.GroupId == userProfile.GroupId).Select(t => t.webpages_Roles.RoleName).ToList();
                     var userRoles = Roles.GetRolesForUser(userProfile.UserName);
                     var addRoles = new List<string>();
-                    foreach (var role in groupRoles)
+                    try
                     {
-                        if (!userRoles.Contains(role))
-                            Roles.AddUserToRole(userProfile.UserName, role);
+                        foreach (var role in groupRoles)
+                        {
+                            if (!userRoles.Contains(role))
+                                Roles.AddUserToRole(userProfile.UserName, role);
+                        }
+                        var removeRoles = new List<string>();
+                        foreach (var role in userRoles)
+                        {
+                            if (!groupRoles.Contains(role))
+                                Roles.RemoveUserFromRole(userProfile.UserName, role);
+                        }
                     }
-                    var removeRoles = new List<string>();
-                    foreach (var role in userRoles)
-                    {
-                        if (!groupRoles.Contains(role))
-                            Roles.RemoveUserFromRole(userProfile.UserName, role);
-                    }
+                    catch (Exception) { }
 
                 }
                 ViewBag.FullName = this.FullName;

@@ -11,7 +11,7 @@ using StudentPortal.Lib;
 namespace StudentPortal.Controllers
 {
 
-    //[Authorize(Roles="Message")]
+    [Authorize(Roles="Message")]
     public class MessageController : BaseController
     {
 
@@ -205,7 +205,7 @@ namespace StudentPortal.Controllers
             {
                 ID = t.ID,
                 Title = t.Title,
-                To = t.ToUser.UserName,
+                To = StudentPortal.Lib.User.getUserFullName(t.ToUser.UserName),
                 Postdate = t.Postdate,
             }).ToList();
             return Json(messages.ToDataSourceResult(request));

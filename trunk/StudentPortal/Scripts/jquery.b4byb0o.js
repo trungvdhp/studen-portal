@@ -72,10 +72,10 @@ Description: Some utilities for forms
                 toggleClass: 'checked'
             };
             options = $.extend({}, defaults, options);
-
             return $(this).each(function () {
                 var _this = $(this);
                 var selectedIDs = _this.data('value');
+                //alert(_this.attr('class'));
                 $(options.checkRow).each(function (e) {
                     if (selectedIDs[$(this).val()]) {
                         $(this).attr('checked', true);
@@ -87,15 +87,21 @@ Description: Some utilities for forms
         },
         initCheckAll: function (options) {
             var defaults = {
+                selected: [],
                 checkRow: '.checkRow',
                 changeElement: null,
                 toggleClass: 'checked'
             };
             options = $.extend({}, defaults, options);
             return $(this).each(function () {
-                $(this).data('value',{});
-
+                
+                var obj = {};
+                for (var i in options.selected) {
+                    obj[options.selected[i]] = true;
+                }
                 var _this = $(this);
+                $(this).data('value', obj);
+                $(this).updateCheckRow();
 
                 $(this).change(function () {
                     var checked = $(this).attr('checked') == 'checked';

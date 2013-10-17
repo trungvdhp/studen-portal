@@ -5,10 +5,10 @@
 				<i class="icon-angle-left"></i>
 			</div>
 			<form class="sidebar-search">
-				<div class="input-box">
+				@*<div class="input-box">
 					<input type="text" class="" placeholder="Tìm kiếm" />
 					<input type="button" class="submit" value=" " />
-				</div>
+				</div>*@
 			</form>
 			<div class="clearfix"></div>
 			<!-- END RESPONSIVE QUICK SEARCH FORM -->
@@ -34,6 +34,7 @@
 					</ul>
 				</li>
                 }
+                @if(User.IsInRole("Message")){
                 <li class="has-sub">
 					<a href="@Url.Action("Inbox", "Message", new { Area = ""})" class="">
 					<i class="icon-envelope"></i> Tin nhắn
@@ -45,6 +46,8 @@
 						<li><a class="" href="@Url.Action("Outbox","Message", new { Area = ""})">Tin đã gửi</a></li>
 					</ul>
 				</li>
+                }
+
                 <li class="has-sub">
 					<a href="javascript:;" class="">
 					<i class="icon-search"></i> Tra cứu
@@ -55,6 +58,7 @@
 						<li><a class="" href="@Url.Action("ThuChi","TraCuu", new { Area = ""})">Thông tin tài chính</a></li>
 					</ul>
 				</li>
+                @if(User.IsInRole("News")){
                 <li class="has-sub">
 					<a href="javascript:;" class="">
 					<i class="icon-bullhorn"></i> Trang tin
@@ -65,16 +69,17 @@
 						<li><a class="" href="@Url.Action("Index","News", new { Area = "Admin"})">Tin đã đăng</a></li>
 					</ul>
 				</li>
+                }
 				<li class="has-sub">
 					<a href="javascript:;" class="">
 					<i class="icon-table"></i> Quản lý đăng ký học
 					<span class="arrow"></span>
 					</a>
 					<ul class="sub">
-						<li><a class="" href="@Url.Action("Index","MonTinChi", new { Area = "Admin" })">Môn tín chỉ</a></li>
-						<li><a class="" href="@Url.Action("Index","LopTinChi", new { Area = "Admin" })">Lớp tín chỉ</a></li>
-						<li><a class="" href="@Url.Action("Index","DanhSachLopTC", new { Area = "Admin" })">Danh sách đăng ký</a></li>
-                        <li><a class="" href="@Url.Action("Index","LopHanhChinh", new { Area = "Admin" })">Lớp hành chính</a></li>
+						@if(User.IsInRole("MonTinChi")){<li><a class="" href="@Url.Action("Index","MonTinChi", new { Area = "Admin" })">Môn tín chỉ</a></li>}
+						@*<li><a class="" href="@Url.Action("Index","LopTinChi", new { Area = "Admin" })">Lớp tín chỉ</a></li>*@
+						@if(User.IsInRole("DanhSachLopTC")){<li><a class="" href="@Url.Action("Index","DanhSachLopTC", new { Area = "Admin" })">Danh sách đăng ký</a></li>}
+                        @if(User.IsInRole("LopHanhChinh")){<li><a class="" href="@Url.Action("Index","LopHanhChinh", new { Area = "Admin" })">Lớp hành chính</a></li>}
 					</ul>
 				</li>
 				<li class="has-sub">
@@ -83,9 +88,9 @@
 					<span class="arrow"></span>
 					</a>
 					<ul class="sub">
-						<li><a class="" href="@Url.Action("Index","Roles", new { Area = "Admin" })">Quyền</a></li>
-						<li><a class="" href="@Url.Action("Index","Group", new { Area = "Admin" })">Nhóm</a></li>
-						<li><a class="" href="@Url.Action("Index","User", new { Area = "Admin" })">Người dùng</a></li>
+						@if(User.IsInRole("Role")){<li><a class="" href="@Url.Action("Index","Roles", new { Area = "Admin" })">Quyền</a></li>}
+						@if(User.IsInRole("Group")){<li><a class="" href="@Url.Action("Index","Group", new { Area = "Admin" })">Nhóm</a></li>}
+						@if(User.IsInRole("User")){<li><a class="" href="@Url.Action("Index","User", new { Area = "Admin" })">Người dùng</a></li>}
 					</ul>   
 				</li>
 			</ul>

@@ -26,7 +26,7 @@ namespace StudentPortal.Controllers
             return View();
         }
 
-        //[Authorize(Roles="SinhVien")]
+        [Authorize(Roles="SinhVien")]
         public ActionResult getDiemHocKy()
         {
             var bangdiem = this.getDiemHocTap(sinhVien.Values.First().STU_Lop.ID_dt);

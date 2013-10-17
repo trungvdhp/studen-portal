@@ -81,6 +81,7 @@
             // backgroundWorker1
             // 
             this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.WorkerSupportsCancellation = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
@@ -144,6 +145,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(69, 21);
             this.comboBox1.TabIndex = 6;
+            this.comboBox1.DataSourceChanged += new System.EventHandler(this.comboBox1_DataSourceChanged);
             // 
             // dateTimePicker1
             // 
