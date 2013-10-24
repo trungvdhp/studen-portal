@@ -16,7 +16,7 @@
             <ul class="nav pull-right">
                 @if (ViewBag.IsUserLoggedIn)
                 {
-                    <script>
+                    <script type="text/javascript">
                         $(document).ready(function () {
                             $('#header_inbox_bar').data('FeedsCount', 0);
                             $('#header_notification_bar').data('NotificationsCount', 0);
@@ -78,7 +78,7 @@
                                                                 '</li>';
                                             $('#header_notification_bar>ul').html(notificationsHtml);
                                         }
-                                        setTimeout(GetNewFeed, 1000);
+                                        //setTimeout(GetNewFeed, 1000);
                                     }
                                 });
                             }
@@ -89,25 +89,12 @@
                 <li class="dropdown" id="header_notification_bar">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-warning-sign"></i>
-                        @*@if(@ViewBag.NotificationsCount>0){<span class="badge">@ViewBag.NotificationsCount</span>}*@
                     </a>
                     
                     <ul class="dropdown-menu extended notification">
                         <li>
                             <p>Bạn có 0 thông báo mới</p>
                         </li>
-                        @*@if(@ViewBag.NotificationsCount>0){
-                            foreach(var notification in ViewBag.Notifications){
-                        <li>
-                            <a href="@Url.Action("Detail","Message",new {Id= notification.Id, Area=""})">
-                                <span class="label label-success"><i class="icon-plus"></i></span>
-                                @notification.Title; 
-							
-								<span class="time">@notification.Postdate</span>
-                            </a>
-                        </li>
-                            }
-                        }*@
                         <li class="external">
                             <a href="@Url.Action("Inbox", "Message", new { Area = ""})">Xem tất cả thông báo <i class="m-icon-swapright"></i></a>
                         </li>
@@ -118,26 +105,11 @@
                 <li class="dropdown" id="header_inbox_bar">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-envelope-alt"></i>
-                        @*@if(@ViewBag.FeedsCount>0){<span class="badge">@ViewBag.FeedsCount</span>}*@
                     </a>
                     <ul class="dropdown-menu extended inbox">
                         <li>
                             <p>Bạn có 0 tin nhắn mới</p>
                         </li>
-                        @*@if(ViewBag.FeedsCount>0){
-                            foreach(var feed in ViewBag.Feeds){
-                            <li>
-                                <a href="@Url.Action("Detail","Message",new {Id= feed.Id, Area=""})">
-                                    <span class="subject">
-                                        <span class="from">@feed.From</span>
-                                        <span class="time">@feed.Postdate.ToString("dd/MM/yyyy")</span>
-                                    </span>
-                                    <span class="message">@feed.Title
-                                    </span>
-                                </a>
-                            </li>
-                            }
-                        }*@
                         <li class="external">
                             <a href="@Url.Action("Inbox", "Message", new { Area = ""})">Xem tất cả tin nhắn mới <i class="m-icon-swapright"></i></a>
                         </li>

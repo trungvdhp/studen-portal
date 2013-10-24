@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "Cấu hình";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <h4>
+                    <i class="icon-config"></i>
+                    Cấu hình
+                </h4>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable tabbable-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#tabHocKy">Học kỳ</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#tabHeThong">Hệ thống</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tabHocKy">
+                            <p>
+                                @(Html.Kendo().DropDownList()
+                                    .Name("DropDownHocKy")
+                                    .OptionLabel("Chọn học kỳ")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .DataSource(source =>
+                                    {
+                                        source.Read("getHocKy", "CauHinh", new { Area = "Admin" })
+                                            //.ServerFiltering(true)
+                                            ;
+                                    })
+                                    .Events(e =>
+                                    {
+                                        e.Change("DropDownHocKy_Change");
+                                    })
+                                    .AutoBind(true)
+                                    .HtmlAttributes(new { style="width:200px"})
+                                )
+                            </p>
+                            @(Html.Kendo().Grid<StudentPortal.ViewModels.CauHinhViewModel>()
+                                .Name("GridCauHinh")
+                                .Columns(column =>
+                                {
+                                    column.Bound(t => t.Mo_ta);
+                                    column.Bound(t => t.Gia_tri);
+                                    column.Command(command=>{
+                                        command.Edit();
+                                        //command.Destroy();
+                                    }).Width(200);
+                                })
+                                .DataSource(source => {
+                                    source
+                                        .Ajax()
+                                        .Read(read =>
+                                        {
+                                            read.Action("Read", "CauHinh", new { Area = "Admin" }).Data("getFilters");
+                                        })
+                                        .Model(model =>
+                                        {
+                                            model.Id(t => t.Id);
+                                            model.Field(t => t.Mo_ta).Editable(false);
+                                        })
+                                        .Update(update => update.Action("Update", "CauHinh", new { Area = "Admin" }))
+                                        //.Destroy(delete => delete.Action("Destroy", "CauHinh", new { Area = "Admin" }))
+                                        .Sort(sort => { 
+                                            sort.Add(t => t.Ten); 
+                                        })
+                                    ;
+                                })
+                            )
+                        </div>
+                        <div class="tab-pane" id="tabHeThong">
+                            @(Html.Kendo().Grid<StudentPortal.ViewModels.CauHinhViewModel>()
+                                .Name("GridCauHinhHeThong")
+                                .Columns(column =>
+                                {
+                                    column.Bound(t => t.Mo_ta);
+                                    column.Bound(t => t.Gia_tri);
+                                    column.Command(command=>{
+                                        command.Edit();
+                                        command.Destroy();
+                                    }).Width(200);
+                                })
+                                .DataSource(source => {
+                                    source
+                                        .Ajax()
+                                        .Read(read =>
+                                        {
+                                            read.Action("Read", "CauHinh", new { Area = "Admin",Ky_dang_ky=0  });
+                                        })
+                                        .Model(model =>
+                                        {
+                                            model.Id(t => t.Id);
+                                            model.Field(t => t.Mo_ta).Editable(false);
+                                        })
+                                        .Update(update => update.Action("Update", "CauHinh", new { Area = "Admin" }))
+                                        .Destroy(delete => delete.Action("Destroy", "CauHinh", new { Area = "Admin" }))
+                                        .Sort(sort => { 
+                                            sort.Add(t => t.Ten); 
+                                        })
+                                    ;
+                                })
+                            )
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function getFilters() {
+        return {
+            Ky_dang_ky: $('#DropDownHocKy').val(),
+        }
+    }
+    function DropDownHocKy_Change() {
+        $('#GridCauHinh').data("kendoGrid").dataSource.read();
+    }
+</script>

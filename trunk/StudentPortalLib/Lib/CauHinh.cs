@@ -15,26 +15,33 @@ namespace StudentPortal.Lib
                 if (_dic == null)
                 {
                     var db = new DHHHContext();
-                    _dic = db.CauHinh.ToDictionary(t => t.Ten, t => t);
+                    _dic = db.CauHinh.ToDictionary(t => t.Ten + "_" + t.Ky_dang_ky, t => t);
                 }
                 return _dic;
             }
         }
-        public static object get(string name)
+        public static object get(string name, int Ky_dang_ky = 0)
         {
-            if (Dic.ContainsKey(name))
+            string key=name + "_" + Ky_dang_ky;
+            CauHinhModel element = null;
+            if (Dic.ContainsKey(key))
             {
-                switch (Dic[name].Kieu)
-                {
-                    case "int":
-                        return Convert.ToInt32(Dic[name].Gia_tri);
-                    case "double":
-                        return Convert.ToDouble(Dic[name].Gia_tri);
-                    default:
-                        return Dic[name].Gia_tri;
-                }
+                element= Dic[key];
             }
-            return null;
+            else if (Dic.Values.Count(t => t.Ten == name) > 0)
+            {
+                element = Dic.Values.Where(t => t.Ten == name).OrderByDescending(t => Ky_dang_ky).First();
+            }
+            if (element == null) return null;
+            switch (element.Kieu)
+            {
+                case "int":
+                    return Convert.ToInt32(element.Gia_tri);
+                case "double":
+                    return Convert.ToDouble(element.Gia_tri);
+                default:
+                    return element.Gia_tri;
+            }
         }
 
     }

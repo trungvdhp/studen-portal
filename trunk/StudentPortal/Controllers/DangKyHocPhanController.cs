@@ -197,12 +197,16 @@ namespace StudentPortal.Controllers
             LopTinChiViewModel loptrung = new LopTinChiViewModel();
             foreach (var sktcNew in skLopTCs)
             {
+                if (sktcNew.Tu_ngay == null || sktcNew.Den_ngay == null)
+                    throw new Exception("Lớp đăng ký chưa được xếp lịch");
                 foreach (var sktc in suKienTinChiDaDKs)
                 {
-                    var TuNgayNew = new LocalDate(sktcNew.Tu_ngay.Year, sktcNew.Tu_ngay.Month, sktcNew.Tu_ngay.Day);
-                    var DenNgayNew = new LocalDate(sktcNew.Den_ngay.Year, sktcNew.Den_ngay.Month, sktcNew.Den_ngay.Day);
-                    var TuNgay = new LocalDate(sktc.Tu_ngay.Year, sktc.Tu_ngay.Month, sktc.Tu_ngay.Day);
-                    var DenNgay = new LocalDate(sktc.Den_ngay.Year, sktc.Den_ngay.Month, sktc.Den_ngay.Day);
+                    if (sktc.Tu_ngay == null || sktc.Den_ngay == null)
+                        continue;
+                    var TuNgayNew = new LocalDate(((DateTime)sktcNew.Tu_ngay).Year, ((DateTime)sktcNew.Tu_ngay).Month, ((DateTime)sktcNew.Tu_ngay).Day);
+                    var DenNgayNew = new LocalDate(((DateTime)sktcNew.Den_ngay).Year, ((DateTime)sktcNew.Den_ngay).Month, ((DateTime)sktcNew.Den_ngay).Day);
+                    var TuNgay = new LocalDate(((DateTime)sktc.Tu_ngay).Year, ((DateTime)sktc.Tu_ngay).Month, ((DateTime)sktc.Tu_ngay).Day);
+                    var DenNgay = new LocalDate(((DateTime)sktc.Den_ngay).Year, ((DateTime)sktc.Den_ngay).Month, ((DateTime)sktc.Den_ngay).Day);
                     if (
                         ((TuNgayNew.WeekOfWeekYear >= TuNgay.WeekOfWeekYear && TuNgayNew.WeekOfWeekYear <= DenNgay.WeekOfWeekYear) || // Neu tuan bat dau cua lop tc moi nam trong giai doan cua lop tc da dk
                         (DenNgayNew.WeekOfWeekYear >= TuNgay.WeekOfWeekYear && DenNgayNew.WeekOfWeekYear <= DenNgay.WeekOfWeekYear)) && // hoac tuan ket thuc cua lop tc da dk
