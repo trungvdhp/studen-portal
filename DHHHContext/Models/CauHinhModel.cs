@@ -17,14 +17,21 @@ namespace StudentPortal
     [Table("webpages_CauHinh")]
     public partial class CauHinhModel
     {
-        [Key, Column(Order = 0)]
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        
         public string Ten { get; set; }
 
-        //[Key, Column(Order = 3)]
-        //public int? Ky_dang_ky { get; set; }
+        [ForeignKey("PLAN_HocKyDangKy_TC")]
+        public int? Ky_dang_ky { get; set; }
 
         public string Gia_tri { get; set; }
 
         public string Kieu { get; set; }
+
+        public string Mo_ta { get; set; }
+
+        public virtual PLAN_HocKyDangKy_TC PLAN_HocKyDangKy_TC { get; set; }
     }
 }

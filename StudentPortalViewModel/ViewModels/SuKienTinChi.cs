@@ -9,10 +9,10 @@ namespace StudentPortal.ViewModels
         public int ID { get; set; }
 
         [DisplayName("Từ ngày")]
-        public DateTime Tu_ngay { get; set; }
+        public DateTime? Tu_ngay { get; set; }
 
         [DisplayName("Đến ngày")]
-        public DateTime Den_ngay { get; set; }
+        public DateTime? Den_ngay { get; set; }
 
         [DisplayName("Thứ")]
         public int Thu { get; set; }

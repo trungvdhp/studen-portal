@@ -53,6 +53,7 @@
     <Compile Include="ViewModels\AjaxResult.cs" />
     <Compile Include="ViewModels\AutoCompleteData.cs" />
     <Compile Include="ViewModels\BienLaiThu.cs" />
+    <Compile Include="ViewModels\CauHinhViewModel.cs" />
     <Compile Include="ViewModels\ChuongTrinhDaoTaoViewModel.cs" />
     <Compile Include="ViewModels\ChuyenNganh.cs" />
     <Compile Include="ViewModels\DiemHocTap.cs" />

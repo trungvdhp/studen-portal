@@ -18,7 +18,7 @@ namespace StudentPortal.Areas
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
                 new { 
-                    controller = "Dashboard",
+                    controller = "CauHinh",
                     action = "Index",
                     id = UrlParameter.Optional 
                 },

@@ -35,15 +35,17 @@ namespace StudentPortal.Lib
             return quydinhDangkys;
         }
 
-        public static List<StudentPortal.ViewModels.LopTinChiViewModel> getLopTinChi(int? ID_mon, int Ky_dang_ky)
+        public static List<StudentPortal.ViewModels.LopTinChiViewModel> getLopTinChi(int? ID_mon, int Ky_dang_ky,bool Co_SKTC = true)
         {
             DHHHContext db = new DHHHContext();
+            //if (Co_SKTC)
+            //{
+                var sukienTinChis = db.PLAN_SukiensTinChi_TC.Where(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.ID_mon == ID_mon && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky).ToList();
 
-            var sukienTinChis = db.PLAN_SukiensTinChi_TC.Where(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.ID_mon == ID_mon && t.Ky_dang_ky == Ky_dang_ky).ToList();
+                var dicLopTinChi = LopTinChi.getListDetails(sukienTinChis);
 
-            var dicLopTinChi = LopTinChi.getListDetails(sukienTinChis);
-
-            return dicLopTinChi.Values.ToList();
+                return dicLopTinChi.Values.ToList();
+            //}
         }
 
         public static List<GiaiDoan> getGiaiDoan(List<GiaiDoan> giaidoans)
@@ -232,7 +234,7 @@ namespace StudentPortal.Lib
 
 
                     var monDangMo = db.PLAN_SukiensTinChi_TC
-                        .Where(t => t.Ky_dang_ky == hockyDangky.Ky_dang_ky)
+                        .Where(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == hockyDangky.Ky_dang_ky)
                         .Select(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.MARK_MonHoc)
                         .Distinct()
                         .ToList();

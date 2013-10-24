@@ -55,7 +55,11 @@ namespace StudentPortal.Lib
                             Cho_trong = lopTinChi.Cho_trong,
                         });
                     }
-                    var Chi_tiet = string.Format("Từ {0} đến {1}", sukienTinChi.Tu_ngay.ToString("dd/MM/yyyy"), sukienTinChi.Den_ngay.ToString("dd/MM/yyyy"));
+                    var Chi_tiet = "";
+                    if (sukienTinChi.Tu_ngay != null && sukienTinChi.Den_ngay!=null)
+                    {
+                        Chi_tiet = string.Format("Từ {0} đến {1}", ((DateTime)sukienTinChi.Tu_ngay).ToString("dd/MM/yyyy"), ((DateTime)sukienTinChi.Den_ngay).ToString("dd/MM/yyyy"));
+                    }
 
                     if (sukienTinChi.Thu > -1)
                     {

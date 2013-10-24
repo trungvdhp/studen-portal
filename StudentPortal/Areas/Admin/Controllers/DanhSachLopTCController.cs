@@ -43,11 +43,10 @@ namespace StudentPortal.Areas.Admin.Controllers
         {
             JsonResult result = new JsonResult();
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            result.Data = new SelectList(db.PLAN_HocKyDangKy_TC.ToList().Select(t => new StudentPortal.ViewModels.KyDangKy
-            {
+            result.Data = new SelectList(db.PLAN_LopTinChi_TC.Select(t => t.PLAN_MonTinChi_TC.PLAN_HocKyDangKy_TC).Distinct().ToList().Select(t=>new {
                 Ky_dang_ky = t.Ky_dang_ky,
-                Ten_ky = t.Nam_hoc + "_" + t.Hoc_ky + "_" + t.Dot,
-            }).OrderBy(t => t.Ky_dang_ky).ToList(), "Ky_dang_ky", "Ten_ky");
+                Ten_ky = String.Format("{0}_{1}_{2}",t.Nam_hoc,t.Hoc_ky,t.Dot)
+            }).ToList(), "Ky_dang_ky", "Ten_ky");
             return result;
         }
 
@@ -124,7 +123,7 @@ namespace StudentPortal.Areas.Admin.Controllers
                 .Where(t => t.PLAN_ChuongTrinhDaoTao.ID_chuyen_nganh == ID_chuyen_nganh)
                 .Select(t => t.ID_mon).Distinct()
                 .ToList();
-            var monMos = db.PLAN_MonTinChi_TC.Where(t => t.Ky_dang_ky == Ky_dang_ky).Select(t => t.MARK_MonHoc).Distinct().ToList();
+            var monMos = db.PLAN_LopTinChi_TC.Where(t => t.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky).Select(t => t.PLAN_MonTinChi_TC.MARK_MonHoc).Distinct().ToList();
             var monHeDTs = new List<MARK_MonHoc>();
             foreach (var mon in monMos)
             {

@@ -44,9 +44,31 @@
       <HintPath>..\lib\KENDOUIMVC\2013.2.716.340\Kendo.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.0.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.0.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NodaTime">
       <HintPath>..\..\NodaTime.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -76,9 +98,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
@@ -170,7 +189,7 @@
     <Compile Include="Areas\Admin\Controllers\DanhSachLopTCController.cs" />
     <Compile Include="Areas\Admin\Controllers\LopHanhChinhController.cs" />
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ThongBaoController.cs" />
+    <Compile Include="Controllers\ChatRoomController.cs" />
     <Compile Include="Controllers\ChuongTrinhKhungController.cs" />
     <Compile Include="Controllers\DangKyThiController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -183,55 +202,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\BoMonController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CanBoLopController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CapHoiDongController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ChuyenNganhController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DanhSachLopTinChiController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DanhSachNganh2Controller.cs" />
-    <Compile Include="Areas\Admin\Controllers\DanTocController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DiemRenLuyenController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DinhMucController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DoanController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DoiTuongController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DoiTuongGiayToController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DoiTuongHocBongController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DoiTuongHocBongGiayToController.cs" />
-    <Compile Include="Areas\Admin\Controllers\GiaoVienController.cs" />
     <Compile Include="Areas\Admin\Controllers\GroupController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HanhViController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HeChuyenNganhController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HeController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HeSoRenLuyenController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HoatDongXaHoiController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HocHamController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HocViController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HoSoNopController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HoSoSinhVienController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HoSoSinhVienSubController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HoSoYeuCauController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HuyenController.cs" />
-    <Compile Include="Areas\Admin\Controllers\KhenThuongController.cs" />
-    <Compile Include="Areas\Admin\Controllers\KhenThuongSinhVienController.cs" />
-    <Compile Include="Areas\Admin\Controllers\KhoaController.cs" />
-    <Compile Include="Areas\Admin\Controllers\KhuVucController.cs" />
-    <Compile Include="Areas\Admin\Controllers\KyLuatController.cs" />
-    <Compile Include="Areas\Admin\Controllers\KyLuatSinhVienController.cs" />
-    <Compile Include="Areas\Admin\Controllers\LoaiGiayToController.cs" />
-    <Compile Include="Areas\Admin\Controllers\LoaiKhenThuongController.cs" />
-    <Compile Include="Areas\Admin\Controllers\LoaiRenLuyenController.cs" />
-    <Compile Include="Areas\Admin\Controllers\LopController.cs" />
-    <Compile Include="Areas\Admin\Controllers\LopTinChiController.cs" />
-    <Compile Include="Areas\Admin\Controllers\MonTinChiController.cs" />
-    <Compile Include="Areas\Admin\Controllers\NganhController.cs" />
-    <Compile Include="Areas\Admin\Controllers\NhanXetKyController.cs" />
-    <Compile Include="Areas\Admin\Controllers\NhanXetNamController.cs" />
-    <Compile Include="Areas\Admin\Controllers\NhomDoiTuongController.cs" />
-    <Compile Include="Areas\Admin\Controllers\NoiNgoaiTruController.cs" />
-    <Compile Include="Areas\Admin\Controllers\PhongKyTucXaController.cs" />
-    <Compile Include="Areas\Admin\Controllers\PhuongController.cs" />
-    <Compile Include="Areas\Admin\Controllers\QuocTichController.cs" />
-    <Compile Include="Areas\Admin\Controllers\QuyHocBongController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="BaseController.cs" />
@@ -243,6 +214,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -254,6 +226,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CodeTemplates\AddView\AspxCSharp\Create.tt">
@@ -690,301 +663,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>List.cshtml</LastGenOutput>
     </Content>
-    <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\GiaoVien\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\GiaoVien\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\GiaoVien\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\GiaoVien\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\GiaoVien\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\HocHam\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\HocHam\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\HocHam\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\HocHam\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\HocHam\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\HocVi\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\HocVi\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\HocVi\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\HocVi\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\HocVi\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\ChucDanh\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\ChucDanh\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\ChucDanh\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\ChucDanh\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\ChucDanh\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\He\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\He\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\He\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\He\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\He\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\BoMon\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\BoMon\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\BoMon\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\BoMon\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\BoMon\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Nganh\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Nganh\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Nganh\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Nganh\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Nganh\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachLopTinChi\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachLopTinChi\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachLopTinChi\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachLopTinChi\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachLopTinChi\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachNganh2\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachNganh2\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachNganh2\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachNganh2\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachNganh2\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\CanBoLop\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\CanBoLop\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\CanBoLop\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\CanBoLop\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\CanBoLop\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\CapHoiDong\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\CapHoiDong\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\CapHoiDong\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\CapHoiDong\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\CapHoiDong\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\ChuyenNganh\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\ChuyenNganh\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\ChuyenNganh\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\ChuyenNganh\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\ChuyenNganh\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\CapKhenThuongKyLuat\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\CapKhenThuongKyLuat\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\CapKhenThuongKyLuat\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\CapKhenThuongKyLuat\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\CapKhenThuongKyLuat\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\CapRenLuyen\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\CapRenLuyen\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\CapRenLuyen\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\CapRenLuyen\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\CapRenLuyen\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\ChucDanhSV\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\ChucDanhSV\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\ChucDanhSV\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\ChucDanhSV\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\ChucDanhSV\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhhieuThiDuaCaNhan\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhhieuThiDuaCaNhan\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhhieuThiDuaCaNhan\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhhieuThiDuaCaNhan\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhhieuThiDuaCaNhan\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhHieu\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhHieu\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhHieu\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhHieu\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhHieu\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachKhongThi\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachKhongThi\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachKhongThi\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachKhongThi\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachKhongThi\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSach\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSach\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSach\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSach\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSach\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachTroCap\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachTroCap\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachTroCap\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachTroCap\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachTroCap\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachXoa\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachXoa\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachXoa\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachXoa\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhSachXoa\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DanToc\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DanToc\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DanToc\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DanToc\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DanToc\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DiemRenLuyen\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DiemRenLuyen\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DiemRenLuyen\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DiemRenLuyen\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DiemRenLuyen\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DinhMuc\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DinhMuc\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DinhMuc\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DinhMuc\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DinhMuc\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Doan\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Doan\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Doan\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Doan\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Doan\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuongGiayTo\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuongGiayTo\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuongGiayTo\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuongGiayTo\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuongGiayTo\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuongHocBongGiayTo\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuongHocBongGiayTo\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuongHocBongGiayTo\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuongHocBongGiayTo\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuongHocBongGiayTo\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuongHocBong\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuongHocBong\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuongHocBong\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuongHocBong\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuongHocBong\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuong\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuong\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuong\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuong\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\DoiTuong\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoNop\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoNop\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoNop\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoNop\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoNop\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoSinhVienSub\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoSinhVienSub\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoSinhVienSub\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoSinhVienSub\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoSinhVienSub\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoSinhVien\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoSinhVien\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoSinhVien\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoSinhVien\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoSinhVien\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoYeuCau\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoYeuCau\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoYeuCau\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoYeuCau\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\HoSoYeuCau\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Huyen\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Huyen\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Huyen\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Huyen\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Huyen\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\KhenThuongSinhVien\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\KhenThuongSinhVien\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\KhenThuongSinhVien\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\KhenThuongSinhVien\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\KhenThuongSinhVien\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\KhenThuong\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\KhenThuong\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\KhenThuong\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\KhenThuong\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\KhenThuong\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Khoa\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Khoa\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Khoa\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Khoa\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Khoa\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\KhuVuc\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\KhuVuc\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\KhuVuc\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\KhuVuc\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\KhuVuc\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\KyLuatSinhVien\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\KyLuatSinhVien\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\KyLuatSinhVien\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\KyLuatSinhVien\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\KyLuatSinhVien\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\KyLuat\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\KyLuat\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\KyLuat\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\KyLuat\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\KyLuat\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiGiayTo\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiGiayTo\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiGiayTo\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiGiayTo\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiGiayTo\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiKhenThuong\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiKhenThuong\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiKhenThuong\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiKhenThuong\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiKhenThuong\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiRenLuyen\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiRenLuyen\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiRenLuyen\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiRenLuyen\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\LoaiRenLuyen\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Lop\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Lop\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Lop\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Lop\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Lop\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\NhanXetKy\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\NhanXetKy\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\NhanXetKy\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\NhanXetKy\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\NhanXetKy\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\NhanXetNam\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\NhanXetNam\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\NhanXetNam\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\NhanXetNam\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\NhanXetNam\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\NhomDoiTuong\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\NhomDoiTuong\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\NhomDoiTuong\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\NhomDoiTuong\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\NhomDoiTuong\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\NoiNgoaiTru\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\NoiNgoaiTru\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\NoiNgoaiTru\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\NoiNgoaiTru\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\NoiNgoaiTru\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\PhongKyTucXa\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\PhongKyTucXa\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\PhongKyTucXa\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\PhongKyTucXa\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\PhongKyTucXa\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Phuong\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Phuong\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Phuong\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Phuong\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Phuong\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\QuocTich\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\QuocTich\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\QuocTich\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\QuocTich\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\QuocTich\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\QuyHocBong\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\QuyHocBong\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\QuyHocBong\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\QuyHocBong\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\QuyHocBong\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\XeploaiRenLuyen\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\XeploaiRenLuyen\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\XeploaiRenLuyen\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\XeploaiRenLuyen\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\XeploaiRenLuyen\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\HanhVi\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\HanhVi\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\HanhVi\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\HanhVi\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\HanhVi\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\HeChuyenNganh\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\HeChuyenNganh\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\HeChuyenNganh\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\HeChuyenNganh\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\HeChuyenNganh\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\HeSoRenLuyen\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\HeSoRenLuyen\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\HeSoRenLuyen\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\HeSoRenLuyen\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\HeSoRenLuyen\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\HoatDongXaHoi\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\HoatDongXaHoi\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\HoatDongXaHoi\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\HoatDongXaHoi\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\HoatDongXaHoi\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\MonTinChi\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\MonTinChi\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\MonTinChi\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\MonTinChi\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\LopTinChi\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\LopTinChi\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\LopTinChi\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\LopTinChi\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\LopTinChi\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Group\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Group\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Group\Create.cshtml" />
@@ -1009,11 +687,11 @@
     <Content Include="Scripts\jqGrid\jquery.jqGrid.min.js" />
     <Content Include="Scripts\jqGrid\jquery.jqGrid.src.js" />
     <Content Include="Areas\Admin\Views\DanhSachLopTC\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\MonTinChi\Index.cshtml" />
     <Content Include="Areas\Admin\Views\LopHanhChinh\Index.cshtml" />
     <Content Include="Areas\Admin\Views\News\Create.cshtml" />
     <Content Include="Areas\Admin\Views\News\Index.cshtml" />
     <Content Include="Areas\Admin\Views\News\Update.cshtml" />
+    <Content Include="Areas\Admin\Views\CauHinh\Index.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -1022,6 +700,8 @@
     <Content Include="Scripts\jquery.b4byb0o.js" />
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.formParse.js" />
+    <Content Include="Scripts\jquery.signalR-2.0.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.0.0.min.js" />
     <Content Include="Scripts\jquery.toastmessage-min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -1193,6 +873,7 @@
     <Content Include="Views\ChuongTrinhKhung\Index.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\KhongMoDK.cshtml" />
+    <Content Include="Views\ChatRoom\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
