@@ -38,14 +38,21 @@ namespace StudentPortal.Lib
         public static List<StudentPortal.ViewModels.LopTinChiViewModel> getLopTinChi(int? ID_mon, int Ky_dang_ky,bool Co_SKTC = true)
         {
             DHHHContext db = new DHHHContext();
-            //if (Co_SKTC)
-            //{
+            if (Co_SKTC)
+            {
                 var sukienTinChis = db.PLAN_SukiensTinChi_TC.Where(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.ID_mon == ID_mon && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky).ToList();
 
                 var dicLopTinChi = LopTinChi.getListDetails(sukienTinChis);
 
                 return dicLopTinChi.Values.ToList();
-            //}
+            }
+            var lopTCs = db.PLAN_LopTinChi_TC.Where(t => t.PLAN_MonTinChi_TC.ID_mon == ID_mon && t.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky).Select(t => t.ID_lop_tc).ToList();
+            List<LopTinChiViewModel> result = new List<LopTinChiViewModel>();
+            foreach (var ID_lop_tc in lopTCs)
+            {
+                result.Add(LopTinChi.getDetail(ID_lop_tc, db));
+            }
+            return result;
         }
 
         public static List<GiaiDoan> getGiaiDoan(List<GiaiDoan> giaidoans)

@@ -136,7 +136,7 @@ namespace StudentPortal.Areas.Admin.Controllers
 
         public ActionResult getLopTCKhac(int ID_mon,int ID_lop_tc, int Ky_dang_ky)
         {
-            var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon, Ky_dang_ky);
+            var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon, Ky_dang_ky,false);
             lopTinChis.Remove(lopTinChis.Single(t => t.ID_lop_tc == ID_lop_tc));
             JsonResult result = new JsonResult();
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
@@ -144,9 +144,9 @@ namespace StudentPortal.Areas.Admin.Controllers
             return result;
         }
 
-        public ActionResult getLopTC([DataSourceRequest] DataSourceRequest request, int ID_mon, int Ky_dang_ky)
+        public ActionResult getLopTC([DataSourceRequest] DataSourceRequest request, int ID_mon, int Ky_dang_ky, bool? Co_SKTC)
         {
-            var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon,Ky_dang_ky);
+            var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon, Ky_dang_ky, (bool)Co_SKTC);
             return Json(lopTinChis.ToDataSourceResult(request));
         }
 
