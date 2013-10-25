@@ -7,68 +7,75 @@
     <div class="span12">
         <p>
              @(Html.Kendo().DropDownList()
-    .OptionLabel("Chọn kỳ đăng ký")
-    .Name("KyDangKy")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .DataSource(source =>
-    {
-        source.Read("getKyDangKy", "DanhSachLopTC")
-        .ServerFiltering(true);
-    })
+                .OptionLabel("Chọn kỳ đăng ký")
+                .Name("KyDangKy")
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .DataSource(source =>
+                {
+                    source.Read("getKyDangKy", "DanhSachLopTC")
+                    //.ServerFiltering(true)
+                    ;
+                })
     
-    .AutoBind(false)
-)
-            @(Html.Kendo().DropDownList()
-    .OptionLabel("Chọn hệ đào tạo")
-    .Name("He")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .HtmlAttributes(new { style = "width: 200px" })
-    .DataSource(source =>
-    {
-        source.Read("getHeDaoTao", "DanhSachLopTC");
-    })
-    //.CascadeFrom("KyDangKy")
-)
+                .AutoBind(true)
+            )
+                @(Html.Kendo().DropDownList()
+                .OptionLabel("Chọn hệ đào tạo")
+                .Name("He")
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .HtmlAttributes(new { style = "width: 200px" })
+                .DataSource(source =>
+                {
+                    source.Read(read => { 
+                        read.Action("getHeDaoTao", "DanhSachLopTC").Data("getFilters"); 
+                    })
+                    .ServerFiltering(true)
+                    ;
+                })
+                .CascadeFrom("KyDangKy")
+                .AutoBind(false)
+            )
 
             @(Html.Kendo().DropDownList()
-    .OptionLabel("Chọn chuyên ngành")
-    .Name("ChuyenNganh")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .HtmlAttributes(new { style = "width: 200px" })
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("getChuyenNganh", "DanhSachLopTC").Data("getFilters");
-        })
-        .ServerFiltering(true);
-    })
-    .CascadeFrom("He")
-    .AutoBind(false)
-)
+                .OptionLabel("Chọn chuyên ngành")
+                .Name("ChuyenNganh")
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .HtmlAttributes(new { style = "width: 200px" })
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("getChuyenNganh", "DanhSachLopTC").Data("getFilters");
+                    })
+                    .ServerFiltering(true);
+                })
+                .CascadeFrom("He")
+                .AutoBind(false)
+            )
 
             @(Html.Kendo().DropDownList()
-    .OptionLabel("Chọn môn tín chỉ")
-    .Name("MonTC")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .HtmlAttributes(new { style = "width:300px" })
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("getMonTC", "DanhSachLopTC").Data("getFilters").Data("getFilters");
-        }).ServerFiltering(true);
-    })
-    .AutoBind(false)
-    .CascadeFrom("ChuyenNganh")
-    .Events(e=>{
-        e.Change("MonTC_change");
-    })
-)            
+                .OptionLabel("Chọn môn tín chỉ")
+                .Name("MonTC")
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .HtmlAttributes(new { style = "width:300px" })
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("getMonTC", "DanhSachLopTC").Data("getFilters").Data("getFilters");
+                    }).ServerFiltering(true);
+                })
+                .AutoBind(false)
+                .CascadeFrom("ChuyenNganh")
+                .Events(e=>{
+                    e.Change("MonTC_change");
+                })
+            )
+            <label class="checkbox"><input type="checkbox"" id="Co_SKTC"/> Lớp đã được xếp lịch học</label>
         </p>
         
         <div style="overflow:hidden">
@@ -78,8 +85,8 @@
                     .Columns(column =>
                     {
                         column.Bound(t => t.Ten_lop_tc);
-                        column.Bound(t => t.So_sv_max);
-                        column.Bound(t => t.Cho_trong);
+                        column.Bound(t => t.So_sv_max).Width(80);
+                        column.Bound(t => t.Cho_trong).Width(80);
                     })
                     .DataSource(source =>
                     {
@@ -91,6 +98,7 @@
                     .Groupable()
                     .Pageable()
                     .Selectable()
+                    .Sortable()
                     .Pageable(pager => pager.PageSizes(new int[] { 50,100,200 }))
                     .Filterable()
                     .Events(e=>{
@@ -140,6 +148,7 @@
                     .Groupable()
                     .Pageable()
                     .Selectable()
+                    .Sortable()
                     .Pageable(pager => pager.PageSizes(new int[]{50,100,200})
                       )
                     .Events(e =>
@@ -244,7 +253,9 @@
         else $('.checkAll').parent().removeClass('checked');
     }
     $(document).ready(function () {
-
+        $('#Co_SKTC').change(function (e) {
+            MonTC_change(e);
+        });
         
         $('#btnXacNhanChuyen').click(function () {
             if (isSelectedIDsEmpty()) {
@@ -329,6 +340,7 @@
             Ky_dang_ky: $('#KyDangKy').val(),
             ID_mon: $('#MonTC').val(),
             ID_lop_tc: seletedIdLop,
+            Co_SKTC: $('#Co_SKTC').attr('checked')=='checked',
         };
     }
     function Edit(e) {

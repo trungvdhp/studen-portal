@@ -112,9 +112,6 @@ namespace StudentPortal.Lib
 
             foreach (var lopTinChi in dicLopTinChi.Values)
             {
-                if (lopTinChi.ID_lop_tc == 7511)
-                {
-                }
                 if(_cacheDicLopTC.ContainsKey(lopTinChi.ID_lop_tc))
                     continue;
                 if (lopTinChi.ID_lop_lt != 0 && dicLopTinChi.ContainsKey(lopTinChi.ID_lop_lt))
@@ -145,6 +142,26 @@ namespace StudentPortal.Lib
                 ID_lop_tc = ID_lop_tc 
 
             };
+        }
+        public static LopTinChiViewModel getDetail(int ID_lop_tc, DHHHContext db)
+        {
+            return db.PLAN_LopTinChi_TC.Where(t => t.ID_lop_tc == ID_lop_tc).ToList().Select(t => new LopTinChiViewModel
+            {
+                Ten_lop_tc = String.Format("{0}{1} (N{2:00})", t.PLAN_MonTinChi_TC.MARK_MonHoc.Ten_mon, t.PLAN_MonTinChi_TC.Ky_hieu_lop_tc.Substring(t.PLAN_MonTinChi_TC.MARK_MonHoc.Ky_hieu.Length), t.STT_lop),
+                ID_lop_lt = t.ID_lop_lt,
+                ID_lop_tc = t.ID_lop_tc,
+                SuKienTinChi = new List<SuKienTinChi>(),
+                STT_lop = t.STT_lop,
+                So_sv_max = t.So_sv_max,
+                Ma_mon = t.PLAN_MonTinChi_TC.MARK_MonHoc.Ky_hieu,
+                Chi_tiet = "",
+                Giang_vien = t.ID_cb!=0?t.PLAN_GiaoVien.Ho_ten:null,
+                So_tin_chi = t.PLAN_MonTinChi_TC.So_tin_chi,
+                He_so = t.PLAN_MonTinChi_TC.He_so,
+                Co_lop_TH = false,
+                Cho_trong = t.Cho_trong,
+
+            }).ToList()[0];
         }
     }
 }
