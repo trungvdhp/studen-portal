@@ -9,7 +9,6 @@ namespace StudentPortal.Lib
 	public class ChuongTrinhDaoTao
 	{
         private static List<int> _khoaDangHoc;
-
 		public static List<int> getMonHoc(int ID_he, int ID_khoa, int Ky_thu)
 		{
 			DHHHContext db= new DHHHContext();

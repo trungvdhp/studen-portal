@@ -26,6 +26,8 @@ namespace StudentPortalSystem
         STU_DanhSach svHienTai;
         bool running = false;
         bool pause = false;
+        private PLAN_HocKyDangKy_TC KyDangMo;
+
         public frmMain()
         {
             InitializeComponent();
@@ -127,12 +129,23 @@ namespace StudentPortalSystem
             if (run)
             {
                 running = true;
-                db = new DHHHContext();
-                SinhViens = db.STU_DanhSach.Where(t => t.Trang_thai == 0 && t.Da_tot_nghiep == false).ToList();
-                backgroundWorker1.RunWorkerAsync();
-                xephang = db.MARK_XepHangNamDaoTao_TC.ToList();
-                progressBar1.Maximum = SinhViens.Count;
-                toolStripStatusLabel1.Text = String.Format("Tổng số sinh viên {0}", SinhViens.Count);
+                //try
+                //{
+                    db = new DHHHContext();
+                    KyDangMo = db.PLAN_HocKyDangKy_TC.Single(t => t.Chon_dang_ky == true);
+                    var sinhviens  = db.STU_DanhSach;//.Where(t => t.Trang_thai == 0 && t.Da_tot_nghiep == false);
+                    
+                    SinhViens = sinhviens.ToList();
+                    backgroundWorker1.RunWorkerAsync();
+                    xephang = db.MARK_XepHangNamDaoTao_TC.ToList();
+                    progressBar1.Maximum = SinhViens.Count;
+                    toolStripStatusLabel1.Text = String.Format("Tổng số sinh viên {0}", SinhViens.Count);
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show(ex.Message);
+                //    running = false;
+                //}
             }
         }
 
@@ -180,6 +193,16 @@ namespace StudentPortalSystem
                         From = 10,
                         Postdate = DateTime.Now
                     });
+                }
+
+                try
+                {
+                    DangKyHocPhan.KiemTraSoMonDK(sinhvien.ID_sv, sinhvien.STU_Lop.ID_dt, KyDangMo, db);
+                    db.STU_DanhSach.Single(t => t.ID_sv == sinhvien.ID_sv).Trang_thai_dk = null;
+                }
+                catch (Exception ex)
+                {
+                    db.STU_DanhSach.Single(t => t.ID_sv == sinhvien.ID_sv).Trang_thai_dk = ex.Message;
                 }
                 db.SaveChanges();
                 backgroundWorker1.ReportProgress(i);

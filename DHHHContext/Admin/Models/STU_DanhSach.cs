@@ -45,6 +45,8 @@ namespace StudentPortal
 		
 		[Display(Name = "Trạng thái")]
         public int Trang_thai { get; set; }
+
+        public string Trang_thai_dk { get; set; }
 		
 		public virtual STU_Lop STU_Lop { get; set; }
 		public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }

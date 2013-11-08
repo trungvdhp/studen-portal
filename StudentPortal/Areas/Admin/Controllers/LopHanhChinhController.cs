@@ -105,6 +105,8 @@ namespace StudentPortal.Areas.Admin.Controllers
             }
         }
 
+        
+
         public ActionResult DangKy(int ID_lop_tc, int ID_sv,int ID_lop)
         {
             var result = new JsonResult();

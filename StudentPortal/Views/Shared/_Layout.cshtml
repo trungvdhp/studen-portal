@@ -40,8 +40,22 @@
 	<script src="@Url.Content("~/Scripts/kendo/2013.2.716/kendo.aspnetmvc.min.js")"></script>
 	<script src="@Url.Content("~/Scripts/kendo/lang/kendo.culture.vi-VN.min.js")"></script>
 	<script type="text/javascript">
-		kendo.culture("vi-VN");
+	    kendo.culture("vi-VN");
+	    function updateRowColor() {
+	        $('.changeRowColor').each(function () {
+	            var rowColor = $(this).attr('row-color');
+	            if (rowColor != '') {
+	                $(this).parent().parent().addClass(rowColor);
+	            }
+	        });
+	    }
 	</script>
+    <style>
+    .row-red {
+        background-color:#F2DEDE;
+        border: 1px solid;
+    }
+    </style>
 	<link rel="shortcut icon" href="favicon.ico" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
