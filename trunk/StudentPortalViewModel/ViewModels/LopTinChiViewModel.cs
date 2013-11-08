@@ -33,8 +33,8 @@ namespace StudentPortal.ViewModels
         [DisplayName("Số SV max")]
         public int So_sv_max { get; set; }
 
-        //[DisplayName("Đã ĐK")]
-        //public int Da_dang_ky { get; set; }
+        [DisplayName("Đã ĐK")]
+        public int Da_dang_ky { get; set; }
 
         [DisplayName("Chi tiết")]
         public string Chi_tiet { get; set; }

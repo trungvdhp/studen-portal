@@ -270,6 +270,18 @@ namespace StudentPortal.Controllers
                         Duyet = 0,
                     });
                 }
+
+                try
+                {
+                    DangKyHocPhan.KiemTraSoMonDK(ID_sv, ID_dt, HocKyDangKy, db);
+                    db.STU_DanhSach.Single(t => t.ID_sv == ID_sv).Trang_thai_dk = null;
+                }
+                catch (Exception e1)
+                {
+                    db.STU_DanhSach.Single(t => t.ID_sv == ID_sv).Trang_thai_dk = e1.Message;
+                }
+
+
                 db.SaveChanges();
 
                 result.Data = new AjaxResult

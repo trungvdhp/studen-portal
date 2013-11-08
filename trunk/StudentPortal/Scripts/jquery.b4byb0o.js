@@ -32,15 +32,15 @@ Description: Some utilities for forms
         isSelectedIDsEmpty:function()
         {
             //return $(this).each(function(){
-                var selectedIDs = $(this).data('value');
-                var s = '';
-                for (var i in selectedIDs) {
-                    s += i;
-                    if (selectedIDs[i]) {
-                        return false;
-                    }
+            var selectedIDs = $(this).data('value');
+            var s = '';
+            for (var i in selectedIDs) {
+                s += i;
+                if (selectedIDs[i]) {
+                    return false;
                 }
-                return true;
+            }
+            return true;
             //});
         },
         selectedIDsToString: function()
@@ -117,7 +117,7 @@ Description: Some utilities for forms
                     var checked = $(this).attr('checked') == 'checked';
                     var selectedIDs = _this.data('value');
                     selectedIDs[$(this).val()] = checked;
-                   _this.data('value', selectedIDs);
+                    _this.data('value', selectedIDs);
                     changeCheckAll(checked,_this,options.checkRow,options.changeElement,options.toggleClass);
                 });
 
@@ -162,6 +162,74 @@ Description: Some utilities for forms
             }
 
             sendRequest(0);
+        },
+        ajaxAction: function (options) {
+            var defaults = {
+                data: function () {
+                    return {};
+                },
+                dataType: 'json',
+                type: 'post',
+                success: function (o) {
+                },
+            };
+            options = $.extend({}, defaults, options);
+            return $(this).each(function () {
+                $(this).data('requesting', false);
+                $(this).live('click', function () {
+                    if (!$(this).data('requesting')) {
+                        $.ajax({
+                            url: $(this).attr('href'),
+                            data: options.data(),
+                            type: options.type,
+                            dataType: options.dataType,
+                            success: function (o) {
+                                options.success(o);
+                            }
+                        });
+                    } else {
+                        alert("Bạn thao tác quá nhanh, vui lòng chờ giây lát!");
+                    }
+                    return false;
+                });
+                
+            });
         }
+
     });
 }(jQuery));
+$(document).ready(function () {
+    $('body').data('alert', false);
+    function alert1(mes) {
+        if (!$('body').data('alert')) {
+            $('body').data('alert', true);
+            alert(mes);
+            $('body').data('alert', false);
+        }
+    }
+    $('.fixedScroll').each(function () {
+        $(this).before('<div></div>');
+    });
+
+    $(window).scroll(function () {
+        $('.fixedScroll').each(function () {
+            var yHeader = ($('#header').position()).top + $('#header').height();
+            var fixedTopDetecter = $(this).prev()
+            var fixedTop = $(this).attr('data-fixedtop');
+            var yInfo = ($(this).position()).top;
+            var yThumb = fixedTopDetecter.position().top;
+            if (yHeader >= yInfo) {
+                $(this).css({
+                    position: 'fixed',
+                    top: ($('#header').height()+ parseInt(fixedTop)) + 'px'
+                })
+            }
+            if (yInfo < yThumb) {
+                $(this).css({
+                    position: 'relative',
+                    top: '0px'
+                })
+            }
+        })
+    });
+});

@@ -53,6 +53,7 @@ namespace StudentPortal.Lib
                             He_so = monTinChi.He_so,
                             Co_lop_TH = false,
                             Cho_trong = lopTinChi.Cho_trong,
+                            Da_dang_ky = lopTinChi.So_sv_max-(int)lopTinChi.Cho_trong
                         });
                     }
                     var Chi_tiet = "";
@@ -138,14 +139,11 @@ namespace StudentPortal.Lib
             var dicLopTinChi = getListDetails(sukienTinChis);
             if(dicLopTinChi.Values.Count>0)
                 return dicLopTinChi.Values.ToList()[0];
-            return new LopTinChiViewModel { 
-                ID_lop_tc = ID_lop_tc 
-
-            };
+            return getDetail(ID_lop_tc, db);
         }
         public static LopTinChiViewModel getDetail(int ID_lop_tc, DHHHContext db)
         {
-            return db.PLAN_LopTinChi_TC.Where(t => t.ID_lop_tc == ID_lop_tc).ToList().Select(t => new LopTinChiViewModel
+            var lopDetail = db.PLAN_LopTinChi_TC.Where(t => t.ID_lop_tc == ID_lop_tc).ToList().Select(t => new LopTinChiViewModel
             {
                 Ten_lop_tc = String.Format("{0}{1} (N{2:00})", t.PLAN_MonTinChi_TC.MARK_MonHoc.Ten_mon, t.PLAN_MonTinChi_TC.Ky_hieu_lop_tc.Substring(t.PLAN_MonTinChi_TC.MARK_MonHoc.Ky_hieu.Length), t.STT_lop),
                 ID_lop_lt = t.ID_lop_lt,
@@ -160,8 +158,14 @@ namespace StudentPortal.Lib
                 He_so = t.PLAN_MonTinChi_TC.He_so,
                 Co_lop_TH = false,
                 Cho_trong = t.Cho_trong,
+                Da_dang_ky = t.So_sv_max-(int)t.Cho_trong,
 
             }).ToList()[0];
+            if(lopDetail.ID_lop_lt!=0){
+                var lopLT = getDetail(lopDetail.ID_lop_lt,db);
+                lopDetail.Ten_lop_tc = String.Format("{0}.TH{1:00}", lopLT.Ten_lop_tc, lopDetail.STT_lop);
+            }
+            return lopDetail;
         }
     }
 }

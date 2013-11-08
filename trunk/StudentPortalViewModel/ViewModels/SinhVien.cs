@@ -21,6 +21,9 @@ namespace StudentPortal.ViewModels
         [DisplayName("Ngày sinh")]
         public DateTime Ngay_sinh { get; set; }
 
+        [DisplayName("Đã rút")]
+        public bool Rut_bot_hoc_phan { get; set; }
+
         public int Duyet;
 
     }

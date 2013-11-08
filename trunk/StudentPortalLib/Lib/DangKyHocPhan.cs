@@ -105,7 +105,7 @@ namespace StudentPortal.Lib
 
         public static void KiemTraDieuKienDangKy(ref DHHHContext db, int ID_sv, int ID_lop_tc, int ID_dt, PLAN_HocKyDangKy_TC HocKyDangKy)
         {
-            var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == HocKyDangKy.Ky_dang_ky).Select(t => t.PLAN_LopTinChi_TC).ToList();
+            var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == HocKyDangKy.Ky_dang_ky && t.Rut_bot_hoc_phan==false).Select(t => t.PLAN_LopTinChi_TC).ToList();
             var idLopDKs = lopDKs.Select(t => t.ID_lop_tc).ToList();
 
             var hockyTruoc = SinhVien.GetHocKyTruoc(ID_sv, ID_dt);
@@ -131,19 +131,19 @@ namespace StudentPortal.Lib
                 if (dkLenLop.Lan_canh_bao == 0)
                 {
                     // Kiem tra so tin chi max ky phu
-                    if (HocKyDangKy.Ky_phu && lopDKs.Sum(t => t.PLAN_MonTinChi_TC.So_tin_chi) > (int)CauHinh.get("So_TC_ky_phu"))
+                    if (HocKyDangKy.Ky_phu && lopDKs.Sum(t => t.PLAN_MonTinChi_TC.So_tin_chi)+lopTC.PLAN_MonTinChi_TC.So_tin_chi > (int)CauHinh.get("So_TC_ky_phu"))
                     {
                         throw new Exception(String.Format("Bạn không thể đăng ký quá {0} tín chỉ!", (int)CauHinh.get("So_TC_ky_phu")));
                     }
                         // Kiem tra so tin chi max ky chinh
-                    else if (lopDKs.Sum(t => t.PLAN_MonTinChi_TC.So_tin_chi) > (int)CauHinh.get("So_TC_max"))
+                    else if (lopDKs.Sum(t => t.PLAN_MonTinChi_TC.So_tin_chi) + lopTC.PLAN_MonTinChi_TC.So_tin_chi > (int)CauHinh.get("So_TC_max"))
                     {
                         throw new Exception(String.Format("Bạn không thể đăng ký quá {0} tín chỉ!", (int)CauHinh.get("So_TC_max")));
                     }
                 }
                 else
                 {
-                    if (lopDKs.Sum(t => t.PLAN_MonTinChi_TC.So_tin_chi) > (int)CauHinh.get("So_TC_CC_max"))
+                    if (lopDKs.Sum(t => t.PLAN_MonTinChi_TC.So_tin_chi) + lopTC.PLAN_MonTinChi_TC.So_tin_chi > (int)CauHinh.get("So_TC_CC_max"))
                     {
                         throw new Exception(String.Format("Bạn đang bị cảnh cáo nên không thể đăng ký quá {0} tín chỉ!", (int)CauHinh.get("So_TC_CC_max")));
                     }
@@ -346,5 +346,35 @@ namespace StudentPortal.Lib
             }
             return monDK;
         }
+
+        public static void KiemTraSoMonDK(int ID_sv, int ID_dt, PLAN_HocKyDangKy_TC HocKyDangKy, DHHHContext db)
+        {
+
+            var hockyTruoc = SinhVien.GetHocKyTruoc(ID_sv, ID_dt);
+
+            // Kiem tra so tin chi 
+            var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == HocKyDangKy.Ky_dang_ky && t.Rut_bot_hoc_phan == false).Select(t => t.PLAN_LopTinChi_TC).ToList();
+
+            var xetLenLop = db.Mark_XetLenLop.Where(t => t.ID_sv == ID_sv && t.Hoc_ky == hockyTruoc.Hoc_ky && t.Nam_hoc == t.Nam_hoc);
+            if (xetLenLop.Count() != 0)
+            {
+                var dkLenLop = xetLenLop.First();
+                if (dkLenLop.Lan_canh_bao == 0)
+                {
+                    if (lopDKs.Sum(t => t.PLAN_MonTinChi_TC.So_tin_chi) < (int)CauHinh.get("So_TC_min"))
+                    {
+                        throw new Exception(String.Format("Sinh viên không thể đăng ký dưới {0} tín chỉ!", (int)CauHinh.get("So_TC_min")));
+                    }
+                }
+                else
+                {
+                    if (lopDKs.Sum(t => t.PLAN_MonTinChi_TC.So_tin_chi) < (int)CauHinh.get("So_TC_CC_min"))
+                    {
+                        throw new Exception(String.Format("Sinh viên đang bị cảnh cáo, không thể đăng ký dưới {0} tín chỉ!", (int)CauHinh.get("So_TC_CC_min")));
+                    }
+                }
+            }
+        }
+
     }
 }

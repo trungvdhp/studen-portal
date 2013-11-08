@@ -189,6 +189,7 @@
     <Compile Include="Areas\Admin\Controllers\DanhSachLopTCController.cs" />
     <Compile Include="Areas\Admin\Controllers\LopHanhChinhController.cs" />
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ThongKeDangKySVController.cs" />
     <Compile Include="Controllers\ChatRoomController.cs" />
     <Compile Include="Controllers\ChuongTrinhKhungController.cs" />
     <Compile Include="Controllers\DangKyThiController.cs" />

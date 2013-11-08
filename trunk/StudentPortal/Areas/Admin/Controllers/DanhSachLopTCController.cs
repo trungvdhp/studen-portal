@@ -57,6 +57,16 @@ namespace StudentPortal.Areas.Admin.Controllers
             var ID_svs = Utilities.string2list(IDs);
             try
             {
+                var lopTCCu = db.PLAN_LopTinChi_TC.Single(t => t.ID_lop_tc == ID_lop_tc_cu);
+                if (lopTCCu == null)
+                    throw new Exception("Dữ liệu không hợp lệ!");
+                var lopTCMoi = db.PLAN_LopTinChi_TC.Single(t => t.ID_lop_tc == ID_lop_tc);
+                if (lopTCCu == null)
+                    throw new Exception("Lớp tín chỉ bạn định chuyển không tồn tại hoặc đã bị xóa!");
+                if (lopTCCu.ID_lop_lt != lopTCMoi.ID_lop_lt || lopTCMoi.ID_mon_tc != lopTCCu.ID_mon_tc)
+                {
+                    throw new Exception("Không thể chuyển qua lớp đã chọn!");
+                }
                 foreach (var ID_sv in ID_svs)
                 {
                     var dangky = db.STU_DanhSachLopTinChi.Single(t => t.ID_sv == ID_sv && t.ID_lop_tc == ID_lop_tc_cu);
@@ -79,6 +89,35 @@ namespace StudentPortal.Areas.Admin.Controllers
                     Message = "Đã có lỗi xảy ra!",
                 };
             }
+            return result;
+        }
+
+        public ActionResult HuyLopTC(int ID_lop_tc)
+        {
+            var result = new JsonResult() { JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            try
+            {
+                if (db.STU_DanhSachLopTinChi.Count(t => t.ID_lop_tc == ID_lop_tc) > 0)
+                    throw new Exception("Bạn không thể hủy lớp đang có sinh viên đăng ký");
+                var lopTC = db.PLAN_LopTinChi_TC.Single
+                    (t => t.ID_lop_tc == ID_lop_tc);
+                if (lopTC == null) throw new Exception("Lớp tín chỉ không tồn tại!");
+                db.PLAN_LopTinChi_TC.Remove(lopTC);
+                result.Data = new AjaxResult()
+                {
+                    Status = AjaxStatus.SUCCESS,
+                    Message = "Đã hủy thành công!"
+                };
+            }
+            catch (Exception e)
+            {
+                result.Data = new AjaxResult()
+                {
+                    Status = AjaxStatus.ERROR,
+                    Message = e.Message
+                };
+            }
+
             return result;
         }
 
@@ -114,11 +153,8 @@ namespace StudentPortal.Areas.Admin.Controllers
             return result;
         }
 
-
-        public ActionResult getMonTC(int ID_chuyen_nganh, int Ky_dang_ky)
+        private List<MARK_MonHoc> listMonTC(int ID_chuyen_nganh, int Ky_dang_ky)
         {
-            JsonResult result = new JsonResult();
-            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             var idMonChuyenNganhs = db.PLAN_ChuongTrinhDaoTaoChiTiet
                 .Where(t => t.PLAN_ChuongTrinhDaoTao.ID_chuyen_nganh == ID_chuyen_nganh)
                 .Select(t => t.ID_mon).Distinct()
@@ -130,24 +166,44 @@ namespace StudentPortal.Areas.Admin.Controllers
                 if (idMonChuyenNganhs.Contains(mon.ID_mon))
                     monHeDTs.Add(mon);
             }
-            result.Data = new SelectList(monHeDTs, "ID_mon", "Ten_mon");
+            return monHeDTs.ToList();
+        }
+
+        public ActionResult getMonTC(int ID_chuyen_nganh, int Ky_dang_ky)
+        {
+            JsonResult result = new JsonResult();
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            result.Data = new SelectList(listMonTC(ID_chuyen_nganh,Ky_dang_ky), "ID_mon", "Ten_mon");
             return result;
         }
 
-        public ActionResult getLopTCKhac(int ID_mon,int ID_lop_tc, int Ky_dang_ky)
+        public ActionResult getLopTCKhac(int ID_lop_tc, int Ky_dang_ky)
         {
-            var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon, Ky_dang_ky,false);
+            var lopTC = db.PLAN_LopTinChi_TC.Single(t => t.ID_lop_tc == ID_lop_tc);
+            var lopTinChis = DangKyHocPhan.getLopTinChi(lopTC.PLAN_MonTinChi_TC.ID_mon, Ky_dang_ky,false);
             lopTinChis.Remove(lopTinChis.Single(t => t.ID_lop_tc == ID_lop_tc));
+            lopTinChis = lopTinChis.Where(t => t.ID_lop_lt == lopTC.ID_lop_lt).ToList();
             JsonResult result = new JsonResult();
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             result.Data = new SelectList(lopTinChis, "ID_lop_tc", "Ten_lop_tc");
             return result;
         }
 
-        public ActionResult getLopTC([DataSourceRequest] DataSourceRequest request, int ID_mon, int Ky_dang_ky, bool? Co_SKTC)
+        public ActionResult getLopTC([DataSourceRequest] DataSourceRequest request, int ID_chuyen_nganh, int? ID_mon, int Ky_dang_ky, bool? Co_SKTC)
         {
-            var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon, Ky_dang_ky, (bool)Co_SKTC);
-            return Json(lopTinChis.ToDataSourceResult(request));
+            var lopTinChis = new List<LopTinChiViewModel>();
+            if (ID_mon != null)
+            {
+                lopTinChis = DangKyHocPhan.getLopTinChi((int)ID_mon, Ky_dang_ky, (bool)Co_SKTC);
+            }
+            else if(ID_chuyen_nganh!=0 && Ky_dang_ky!=0){
+                var mons = listMonTC(ID_chuyen_nganh, Ky_dang_ky);
+                foreach (var mon in mons)
+                {
+                    lopTinChis.AddRange(DangKyHocPhan.getLopTinChi((int)mon.ID_mon, Ky_dang_ky, (bool)Co_SKTC));
+                }
+            }
+            return Json(lopTinChis.ToDataSourceResult(request));;
         }
 
         public ActionResult getSinhVienDK([DataSourceRequest]DataSourceRequest request, int? ID_lop_tc)
@@ -161,6 +217,7 @@ namespace StudentPortal.Areas.Admin.Controllers
                 Ho_ten = t.STU_HoSoSinhVien.Ho_ten,
                 Ma_sv = t.STU_HoSoSinhVien.Ma_sv,
                 Duyet = t.Duyet,
+                Rut_bot_hoc_phan = (bool)t.Rut_bot_hoc_phan,
             }).ToList().Select(t => new SinhVienViewModel
             {
                 ID_sv = t.ID_sv,
@@ -168,6 +225,7 @@ namespace StudentPortal.Areas.Admin.Controllers
                 Lop = SinhVien.Lop[t.ID_sv].Ten_lop,
                 Ma_sv = t.Ma_sv,
                 Duyet = t.Duyet,
+                Rut_bot_hoc_phan = (bool)t.Rut_bot_hoc_phan,
             }).ToList();
             return Json(svdks.ToDataSourceResult(request));
         }
