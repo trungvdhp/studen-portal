@@ -128,13 +128,16 @@ if(Trang_thai_dk!=null)
                     .HtmlAttributes(new { style = "height:auto" })
                     .Events(e => {
                         e.DataBound("GridSinhVien_DataBound");
+                        e.Change("GridSinhVien_Change");
                     })
                 )
             </div>
         </div>
         <p></p>
         <p>
-            <button class="btn blue btnDangKy">Đăng ký vào lớp học phần</button>
+            <button class="btn blue btnDangKy">Đăng ký vào lớp học phần</button>&nbsp;
+            <button class="btn green btnChiTietDangKy">Chi tiết đăng ký</button>
+            <a href="#modalSinhVien" data-toggle="modal" style="display:none" id="btnModalSinhVien"></a>
             <a href="#modalLopTC" id="btnDangKy" data-toggle="modal" style="display:none"></a>
         </p>
     </div>
@@ -201,10 +204,42 @@ if(Trang_thai_dk!=null)
         <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
 	</div>
 </div>
+<div id="modalSinhVien" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+		<h3>Chi tiết đăng ký học</h3>
+	</div>
+	<div class="modal-body">
+		@(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChiViewModel>()
+            .Name("GridLopTC")
+            .Columns(column =>
+            {
+                column.Bound(t => t.Ma_mon);
+                column.Bound(t => t.Ten_lop_tc);
+                column.Bound(t => t.So_tin_chi).Width(50);
+                //column.Bound(t => t.Hoc_phi).Width(80);
+            })
+            .DataSource(source => {
+                source.Ajax().Read(read => {
+                    read.Action("getChiTietDK", "LopHanhChinh", new { Area = "Admin" }).Data("getFilters");
+                }).PageSize(50);
+            })
+            .Filterable()
+            .Sortable()
+        )
+        <p></p>
+    </div>
+	<div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+	</div>
+</div>
+
 <script type="text/javascript" src="~/Scripts/jquery.b4byb0o.js"></script>
 <script>
     var selectedID = 0;
     var selectedIDLopTC = 0;
+    var selectedIDSV = 0;
+
     function GridLopTC_change(e) {
         var selected = $.map(this.select(), function (item) {
             return $(item);
@@ -212,15 +247,32 @@ if(Trang_thai_dk!=null)
         var item = this.dataItem(selected[0]);
         selectedIDLopTC = item.ID_lop_tc;
     }
+    function GridSinhVien_Change(e) {
+        var selected = $.map(this.select(), function (item) {
+            return $(item);
+        });
+        var item = this.dataItem(selected[0]);
+        selectedIDSV = item.ID_sv;
+    }
     function loadGridLopTC() {
         $('#GridLopTC').data('kendoGrid').dataSource.read();
     }
     function GridSinhVien_DataBound() {
         $('.checkAll').updateCheckRow({ changeElement: "$('.checkAll').parent()" });
         updateRowColor();
+        selectedIDSV = 0;
     }
     $(document).ready(function () {
         
+        $('.btnChiTietDangKy').click(function () {
+            if (selectedIDSV == 0) {
+                alert("Hãy chọn sinh viên cần xem chi tiết đăng ký");
+                return;
+            }
+            $('#GridLopTC').data('kendoGrid').dataSource.read();
+            $('#btnModalSinhVien').click();
+        });
+
         $('.checkAll').initCheckAll({
             changeElement: "$('.checkAll').parent()",
         });
@@ -289,6 +341,7 @@ if(Trang_thai_dk!=null)
             ID_chuyen_nganh: $('#ChuyenNganh').val(),
             Khoa_hoc: $('#KhoaHoc').val(),
             Tu_khoa: $('#MonHoc').val(),
+            ID_sv: selectedIDSV,
         };
     }
 </script>

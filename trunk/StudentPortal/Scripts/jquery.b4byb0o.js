@@ -132,6 +132,7 @@ Description: Some utilities for forms
                 urls: [],
                 datas: [],
                 type: 'post',
+                beforeRequest: function(){},
                 processChanged: function () { },
                 processCompleted: function () { }
             };
@@ -144,6 +145,7 @@ Description: Some utilities for forms
             _this.data('percent', 0);
 
             var sendRequest = function (i) {
+                options.beforeRequest(i);
                 $.ajax({
                     url: options.urls[i],
                     data: options.datas[i],

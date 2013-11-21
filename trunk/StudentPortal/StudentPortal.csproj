@@ -186,7 +186,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\Controllers\CauHinhController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ChuongTrinhDTController.cs" />
     <Compile Include="Areas\Admin\Controllers\DanhSachLopTCController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DanhSachSVDKController.cs" />
     <Compile Include="Areas\Admin\Controllers\LopHanhChinhController.cs" />
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ThongKeDangKySVController.cs" />
@@ -196,6 +198,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\SinhVienController.cs" />
     <Compile Include="Controllers\ThoiKhoaBieuController.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -693,6 +696,7 @@
     <Content Include="Areas\Admin\Views\News\Index.cshtml" />
     <Content Include="Areas\Admin\Views\News\Update.cshtml" />
     <Content Include="Areas\Admin\Views\CauHinh\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhSachSVDK\Index.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />

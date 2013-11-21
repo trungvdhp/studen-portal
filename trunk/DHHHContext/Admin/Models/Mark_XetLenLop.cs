@@ -50,7 +50,12 @@ namespace StudentPortal
 		
 		[Display(Name = "Duyệt")]
         public Nullable<bool> Duyet { get; set; }
+
+        //[ForeignKey("STU_DanhSach")]
+        public int? ID_danh_sach { get; set; }
 		
 		public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }
+
+        //public virtual STU_DanhSach STU_DanhSach { get; set; }
     }
 }

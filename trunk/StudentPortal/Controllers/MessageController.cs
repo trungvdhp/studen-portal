@@ -28,10 +28,13 @@ namespace StudentPortal.Controllers
         {
             return View();
         }
-        
-        public ActionResult Compose(string ToUser)
+
+        [ValidateInput(false)]
+        public ActionResult Compose(string ToUser="",string Object="",string Content = "")
         {
             ViewBag.ToUser = ToUser;
+            ViewBag.Object = Object;
+            ViewBag.Content = Content;
             return View();
         }
 
