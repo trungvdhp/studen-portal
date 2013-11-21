@@ -11,18 +11,26 @@ using StudentPortal.Filters;
 
 namespace StudentPortal.Controllers
 {
-    [Authorize(Roles="SinhVien")]
+    [Authorize(Roles = "SinhVien")]
     public class ThoiKhoaBieuController : BaseController
     {
         public ThoiKhoaBieuController()
         {
-            if (HocKyDangKy != null && db.SCH_CauHinhThoiGian.Count(t => t.Ky_dang_ky == HocKyDangKy.Ky_dang_ky) > 0)
+
+            ViewBag.Error = false;
+            if (db.SCH_CauHinhThoiGian.Count(t => t.Ky_dang_ky == HocKyDangKy.Ky_dang_ky) > 0)
             {
                 var cauhinhThoigian = db.SCH_CauHinhThoiGian.Single(t => t.Ky_dang_ky == HocKyDangKy.Ky_dang_ky);
                 ViewBag.Ngay_thoi_gian = cauhinhThoigian.Ngay_thoi_gian;
                 List<string> thoiGianBatDau = cauhinhThoigian.Thoi_gian_bat_dau.Split(new char[] { ',' }).ToList();
                 ViewBag.Tong_so_tiet = thoiGianBatDau.Count - thoiGianBatDau.Count(t => t == "0000");
             }
+            else
+            {
+                ViewBag.Error = true;
+                ViewBag.ErrorMessage = "Có lỗi, xin hãy liên hệ với người quản trị!";
+            }
+
         }
         public ActionResult Index()
         {

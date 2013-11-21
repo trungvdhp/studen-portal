@@ -124,7 +124,7 @@ namespace StudentPortal.Lib
             }
 
             // Kiem tra so tin chi 
-            var xetLenLop = db.Mark_XetLenLop.Where(t => t.ID_sv == ID_sv && t.Hoc_ky == hockyTruoc.Hoc_ky && t.Nam_hoc == t.Nam_hoc);
+            var xetLenLop = db.Mark_XetLenLop.Where(t => t.ID_sv == ID_sv && t.Hoc_ky == hockyTruoc.Hoc_ky && t.Nam_hoc == hockyTruoc.Nam_hoc);
             if (xetLenLop.Count() != 0)
             {
                 var dkLenLop = xetLenLop.First();

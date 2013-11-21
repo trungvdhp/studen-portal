@@ -78,8 +78,9 @@
 					<ul class="sub">
 						@if(User.IsInRole("MonTinChi")){<li><a class="" href="@Url.Action("Index","MonTinChi", new { Area = "Admin" })">Môn tín chỉ</a></li>}
 						@*<li><a class="" href="@Url.Action("Index","LopTinChi", new { Area = "Admin" })">Lớp tín chỉ</a></li>*@
-						@if(User.IsInRole("DanhSachLopTC")){<li><a class="" href="@Url.Action("Index","DanhSachLopTC", new { Area = "Admin" })">Danh sách đăng ký</a></li>}
+						@if(User.IsInRole("DanhSachLopTC")){<li><a class="" href="@Url.Action("Index","DanhSachLopTC", new { Area = "Admin" })">Lớp tín chỉ</a></li>}
                         @if(User.IsInRole("LopHanhChinh")){<li><a class="" href="@Url.Action("Index","LopHanhChinh", new { Area = "Admin" })">Lớp hành chính</a></li>}
+                        <li><a href="@Url.Action("Index","DanhSachSVDK",new{Area="Admin"})">Danh sách đăng ký</a></li>
 					</ul>
 				</li>
 				<li class="has-sub">
@@ -92,6 +93,7 @@
 						@if(User.IsInRole("Group")){<li><a class="" href="@Url.Action("Index","Group", new { Area = "Admin" })">Nhóm</a></li>}
 						@if(User.IsInRole("User")){<li><a class="" href="@Url.Action("Index","User", new { Area = "Admin" })">Người dùng</a></li>}
                         @if(User.IsInRole("CauHinh")){<li><a class="" href="@Url.Action("Index","CauHinh", new { Area = "Admin" })">Cấu hình</a></li>}
+                        
 					</ul>   
 				</li>
 			</ul>

@@ -260,11 +260,18 @@ namespace StudentPortal.Lib
             }).Distinct().OrderByDescending(t => t.Nam_hoc).ThenByDescending(t => t.Hoc_ky).ToList();
             return hocky.First();
         }
-
         public static int getNamHocThu(List<DiemHocTap> bangdiem,List<MARK_XepHangNamDaoTao_TC> xephang) 
         {
             int soTC = bangdiem.Count(t => t.Ma_mon!=null  && t.Diem_chu != "F");
             return xephang.First(t => t.Tu_tin_chi <= soTC && t.Den_tin_chi >= soTC).Nam_thu;
         }
+
+        public static List<LopTinChiViewModel> GetLopDaDK(int ID_danh_sach, int Ky_dang_ky)
+        {
+            var db = new DHHHContext();
+            var lopdadk = db.STU_DanhSachLopTinChi.Where(t => t.ID_danh_sach == ID_danh_sach && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky).Select(t => t.ID_lop_tc);
+            return lopdadk.ToList().Select(t => LopTinChi.getDetails(t)).ToList();
+        }
+
     }
 }

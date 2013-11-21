@@ -270,6 +270,7 @@
     <Compile Include="Admin\Models\STU_XuLy.cs" />
     <Compile Include="Admin\Models\SYS_Module.cs" />
     <Compile Include="Admin\Models\ViewLopTinChi.cs" />
+    <Compile Include="Admin\Models\ViewXetLenLop.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CauHinhModel.cs" />
     <Compile Include="Models\DHHH.Context.cs" />

@@ -49,9 +49,14 @@ namespace StudentPortal
 		
 		[Display(Name = "CLC")]
         public Nullable<bool> CLC { get; set; }
+
+        [ForeignKey("STU_DanhSach")]
+        public int? ID_danh_sach { get; set; }
 		
 		public virtual PLAN_LopTinChi_TC PLAN_LopTinChi_TC { get; set; }
 		
 		public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }
+
+       public virtual STU_DanhSach STU_DanhSach { get; set; }
     }
 }

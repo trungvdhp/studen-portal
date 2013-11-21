@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Thời khóa biểu";
 }
+@if(!ViewBag.Error){
 <div class="row-fluid">
     <div class="span12">
         <p>
@@ -159,3 +160,17 @@
         });
     });
 </script>
+}else{
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="alert alert-error">
+                @ViewBag.ErrorMessage
+            </div>
+        </div>
+    </div>
+</div>
+
+
+}

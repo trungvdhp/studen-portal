@@ -17,7 +17,12 @@ namespace StudentPortal
     [Table("STU_DanhSach")]
     public partial class STU_DanhSach
     {
+
         [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int ID_danh_sach { get; set; }
+
+        //[Key]
 		[ForeignKey("STU_HoSoSinhVien")]
         public int ID_sv { get; set; }
 		

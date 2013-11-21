@@ -1,0 +1,196 @@
+﻿@{
+    ViewBag.Title = "Danh sách đăng ký học";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <form class="form-horizontal" style="overflow:hidden" method="post" action="@Url.Action("Compose", "Message", new { Area="" })" id="frmMessage">
+                <div>
+                    <div class="span4">
+                        <div class="control-group">
+                            <label class="control-label">
+                                Chọn hệ đào tạo: 
+                            </label>
+                            <div class="controls">
+                                @(Html.Kendo().DropDownList()
+                                //.OptionLabel("Tất cả")
+                                .Name("He")
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .HtmlAttributes(new { style = "width: 200px" })
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("getHeDaoTao", "ChuongTrinhDT").Data("getFilters");
+                                    })
+                                    .ServerFiltering(true)
+                                    ;
+                                })
+                                //.AutoBind(false)
+                                .Events(e =>
+                                {
+                                    e.DataBound("He_DataBound");
+                                    e.Change("He_Change");
+                                })
+                            )
+                                <script>
+                                    function He_DataBound() {
+                                        $('#He').data('kendoDropDownList').value(0);
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                        <div class="controls">
+                            <label class="checkbox line">
+                                <input type="checkbox" id="cbkDKKhongHopLe" /> Đăng ký không hợp lệ
+                            </label>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">
+                                Chọn chuyên ngành: 
+                            </label>
+                            <div class="controls">
+                                @(Html.Kendo().DropDownList()
+                                    //.OptionLabel("Tất cả")
+                                    .Name("ChuyenNganh")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .HtmlAttributes(new { style = "width: 200px" })
+                                    .DataSource(source =>
+                                    {
+                                        source.Read(read =>
+                                        {
+                                            read.Action("getChuyenNganh", "ChuongTrinhDT").Data("getFilters");
+                                        })
+                                        .ServerFiltering(true)
+                                        ;
+                                    })
+                                    .CascadeFrom("He")
+                                    //.AutoBind(false)
+                                    .Events(e =>
+                                    {
+                                        e.DataBound("ChuyenNganh_DataBound");
+                                        e.Change("ChuyenNganh_Change");
+                                    })
+                                )
+                                <script>
+                                    function ChuyenNganh_DataBound() {
+                                        $('#ChuyenNganh').data('kendoDropDownList').value(0);
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span12">
+                    
+                </div>
+                <div class="span12">
+                    <input type="hidden" name="Object" />
+                    <input type="hidden" name="Content" />
+                    <input type="hidden" name="ToUser" />
+                    
+                    <button class="btn green btnSendMessage" type="button">Gửi tin nhắn</button>
+                </div>
+            </form>
+        </div>
+        <div class="span12">
+            @(Html.Kendo().Grid<StudentPortal.ViewModels.SinhVienViewModel>()
+                .Name("GridSinhVien")
+                .Columns(column =>
+                {
+                    column.Template(@<text></text>)
+                            .ClientTemplate(@"<input type='checkbox' value='#=Ma_sv#' class='checkRow'/>")
+                            .HeaderTemplate(@"<input type='checkbox' class='checkAll'/>")
+                            .Width(30)
+                            ;
+                    column.Bound(t => t.Ma_sv).Width(60);
+                    column.Bound(t => t.Ho_ten);
+                    column.Bound(t => t.Lop);
+                    column.Bound(t => t.So_tin_chi);
+                    column.Bound(t => t.Lan_canh_bao);
+                })
+                .DataSource(source =>
+                {
+                    source.Ajax().Read(read =>
+                    {
+                        read.Action("getSVDK", "DanhSachSVDK").Data("getFilters");
+                    }).PageSize(50);
+                })
+                .ClientDetailTemplateId("template")
+                .Selectable()
+                .Filterable()
+                .Sortable()
+                .Groupable()
+                .Scrollable(scroll => scroll.Height(500))
+                .Pageable(pager => pager.PageSizes(new int[] { 50, 100, 200 }))
+                .Events(e => {
+                    e.DataBound("GridSinhVien_Databound");
+                })
+            )
+        </div>
+    </div>
+</div>
+<script id="template" type="text/kendo-tmpl">
+    @(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChiViewModel>()
+        .Name("GridLopTC_#=ID_danh_sach#")
+        .Columns(column =>
+        {
+            column.Bound(t => t.Ma_mon).Width(60);
+            column.Bound(t => t.Ten_lop_tc);
+            column.Bound(t => t.So_tin_chi);
+        })
+        .DataSource(source => {
+            source.Ajax().Read(read => {
+                read.Action("getLopDK", "DanhSachSVDK", new { ID_danh_sach = "#=ID_danh_sach#" });
+            });
+        })
+        .Sortable()
+        .ToClientTemplate()
+    )
+</script>
+<script src="~/Scripts/jquery.b4byb0o.js"></script>
+<script>
+
+    function ChuyenNganh_Change() {
+        $('#GridSinhVien').data('kendoGrid').dataSource.read();
+    }
+    function getFilters() {
+        return {
+            ID_he: $('#He').val(),
+            ID_chuyen_nganh: $('#ChuyenNganh').val(),
+            DK_khong_hop_le: $('#cbkDKKhongHopLe').attr('checked')=='checked',
+        };
+    }
+    function He_Change() {
+        $('#GridSinhVien').data('kendoGrid').dataSource.read();
+    }
+    function GridSinhVien_Databound() {
+        $('.checkAll').updateCheckRow({
+            checkRow: '.checkRow',
+            changeElement: '$(".checkAll").parent()'
+        });
+    }
+    $(document).ready(function () {
+        $('#cbkDKKhongHopLe').click(function () {
+            $('#GridSinhVien').data('kendoGrid').dataSource.read();
+        });
+
+        $('.btnSendMessage').click(function () {
+            $('#frmMessage').find("[name='ToUser']").val($('.checkAll').selectedIDsToString());
+            $('#frmMessage').submit();
+        });
+
+        $('.checkAll').initCheckAll({
+            checkRow: '.checkRow',
+            changeElement: '$(".checkAll").parent()'
+        });
+    });
+</script>
