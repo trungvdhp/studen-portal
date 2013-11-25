@@ -13,8 +13,6 @@ namespace StudentPortal.Areas.Admin.Controllers
 {
     public class LopHanhChinhController : BaseController
     {
-        //
-        // GET: /Admin/LopHanhChinh/
 
         public ActionResult Index()
         {
