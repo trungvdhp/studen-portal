@@ -53,6 +53,9 @@ namespace StudentPortal.Controllers
         {
             if (this.KhongMoDK)
                 return Redirect(Url.Action("KhongMoDK", "Error", new { Area="",ReturnUrl=Request.RawUrl}));
+            ViewBag.Tu_ngay = QuyDinhDK.Tu_ngay;
+            ViewBag.Den_ngay = QuyDinhDK.Den_ngay;
+            ViewBag.HocKyDK = HocKyDangKy;
             return View();
         }
 

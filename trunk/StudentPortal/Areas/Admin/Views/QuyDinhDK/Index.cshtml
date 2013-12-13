@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Quy định đăng ký học";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="containter-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <p>
+                @(Html.Kendo().DropDownList()
+                    .Name("DropDownHocKy")
+                    .OptionLabel("Chọn học kỳ")
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .DataSource(source =>
+                    {
+                        source.Read("getHocKy", "QuyDinhDK", new { Area = "Admin" })
+                            ;
+                    })
+                    .Events(e =>
+                    {
+                        e.Change("DropDownHocKy_Change");
+                    })
+                    .AutoBind(true)
+                    .HtmlAttributes(new { style = "width:200px" })
+                )
+            </p>
+            @(Html.Kendo().Grid<StudentPortal.ViewModels.QuyDinhDKViewModel>()
+                .Name("GridQuyDinhDK")
+                .Columns(column =>
+                {
+                    column.Bound(t => t.Chuyen_nganh);
+                    column.Bound(t => t.Tu_ngay);
+                    column.Bound(t => t.Den_ngay);
+                })
+                .DataSource(source =>
+                {
+                    source.Ajax().Read(
+                        read => read.Action("", "", new { Area = "Admin" })
+                        );
+                });
+            )
+        </div>
+    </div>
+</div>
