@@ -360,5 +360,38 @@ namespace StudentPortal.Areas.Admin.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
+
+        public ActionResult HuyDangKy(int ID_lop_tc, string IDs)
+        {
+            JsonResult result = new JsonResult();
+            try
+            {
+                var ids = IDs.Split(',');
+                foreach (var id in ids)
+                {
+                    int ID_sv = Convert.ToInt32(id);
+                    db.STU_DanhSachLopTinChi.Remove(db.STU_DanhSachLopTinChi.Single(t => t.ID_sv == ID_sv && t.ID_lop_tc == ID_lop_tc));
+                }
+                db.SaveChanges();
+                result.Data = new AjaxResult
+                {
+                    Status = AjaxStatus.SUCCESS,
+                    Title= "Thông báo",
+                    Message = "Đã hủy học phần các sinh viên được chọn",
+                };
+
+            }
+            catch(Exception)
+            {
+                result.Data = new AjaxResult
+                {
+                    Status = AjaxStatus.ERROR,
+                    Title = "Lỗi",
+                    Message = "Không thể xóa các sinh viên đã chọn",
+                };
+            }
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
     }
 }

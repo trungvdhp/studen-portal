@@ -67,6 +67,7 @@
     <Compile Include="ViewModels\MonChuongTrinhKhungViewModel.cs" />
     <Compile Include="ViewModels\MonHoc.cs" />
     <Compile Include="ViewModels\NewsViewModel.cs" />
+    <Compile Include="ViewModels\QuyDinhDKViewModel.cs" />
     <Compile Include="ViewModels\SinhVien.cs" />
     <Compile Include="ViewModels\SuKienTinChi.cs" />
     <Compile Include="ViewModels\TBMHK.cs" />

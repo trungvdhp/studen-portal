@@ -64,7 +64,7 @@
                     </div>
                 </div>
             </div>
-            <div class="span6">
+            <div class="span4">
                 <div class="control-group">
                     <label class="control-label">
                         Chọn chuyên ngành: 
@@ -143,6 +143,14 @@
                     </div>
                 </div>
             </div>
+            <div class="span4">
+                <div class="control-group">
+                    <label class="control-label" >Số lớp TC: <span id="lbSoLopTC"></span></label>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" >Số SV đăng ký: <span id="lbSoSV"></span></label>
+                </div>
+            </div>
             <div class="span12">
                 <p>
                     <a href="javascript:;" class="btnDuyetSelected btn purple" data-action="DuyetDKs">Duyệt</a> &nbsp;
@@ -150,6 +158,7 @@
                     <a href="javascript:;" class="btn blue btnChuyenLop">Chuyển lớp</a>&nbsp;
                     <a href="@Url.Action("HuyLopTC", "DanhSachLopTC", new { Area="Admin"})" class="btn red btnHuyLop">Hủy lớp</a>&nbsp;
                     <a href="@Url.Action("RutHocPhan", "DanhSachLopTC", new { Area="Admin"})" class="btn btnRutHocPhan">Rút học phần</a>
+                    <a href="@Url.Action("HuyHocPhan", "DanhSachLopTC", new { Area="Admin"})" class="btn btnHuyHocPhan">Hủy học phần</a>
                     <a href="#modalLopTC" id="modalChuyenLop" data-toggle="modal" style="display:none"></a>
                 </p>
             </div>
@@ -158,7 +167,7 @@
     </div>
     <div class="span12">
         <div style="overflow:hidden">
-            <div class="span6">
+            <div class="span7">
                 @(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChiViewModel>()
                     .Name("GridLopTC")
                     .Columns(column =>
@@ -168,6 +177,8 @@
                             .ClientTemplate("<input type='checkbox' class='checkRowLopTC' value='#=ID_lop_tc#' />").Width(30);
                         column.Bound(t=>t.Ma_mon).Width(80);
                         column.Bound(t => t.Ten_lop_tc);
+                        column.Bound(t => t.Giang_vien).Width(80);
+                        column.Bound(t => t.Chi_tiet).Width(80);
                         column.Bound(t => t.Da_dang_ky).Width(80);
                         column.Bound(t => t.Cho_trong).Width(80);
                         column.Template(@<text></text>).ClientTemplate(@"#
@@ -193,13 +204,13 @@ if(Da_dang_ky == 0) color='row-red';
                         .Filterable()
                         .Events(e =>
                         {
-                            e.Change("LopTC_change");
-                            e.DataBound("LopTC_DataBound");
+                            e.Change("GridLopTC_change");
+                            e.DataBound("GridLopTC_DataBound");
                         })
                     )
             </div>
         
-            <div class="span6">
+            <div class="span5">
                 @(Html.Kendo().Grid<StudentPortal.ViewModels.SinhVienViewModel>()
                     .Name("GridSinhVien")
                     .Columns(column =>
@@ -218,7 +229,7 @@ if(Da_dang_ky == 0) color='row-red';
                             .Width(90)
                             ;
                         column.Template(@<text></text>).ClientTemplate(@"#
-                            var label = 'Xác nhận';
+                            var label = 'Duyệt';
                             var action = 'DuyetDK';
                             if(Duyet==1)
                             {
@@ -295,7 +306,8 @@ if(Rut_bot_hoc_phan) color='row-red';
 <script type="text/javascript">
     var seletedIdLop = 0;
     
-    function LopTC_DataBound() {
+    function GridLopTC_DataBound(e) {
+        $('#lbSoLopTC').html(e.sender.dataSource._total);
         updateRowColor();
         $('.checkAllLopTC').updateCheckRow({
             checkRow: '.checkRowLopTC',
@@ -304,7 +316,7 @@ if(Rut_bot_hoc_phan) color='row-red';
 
     }
     
-    function LopTC_change(arg) {
+    function GridLopTC_change(arg) {
         var selected = $.map(this.select(), function (item) {
             return $(item);
         });
@@ -319,6 +331,7 @@ if(Rut_bot_hoc_phan) color='row-red';
         $('#GridLopTC').data("kendoGrid").dataSource.read();
     }
     function GridSinhVien_DataBound(e) {
+        $('#lbSoSV').html(e.sender.dataSource._total);
         updateRowColor();
         $('.checkAll').updateCheckRow({
             checkRow: '.checkRow',
@@ -356,7 +369,7 @@ if(Rut_bot_hoc_phan) color='row-red';
             }
         });
 
-        $('.btnRutHocPhan').ajaxAction({
+        $('.btnRutHocPhan,.btnHuyHocPhan').ajaxAction({
             data: function () {
                 return {
                     IDs: $('.checkAll').selectedIDsToString(),
@@ -370,6 +383,7 @@ if(Rut_bot_hoc_phan) color='row-red';
                 }
             }
         });
+
 
         $('#Co_SKTC').change(function (e) {
             loadGridLopTC(e);

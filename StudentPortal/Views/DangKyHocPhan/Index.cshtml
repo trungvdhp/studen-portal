@@ -7,25 +7,31 @@
         <p>
         <span>Chọn chuyên ngành: </span>
         @(Html.Kendo().DropDownList()
-    .Name("ID_dt")
-    .OptionLabel("Chọn chuyên ngành")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .HtmlAttributes(new { style = "width:200px;" })
-    .DataSource(source =>
-    {
-        source.Read(read =>
-        {
-            read.Action("getChuyenNganh", "DangKyHocPhan");
-        })
-        ;
-    })
-    .Events(e =>
-    {
-        e.DataBound("chonChuyenNganh");
-        e.Change("reloadScheduler");
-    })
-)</p><p>
+            .Name("ID_dt")
+            .OptionLabel("Chọn chuyên ngành")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .HtmlAttributes(new { style = "width:200px;" })
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("getChuyenNganh", "DangKyHocPhan");
+                })
+                ;
+            })
+            .Events(e =>
+            {
+                e.DataBound("chonChuyenNganh");
+                e.Change("reloadScheduler");
+            })
+        )
+        &nbsp;&nbsp;
+        @String.Format("Học kỳ: {0}_{1}_{2}",ViewBag.HocKyDK.Nam_hoc, ViewBag.HocKyDK.Hoc_ky, ViewBag.HocKyDK.Dot)
+        &nbsp;&nbsp; 
+        @String.Format("Thời gian đăng ký: Từ {0:dd/MM/yyyy} đến {1:dd/MM/yyyy}", ViewBag.Tu_ngay, ViewBag.Den_ngay);
+        </p>
+        <p>
         <script>
             var Thu = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]; //Array();
             var Tong_so_tiet = '@ViewBag.Tong_so_tiet';

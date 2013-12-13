@@ -281,7 +281,7 @@ namespace StudentPortal.Lib
                         case KieuDangKy.CAITHIEN:
                             foreach (var mon in monDuocDK)
                             {
-                                if (dicBangdiem.ContainsKey(mon.ID_mon) && dicBangdiem[mon.ID_mon] <= SinhVien.DiemHe4["C+"] &&
+                                if (dicBangdiem.ContainsKey(mon.ID_mon) && dicBangdiem[mon.ID_mon] <= SinhVien.DiemHe4[CauHinh.get("Nang_diem",hockyDangky.Ky_dang_ky) as string] &&
                                     (!dicMonRangBuoc.ContainsKey(mon.ID_mon) ||
                                             (dicBangdiem.ContainsKey(dicMonRangBuoc[mon.ID_mon].ID_mon_rb) &&
                                                 (dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc == 0 ||
@@ -296,7 +296,7 @@ namespace StudentPortal.Lib
                         case KieuDangKy.HOCLAI:
                             foreach (var mon in monDuocDK)
                             {
-                                if (dicBangdiem.ContainsKey(mon.ID_mon) && dicBangdiem[mon.ID_mon] < SinhVien.DiemHe4["D"] &&
+                                if (dicBangdiem.ContainsKey(mon.ID_mon) && dicBangdiem[mon.ID_mon] < SinhVien.DiemHe4[CauHinh.get("Hoc_lai", hockyDangky.Ky_dang_ky) as string] &&
                                     (!dicMonRangBuoc.ContainsKey(mon.ID_mon) ||
                                             (dicBangdiem.ContainsKey(dicMonRangBuoc[mon.ID_mon].ID_mon_rb) &&
                                                 (dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc == 0 ||
@@ -311,7 +311,7 @@ namespace StudentPortal.Lib
                         default:
                             foreach (var mon in monDuocDK)
                             {
-                                if ((dicBangdiem.ContainsKey(mon.ID_mon) && dicBangdiem[mon.ID_mon] < SinhVien.DiemHe4["D"] &&
+                                if ((dicBangdiem.ContainsKey(mon.ID_mon) && dicBangdiem[mon.ID_mon] < SinhVien.DiemHe4[CauHinh.get("Hoc_lai", hockyDangky.Ky_dang_ky) as string] &&
                                     (!dicMonRangBuoc.ContainsKey(mon.ID_mon) ||
                                             (dicBangdiem.ContainsKey(dicMonRangBuoc[mon.ID_mon].ID_mon_rb) &&
                                                 (dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc == 0 ||
@@ -327,7 +327,7 @@ namespace StudentPortal.Lib
                                                 )
                                             )
                                         )
-                                    ) || (dicBangdiem.ContainsKey(mon.ID_mon) && dicBangdiem[mon.ID_mon] <= SinhVien.DiemHe4["C+"] &&
+                                    ) || (dicBangdiem.ContainsKey(mon.ID_mon) && dicBangdiem[mon.ID_mon] <= SinhVien.DiemHe4[CauHinh.get("Nang_diem", hockyDangky.Ky_dang_ky) as string] &&
                                     (!dicMonRangBuoc.ContainsKey(mon.ID_mon) ||
                                             (dicBangdiem.ContainsKey(dicMonRangBuoc[mon.ID_mon].ID_mon_rb) &&
                                                 (dicMonRangBuoc[mon.ID_mon].Diem_rang_buoc == 0 ||
