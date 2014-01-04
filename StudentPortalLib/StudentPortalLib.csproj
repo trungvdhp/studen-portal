@@ -65,10 +65,6 @@
       <Project>{1e45828d-5284-4f2a-b145-e8b7f489e0f0}</Project>
       <Name>DHHHContext</Name>
     </ProjectReference>
-    <ProjectReference Include="..\StudentPortalViewModel\StudentPortalViewModel.csproj">
-      <Project>{19de01ce-e235-4e9b-83a3-06b5af01defc}</Project>
-      <Name>StudentPortalViewModel</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,22 +6,22 @@ using StudentPortal.ViewModels;
 
 namespace StudentPortal.Lib
 {
-	public class ChuongTrinhDaoTao
-	{
+    public class ChuongTrinhDaoTao
+    {
         private static List<int> _khoaDangHoc;
-		public static List<int> getMonHoc(int ID_he, int ID_khoa, int Ky_thu)
-		{
-			DHHHContext db= new DHHHContext();
-			var mon = db.PLAN_ChuongTrinhDaoTaoChiTiet.ToList();
-			if (ID_he >0) mon = mon.Where(t => t.PLAN_ChuongTrinhDaoTao.ID_he == ID_he).ToList();
-			if (ID_khoa > 0) mon = mon.Where(t => t.PLAN_ChuongTrinhDaoTao.ID_khoa == ID_khoa).ToList();
-			if (Ky_thu > 0) mon = mon.Where(t => t.Ky_thu == Ky_thu).ToList();
+        public static List<int> getMonHoc(int ID_he, int ID_khoa, int Ky_thu)
+        {
+            DHHHContext db = new DHHHContext();
+            var mon = db.PLAN_ChuongTrinhDaoTaoChiTiet.ToList();
+            if (ID_he > 0) mon = mon.Where(t => t.PLAN_ChuongTrinhDaoTao.ID_he == ID_he).ToList();
+            if (ID_khoa > 0) mon = mon.Where(t => t.PLAN_ChuongTrinhDaoTao.ID_khoa == ID_khoa).ToList();
+            if (Ky_thu > 0) mon = mon.Where(t => t.Ky_thu == Ky_thu).ToList();
 
-			var temp = mon.Select(t => t.ID_mon).ToList();
-			var result = new List<int>();
-			foreach (int i in temp) if (!result.Contains(i)) result.Add(i);
-			return result;
-		}
+            var temp = mon.Select(t => t.ID_mon).ToList();
+            var result = new List<int>();
+            foreach (int i in temp) if (!result.Contains(i)) result.Add(i);
+            return result;
+        }
 
         public static List<STU_Khoa> getKhoa(int ID_he)
         {
@@ -78,15 +78,16 @@ namespace StudentPortal.Lib
         public static List<MonChuongTrinhKhungViewModel> getChuongTrinhKhung(int ID_dt)
         {
             var db = new DHHHContext();
-            var result = db.PLAN_ChuongTrinhDaoTaoChiTiet.Where(t => t.ID_dt == ID_dt).Select(t => new MonChuongTrinhKhungViewModel { 
+            var result = db.PLAN_ChuongTrinhDaoTaoChiTiet.Where(t => t.ID_dt == ID_dt).Select(t => new MonChuongTrinhKhungViewModel
+            {
                 ID_mon = t.ID_mon,
                 Ten_mon = t.MARK_MonHoc.Ten_mon,
                 So_TC = t.So_hoc_trinh,
                 Ly_thuyet = t.Ly_thuyet,
                 Thuc_hanh = t.Thuc_hanh,
-                He_so =  t.He_so,
+                He_so = t.He_so,
                 Ky_hieu = t.MARK_MonHoc.Ky_hieu,
-                Rang_buoc = t.Tu_chon==true?"Tự chọn":""
+                Rang_buoc = t.Tu_chon == true ? "Tự chọn" : ""
             }).ToList();
 
             var monRangBuocs = db.PLAN_ChuongTrinhDaoTaoRangBuoc.Where(t => t.ID_dt == ID_dt).ToList();
@@ -97,7 +98,7 @@ namespace StudentPortal.Lib
                 {
                     dicMonRangBuocs.Add(monRangBuoc.ID_mon, new List<PLAN_ChuongTrinhDaoTaoRangBuoc>());
                 }
-                if(dicMonRangBuocs[monRangBuoc.ID_mon].Count(t=>t.ID_mon_rb==monRangBuoc.ID_mon_rb)==0)
+                if (dicMonRangBuocs[monRangBuoc.ID_mon].Count(t => t.ID_mon_rb == monRangBuoc.ID_mon_rb) == 0)
                     dicMonRangBuocs[monRangBuoc.ID_mon].Add(monRangBuoc);
             }
             for (int i = 0; i < result.Count; i++)
@@ -110,11 +111,11 @@ namespace StudentPortal.Lib
                     {
                         if (!first) result[i].Rang_buoc += "\n";
                         first = false;
-                        result[i].Rang_buoc += String.Format("{0}: {1}",monRangBuoc.PLAN_LoaiRangBuoc.Ten_rang_buoc,monRangBuoc.Mon_Rang_Buoc.Ten_mon);
+                        result[i].Rang_buoc += String.Format("{0}: {1}", monRangBuoc.PLAN_LoaiRangBuoc.Ten_rang_buoc, monRangBuoc.Mon_Rang_Buoc.Ten_mon);
                     }
                 }
             }
             return result;
         }
-	}
+    }
 }

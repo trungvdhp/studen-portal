@@ -33,6 +33,9 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Kendo.Mvc">
+      <HintPath>..\StudentPortal\bin\Kendo.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -277,6 +280,29 @@
     <Compile Include="Models\InboxModel.cs" />
     <Compile Include="Models\NewsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AjaxResult.cs" />
+    <Compile Include="ViewModels\AutoCompleteData.cs" />
+    <Compile Include="ViewModels\BienLaiThu.cs" />
+    <Compile Include="ViewModels\CauHinhViewModel.cs" />
+    <Compile Include="ViewModels\ChuongTrinhDaoTaoViewModel.cs" />
+    <Compile Include="ViewModels\ChuyenNganh.cs" />
+    <Compile Include="ViewModels\DiemHocTap.cs" />
+    <Compile Include="ViewModels\HocKy.cs" />
+    <Compile Include="ViewModels\InboxViewModel.cs" />
+    <Compile Include="ViewModels\KieuDangKy.cs" />
+    <Compile Include="ViewModels\KyDangKy.cs" />
+    <Compile Include="ViewModels\LopHanhChinh.cs" />
+    <Compile Include="ViewModels\LopTinChiViewModel.cs" />
+    <Compile Include="ViewModels\MessageViewModel.cs" />
+    <Compile Include="ViewModels\MonChuongTrinhKhungViewModel.cs" />
+    <Compile Include="ViewModels\MonHoc.cs" />
+    <Compile Include="ViewModels\NewsViewModel.cs" />
+    <Compile Include="ViewModels\QuyDinhDKViewModel.cs" />
+    <Compile Include="ViewModels\SinhVien.cs" />
+    <Compile Include="ViewModels\SuKienTinChi.cs" />
+    <Compile Include="ViewModels\TBMHK.cs" />
+    <Compile Include="ViewModels\ThoiKhoaBieu.cs" />
+    <Compile Include="ViewModels\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

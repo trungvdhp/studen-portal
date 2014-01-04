@@ -188,6 +188,7 @@
     <Compile Include="Areas\Admin\Controllers\CauHinhController.cs" />
     <Compile Include="Areas\Admin\Controllers\ChuongTrinhDTController.cs" />
     <Compile Include="Areas\Admin\Controllers\DangKyHocController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DangKyHocSVController.cs" />
     <Compile Include="Areas\Admin\Controllers\DanhSachLopTCController.cs" />
     <Compile Include="Areas\Admin\Controllers\DanhSachSVDKController.cs" />
     <Compile Include="Areas\Admin\Controllers\LopHanhChinhController.cs" />
@@ -701,6 +702,7 @@
     <Content Include="Areas\Admin\Views\DanhSachSVDK\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DangKyHoc\Index.cshtml" />
     <Content Include="Areas\Admin\Views\QuyDinhDK\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DangKyHocSV\Index.cshtml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -907,10 +909,6 @@
     <ProjectReference Include="..\StudentPortalLib\StudentPortalLib.csproj">
       <Project>{875a026f-6821-44fc-974a-bb2a25c63ac4}</Project>
       <Name>StudentPortalLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StudentPortalViewModel\StudentPortalViewModel.csproj">
-      <Project>{19de01ce-e235-4e9b-83a3-06b5af01defc}</Project>
-      <Name>StudentPortalViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -18,7 +18,7 @@
                     })
                     .Events(e =>
                     {
-                        e.Change("DropDownHocKy_Change");
+                        //e.Change("DropDownHocKy_Change");
                     })
                     .AutoBind(true)
                     .HtmlAttributes(new { style = "width:200px" })
@@ -34,11 +34,19 @@
                 })
                 .DataSource(source =>
                 {
-                    source.Ajax().Read(
-                        read => read.Action("", "", new { Area = "Admin" })
-                        );
+                    source.Ajax().Read(read =>
+                    {
+                        read.Action("Get", "QuyDinhDK", new { Area = "Admin" }).Data("getFilters");
+                    });
                 });
             )
         </div>
     </div>
 </div>
+<script>
+    function getFilters() {
+        return {
+            Ky_dang_ky: $('#DropDownHocKy').val()
+        };
+    }
+</script>

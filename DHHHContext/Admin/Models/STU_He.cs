@@ -9,6 +9,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace StudentPortal
 {
@@ -17,6 +18,7 @@ namespace StudentPortal
     [Table("STU_He")]
     public partial class STU_He
     {
+
         //public STU_He()
         //{
         //    this.PLAN_ChuongTrinhDaoTao = new HashSet<PLAN_ChuongTrinhDaoTao>();
@@ -46,7 +48,7 @@ namespace StudentPortal
 		
 		[Display(Name = "Loại đào tạo EN")]
         public string Loai_dao_tao_en { get; set; }
-    
+
         //public virtual ICollection<PLAN_ChuongTrinhDaoTao> PLAN_ChuongTrinhDaoTao { get; set; }
     }
 }

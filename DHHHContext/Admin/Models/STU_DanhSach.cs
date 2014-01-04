@@ -9,6 +9,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace StudentPortal
 {
@@ -23,37 +24,59 @@ namespace StudentPortal
         public int ID_danh_sach { get; set; }
 
         //[Key]
-		[ForeignKey("STU_HoSoSinhVien")]
+        [ForeignKey("STU_HoSoSinhVien")]
         public int ID_sv { get; set; }
-		
-		[Display(Name = "ID Lớp")]
-		[ForeignKey("STU_Lop")]
+
+        [Display(Name = "ID Lớp")]
+        [ForeignKey("STU_Lop")]
         public int ID_lop { get; set; }
-		
-		[Display(Name = "Mật khẩu")]
+
+        [Display(Name = "Mật khẩu")]
         public string Mat_khau { get; set; }
-		
-		[Display(Name = "Active")]
+
+        [Display(Name = "Active")]
         public bool Active { get; set; }
-		
-		[Display(Name = "Đã tốt nghiệp")]
+
+        [Display(Name = "Đã tốt nghiệp")]
         public bool Da_tot_nghiep { get; set; }
-		
-		[Display(Name = "Ngoài ngân sách")]
+
+        [Display(Name = "Ngoài ngân sách")]
         public Nullable<bool> Ngoai_ngan_sach { get; set; }
-		
-		[Display(Name = "Lớp chất lượng cao")]
+
+        [Display(Name = "Lớp chất lượng cao")]
         public Nullable<bool> Lop_chat_luong_cao { get; set; }
-		
-		[Display(Name = "ID Xếp hạng học lực")]
+
+        [Display(Name = "ID Xếp hạng học lực")]
         public Nullable<int> ID_xep_hang_hoc_luc { get; set; }
-		
-		[Display(Name = "Trạng thái")]
+
+        [Display(Name = "Trạng thái")]
         public int Trang_thai { get; set; }
 
         public string Trang_thai_dk { get; set; }
-		
-		public virtual STU_Lop STU_Lop { get; set; }
-		public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }
+
+        public virtual STU_Lop STU_Lop { get; set; }
+        public virtual STU_HoSoSinhVien STU_HoSoSinhVien { get; set; }
+
+        //public List<PLAN_MonTinChi_TC> _MonDangKy;
+        //public List<PLAN_MonTinChi_TC> MonDangKy
+        //{
+        //    get
+        //    {
+        //        if (_MonDangKy != null)
+        //        {
+        //            using (var db = new DHHHContext())
+        //            {
+        //                var chuongtrinhdaotao = new PLAN_ChuongTrinhDaoTao()
+        //                {
+        //                    ID_dt = this.STU_Lop.ID_dt
+        //                };
+        //                List<MARK_MonHoc> monchuongtrinhkhung = chuongtrinhdaotao.ChuongTrinhKhung;
+        //                var listIdmon = monchuongtrinhkhung.Select(t=>t.ID_mon).Distinct().ToList();
+        //                _MonDangKy = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == this.ID_sv).Select(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC).ToList().Where(t => listIdmon.Contains(t.ID_mon)).ToList();
+        //            }
+        //        }
+        //        return _MonDangKy;
+        //    }
+        //}
     }
 }

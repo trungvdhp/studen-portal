@@ -103,18 +103,25 @@ namespace StudentPortal.Lib
             return result;
         }
 
-        public static void KiemTraDieuKienDangKy(ref DHHHContext db, int ID_sv, int ID_lop_tc, int ID_dt, PLAN_HocKyDangKy_TC HocKyDangKy)
+        public static void KiemTraDieuKienDangKy(ref DHHHContext db, int ID_sv, int ID_lop_tc, int ID_dt)
         {
+            
+            var lopTC = db.PLAN_LopTinChi_TC.Single(t=>t.ID_lop_tc==ID_lop_tc);
+            if (lopTC == null)
+                throw new Exception("Lớp tín chỉ không hợp lệ");
+            
+            var HocKyDangKy = lopTC.PLAN_MonTinChi_TC.PLAN_HocKyDangKy_TC;
+            
             var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == HocKyDangKy.Ky_dang_ky && t.Rut_bot_hoc_phan==false).Select(t => t.PLAN_LopTinChi_TC).ToList();
+            
             var idLopDKs = lopDKs.Select(t => t.ID_lop_tc).ToList();
 
             var hockyTruoc = SinhVien.GetHocKyTruoc(ID_sv, ID_dt);
             
             // Lịch của lớp đang đăng ký
-            var skLopTCs = db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == ID_lop_tc).ToList();
-            var lopTC = skLopTCs.First().PLAN_LopTinChi_TC;
             
-            var ID_mon_tc = skLopTCs.First().PLAN_LopTinChi_TC.ID_mon_tc;
+            
+            var ID_mon_tc =lopTC.ID_mon_tc;
 
             // Kiem tra gioi han sinh vien lop TC
 

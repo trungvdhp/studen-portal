@@ -138,7 +138,7 @@ namespace StudentPortal.Areas.Admin.Controllers
             try
             {
                 var lopHC = db.STU_Lop.Single(t => t.ID_lop == ID_lop);
-                DangKyHocPhan.KiemTraDieuKienDangKy(ref db, ID_sv, ID_lop_tc, lopHC.ID_dt, HocKyDangKy);
+                DangKyHocPhan.KiemTraDieuKienDangKy(ref db, ID_sv, ID_lop_tc, lopHC.ID_dt);
                 db.STU_DanhSachLopTinChi.Add(new STU_DanhSachLopTinChi
                 {
                     ID_lop_tc = ID_lop_tc,

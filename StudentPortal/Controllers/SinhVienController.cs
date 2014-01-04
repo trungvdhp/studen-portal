@@ -40,5 +40,14 @@ namespace StudentPortal.Controllers
                 }
             });
         }
+        public ActionResult getIDSV(string TuKhoa)
+        {
+            var ID_sv = SinhVien.GetIdSv(TuKhoa);
+
+            return Json(new AjaxResult { 
+                Status = AjaxStatus.SUCCESS,
+                Data = ID_sv
+            },JsonRequestBehavior.AllowGet);
+        }
     }
 }
