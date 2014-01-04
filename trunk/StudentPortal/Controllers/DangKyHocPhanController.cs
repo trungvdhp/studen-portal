@@ -264,16 +264,16 @@ namespace StudentPortal.Controllers
 
                 if (lopTC.ID_lop_lt == 0 && db.PLAN_LopTinChi_TC.Count(t => t.ID_lop_lt == ID_lop_tc) > 0)
                 {
-                    throw new Exception("Bạn phải đăng ký cả lớp thực hành của lớp lý thuyết này này");
+                    throw new Exception("Bạn phải đăng ký cả lớp thực hành của lớp lý thuyết này");
                 }
 
                 KiemTraTrungLich(ID_lop_tc, ID_dt);
                 if (lopTC.ID_lop_lt > 0)
                 {
                     KiemTraTrungLich(lopTC.ID_lop_lt, ID_dt);
-                    DangKyHocPhan.KiemTraDieuKienDangKy(ref db, ID_sv, lopTC.ID_lop_lt, ID_dt, HocKyDangKy);
+                    DangKyHocPhan.KiemTraDieuKienDangKy(ref db, ID_sv, lopTC.ID_lop_lt, ID_dt);
                 }
-                DangKyHocPhan.KiemTraDieuKienDangKy(ref db, ID_sv, ID_lop_tc, ID_dt, HocKyDangKy);
+                DangKyHocPhan.KiemTraDieuKienDangKy(ref db, ID_sv, ID_lop_tc, ID_dt);
 
                 db.STU_DanhSachLopTinChi.Add(new STU_DanhSachLopTinChi
                 {

@@ -127,19 +127,23 @@ namespace StudentPortal.Lib
 
             return dicLopTinChi;
         }
-        public static StudentPortal.ViewModels.LopTinChiViewModel getDetails(int ID_lop_tc)
+        public static StudentPortal.ViewModels.LopTinChiViewModel getDetails(int ID_lop_tc,bool Rut_bot_hoc_phan=false,bool Huy_dang_ky =false)
         {
             DHHHContext db = new DHHHContext();
-
+            StudentPortal.ViewModels.LopTinChiViewModel result;
             var lopTC = db.PLAN_LopTinChi_TC.Single(t => t.ID_lop_tc == ID_lop_tc);
 
             var sukienTinChis = db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == ID_lop_tc).ToList();
             if (lopTC.ID_lop_lt != 0)
                 sukienTinChis.AddRange(db.PLAN_SukiensTinChi_TC.Where(t => t.ID_lop_tc == lopTC.ID_lop_lt).ToList());
             var dicLopTinChi = getListDetails(sukienTinChis);
-            if(dicLopTinChi.Values.Count>0)
-                return dicLopTinChi.Values.ToList()[0];
-            return getDetail(ID_lop_tc, db);
+            if (dicLopTinChi.Values.Count > 0)
+                result = dicLopTinChi.Values.ToList()[0];
+            else
+                result = getDetail(ID_lop_tc, db);
+            result.Huy_dang_ky = Huy_dang_ky;
+            result.Rut_bot_hoc_phan = Rut_bot_hoc_phan;
+            return result;
         }
         public static LopTinChiViewModel getDetail(int ID_lop_tc, DHHHContext db)
         {

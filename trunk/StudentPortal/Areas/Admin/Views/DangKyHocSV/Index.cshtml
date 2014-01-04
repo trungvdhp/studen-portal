@@ -1,0 +1,254 @@
+﻿@{
+    ViewBag.Title = "Đăng ký học sinh viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            @(Html.Kendo().AutoComplete()
+                .Name("TuKhoa")
+                .Filter("startswith")
+                .DataTextField("Text")
+                .Placeholder("Nhập từ khóa...")
+                .HtmlAttributes(new { style = "width: 300px" })
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("TuKhoa", "TraCuu", new { Area = "" })
+                            .Data("getFilters");
+                    })
+                    .ServerFiltering(true);
+                })
+                .Events(e =>
+                {
+                    e.Change("TuKhoa_change");
+                })
+            )
+
+            @(Html.Kendo().DropDownList()
+                .Name("ddlChuyenNganh")
+                .OptionLabel("Chọn chuyên ngành")
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("getChuyenNganh", "DangKyHocSV", new { Area = "Admin" }).Data("getFilters");
+                    });
+                })
+                .Events(e =>
+                {
+                    e.Change("ddlChuyenNganh_change");
+                })
+                .HtmlAttributes(new { style = "width:300px" })
+            )
+            @(Html.Kendo().DropDownList()
+                .Name("ddlHocKy")
+                .OptionLabel("Chọn học kỳ")
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("getHocKy", "DangKyHocSV", new { Area = "Admin" }).Data("getFilters");
+                    }).ServerFiltering(true);
+                })
+                .Events(e =>
+                {
+                    e.Change("ddlHocKy_change");
+                })
+                .CascadeFrom("ddlChuyenNganh")
+                .HtmlAttributes(new { style = "width:300px" })
+            )
+        </div>
+    </div>
+    <p></p>
+    <div class="row-fluid">
+        <div class="span4">
+            @(Html.Kendo().Grid<StudentPortal.PLAN_MonTinChi_TC>()
+                .Name("GridMonDK")
+                .Columns(column =>
+                {
+                    column.Bound(t => t.MARK_MonHoc.Ky_hieu).Width(60);
+                    column.Bound(t => t.MARK_MonHoc.Ten_mon);
+                })
+                .DataSource(source =>
+                {
+                    source.Ajax().Read(read =>
+                    {
+                        read.Action("getMonDK", "DangKyHocSV", new { Area = "Admin" }).Data("getFilters");
+                    }).PageSize(50);
+                })
+                .Events(e =>
+                {
+                    e.Change("GridMonDK_change");
+                })
+                .Scrollable(scroll => scroll.Height(200))
+                .Selectable()
+            )
+        </div>
+        <div class="span8">
+            @(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChiViewModel>()
+                .Name("GridLopTC")
+                .Columns(column =>
+                {
+                    column.Bound(t => t.Ten_lop_tc);
+                    column.Bound(t => t.So_tin_chi).Width(60);
+                    column.Bound(t => t.Giang_vien).Width(80);
+                    column.Bound(t => t.Chi_tiet);
+                    column.Bound(t => t.Cho_trong).Width(65);
+                    column.Bound(t => t.So_sv_max).Width(65);
+                    column.Template(@<text></text>)
+                        .ClientTemplate(@"
+                        <a ID_lop_tc='#=ID_lop_tc#' class=""k-button-icontext k-button btnDK"" href=""javascript:;"">Đăng ký</a>
+                        <div id='LopTC#=ID_lop_tc#' />")
+                        .HtmlAttributes(new { style = "width:70px" }).HeaderHtmlAttributes(new { style = "width:70px" });
+                })
+                .DataSource(source =>
+                {
+                    source.Ajax().Read(read =>
+                    {
+                        read.Action("getLopDK", "DangKyHocSV", new { Area = "Admin" }).Data("getFilters");
+                    }).PageSize(50);
+                })
+                .Scrollable(scroll => scroll.Height(200))
+            )
+        </div>
+    </div>
+    <p></p>
+    <div class="row-fluid">
+        @(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChiViewModel>()
+                .Name("GridLopTCDaDK")
+                .Columns(column =>
+                {
+                    column.Bound(t => t.Ten_lop_tc);
+                    column.Bound(t => t.So_tin_chi).Width(60);
+                    column.Bound(t => t.Giang_vien).Width(80);
+                    column.Bound(t => t.Chi_tiet);
+                    column.Bound(t => t.Cho_trong).Width(65);
+                    column.Bound(t => t.So_sv_max).Width(65);
+
+                    column.Template(@<text></text>)
+                        .ClientTemplate(@"#
+                        var style='';
+                        var str=''
+                        if(Rut_bot_hoc_phan){
+                            style='display:none';
+                            str='(Đã rút)';
+                        }#
+                        <div id='LopTC#=ID_lop_tc#' style='#=style#'>
+                        <a ID_lop_tc='#=ID_lop_tc#' class=""k-button-icontext k-button btnRut"" href=""javascript:;"">Rút</a>&nbsp;
+                        <a ID_lop_tc='#=ID_lop_tc#'class=""k-button-icontext k-button btnHuy"" href=""javascript:;"">Hủy</a>
+                        </div>#=str#")
+                        .HtmlAttributes(new { style = "width:141px" }).HeaderHtmlAttributes(new { style = "width:141px" });
+                })
+                .DataSource(source =>
+                {
+                    source.Ajax().Read(read =>
+                    {
+                        read.Action("getLopTCDaDK", "DangKyHocSV", new { Area = "Admin" }).Data("getFilters");
+                    }).PageSize(50);
+                })
+                .Scrollable(scroll => scroll.Height(200))
+            )
+    </div>
+</div>
+<script>
+    var selectedIDMon2;
+    var ID_sv;
+    function getFilters() {
+        return {
+            TuKhoa: $('#TuKhoa').val(),
+            ID_sv: ID_sv,
+            Ky_dang_ky: $('#ddlHocKy').val(),
+            ID_mon_tc: selectedIDMon2,
+            ID_dt: $('#ddlChuyenNganh').val()
+        }
+    }
+    function ddlChuyenNganh_change() {
+
+    }
+    function GridMonDK_change(arg) {
+        var selected = $.map(this.select(), function (item) {
+            return $(item);
+        });
+        var item = this.dataItem(selected[0]);
+        selectedIDMon2 = item.ID_mon_tc;
+        $('#GridLopTC').data('kendoGrid').dataSource.read();
+    }
+    function TuKhoa_change() {
+        $.ajax({
+            data: {
+                TuKhoa: $("#TuKhoa").val(),
+            },
+            dataType: 'json',
+            url: '@Url.Action("getIDSV", "SinhVien", new { Area=""})',
+            success: function (o) {
+                ID_sv = o.Data;
+                $('#ddlChuyenNganh').data('kendoDropDownList').dataSource.read();
+                $('#GridMonDK').data('kendoGrid').dataSource.data([]);
+                $('#ddlHocKy').data('kendoDropDownList').dataSource.data([]);
+            }
+        });
+    }
+    function loadDdlHocKy() {
+        $('#GridLopTCDaDK').data('kendoGrid').dataSource.clear();
+
+    }
+    function ddlHocKy_change() {
+        $('#GridLopTCDaDK').data('kendoGrid').dataSource.read();
+        $('#GridMonDK').data('kendoGrid').dataSource.read();
+    }
+    function reloadAllGrid() {
+        $('#GridMonDK').data('kendoGrid').dataSource.read();
+        $('#GridLopTC').data('kendoGrid').dataSource.read();
+        $('#GridLopTCDaDK').data('kendoGrid').dataSource.read();
+    }
+    $('.btnDK').live("click", function () {
+        $.ajax({
+            url: '@Url.Action("DangKy", "DangKyHocSV", new { Area=""})',
+            dataType: 'json',
+            data: {
+                ID_sv: ID_sv,
+                ID_lop_tc: $(this).attr('ID_lop_tc'),
+                ID_dt: $('#ddlChuyenNganh').val()
+            },
+            success: function (o) {
+                alert(o.Message);
+                reloadAllGrid();
+            }
+        });
+    });
+    $('.btnRut').live("click", function () {
+        $.ajax({
+            url: '@Url.Action("Rut", "DangKyHocSV", new { Area=""})',
+            dataType: 'json',
+            data: {
+                ID_sv: ID_sv,
+                ID_lop_tc: $(this).attr('ID_lop_tc'),
+            },
+            success: function (o) {
+                alert(o.Message);
+                reloadAllGrid();
+            }
+        });
+    });
+    $('.btnHuy').live("click", function () {
+        $.ajax({
+            url: '@Url.Action("Huy", "DangKyHocSV", new { Area=""})',
+            dataType: 'json',
+            data: {
+                ID_sv: ID_sv,
+                ID_lop_tc: $(this).attr('ID_lop_tc'),
+            },
+            success: function (o) {
+                alert(o.Message);
+                reloadAllGrid();
+            }
+        });
+    });
+</script>

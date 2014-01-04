@@ -36,7 +36,6 @@ namespace StudentPortal.Lib
 			return 0;
 
 		}
-
         private static Dictionary<string, List<DiemHocTap>> _diemHocTap = new Dictionary<string, List<DiemHocTap>>();
         public static List<DiemHocTap> GetDiemHocTap(int ID_sv,int ID_dt)
         {
@@ -265,13 +264,23 @@ namespace StudentPortal.Lib
             int soTC = bangdiem.Count(t => t.Ma_mon!=null  && t.Diem_chu != "F");
             return xephang.First(t => t.Tu_tin_chi <= soTC && t.Den_tin_chi >= soTC).Nam_thu;
         }
-
         public static List<LopTinChiViewModel> GetLopDaDK(int ID_danh_sach, int Ky_dang_ky)
         {
             var db = new DHHHContext();
             var lopdadk = db.STU_DanhSachLopTinChi.Where(t => t.ID_danh_sach == ID_danh_sach && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky).Select(t => t.ID_lop_tc);
             return lopdadk.ToList().Select(t => LopTinChi.getDetails(t)).ToList();
         }
+        public static List<PLAN_HocKyDangKy_TC> getHocKyDangKy(int ID_sv, int ID_dt, DHHHContext db)
+        {
+            var monChuongTrinhKhung = ChuongTrinhDaoTao.getChuongTrinhKhung(ID_dt).Select(t => t.ID_mon).ToList();
+            var monDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.PLAN_LopTinChi_TC).ToList().Where(t => monChuongTrinhKhung.Contains(t.PLAN_MonTinChi_TC.ID_mon)).Select(t => t.PLAN_MonTinChi_TC.PLAN_HocKyDangKy_TC).Distinct().ToList();
+            return monDKs;
+        }
 
+        public static List<PLAN_MonTinChi_TC> getMonDK(int ID_sv, int ID_dt, int Ky_dang_ky, DHHHContext db)
+        {
+            var monCTKhung = ChuongTrinhDaoTao.getChuongTrinhKhung(ID_dt).Select(t=>t.ID_mon).ToList();
+            return db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky).Select(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC).ToList().Where(t => monCTKhung.Contains(t.ID_mon)).ToList();
+        }
     }
 }

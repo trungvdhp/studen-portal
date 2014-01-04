@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DHHHContext", "DHHHContext\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentPortalLib", "StudentPortalLib\StudentPortalLib.csproj", "{875A026F-6821-44FC-974A-BB2A25C63AC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentPortalViewModel", "StudentPortalViewModel\StudentPortalViewModel.csproj", "{19DE01CE-E235-4E9B-83A3-06B5AF01DEFC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,10 +31,6 @@ Global
 		{875A026F-6821-44FC-974A-BB2A25C63AC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{875A026F-6821-44FC-974A-BB2A25C63AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{875A026F-6821-44FC-974A-BB2A25C63AC4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19DE01CE-E235-4E9B-83A3-06B5AF01DEFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19DE01CE-E235-4E9B-83A3-06B5AF01DEFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19DE01CE-E235-4E9B-83A3-06B5AF01DEFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19DE01CE-E235-4E9B-83A3-06B5AF01DEFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

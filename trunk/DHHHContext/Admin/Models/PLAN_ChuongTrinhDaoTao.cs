@@ -9,6 +9,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace StudentPortal
 {
@@ -17,45 +18,63 @@ namespace StudentPortal
     [Table("PLAN_ChuongTrinhDaoTao")]
     public partial class PLAN_ChuongTrinhDaoTao
     {
+        //private List<MARK_MonHoc> _ChuongTrinhKhung;
+        //public List<MARK_MonHoc> ChuongTrinhKhung
+        //{
+        //    get
+        //    {
+        //        if (_ChuongTrinhKhung == null)
+        //        {
+        //            using (var db = new DHHHContext())
+        //            {
+        //                _ChuongTrinhKhung = db.PLAN_ChuongTrinhDaoTaoChiTiet.Where(t => t.ID_dt == ID_dt).Select(t => t.MARK_MonHoc).Distinct().ToList();
+        //            }
+        //        }
+        //        return _ChuongTrinhKhung;
+        //    }
+        //}
         //public PLAN_ChuongTrinhDaoTao()
         //{
-        //    this.MARK_Diem_TC = new HashSet<MARK_Diem_TC>();
+        //    //this.MARK_Diem_TC = new HashSet<MARK_Diem_TC>();
+        //    this.PLAN_ChuongTrinhDaoTaoChiTiet = new HashSet<PLAN_ChuongTrinhDaoTaoChiTiet>();
         //}
-		
-		[Key]
-		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ID_dt { get; set; }
-		
-		[Display(Name = "ID Hệ")]
-		[ForeignKey("STU_He")]
+
+        [Display(Name = "ID Hệ")]
+        [ForeignKey("STU_He")]
         public int ID_he { get; set; }
-		
-		[Display(Name = "ID Khoa")]
-		[ForeignKey("STU_Khoa")]
+
+        [Display(Name = "ID Khoa")]
+        [ForeignKey("STU_Khoa")]
         public int ID_khoa { get; set; }
-		
-		[Display(Name = "Khóa học")]
+
+        [Display(Name = "Khóa học")]
         public int Khoa_hoc { get; set; }
-		
-		[Display(Name = "ID Chuyên ngành")]
-		[ForeignKey("STU_ChuyenNganh")]
+
+        [Display(Name = "ID Chuyên ngành")]
+        [ForeignKey("STU_ChuyenNganh")]
         public int ID_chuyen_nganh { get; set; }
-		
-		[Display(Name = "Số học trình")]
+
+        [Display(Name = "Số học trình")]
         public float So_hoc_trinh { get; set; }
-		
-		[Display(Name = "Số kỳ học")]
+
+        [Display(Name = "Số kỳ học")]
         public int So_ky_hoc { get; set; }
-		
-		[Display(Name = "Số")]
+
+        [Display(Name = "Số")]
         public Nullable<int> So { get; set; }
-    
+
         //public virtual ICollection<MARK_Diem_TC> MARK_Diem_TC { get; set; }
-		
+
+        //public virtual ICollection<PLAN_ChuongTrinhDaoTaoChiTiet> PLAN_ChuongTrinhDaoTaoChiTiet { get; set; }
+
         public virtual STU_He STU_He { get; set; }
-		
+
         public virtual STU_Khoa STU_Khoa { get; set; }
-		
-		public virtual STU_ChuyenNganh STU_ChuyenNganh { get; set; }
+
+        public virtual STU_ChuyenNganh STU_ChuyenNganh { get; set; }
     }
 }
