@@ -278,6 +278,7 @@
     <Compile Include="Models\CauHinhModel.cs" />
     <Compile Include="Models\DHHH.Context.cs" />
     <Compile Include="Models\InboxModel.cs" />
+    <Compile Include="Models\Log.cs" />
     <Compile Include="Models\NewsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AjaxResult.cs" />
