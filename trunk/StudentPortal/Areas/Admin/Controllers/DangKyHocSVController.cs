@@ -47,10 +47,10 @@ namespace StudentPortal.Areas.Admin.Controllers
         //    //SinhVien.GetMonDaDK(int ID_sv,int ID_dt,int Ky_dang_ky, DHHHContext db);
         //    return Json(monDKs.ToDataSourceResult(request));
         //}
-        public ActionResult getLopTCDaDK([DataSourceRequest]DataSourceRequest request,int ID_sv)
+        public ActionResult getLopTCDaDK([DataSourceRequest]DataSourceRequest request,int ID_sv, int Ky_dang_ky)
         {
             var lopDKs = db.STU_DanhSachLopTinChi
-                .Where(t => t.ID_sv == ID_sv)
+                .Where(t => t.ID_sv == ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky==Ky_dang_ky)
                 //.Select(t => t.ID_lop_tc)
                 .ToList()
                 .Select(t => LopTinChi.getDetails(t.ID_lop_tc, (bool)t.Rut_bot_hoc_phan, t.Huy_dang_ky)).ToList();
@@ -65,9 +65,10 @@ namespace StudentPortal.Areas.Admin.Controllers
             List<PLAN_MonTinChi_TC> monDKs = SinhVien.getMonDK(ID_sv,ID_dt,Ky_dang_ky,db);
             return Json(monDKs.ToDataSourceResult(request));
         }
-        public ActionResult getLopDK([DataSourceRequest]DataSourceRequest request, int ID_mon_tc)
+        public ActionResult getLopDK([DataSourceRequest]DataSourceRequest request, int ID_mon_tc,int ID_sv, int ID_dt, int Ky_dang_ky)
         {
-            var lopDKs = db.PLAN_LopTinChi_TC.Where(t => t.ID_mon_tc == ID_mon_tc).Select(t => t.ID_lop_tc).ToList().Select(t => LopTinChi.getDetails(t)).ToList();
+            var lopTCDaDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky).Select(t => t.ID_lop_tc).ToList();
+            var lopDKs = db.PLAN_LopTinChi_TC.Where(t => t.ID_mon_tc == ID_mon_tc).Select(t => t.ID_lop_tc).ToList().Where(t=>!lopTCDaDKs.Contains(t)).Select(t => LopTinChi.getDetails(t)).ToList();
             return Json(lopDKs.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
         public ActionResult DangKy(int ID_sv, int ID_lop_tc, int ID_dt)
@@ -225,6 +226,10 @@ namespace StudentPortal.Areas.Admin.Controllers
 
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
+        }
+        public ActionResult HuyRut(int ID_sv, int ID_lop_tc)
+        {
+            return View();
         }
     }
 }
