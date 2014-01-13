@@ -85,10 +85,12 @@ namespace StudentPortal.Areas.Admin.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
 
             var lop = db.STU_Lop.Single(t => t.ID_lop == ID_lop);
-            result.Data = ChuongTrinhDaoTao.getMonHoc(lop.ID_dt).Select(t => new
-            {
-                Text = t.Ky_hieu + " " + t.Ten_mon
-            }).ToList();
+
+            //result.Data = ChuongTrinhDaoTao.getMonHoc(lop.ID_dt).Select(t => new
+            //{
+            //    Text = t.Ky_hieu + " " + t.Ten_mon
+            //}).ToList();
+            result.Data = DangKyHocPhan.getMonDangKy(lop.ID_dt, HocKyDangKy.Ky_dang_ky);
 
             return result;
         }

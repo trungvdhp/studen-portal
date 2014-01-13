@@ -60,17 +60,28 @@ namespace StudentPortal.Controllers
         }
 
         
-        public ActionResult getMonHoc(KieuDangKy KieuDK, int ID_dt)
+        //public ActionResult getMonHoc(KieuDangKy KieuDK, int ID_dt)
+        //{
+        //    JsonResult result = new JsonResult();
+        //    DHHHContext db = new DHHHContext();
+        //    var monDK = this.getMonDangKy(KieuDK,ID_dt).Select(t=>new {
+        //        ID_mon = t.ID_mon,
+        //        Ten_mon = t.Ten_mon,
+        //    });
+        //    result.Data = new SelectList(monDK, "ID_mon", "Ten_mon");
+        //    result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+        //    return result;
+        //}
+
+        public ActionResult getMonHoc([DataSourceRequest] DataSourceRequest request, KieuDangKy KieuDK, int ID_dt)
         {
-            JsonResult result = new JsonResult();
             DHHHContext db = new DHHHContext();
-            var monDK = this.getMonDangKy(KieuDK,ID_dt).Select(t=>new {
+            var monDK = this.getMonDangKy(KieuDK, ID_dt).Select(t => new
+            {
                 ID_mon = t.ID_mon,
                 Ten_mon = t.Ten_mon,
             });
-            result.Data = new SelectList(monDK, "ID_mon", "Ten_mon");
-            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            return result;
+            return Json(monDK.ToDataSourceResult(request));
         }
 
         public ActionResult getLopTC([DataSourceRequest]DataSourceRequest request, int? ID_mon, int? ID_dt)

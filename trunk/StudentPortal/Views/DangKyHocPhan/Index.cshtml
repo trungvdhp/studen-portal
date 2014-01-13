@@ -61,10 +61,12 @@
                     Value= @StudentPortal.ViewModels.KieuDangKy.HOCLAI.ToString(),
                 },
             })
+            .Events(e => {
+                e.Change("KieuDK_Change");
+            })
         )
 
-
-        @(Html.Kendo().DropDownList()
+        @*@(Html.Kendo().DropDownList()
             .Name("IDMon")
             .OptionLabel("Chọn môn")
             .DataTextField("Text")
@@ -83,7 +85,7 @@
                 e.Change("reloadGridLopTC");
             })
             .CascadeFrom("KieuDK")
-        )
+        )*@
           @(Html.Kendo().DropDownList()
             .Name("IDGiaiDoan")
             .DataTextField("Text")
@@ -103,8 +105,34 @@
             .AutoBind(false)
         )
     </p>
-        <p></p>
-        @(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChiViewModel>()
+    </div>
+</div>
+<div class="row-fluid">
+        <div class="span5">
+            @(Html.Kendo().Grid<StudentPortal.MARK_MonHoc>()
+                .Name("GridMonDK")
+                .Columns(column =>
+                {
+                    column.Bound(t => t.Ky_hieu).Width(60);
+                    column.Bound(t => t.Ten_mon);
+                })
+                .DataSource(source =>
+                {
+                    source.Ajax().Read(read =>
+                    {
+                        read.Action("getMonHoc", "DangKyHocPhan", new { Area = "" }).Data("getFilters");
+                    }).PageSize(50);
+                })
+                .Events(e =>
+                {
+                    e.Change("GridMonDK_change");
+                })
+                .Scrollable(scroll => scroll.Height(200))
+                .Selectable()
+            )
+        </div>
+        <div class="span7">
+            @(Html.Kendo().Grid<StudentPortal.ViewModels.LopTinChiViewModel>()
             .Name("GridLopTC")
             .Columns(columns =>
             {
@@ -139,9 +167,13 @@
             })
 
         )
-                <p></p>
-                <p style="overflow: hidden"><a href="#modalLopTC" data-toggle="modal" class="btn red pull-right" id="btnChiTietHP">Xem chi tiết học phần</a></p>
-                @(Html.Kendo().Scheduler<StudentPortal.ViewModels.ThoiKhoaBieu>()
+        </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <p></p>
+        <p style="overflow: hidden"><a href="#modalLopTC" data-toggle="modal" class="btn red pull-right" id="btnChiTietHP">Xem chi tiết học phần</a></p>
+        @(Html.Kendo().Scheduler<StudentPortal.ViewModels.ThoiKhoaBieu>()
             .Name("scheduler")
     
             .StartTime(DateTime.Now.Date)
@@ -222,6 +254,7 @@
     }
 </style>
 <script>
+    var selectedIDMon;
     $('.k-event>a.k-scheduler-remove').live('click', function () {
         if (!confirm("Hủy đăng ký?")) return;
         $.ajax({
@@ -242,6 +275,18 @@
         });
     });
     
+    function KieuDK_Change() {
+        $("#GridMonDK").data("kendoGrid").dataSource.read();
+    }
+    function GridMonDK_change() {
+        var selected = $.map(this.select(), function (item) {
+            return $(item);
+        });
+        var item = this.dataItem(selected[0]);
+        selectedIDMon = item.ID_mon_tc;
+        $('#GridLopTC').data('kendoGrid').dataSource.read();
+    }
+
     function GridLopTC_change() {
         var selected = $.map(this.select(), function (item) {
             return $(item);
@@ -267,7 +312,7 @@
         return {
             ID_dt: $('#ID_dt').val(),
             KieuDK: $('#KieuDK').val(),
-            ID_mon: $('#IDMon').val(),
+            ID_mon: selectedIDMon,//$('#IDMon').val(),
             ID_giai_doan: $('#IDGiaiDoan').val()
         }
     }

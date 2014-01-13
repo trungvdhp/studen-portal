@@ -383,5 +383,42 @@ namespace StudentPortal.Lib
             }
         }
 
+        public static List<MARK_MonHoc> getMonDangKy(int ID_dt, int Ky_dang_ky)
+        {
+            DHHHContext db = new DHHHContext();
+            var monDK = new List<MARK_MonHoc>();
+            var chuongtrinhDaotao = db.PLAN_ChuongTrinhDaoTao.Single(t =>
+                t.ID_dt == ID_dt
+               );
+            if (chuongtrinhDaotao != null)
+            {
+                var monChuongTrinhKhung = ChuongTrinhDaoTao.getMonHoc(chuongtrinhDaotao.ID_dt);
+                var idMonChuongTrinhKhung = monChuongTrinhKhung.Select(t => t.ID_mon).ToList();
+                //var quydinhDangkys = DangKyHocPhan.GetQuyDinhDangKy(sinhVien);
+
+                //if (quydinhDangkys.Count > 0)
+                //{
+                //    var hockyDangky = quydinhDangkys[0];
+
+
+                    var monDangMo = db.PLAN_SukiensTinChi_TC
+                        .Where(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky)
+                        .Select(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.MARK_MonHoc)
+                        .Distinct()
+                        .ToList();
+
+
+                    List<MARK_MonHoc> monDuocDK = new List<MARK_MonHoc>();
+
+                    foreach (var mon in monDangMo)
+                    {
+                        if (idMonChuongTrinhKhung.Contains(mon.ID_mon))
+                            monDuocDK.Add(mon);
+                    }
+                    return monDuocDK;
+                //}
+            }
+            return new List<MARK_MonHoc>();
+        }
     }
 }
