@@ -11,16 +11,21 @@ namespace StudentPortal.Controllers
     {
         public ActionResult Index()
         {
-
-            var news = db.News.OrderByDescending(t => t.Id).Take(20).Select(t => new NewsViewModel
+            var news = new List<NewsViewModel>();
+            try
             {
-                Id = t.Id,
-                Title = t.Title,
-                PostDate = t.PostDate,
-                User = t.User.UserName,
-                LastEditUser = t.LastEditUser.UserName,
-                LastEditDate = t.LastEditDate
-            }).ToList();
+                news = db.News.OrderByDescending(t => t.Id).Take(20).Select(t => new NewsViewModel
+                {
+                    Id = t.Id,
+                    Title = t.Title,
+                    PostDate = t.PostDate,
+                    User = t.User.UserName,
+                    LastEditUser = t.LastEditUser.UserName,
+                    LastEditDate = t.LastEditDate
+                }).ToList();
+            }
+            catch (Exception)
+            { }
             ViewBag.News = news;
 
             return View();
