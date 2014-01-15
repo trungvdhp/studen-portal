@@ -38,7 +38,7 @@ namespace StudentPortal
         public int Loai_rang_buoc { get; set; }
 
         [Display(Name = "Diểm ràng buộc")]
-        public float? Diem_rang_buoc { get; set; }
+        public double? Diem_rang_buoc { get; set; }
 		
 		public virtual STU_DoiTuong STU_DoiTuong { get; set; }
 		

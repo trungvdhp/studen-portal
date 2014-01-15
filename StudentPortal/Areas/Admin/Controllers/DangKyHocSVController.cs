@@ -62,7 +62,8 @@ namespace StudentPortal.Areas.Admin.Controllers
             {
                 return Json(new List<MARK_MonHoc>());
             }
-            List<PLAN_MonTinChi_TC> monDKs = SinhVien.getMonDK(ID_sv,ID_dt,Ky_dang_ky,db);
+            var sinhvien = db.STU_DanhSach.Single(t => t.ID_sv == ID_sv && t.STU_Lop.ID_dt == ID_dt);
+            List<PLAN_MonTinChi_TC> monDKs = DangKyHocPhan.getMonDangKy(sinhvien,KieuDangKy.TATCA,ID_dt,Ky_dang_ky);
             return Json(monDKs.ToDataSourceResult(request));
         }
         public ActionResult getLopDK([DataSourceRequest]DataSourceRequest request, int ID_mon_tc,int ID_sv, int ID_dt, int Ky_dang_ky)

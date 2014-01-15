@@ -143,7 +143,7 @@ namespace StudentPortal
             string key = KieuDK + "_" + ID_dt;
             if (!_dicMonDangKy.ContainsKey(key))
             {
-                _dicMonDangKy[key] = DangKyHocPhan.getMonDangKy(sinhVien[ID_dt],KieuDK,ID_dt);
+                _dicMonDangKy[key] = DangKyHocPhan.getMonDangKy(sinhVien[ID_dt], KieuDK, ID_dt).Select(t => t.MARK_MonHoc).ToList();
             }
             return _dicMonDangKy[key];
         }
