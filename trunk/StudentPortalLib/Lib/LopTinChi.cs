@@ -37,7 +37,7 @@ namespace StudentPortal.Lib
                         string Giang_vien = "";
                         if (lopTinChi.ID_cb != 0)
                             Giang_vien = lopTinChi.PLAN_GiaoVien.Ho_ten;
-                        
+
                         dicLopTinChi.Add(sukienTinChi.ID_lop_tc, new StudentPortal.ViewModels.LopTinChiViewModel
                         {
                             ID_lop_lt = lopTinChi.ID_lop_lt,
@@ -53,11 +53,11 @@ namespace StudentPortal.Lib
                             He_so = monTinChi.He_so,
                             Co_lop_TH = false,
                             Cho_trong = lopTinChi.Cho_trong,
-                            Da_dang_ky = lopTinChi.So_sv_max-(int)lopTinChi.Cho_trong
+                            Da_dang_ky = lopTinChi.So_sv_max - (lopTinChi.Cho_trong == null ? 0 : (int)lopTinChi.Cho_trong)
                         });
                     }
                     var Chi_tiet = "";
-                    if (sukienTinChi.Tu_ngay != null && sukienTinChi.Den_ngay!=null)
+                    if (sukienTinChi.Tu_ngay != null && sukienTinChi.Den_ngay != null)
                     {
                         Chi_tiet = string.Format("Từ {0} đến {1}", ((DateTime)sukienTinChi.Tu_ngay).ToString("dd/MM/yyyy"), ((DateTime)sukienTinChi.Den_ngay).ToString("dd/MM/yyyy"));
                     }
@@ -113,7 +113,7 @@ namespace StudentPortal.Lib
 
             foreach (var lopTinChi in dicLopTinChi.Values)
             {
-                if(_cacheDicLopTC.ContainsKey(lopTinChi.ID_lop_tc))
+                if (_cacheDicLopTC.ContainsKey(lopTinChi.ID_lop_tc))
                     continue;
                 if (lopTinChi.ID_lop_lt != 0 && dicLopTinChi.ContainsKey(lopTinChi.ID_lop_lt))
                 {
@@ -127,7 +127,7 @@ namespace StudentPortal.Lib
 
             return dicLopTinChi;
         }
-        public static StudentPortal.ViewModels.LopTinChiViewModel getDetails(int ID_lop_tc,bool Rut_bot_hoc_phan=false,bool Huy_dang_ky =false)
+        public static StudentPortal.ViewModels.LopTinChiViewModel getDetails(int ID_lop_tc, bool Rut_bot_hoc_phan = false, bool Huy_dang_ky = false)
         {
             DHHHContext db = new DHHHContext();
             StudentPortal.ViewModels.LopTinChiViewModel result;
@@ -157,16 +157,17 @@ namespace StudentPortal.Lib
                 So_sv_max = t.So_sv_max,
                 Ma_mon = t.PLAN_MonTinChi_TC.MARK_MonHoc.Ky_hieu,
                 Chi_tiet = "",
-                Giang_vien = t.ID_cb!=0?t.PLAN_GiaoVien.Ho_ten:null,
+                Giang_vien = t.ID_cb != 0 ? t.PLAN_GiaoVien.Ho_ten : null,
                 So_tin_chi = t.PLAN_MonTinChi_TC.So_tin_chi,
                 He_so = t.PLAN_MonTinChi_TC.He_so,
                 Co_lop_TH = false,
                 Cho_trong = t.Cho_trong,
-                Da_dang_ky = t.So_sv_max-(int)t.Cho_trong,
+                Da_dang_ky = t.Cho_trong == null ? 0 : t.So_sv_max - (int)t.Cho_trong,
 
             }).ToList()[0];
-            if(lopDetail.ID_lop_lt!=0){
-                var lopLT = getDetail(lopDetail.ID_lop_lt,db);
+            if (lopDetail.ID_lop_lt != 0)
+            {
+                var lopLT = getDetail(lopDetail.ID_lop_lt, db);
                 lopDetail.Ten_lop_tc = String.Format("{0}.TH{1:00}", lopLT.Ten_lop_tc, lopDetail.STT_lop);
             }
             return lopDetail;

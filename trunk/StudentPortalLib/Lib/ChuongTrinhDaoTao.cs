@@ -90,17 +90,20 @@ namespace StudentPortal.Lib
                 Rang_buoc = t.Tu_chon == true ? "Tự chọn" : ""
             }).ToList();
 
-            var monRangBuocs = db.PLAN_ChuongTrinhDaoTaoRangBuoc.Where(t => t.ID_dt == ID_dt).ToList();
             var dicMonRangBuocs = new Dictionary<int, List<PLAN_ChuongTrinhDaoTaoRangBuoc>>();
-            foreach (var monRangBuoc in monRangBuocs)
-            {
-                if (!dicMonRangBuocs.ContainsKey(monRangBuoc.ID_mon))
+            //if (db.PLAN_ChuongTrinhDaoTaoRangBuoc.Count(t => t.ID_dt == ID_dt) > 0)
+            //{
+                var monRangBuocs = db.PLAN_ChuongTrinhDaoTaoRangBuoc.Where(t => t.ID_dt == ID_dt).ToList();
+                foreach (var monRangBuoc in monRangBuocs)
                 {
-                    dicMonRangBuocs.Add(monRangBuoc.ID_mon, new List<PLAN_ChuongTrinhDaoTaoRangBuoc>());
+                    if (!dicMonRangBuocs.ContainsKey(monRangBuoc.ID_mon))
+                    {
+                        dicMonRangBuocs.Add(monRangBuoc.ID_mon, new List<PLAN_ChuongTrinhDaoTaoRangBuoc>());
+                    }
+                    if (dicMonRangBuocs[monRangBuoc.ID_mon].Count(t => t.ID_mon_rb == monRangBuoc.ID_mon_rb) == 0)
+                        dicMonRangBuocs[monRangBuoc.ID_mon].Add(monRangBuoc);
                 }
-                if (dicMonRangBuocs[monRangBuoc.ID_mon].Count(t => t.ID_mon_rb == monRangBuoc.ID_mon_rb) == 0)
-                    dicMonRangBuocs[monRangBuoc.ID_mon].Add(monRangBuoc);
-            }
+            //}
             for (int i = 0; i < result.Count; i++)
             {
                 var ID_mon = result[i].ID_mon;
