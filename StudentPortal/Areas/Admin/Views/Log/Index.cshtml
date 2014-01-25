@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Log";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            @(Html.Kendo().DropDownList()
+                .Name("ddlAction")
+                .OptionLabel("Loại thao tác")
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .BindTo(ViewBag.ActionList)
+            )
+        </div>
+    </div>
+<div class="row-fluid">
+    <div class="span12">
+
+        @(Html.Kendo().Grid<StudentPortal.ViewModels.LogViewModel>()
+            .Name("GridLog")
+            .Columns(column =>
+            {
+                column.Bound(t => t.Username);
+                column.Bound(t => t.Thao_tac);
+                column.Bound(t => t.Tham_so);
+                column.Bound(t => t.Ip);
+                column.Bound(t => t.Thoi_gian).Format("{0:dd/MM/yyyy}");
+            })
+            .DataSource(source => {
+                source.Ajax().Read(read => {
+                    read.Action("Read", "Log", new { Area="Admin"}).Data("getFilters");
+                }).PageSize(50);
+            })
+            .Groupable().Scrollable().Selectable()
+        )
+    </div>
+</div>
+
+</div>
+<script>
+function getFilters(){
+    return {
+        Thao_tac: $('#dllAction').val(),
+    };
+}
+</script>

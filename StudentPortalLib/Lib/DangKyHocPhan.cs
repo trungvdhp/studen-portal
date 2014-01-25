@@ -34,7 +34,6 @@ namespace StudentPortal.Lib
             }
             return quydinhDangkys;
         }
-
         public static List<StudentPortal.ViewModels.LopTinChiViewModel> getLopTinChi(int? ID_mon, int Ky_dang_ky, bool Co_SKTC = true)
         {
             DHHHContext db = new DHHHContext();
@@ -54,7 +53,6 @@ namespace StudentPortal.Lib
             }
             return result;
         }
-
         public static List<GiaiDoan> getGiaiDoan(List<GiaiDoan> giaidoans)
         {
             var set = new HashSet<DateTime?>();
@@ -102,8 +100,7 @@ namespace StudentPortal.Lib
 
             return result;
         }
-
-        public static void KiemTraDieuKienDangKy(ref DHHHContext db, int ID_sv, int ID_lop_tc, int ID_dt)
+        public static void KiemTraDieuKienDangKy(ref DHHHContext db, int ID_sv, int ID_lop_tc, int ID_dt,int Ky_dang_ky= 0)
         {
 
             var lopTC = db.PLAN_LopTinChi_TC.Single(t => t.ID_lop_tc == ID_lop_tc);
@@ -162,7 +159,12 @@ namespace StudentPortal.Lib
 
             if (ID_dts.Contains(ID_dt))
             {
-                var IdMonDKs = getMonDangKy(db.STU_DanhSach.Single(t => t.ID_sv == ID_sv), KieuDangKy.TATCA, ID_dt).Select(t => t.ID_mon).ToList();
+                List<int> IdMonDKs = new List<int>();
+                if(Ky_dang_ky==0)
+                    IdMonDKs = getMonDangKy(db.STU_DanhSach.Single(t => t.ID_sv == ID_sv), KieuDangKy.TATCA, ID_dt).Select(t => t.ID_mon).ToList();
+                else
+                    IdMonDKs = getMonDangKy(db.STU_DanhSach.Single(t => t.ID_sv == ID_sv), KieuDangKy.TATCA, ID_dt,Ky_dang_ky).Select(t => t.ID_mon).ToList();
+
                 if (!IdMonDKs.Contains(lopTC.PLAN_MonTinChi_TC.ID_mon))
                 {
                     throw new Exception(String.Format("Bạn đang đăng ký môn ngoài chương trình đào tạo!"));
@@ -221,7 +223,7 @@ namespace StudentPortal.Lib
                     throw new Exception(String.Format("Bạn phải học môn {0} trước mới có thể đăng ký môn này!", monRangBuoc[lopTC.PLAN_MonTinChi_TC.ID_mon].Mon_Rang_Buoc.Ten_mon));
                 }
             }
-        }
+        }        
         /// <summary>
         /// Lấy danh sách các môn cần đăng ký của sinh viên
         /// </summary>
@@ -336,7 +338,6 @@ namespace StudentPortal.Lib
             }
             return monDK;
         }
-
         private static bool KiemTraDieuKienRangBuoc(List<PLAN_ChuongTrinhDaoTaoRangBuoc> list, Dictionary<int, float> dicBangdiem)
         {
             var ID_mon = list[0].ID_mon;
@@ -350,7 +351,6 @@ namespace StudentPortal.Lib
             }
             return true;
         }
-
         public static void KiemTraSoMonDK(int ID_sv, int ID_dt, PLAN_HocKyDangKy_TC HocKyDangKy, DHHHContext db)
         {
 
@@ -379,7 +379,6 @@ namespace StudentPortal.Lib
                 }
             }
         }
-
         public static List<MARK_MonHoc> getMonDangKy(int ID_dt, int Ky_dang_ky)
         {
             DHHHContext db = new DHHHContext();

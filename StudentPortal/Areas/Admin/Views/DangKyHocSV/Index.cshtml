@@ -215,7 +215,8 @@
             data: {
                 ID_sv: ID_sv,
                 ID_lop_tc: $(this).attr('ID_lop_tc'),
-                ID_dt: $('#ddlChuyenNganh').val()
+                ID_dt: $('#ddlChuyenNganh').val(),
+                Ky_dang_ky: $('#ddlHocKy').val(),
             },
             success: function (o) {
                 alert(o.Message);

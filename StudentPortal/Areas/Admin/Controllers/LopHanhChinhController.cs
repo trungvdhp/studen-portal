@@ -8,6 +8,7 @@ using Kendo.Mvc.Extensions;
 using StudentPortal.ViewModels;
 using StudentPortal.Lib;
 using System.Threading;
+using StudentPortalLib.Lib;
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
@@ -86,10 +87,6 @@ namespace StudentPortal.Areas.Admin.Controllers
 
             var lop = db.STU_Lop.Single(t => t.ID_lop == ID_lop);
 
-            //result.Data = ChuongTrinhDaoTao.getMonHoc(lop.ID_dt).Select(t => new
-            //{
-            //    Text = t.Ky_hieu + " " + t.Ten_mon
-            //}).ToList();
             result.Data = DangKyHocPhan.getMonDangKy(lop.ID_dt, HocKyDangKy.Ky_dang_ky);
 
             return result;
@@ -154,6 +151,9 @@ namespace StudentPortal.Areas.Admin.Controllers
                     Title = "Thông báo",
                     Message = "Đã đăng ký thành công!"
                 };
+                var sv = SinhVien.GetSinhVien(db, ID_sv);
+                var lop = LopTinChi.getDetails(ID_lop_tc);
+                Log.Write(this.userProfile.UserId, "", LogAct.DANGKY, String.Format("{0}, mã sv: {1}, vào lớp {2}", sv.STU_HoSoSinhVien.Ho_ten, sv.STU_HoSoSinhVien.Ma_sv, lop.Ten_lop_tc));
             }
             catch (Exception e)
             {
