@@ -258,5 +258,6 @@ namespace StudentPortal
         public DbSet<SCH_CauHinhThoiGian> SCH_CauHinhThoiGian { get; set; }
         public DbSet<CauHinhModel> CauHinh { get; set; }
         public DbSet<NewsModel> News { get; set; }
+        public DbSet<Log> Log { get; set; }
 	}
 }

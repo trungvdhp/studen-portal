@@ -14,13 +14,14 @@ using Kendo.Mvc.Extensions;
 using StudentPortal.ViewModels;
 using StudentPortal;
 using NodaTime;
+using StudentPortalLib.Lib;
 
 namespace StudentPortal.Controllers
 {
-    [Authorize(Roles="SinhVien")]
+    [Authorize(Roles = "SinhVien")]
     public class DangKyHocPhanController : BaseController
     {
-        
+
         public DangKyHocPhanController()
         {
             ViewBag.Error = false;
@@ -48,31 +49,15 @@ namespace StudentPortal.Controllers
             }
 
         }
-
         public ActionResult Index()
         {
             if (this.KhongMoDK)
-                return Redirect(Url.Action("KhongMoDK", "Error", new { Area="",ReturnUrl=Request.RawUrl}));
+                return Redirect(Url.Action("KhongMoDK", "Error", new { Area = "", ReturnUrl = Request.RawUrl }));
             ViewBag.Tu_ngay = QuyDinhDK.Tu_ngay;
             ViewBag.Den_ngay = QuyDinhDK.Den_ngay;
             ViewBag.HocKyDK = HocKyDangKy;
             return View();
         }
-
-        
-        //public ActionResult getMonHoc(KieuDangKy KieuDK, int ID_dt)
-        //{
-        //    JsonResult result = new JsonResult();
-        //    DHHHContext db = new DHHHContext();
-        //    var monDK = this.getMonDangKy(KieuDK,ID_dt).Select(t=>new {
-        //        ID_mon = t.ID_mon,
-        //        Ten_mon = t.Ten_mon,
-        //    });
-        //    result.Data = new SelectList(monDK, "ID_mon", "Ten_mon");
-        //    result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-        //    return result;
-        //}
-
         public ActionResult getMonHoc([DataSourceRequest] DataSourceRequest request, KieuDangKy KieuDK, int ID_dt)
         {
             DHHHContext db = new DHHHContext();
@@ -83,7 +68,6 @@ namespace StudentPortal.Controllers
             });
             return Json(monDK.ToDataSourceResult(request));
         }
-
         public ActionResult getLopTC([DataSourceRequest]DataSourceRequest request, int? ID_mon, int? ID_dt)
         {
             DHHHContext db = new DHHHContext();
@@ -107,7 +91,6 @@ namespace StudentPortal.Controllers
                 return Json(tmp.ToDataSourceResult(request));
             return Json(lopTinChis.ToDataSourceResult(request));
         }
-
         public ActionResult getChuyenNganh()
         {
             JsonResult result = new JsonResult();
@@ -115,7 +98,6 @@ namespace StudentPortal.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
-
         public ActionResult getGiaiDoan(int ID_dt)
         {
             DHHHContext db = new DHHHContext();
@@ -143,7 +125,7 @@ namespace StudentPortal.Controllers
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
-        public ActionResult getThoiKhoaBieu([DataSourceRequest] DataSourceRequest request, int? ID_giai_doan,int? ID_dt)
+        public ActionResult getThoiKhoaBieu([DataSourceRequest] DataSourceRequest request, int? ID_giai_doan, int? ID_dt)
         {
             DHHHContext db = new DHHHContext();
             if (ID_dt == null) return null;
@@ -159,11 +141,11 @@ namespace StudentPortal.Controllers
                 var loptc = lopDK_SKTCs.First().PLAN_LopTinChi_TC;
                 var id_lop_tc = loptc.ID_mon_tc;
                 var stt = loptc.STT_lop;
-                int r,g,b;
-                g = (idLopDK %16)*16;
-                b= (id_lop_tc%16)*16;
+                int r, g, b;
+                g = (idLopDK % 16) * 16;
+                b = (id_lop_tc % 16) * 16;
                 r = (stt % 16) * 16;
-                dicLopTinChiColor[idLopDK] = String.Format("rgb({0},{1},{2})", r,g,b);
+                dicLopTinChiColor[idLopDK] = String.Format("rgb({0},{1},{2})", r, g, b);
                 foreach (var lopDK_SKTC in lopDK_SKTCs)
                     suKienTinChis.Add(lopDK_SKTC);
             }
@@ -196,13 +178,12 @@ namespace StudentPortal.Controllers
             {
                 ID_lop_tc = t.ID_lop_tc,
                 Start = Monday.AddDays(t.Thu).AddHours(t.Tiet),
-                End = Monday.AddDays(t.Thu).AddHours(t.Tiet + t.So_tiet+1),
+                End = Monday.AddDays(t.Thu).AddHours(t.Tiet + t.So_tiet + 1),
                 Id = t.ID,
                 Title = dicLopTC[t.ID_lop_tc].Ten_lop_tc,
                 Color = dicLopTinChiColor[t.ID_lop_tc],
             }).ToDataSourceResult(request));
         }
-
         public List<PLAN_SukiensTinChi_TC> getSuKienTinChiDK(int ID_dt)
         {
             var lopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == this.ID_sv && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == HocKyDangKy.Ky_dang_ky).Select(t => t.PLAN_LopTinChi_TC).ToList();
@@ -216,7 +197,6 @@ namespace StudentPortal.Controllers
             }
             return suKienTinChis;
         }
-
         public void KiemTraTrungLich(int ID_lop_tc, int ID_dt)
         {
             var suKienTinChiDaDKs = this.getSuKienTinChiDK(ID_dt);
@@ -251,10 +231,9 @@ namespace StudentPortal.Controllers
                 }
             }
         }
-
         public ActionResult DangKy(int ID_lop_tc, int ID_dt)
         {
-            
+
             JsonResult result = new JsonResult();
             if (HetHanDK)
             {
@@ -268,7 +247,7 @@ namespace StudentPortal.Controllers
                 result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
                 return result;
             }
-            
+
             try
             {
                 var lopTC = db.PLAN_LopTinChi_TC.Single(t => t.ID_lop_tc == ID_lop_tc);
@@ -331,20 +310,20 @@ namespace StudentPortal.Controllers
                     Message = e.Message,
                 };
             }
-            
+
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
 
         }
-
         public ActionResult HuyDangKy(int ID_lop_tc, int ID_dt)
         {
             var result = new JsonResult();
-            try{
+            try
+            {
                 var lopTHs = db.STU_DanhSachLopTinChi.Where(t => t.PLAN_LopTinChi_TC.ID_lop_lt == ID_lop_tc && t.ID_sv == this.ID_sv);
                 foreach (var lopTH in lopTHs)
                     db.STU_DanhSachLopTinChi.Remove(lopTH);
-                var lopTC = db.STU_DanhSachLopTinChi.Single(t=>t.ID_lop_tc==ID_lop_tc && t.ID_sv==this.ID_sv);
+                var lopTC = db.STU_DanhSachLopTinChi.Single(t => t.ID_lop_tc == ID_lop_tc && t.ID_sv == this.ID_sv);
 
                 if (lopTC.PLAN_LopTinChi_TC.ID_lop_lt != 0)
                 {
@@ -361,8 +340,11 @@ namespace StudentPortal.Controllers
                     Data = { },
                     Message = String.Format("Hủy đăng ký lớp học phần {0} thành công!", LopTinChi.getDetails(lopTC.ID_lop_tc).Ten_lop_tc),
                 };
+                var lop = LopTinChi.getDetails(ID_lop_tc);
+                Log.Write(this.userProfile.UserId, "", LogAct.DANGKY, String.Format("{0}, mã sv: {1}, vào lớp {2}", this.sinhVien[0].STU_HoSoSinhVien.Ho_ten, this.sinhVien[0].STU_HoSoSinhVien.Ma_sv, lop.Ten_lop_tc));
             }
-            catch(Exception e){
+            catch (Exception e)
+            {
                 result.Data = new AjaxResult
                 {
                     Status = AjaxStatus.ERROR,
@@ -371,19 +353,18 @@ namespace StudentPortal.Controllers
                     Message = String.Format("Không thể thực hiện hành động này!"),
                 };
             }
-                
+
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;
         }
-
-        public ActionResult getChiTietHocPhan([DataSourceRequest]DataSourceRequest request ,int ID_dt)
+        public ActionResult getChiTietHocPhan([DataSourceRequest]DataSourceRequest request, int ID_dt)
         {
             var lop = sinhVien[ID_dt].STU_Lop;
-            var lopTCs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList().Select(t=>LopTinChi.getDetails(t)).ToList();
-            
+            var lopTCs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList().Select(t => LopTinChi.getDetails(t)).ToList();
+
             try
             {
-                var muchocphi = HocPhi.getMucHocPhi(db,HocKyDangKy.Ky_dang_ky,lop.ID_he,lop.ID_chuyen_nganh,lop.Khoa_hoc);
+                var muchocphi = HocPhi.getMucHocPhi(db, HocKyDangKy.Ky_dang_ky, lop.ID_he, lop.ID_chuyen_nganh, lop.Khoa_hoc);
 
                 for (var i = 0; i < lopTCs.Count(); i++)
                 {

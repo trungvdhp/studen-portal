@@ -292,6 +292,7 @@
     <Compile Include="ViewModels\InboxViewModel.cs" />
     <Compile Include="ViewModels\KieuDangKy.cs" />
     <Compile Include="ViewModels\KyDangKy.cs" />
+    <Compile Include="ViewModels\LogViewModel.cs" />
     <Compile Include="ViewModels\LopHanhChinh.cs" />
     <Compile Include="ViewModels\LopTinChiViewModel.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
