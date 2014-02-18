@@ -30,7 +30,7 @@
                         <li><a class="" href="@Url.Action("Index", "DangKyHocPhan", new { Area = ""})">Đăng ký học</a></li>
                         <li><a class="" href="@Url.Action("Index", "ThoiKhoaBieu", new { Area = ""})">Thời khóa biểu</a></li>
                         <li><a class="" href="@Url.Action("Index", "ChuongTrinhKhung", new { Area = ""})">Chương trình đào tạo</a></li>
-
+                        <li><a class="" href="@Url.Action("Index", "Log", new { Area = ""})">Log</a></li>
 					</ul>
 				</li>
                 }
@@ -82,6 +82,7 @@
                         @if(User.IsInRole("LopHanhChinh")){<li><a class="" href="@Url.Action("Index","LopHanhChinh", new { Area = "Admin" })">Lớp hành chính</a></li>}
                         <li><a href="@Url.Action("Index","DanhSachSVDK",new{Area="Admin"})">Danh sách đăng ký</a></li>
                         <li><a href="@Url.Action("Index","DangKyHocSV",new{Area="Admin"})">Đăng ký học SV</a></li>
+                        <li><a href="@Url.Action("Index", "CauHinhDangKy", new { Area = "Admin"})">Cấu hình đăng ký</a></li>
                         @*<li><a href="@Url.Action("Index", "QuyDinhDK", new { Area="Admin"})">Quy định đăng ký</a></li>*@
 					</ul>
 				</li>

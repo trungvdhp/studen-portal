@@ -1,0 +1,115 @@
+﻿@model StudentPortal.PLAN_QUYDINH_DANGKY
+
+@{
+    ViewBag.Title = "Edit";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row-fluid">
+	<div class="span12">
+		<!-- BEGIN SAMPLE FORM PORTLET-->
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<h4><i class="icon-reorder"></i>Edit</h4>
+				<div class="tools">
+					<a href="javascript:;" class="collapse"></a>
+					<a href="#portlet-config" data-toggle="modal" class="config"></a>
+					<a href="javascript:;" class="reload"></a>
+					<a href="javascript:;" class="remove"></a>
+				</div>
+			</div>
+			<div class="portlet-body form">
+				<!-- BEGIN FORM-->
+				@using (Html.BeginForm("Edit", "QuyDinhDangKy", FormMethod.Post, new { @class = "form-horizontal" }))
+	{
+					@Html.ValidationSummary(true)
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Tu_ngay, new { @class = "control-label" })
+			<div class="controls">
+					@Html.TextBoxFor(model => model.Tu_ngay, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Tu_ngay)
+			</div>
+		</div>
+        <div class="control-group">
+            @Html.LabelFor(model => model.Den_ngay, new { @class = "control-label" })
+			<div class="controls">
+					@Html.TextBoxFor(model => model.Den_ngay, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Den_ngay)
+			</div>
+		</div>
+        <div class="control-group">
+            @Html.LabelFor(model => model.Hoc_ky, new { @class = "control-label" })
+			<div class="controls">
+					@Html.TextBoxFor(model => model.Hoc_ky, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Hoc_ky)
+			</div>
+		</div>
+        <div class="control-group">
+            @Html.LabelFor(model => model.Nam_hoc, new { @class = "control-label" })
+			<div class="controls">
+					@Html.TextBoxFor(model => model.Nam_hoc, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Nam_hoc)
+			</div>
+		</div>
+        <div class="control-group">
+            @Html.LabelFor(model => model.Chon_dang_ky, new { @class = "control-label" })
+			<div class="controls">
+					@Html.TextBoxFor(model => model.Chon_dang_ky, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Chon_dang_ky)
+			</div>
+		</div>
+        <div class="control-group">
+            @Html.LabelFor(model => model.ID_he, "STU_He", new { @class = "control-label" })
+			<div class="controls">
+					@Html.DropDownList("ID_he", String.Empty)
+					@Html.ValidationMessageFor(model => model.ID_he)
+			</div>
+		</div>
+        <div class="control-group">
+            @Html.LabelFor(model => model.ID_Chuyen_nganh, "STU_ChuyenNganh", new { @class = "control-label" })
+			<div class="controls">
+					@Html.DropDownList("ID_Chuyen_nganh", String.Empty)
+					@Html.ValidationMessageFor(model => model.ID_Chuyen_nganh)
+			</div>
+		</div>
+        <div class="control-group">
+            @Html.LabelFor(model => model.Ky_dang_ky, "PLAN_HocKyDangKy_TC", new { @class = "control-label" })
+			<div class="controls">
+					@Html.DropDownList("Ky_dang_ky", String.Empty)
+					@Html.ValidationMessageFor(model => model.Ky_dang_ky)
+			</div>
+		</div>
+        <div class="control-group">
+            @Html.LabelFor(model => model.Khoa_hoc, new { @class = "control-label" })
+			<div class="controls">
+					@Html.TextBoxFor(model => model.Khoa_hoc, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Khoa_hoc)
+			</div>
+		</div>
+        <div class="control-group">
+            @Html.LabelFor(model => model.Type, new { @class = "control-label" })
+			<div class="controls">
+					@Html.TextBoxFor(model => model.Type, new { @class = "medium m-wrap" })
+					@Html.ValidationMessageFor(model => model.Type)
+			</div>
+		</div>
+        <div class="form-actions">
+				<button class="btn blue" type="submit">Save</button>
+				@Html.ActionLink("Cancel", "Index",new{},new { @class = "btn" })
+			</div>
+}
+
+		</div>
+		</div>
+	</div>
+</div>
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

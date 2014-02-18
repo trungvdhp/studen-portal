@@ -55,9 +55,12 @@
                             .ServerFiltering(true)
                             ;
                         })
-                        //.Enable(false)
+                        .Events(e => {
+                            e.DataBound("ID_dt_DataBound");
+                        })
+                            //.Enable(false)
                         .AutoBind(false)
-                        //.CascadeFrom("TuKhoa")
+                            //.CascadeFrom("TuKhoa")
                     )
 
 
@@ -151,7 +154,7 @@
     $(document).ready(function () {
         $('#SinhVien').each(function () {
             $('#TuKhoa').val($(this).attr('Ma_sv'));
-
+            reloadChuyenNganh();
         });
     });
     function GridBangDiem_DataBound() {
@@ -172,7 +175,12 @@
             HocKy: $("#HocKy").val()
         };
     }
+    function ID_dt_DataBound() {
+        var t = $('#ID_dt').data('kendoDropDownList');
+        t.value(t.dataSource._data[0].Value);
+    }
     $("#TraCuuButton").click(function () {
         $("#GridBangDiem").data("kendoGrid").dataSource.read();
     });
+
 </script>

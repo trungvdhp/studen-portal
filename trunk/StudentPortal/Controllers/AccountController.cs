@@ -48,7 +48,7 @@ namespace StudentPortal.Controllers
 				{
 					if (GiaoVien.Exist(model.UserName) || SinhVien.Exits(model.UserName))
 					{
-						WebSecurity.CreateUserAndAccount(model.UserName, model.UserName, new { GroupId = CauHinh.get("User_Groups")});
+						WebSecurity.CreateUserAndAccount(model.UserName, model.UserName, new { GroupId = CauHinh.get("User_Groups"), ResetCount=0});
 						WebSecurity.Login(model.UserName, model.Password);
 						return RedirectToAction("Index", "Home");
 					}

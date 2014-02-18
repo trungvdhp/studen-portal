@@ -10,6 +10,8 @@ namespace StudentPortal.ViewModels
     {
         public int ID_dt { get; set; }
 
+        public int Id_chuyen_nganh { get; set; }
+
         [DisplayName("Chuyên ngành")]
         public string Chuyen_nganh { get; set; }
     }

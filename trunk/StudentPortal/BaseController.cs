@@ -75,7 +75,8 @@ namespace StudentPortal
             {
                 if (_quydinhDK == null)
                 {
-                    _quydinhDK = db.PLAN_QUYDINH_DANGKY.Single(t => t.Ky_dang_ky == this.HocKyDangKy.Ky_dang_ky);
+                    if(db.PLAN_QUYDINH_DANGKY.Count(t => t.Ky_dang_ky == this.HocKyDangKy.Ky_dang_ky)>0)
+                        _quydinhDK = db.PLAN_QUYDINH_DANGKY.Single(t => t.Ky_dang_ky == this.HocKyDangKy.Ky_dang_ky);
                 }
                 return _quydinhDK;
             }
@@ -84,7 +85,7 @@ namespace StudentPortal
         {
             get
             {
-                return HocKyDangKy == null;
+                return HocKyDangKy == null || QuyDinhDK==null;
             }
         }
         protected bool HetHanDK
@@ -218,6 +219,7 @@ namespace StudentPortal
 
             if (WebSecurity.IsAuthenticated)
             {
+                //lay danh sach nhom nguoi dung
                 string strUserGroups = CauHinh.get("User_Groups").ToString();
                 string[] buf = strUserGroups.Split(new char[] { ',' });
                 var groupIDs = new List<int>();
@@ -226,7 +228,7 @@ namespace StudentPortal
                     int groupID = Convert.ToInt32(e);
                     groupIDs.Add(groupID);
                 }
-                if (!groupIDs.Contains(userProfile.GroupId))
+                if (groupIDs.Contains(userProfile.GroupId))
                 {
                     var groupRoles = db.webpages_Groups_Roles.Where(t => t.GroupId == userProfile.GroupId).Select(t => t.webpages_Roles.RoleName).ToList();
                     var userRoles = Roles.GetRolesForUser(userProfile.UserName);

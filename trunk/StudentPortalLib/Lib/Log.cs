@@ -19,6 +19,7 @@ namespace StudentPortalLib.Lib
     {
         public static Dictionary<LogAct, string> LogDic = new Dictionary<LogAct, string>()
         {
+            {LogAct.NA, "Tất cả"},
             {LogAct.DANGKY,"Đăng ký lớp học phần"},
             {LogAct.RUTHP,"Rút học phần"},
             {LogAct.HUYHP, "Hủy học phần"},

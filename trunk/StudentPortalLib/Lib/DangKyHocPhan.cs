@@ -301,7 +301,7 @@ namespace StudentPortal.Lib
                         case KieuDangKy.TIENDO:
                             foreach (var mon in monDuocDK)
                             {
-                                if (!dicBangdiem.ContainsKey(mon.ID_mon) && DangKyHocPhan.KiemTraDieuKienRangBuoc(dicMonRangBuoc[mon.ID_mon], dicBangdiem))
+                                if (!dicBangdiem.ContainsKey(mon.ID_mon) && (!dicMonRangBuoc.ContainsKey(mon.ID_mon)|| DangKyHocPhan.KiemTraDieuKienRangBuoc(dicMonRangBuoc[mon.ID_mon], dicBangdiem)))
                                 {
                                     monDK.Add(mon);
                                 }
