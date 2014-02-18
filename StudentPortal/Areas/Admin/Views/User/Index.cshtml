@@ -16,9 +16,10 @@
 	{
 			columns.Bound(model => model.UserName);
 				columns.Bound(model => model.webpages_Group.GroupName);
-		        columns.Command(command => {command.Custom("Sửa").Click("Edit"); command.Custom("Xóa").Click("Delete");});
+                columns.Command(command => { command.Custom("Reset").Click("ResetUser"); command.Custom("Sửa").Click("Edit"); command.Custom("Xóa").Click("Delete"); });
 	})
 	.Groupable()
+    .Filterable()
 	.Pageable()
 	.Sortable()
 	.DataSource(
@@ -40,4 +41,19 @@
 		var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
 		location.href = '@Url.Action("Delete","User")/' + dataItem.UserId;
 	}
+    function ResetUser(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest('tr'));
+        $.ajax({
+            url: '@Url.Action("Reset", "User", new { Area= "Admin"})',
+            type: 'post',
+            data: {
+                UserId: dataItem.UserId,
+            },
+            dataType: 'json',
+            success: function (o) {
+                alert(o.Message);
+            }
+        })
+    }
 </script>

@@ -20,6 +20,8 @@ namespace StudentPortal.Models
 		[ForeignKey("webpages_Group")]
 		public int GroupId { get; set; }
 
+        public int? ResetCount { get; set; }
+
 		public virtual webpages_Group webpages_Group { get; set; }
     }
 

@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row-fluid">
+    <div class="span12">
+        <form class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label">Kỳ đăng ký hiện tại</label>
+                <div class="controls">
+                    @(Html.Kendo().DropDownList()
+                            .Name("ddlKyDangKy")
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .Events(e =>
+                            {
+                                e.Change("ddlKyDangKy_Change");
+                            })
+                            .BindTo(ViewBag.KyDangKy)
+                        )
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        @(Html.Kendo().Grid<StudentPortal.ViewModels.QuyDinhDKViewModel>()
+                .Name("gridQuyDinhDK")
+                .Columns(column =>
+                {
+                    column.Bound(t => t.KyDangKy).ClientTemplate("#=KyDangKy.Ten_ky#").Width(120);
+                    //column.Bound(t => t.Hoc_ky).Width(80);
+                    column.Bound(t => t.ChuyenNganh).ClientTemplate("#=ChuyenNganh.Chuyen_nganh#");
+                    column.Bound(t => t.Khoa_hoc).Width(80);
+                    //column.Bound(t => t.Chon_dang_ky);
+                    column.Bound(t => t.Tu_ngay).Format("{0:dd/MM/yyyy}").Width(150);
+                    column.Bound(t => t.Den_ngay).Format("{0:dd/MM/yyyy}").Width(150);
+                    column.Command(command => { command.Edit(); command.Destroy(); }).Width(160);
+                })
+                .Editable(editable => editable.Mode(GridEditMode.InCell))
+                        //.Editable(editable => editable.Mode(GridEditMode.PopUp))
+                .ToolBar(toolBar =>
+                {
+                    toolBar.Create();
+                    toolBar.Save();
+                })
+                .DataSource(
+                    source =>
+                    {
+                        source.Ajax()
+                            //.Batch(true)
+                            //.ServerOperation(false)
+                            .Events(events => events.Error("error_handler"))
+                            .Model(model =>
+                            {
+                                model.Id(t=>t.Id);
+                                model.Field(t => t.Id).Editable(false);
+                                model.Field(t => t.KyDangKy).Editable(true).DefaultValue(ViewData["defaultKyDangKy"] as StudentPortal.ViewModels.KyDangKy);
+                                model.Field(t => t.ChuyenNganh).Editable(true).DefaultValue(ViewData["defaultChuyenNganh"] as StudentPortal.ViewModels.ChuyenNganh);
+                                //model.Field(t => t.Den_ngay).Editable(true);
+                                //model.Field(t => t.Tu_ngay).Editable(true);
+                                //model.Field(t => t.Khoa_hoc).Editable(true);
+                            })
+                            .Read(read =>
+                            {
+                                read.Action("Read", "CauHinhDangKy", new { Area = "Admin" }).Data("getFilters");
+                            })
+                            .Create(create => { create.Action("Create", "CauHinhDangKy", new { Area = "Admin" }); })
+                            .Update(update => { update.Action("Update", "CauHinhDangKy", new { Area = "Admin" }); })
+                            .Destroy(destroy => { destroy.Action("Delete", "CauHinhDangKy", new { Area = "Admin" }); })
+                            .PageSize(20);
+                    }
+                )
+                .HtmlAttributes(new { @style = "height:400px" })
+                .Sortable()
+                .Groupable()
+            )
+    </div>
+</div>
+<script>
+    function dateTimeEditor(container, options) {
+        $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                .appendTo(container)
+                .kendoDateTimePicker({});
+    }
+    function ddlKyDangKy_Change() {
+        $('#gridQuyDinhDK').data('kendoGrid').dataSource.read();
+    }
+    function getFilters() {
+        return {
+            Ky_dang_ky: $('#ddlKyDangKy').val()
+        };
+    }
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+</script>

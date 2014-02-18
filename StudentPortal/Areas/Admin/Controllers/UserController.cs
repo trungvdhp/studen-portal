@@ -9,6 +9,7 @@ using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 
 using StudentPortal.Models;
+using WebMatrix.WebData;
 
 namespace StudentPortal.Areas.Admin.Controllers
 {
@@ -140,6 +141,21 @@ namespace StudentPortal.Areas.Admin.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public ActionResult Reset(int UserId)
+        {
+            var profile = Lib.User.getUserProfile(UserId);
+            var token = WebSecurity.GeneratePasswordResetToken(profile.UserName);
+            var sv = Lib.SinhVien.GetSinhVien(profile);
+            WebSecurity.ResetPassword(token, sv[0].STU_HoSoSinhVien.Ma_sv);
+            db.UserProfiles.Single(t => t.UserId == UserId).ResetCount++;
+            db.SaveChanges();
+            return Json(new AjaxResult
+            {
+                Status = AjaxStatus.SUCCESS,
+                Message = "Đã reset mật khẩu!"
+            });
         }
     }
 }

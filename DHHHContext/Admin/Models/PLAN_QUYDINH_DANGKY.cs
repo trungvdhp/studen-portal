@@ -47,6 +47,7 @@ namespace StudentPortal
         [ForeignKey("PLAN_HocKyDangKy_TC")]
         public int Ky_dang_ky { get; set; }
 
+        [Display(Name="Khóa học")]
         public int Khoa_hoc { get; set; }
 		
 		[Display(Name = "Type")]
@@ -56,6 +57,7 @@ namespace StudentPortal
 		
 		public virtual STU_ChuyenNganh STU_ChuyenNganh { get; set; }
 
+        [Display(Name="Kỳ đăng ký")]
         public virtual PLAN_HocKyDangKy_TC PLAN_HocKyDangKy_TC { get; set; }
     }
 }

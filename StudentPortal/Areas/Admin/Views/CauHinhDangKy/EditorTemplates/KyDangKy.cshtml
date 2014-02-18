@@ -1,0 +1,7 @@
+﻿@model StudentPortal.ViewModels.KyDangKy
+
+@(Html.Kendo().DropDownListFor(m=>m)
+    .DataTextField("Ky_dang_ky")
+    .DataTextField("Ten_ky")
+    .BindTo((System.Collections.IEnumerable)ViewData["kydangkys"])
+)
