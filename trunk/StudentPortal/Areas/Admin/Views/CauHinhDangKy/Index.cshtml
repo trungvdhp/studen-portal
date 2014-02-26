@@ -36,7 +36,7 @@
                     //column.Bound(t => t.Chon_dang_ky);
                     column.Bound(t => t.Tu_ngay).Format("{0:dd/MM/yyyy}").Width(150);
                     column.Bound(t => t.Den_ngay).Format("{0:dd/MM/yyyy}").Width(150);
-                    column.Command(command => { command.Edit(); command.Destroy(); }).Width(160);
+                    column.Command(command => {  command.Destroy(); }).Width(160);
                 })
                 .Editable(editable => editable.Mode(GridEditMode.InCell))
                         //.Editable(editable => editable.Mode(GridEditMode.PopUp))
@@ -66,7 +66,7 @@
                             {
                                 read.Action("Read", "CauHinhDangKy", new { Area = "Admin" }).Data("getFilters");
                             })
-                            .Create(create => { create.Action("Create", "CauHinhDangKy", new { Area = "Admin" }); })
+                            .Create(create => { create.Action("Create", "CauHinhDangKy", new { Area = "Admin" }).Data("getFilters"); })
                             .Update(update => { update.Action("Update", "CauHinhDangKy", new { Area = "Admin" }); })
                             .Destroy(destroy => { destroy.Action("Delete", "CauHinhDangKy", new { Area = "Admin" }); })
                             .PageSize(20);
