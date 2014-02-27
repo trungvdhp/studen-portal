@@ -29,7 +29,7 @@
                 .Name("gridQuyDinhDK")
                 .Columns(column =>
                 {
-                    column.Bound(t => t.KyDangKy).ClientTemplate("#=KyDangKy.Ten_ky#").Width(120);
+                    //column.Bound(t => t.KyDangKy).ClientTemplate("#=KyDangKy.Ten_ky#").Width(120);
                     //column.Bound(t => t.Hoc_ky).Width(80);
                     column.Bound(t => t.ChuyenNganh).ClientTemplate("#=ChuyenNganh.Chuyen_nganh#");
                     column.Bound(t => t.Khoa_hoc).Width(80);
@@ -56,7 +56,7 @@
                             {
                                 model.Id(t=>t.Id);
                                 model.Field(t => t.Id).Editable(false);
-                                model.Field(t => t.KyDangKy).Editable(true).DefaultValue(ViewData["defaultKyDangKy"] as StudentPortal.ViewModels.KyDangKy);
+                                //model.Field(t => t.KyDangKy).Editable(true).DefaultValue(ViewData["defaultKyDangKy"] as StudentPortal.ViewModels.KyDangKy);
                                 model.Field(t => t.ChuyenNganh).Editable(true).DefaultValue(ViewData["defaultChuyenNganh"] as StudentPortal.ViewModels.ChuyenNganh);
                                 //model.Field(t => t.Den_ngay).Editable(true);
                                 //model.Field(t => t.Tu_ngay).Editable(true);
