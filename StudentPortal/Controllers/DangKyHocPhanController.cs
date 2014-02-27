@@ -36,6 +36,13 @@ namespace StudentPortal.Controllers
                     List<string> thoiGianBatDau = cauhinhThoigian.Thoi_gian_bat_dau.Split(new char[] { ',' }).ToList();
                     ViewBag.Tong_so_tiet = thoiGianBatDau.Count - thoiGianBatDau.Count(t => t == "0000");
                 }
+                else if (db.SCH_CauHinhThoiGian.Count(t => t.Ky_dang_ky == 0) > 0)
+                {
+                    var cauhinhThoigian = db.SCH_CauHinhThoiGian.Single(t => t.Ky_dang_ky == 0);
+                    ViewBag.Ngay_thoi_gian = cauhinhThoigian.Ngay_thoi_gian;
+                    List<string> thoiGianBatDau = cauhinhThoigian.Thoi_gian_bat_dau.Split(new char[] { ',' }).ToList();
+                    ViewBag.Tong_so_tiet = thoiGianBatDau.Count - thoiGianBatDau.Count(t => t == "0000");
+                }
                 else
                 {
                     ViewBag.Error = true;
