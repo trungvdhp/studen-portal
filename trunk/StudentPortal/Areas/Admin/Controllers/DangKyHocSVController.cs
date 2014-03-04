@@ -21,7 +21,7 @@ namespace StudentPortal.Areas.Admin.Controllers
         public ActionResult getHocKy(int ID_sv, int ID_dt)
         {
             var hocky = SinhVien.getHocKyDangKy(ID_sv, ID_dt, db)
-                .Select(t => new KyDangKy
+                .Select(t => new ViewModels.KyDangKy
                 {
                     Ky_dang_ky = t.Ky_dang_ky,
                     Ten_ky = "Năm học " + t.Nam_hoc + ", học kỳ " + t.Hoc_ky + ", đợt " + t.Dot

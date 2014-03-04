@@ -6,7 +6,7 @@
     <div class="span12">
         <form class="form-horizontal">
             <div class="control-group">
-                <label class="control-label">Kỳ đăng ký hiện tại</label>
+                <label class="control-label">Kỳ đăng ký</label>
                 <div class="controls">
                     @(Html.Kendo().DropDownList()
                             .Name("ddlKyDangKy")
@@ -18,6 +18,7 @@
                             })
                             .BindTo(ViewBag.KyDangKy)
                         )
+                    <button id="btnChonDK" class="btn green" type="button">Chọn đăng ký</button>
                 </div>
             </div>
         </form>
@@ -105,4 +106,20 @@
             alert(message);
         }
     }
+    $(document).ready(function () {
+        
+    });
+    $('#btnChonDK').click(function () {
+        $.ajax({
+            url: '@Url.Action("ChonDangKy", "CauHinhDangKy", new { Area=""})',
+            data: {
+                Ky_dang_ky: $('#ddlKyDangKy').val()
+            },
+            dataType: 'json',
+            type: 'post',
+            success: function (o) {
+                alert(o.Message);
+            }
+        });
+    });
 </script>

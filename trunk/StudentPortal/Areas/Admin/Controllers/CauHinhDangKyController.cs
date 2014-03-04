@@ -126,5 +126,27 @@ namespace StudentPortal.Areas.Admin.Controllers
             }
             return Json(new[] { model }.ToDataSourceResult(request, ModelState));
         }
+        public ActionResult ChonDangKy(int Ky_dang_ky)
+        {
+            DHHHContext db = new DHHHContext();
+            try
+            {
+                db.PLAN_HocKyDangKy_TC.Single(t => t.Chon_dang_ky).Chon_dang_ky = false;
+                db.PLAN_HocKyDangKy_TC.Single(t => t.Ky_dang_ky == Ky_dang_ky).Chon_dang_ky = true;
+                db.SaveChanges();
+                return Json(new AjaxResult
+                {
+                    Status = AjaxStatus.SUCCESS,
+                    Message = "Chọn kỳ đăng ký thành công!",
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new AjaxResult { 
+                    Status = AjaxStatus.ERROR,
+                    Message = "Có lỗi xảy ra: "+ex.Message,
+                });
+            }
+        }
     }
 }

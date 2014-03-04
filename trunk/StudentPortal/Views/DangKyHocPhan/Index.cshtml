@@ -109,12 +109,12 @@
 </div>
 <div class="row-fluid">
         <div class="span5">
-            @(Html.Kendo().Grid<StudentPortal.MARK_MonHoc>()
+            @(Html.Kendo().Grid<StudentPortal.PLAN_MonTinChi_TC>()
                 .Name("GridMonDK")
                 .Columns(column =>
                 {
-                    column.Bound(t => t.Ky_hieu).Width(60);
-                    column.Bound(t => t.Ten_mon);
+                    column.Bound(t => t.MARK_MonHoc.Ky_hieu).Width(60);
+                    column.Bound(t => t.MARK_MonHoc.Ten_mon);
                 })
                 .DataSource(source =>
                 {
@@ -312,7 +312,7 @@
         return {
             ID_dt: $('#ID_dt').val(),
             KieuDK: $('#KieuDK').val(),
-            ID_mon: selectedIDMon,//$('#IDMon').val(),
+            ID_mon_tc: selectedIDMon,//$('#IDMon').val(),
             ID_giai_doan: $('#IDGiaiDoan').val()
         }
     }

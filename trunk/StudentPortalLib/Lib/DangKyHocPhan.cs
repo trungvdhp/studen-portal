@@ -34,22 +34,40 @@ namespace StudentPortal.Lib
             }
             return quydinhDangkys;
         }
-        public static List<StudentPortal.ViewModels.LopTinChiViewModel> getLopTinChi(int? ID_mon, int Ky_dang_ky, bool Co_SKTC = true)
+        //public static List<StudentPortal.ViewModels.LopTinChiViewModel> getLopTinChi(int? ID_mon, int Ky_dang_ky, bool Co_SKTC = true)
+        //{
+        //    DHHHContext db = new DHHHContext();
+        //    if (Co_SKTC)
+        //    {
+        //        var sukienTinChis = db.PLAN_SukiensTinChi_TC.Where(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.ID_mon == ID_mon && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky).ToList();
+
+        //        var dicLopTinChi = LopTinChi.getListDetails(sukienTinChis);
+
+        //        return dicLopTinChi.Values.ToList();
+        //    }
+        //    var lopTCs = db.PLAN_LopTinChi_TC.Where(t => t.PLAN_MonTinChi_TC.ID_mon == ID_mon && t.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky).Select(t => t.ID_lop_tc).ToList();
+        //    List<LopTinChiViewModel> result = new List<LopTinChiViewModel>();
+        //    foreach (var ID_lop_tc in lopTCs)
+        //    {
+        //        result.Add(LopTinChi.getDetail(ID_lop_tc, db));
+        //    }
+        //    return result;
+        //}
+
+        public static List<StudentPortal.ViewModels.LopTinChiViewModel> getLopTinChi(int ID_mon_tc, bool CoSKTC = true)
         {
             DHHHContext db = new DHHHContext();
-            if (Co_SKTC)
+            if (CoSKTC)
             {
-                var sukienTinChis = db.PLAN_SukiensTinChi_TC.Where(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.ID_mon == ID_mon && t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky).ToList();
-
-                var dicLopTinChi = LopTinChi.getListDetails(sukienTinChis);
-
-                return dicLopTinChi.Values.ToList();
+                var sukientinchis = db.PLAN_SukiensTinChi_TC.Where(t => t.PLAN_LopTinChi_TC.ID_mon_tc == ID_mon_tc).ToList();
+                var dicloptinchi = LopTinChi.getListDetails(sukientinchis);
+                return dicloptinchi.Values.ToList();
             }
-            var lopTCs = db.PLAN_LopTinChi_TC.Where(t => t.PLAN_MonTinChi_TC.ID_mon == ID_mon && t.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky).Select(t => t.ID_lop_tc).ToList();
+            var loptcs = db.PLAN_LopTinChi_TC.Where(t => t.ID_mon_tc==ID_mon_tc).Select(t => t.ID_lop_tc).ToList();
             List<LopTinChiViewModel> result = new List<LopTinChiViewModel>();
-            foreach (var ID_lop_tc in lopTCs)
+            foreach (var id_lop_tc in loptcs)
             {
-                result.Add(LopTinChi.getDetail(ID_lop_tc, db));
+                result.Add(LopTinChi.getDetail(id_lop_tc, db));
             }
             return result;
         }
@@ -100,7 +118,7 @@ namespace StudentPortal.Lib
 
             return result;
         }
-        public static void KiemTraDieuKienDangKy(ref DHHHContext db, int ID_sv, int ID_lop_tc, int ID_dt,int Ky_dang_ky= 0)
+        public static void KiemTraDieuKienDangKy(ref DHHHContext db, int ID_sv, int ID_lop_tc, int ID_dt, int Ky_dang_ky = 0)
         {
 
             var lopTC = db.PLAN_LopTinChi_TC.Single(t => t.ID_lop_tc == ID_lop_tc);
@@ -160,10 +178,10 @@ namespace StudentPortal.Lib
             if (ID_dts.Contains(ID_dt))
             {
                 List<int> IdMonDKs = new List<int>();
-                if(Ky_dang_ky==0)
+                if (Ky_dang_ky == 0)
                     IdMonDKs = getMonDangKy(db.STU_DanhSach.Single(t => t.ID_sv == ID_sv), KieuDangKy.TATCA, ID_dt).Select(t => t.ID_mon).ToList();
                 else
-                    IdMonDKs = getMonDangKy(db.STU_DanhSach.Single(t => t.ID_sv == ID_sv), KieuDangKy.TATCA, ID_dt,Ky_dang_ky).Select(t => t.ID_mon).ToList();
+                    IdMonDKs = getMonDangKy(db.STU_DanhSach.Single(t => t.ID_sv == ID_sv), KieuDangKy.TATCA, ID_dt, Ky_dang_ky).Select(t => t.ID_mon).ToList();
 
                 if (!IdMonDKs.Contains(lopTC.PLAN_MonTinChi_TC.ID_mon))
                 {
@@ -223,7 +241,7 @@ namespace StudentPortal.Lib
                     throw new Exception(String.Format("Bạn phải học môn {0} trước mới có thể đăng ký môn này!", monRangBuoc[lopTC.PLAN_MonTinChi_TC.ID_mon].Mon_Rang_Buoc.Ten_mon));
                 }
             }
-        }        
+        }
         /// <summary>
         /// Lấy danh sách các môn cần đăng ký của sinh viên
         /// </summary>
@@ -301,7 +319,7 @@ namespace StudentPortal.Lib
                         case KieuDangKy.TIENDO:
                             foreach (var mon in monDuocDK)
                             {
-                                if (!dicBangdiem.ContainsKey(mon.ID_mon) && (!dicMonRangBuoc.ContainsKey(mon.ID_mon)|| DangKyHocPhan.KiemTraDieuKienRangBuoc(dicMonRangBuoc[mon.ID_mon], dicBangdiem)))
+                                if (!dicBangdiem.ContainsKey(mon.ID_mon) && (!dicMonRangBuoc.ContainsKey(mon.ID_mon) || DangKyHocPhan.KiemTraDieuKienRangBuoc(dicMonRangBuoc[mon.ID_mon], dicBangdiem)))
                                 {
                                     monDK.Add(mon);
                                 }
@@ -325,8 +343,8 @@ namespace StudentPortal.Lib
                             foreach (var mon in monDuocDK)
                             {
                                 if (
-                                    (dicBangdiem.ContainsKey(mon.ID_mon) && dicBangdiem[mon.ID_mon] < SinhVien.DiemHe4[CauHinh.get("Hoc_lai", hockyDangky.Ky_dang_ky) as string]) 
-                                    || (!dicBangdiem.ContainsKey(mon.ID_mon) && (!dicMonRangBuoc.ContainsKey(mon.ID_mon) || DangKyHocPhan.KiemTraDieuKienRangBuoc(dicMonRangBuoc[mon.ID_mon], dicBangdiem))) 
+                                    (dicBangdiem.ContainsKey(mon.ID_mon) && dicBangdiem[mon.ID_mon] < SinhVien.DiemHe4[CauHinh.get("Hoc_lai", hockyDangky.Ky_dang_ky) as string])
+                                    || (!dicBangdiem.ContainsKey(mon.ID_mon) && (!dicMonRangBuoc.ContainsKey(mon.ID_mon) || DangKyHocPhan.KiemTraDieuKienRangBuoc(dicMonRangBuoc[mon.ID_mon], dicBangdiem)))
                                     || (dicBangdiem.ContainsKey(mon.ID_mon) && dicBangdiem[mon.ID_mon] <= SinhVien.DiemHe4[CauHinh.get("Nang_diem", hockyDangky.Ky_dang_ky) as string])
                                     )
                                     monDK.Add(mon);
@@ -341,11 +359,12 @@ namespace StudentPortal.Lib
         private static bool KiemTraDieuKienRangBuoc(List<PLAN_ChuongTrinhDaoTaoRangBuoc> list, Dictionary<int, float> dicBangdiem)
         {
             var ID_mon = list[0].ID_mon;
-            foreach(PLAN_ChuongTrinhDaoTaoRangBuoc rangbuoc in list)
+            foreach (PLAN_ChuongTrinhDaoTaoRangBuoc rangbuoc in list)
             {
-                if(dicBangdiem.ContainsKey(rangbuoc.ID_mon_rb)){
-                    if(rangbuoc.Diem_rang_buoc==0 && dicBangdiem[rangbuoc.ID_mon_rb]>SinhVien.DiemHe4["F"]) continue;
-                    if(dicBangdiem[rangbuoc.ID_mon_rb]>=rangbuoc.Diem_rang_buoc) continue;
+                if (dicBangdiem.ContainsKey(rangbuoc.ID_mon_rb))
+                {
+                    if (rangbuoc.Diem_rang_buoc == 0 && dicBangdiem[rangbuoc.ID_mon_rb] > SinhVien.DiemHe4["F"]) continue;
+                    if (dicBangdiem[rangbuoc.ID_mon_rb] >= rangbuoc.Diem_rang_buoc) continue;
                 }
                 return false;
             }
@@ -379,10 +398,10 @@ namespace StudentPortal.Lib
                 }
             }
         }
-        public static List<MARK_MonHoc> getMonDangKy(int ID_dt, int Ky_dang_ky)
+        public static List<PLAN_MonTinChi_TC> getMonDangKy(int ID_dt, int Ky_dang_ky)
         {
             DHHHContext db = new DHHHContext();
-            var monDK = new List<MARK_MonHoc>();
+            var monDK = new List<PLAN_MonTinChi_TC>();
             var chuongtrinhDaotao = db.PLAN_ChuongTrinhDaoTao.Single(t =>
                 t.ID_dt == ID_dt
                );
@@ -399,22 +418,22 @@ namespace StudentPortal.Lib
 
                 var monDangMo = db.PLAN_SukiensTinChi_TC
                     .Where(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky)
-                    .Select(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.MARK_MonHoc)
+                    .Select(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC)
                     .Distinct()
                     .ToList();
 
 
-                List<MARK_MonHoc> monDuocDK = new List<MARK_MonHoc>();
+                List<PLAN_MonTinChi_TC> monDuocDK = new List<PLAN_MonTinChi_TC>();
 
                 foreach (var mon in monDangMo)
                 {
-                    if (idMonChuongTrinhKhung.Contains(mon.ID_mon))
+                    if (idMonChuongTrinhKhung.Contains(mon.MARK_MonHoc.ID_mon))
                         monDuocDK.Add(mon);
                 }
                 return monDuocDK;
                 //}
             }
-            return new List<MARK_MonHoc>();
+            return new List<PLAN_MonTinChi_TC>();
         }
     }
 }

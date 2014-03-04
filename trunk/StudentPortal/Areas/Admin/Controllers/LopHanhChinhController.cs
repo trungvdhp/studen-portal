@@ -17,7 +17,10 @@ namespace StudentPortal.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.KyDangKys = new SelectList(StudentPortal.Lib.KyDangKy.getAll(),"Ky_dang_ky","Ten_ky");
+            ViewBag.KyDangKyHienTai = this.HocKyDangKy;
             return View();
+            
         }
 
         public ActionResult getHeDaoTao()
@@ -80,25 +83,25 @@ namespace StudentPortal.Areas.Admin.Controllers
 
             return Json(sinhviens.ToDataSourceResult(request));
         }
-        public ActionResult getMonTC(int ID_lop)
+        public ActionResult getMonTC(int ID_lop, int Ky_dang_ky)
         {
             JsonResult result = new JsonResult();
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
 
             var lop = db.STU_Lop.Single(t => t.ID_lop == ID_lop);
 
-            result.Data = DangKyHocPhan.getMonDangKy(lop.ID_dt, HocKyDangKy.Ky_dang_ky);
+            result.Data = DangKyHocPhan.getMonDangKy(lop.ID_dt, Ky_dang_ky);
 
             return result;
         }
 
-        public ActionResult getLopTC([DataSourceRequest]DataSourceRequest request, string Tu_khoa)
+        public ActionResult getLopTC([DataSourceRequest]DataSourceRequest request, string Tu_khoa, int Ky_dang_ky)
         {
             var kyhieu = Tu_khoa.Split(' ')[0];
             try
             {
-                var mon = db.MARK_MonHoc.Single(t => t.Ky_hieu == kyhieu);
-                return Json(DangKyHocPhan.getLopTinChi(mon.ID_mon, this.HocKyDangKy.Ky_dang_ky).ToDataSourceResult(request));
+                var mon = db.PLAN_MonTinChi_TC.Single(t => t.MARK_MonHoc.Ky_hieu == kyhieu & t.Ky_dang_ky==Ky_dang_ky);
+                return Json(DangKyHocPhan.getLopTinChi(mon.ID_mon_tc).ToDataSourceResult(request));
             }
             catch (Exception)
             {
@@ -106,7 +109,7 @@ namespace StudentPortal.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult getChiTietDK([DataSourceRequest]DataSourceRequest request, int ID_sv, int ID_lop)
+        public ActionResult getChiTietDK([DataSourceRequest]DataSourceRequest request, int ID_sv, int ID_lop, int Ky_dang_ky)
         {
             try
             {
@@ -114,7 +117,7 @@ namespace StudentPortal.Areas.Admin.Controllers
                 var lopTCs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList().Select(t => LopTinChi.getDetails(t)).ToList();
 
 
-                var muchocphi = HocPhi.getMucHocPhi(db, HocKyDangKy.Ky_dang_ky, lop.ID_he, lop.ID_chuyen_nganh, lop.Khoa_hoc);
+                var muchocphi = HocPhi.getMucHocPhi(db, Ky_dang_ky, lop.ID_he, lop.ID_chuyen_nganh, lop.Khoa_hoc);
 
                 for (var i = 0; i < lopTCs.Count(); i++)
                 {

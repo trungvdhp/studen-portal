@@ -53,6 +53,7 @@
     <Compile Include="Lib\GiaoVien.cs" />
     <Compile Include="Lib\GlobalLib.cs" />
     <Compile Include="Lib\HocPhi.cs" />
+    <Compile Include="Lib\KyDangKy.cs" />
     <Compile Include="Lib\Log.cs" />
     <Compile Include="Lib\LopTinChi.cs" />
     <Compile Include="Lib\SinhVien.cs" />

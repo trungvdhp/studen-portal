@@ -47,7 +47,7 @@ namespace StudentPortal.Controllers
         {
             int ID_sv = sinhVien.Values.First().ID_sv;
             var kydangkys = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.PLAN_LopTinChi_TC.PLAN_MonTinChi_TC.PLAN_HocKyDangKy_TC)
-                .Distinct().ToList().Select(t => new KyDangKy
+                .Distinct().ToList().Select(t => new ViewModels.KyDangKy
                 {
                     Ky_dang_ky = t.Ky_dang_ky,
                     Ten_ky = t.Nam_hoc + "_" + t.Hoc_ky + "_" + t.Dot,

@@ -68,18 +68,15 @@ namespace StudentPortal.Controllers
         public ActionResult getMonHoc([DataSourceRequest] DataSourceRequest request, KieuDangKy KieuDK, int ID_dt)
         {
             DHHHContext db = new DHHHContext();
-            var monDK = this.getMonDangKy(KieuDK, ID_dt).Select(t => new
-            {
-                ID_mon = t.ID_mon,
-                Ten_mon = t.Ten_mon,
-            });
+            var monDK = this.getMonDangKy(KieuDK, ID_dt);
             return Json(monDK.ToDataSourceResult(request));
         }
-        public ActionResult getLopTC([DataSourceRequest]DataSourceRequest request, int? ID_mon, int? ID_dt)
+        public ActionResult getLopTC([DataSourceRequest]DataSourceRequest request, int? ID_mon_tc, int? ID_dt)
         {
             DHHHContext db = new DHHHContext();
             if (ID_dt == null) return null;
-            var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon, this.HocKyDangKy.Ky_dang_ky);
+            //var lopTinChis = DangKyHocPhan.getLopTinChi(ID_mon, this.HocKyDangKy.Ky_dang_ky);
+            var lopTinChis = DangKyHocPhan.getLopTinChi((int)ID_mon_tc);
             var ID_sv = sinhVien[(int)ID_dt].ID_sv;
             var idLopDKs = db.STU_DanhSachLopTinChi.Where(t => t.ID_sv == ID_sv).Select(t => t.ID_lop_tc).ToList();
             var coLopDK = false;
