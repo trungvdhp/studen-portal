@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Hồ sơ sinh viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    StudentPortal.STU_HoSoSinhVien sinhvien = ViewBag.SinhVien[0] as StudentPortal.STU_HoSoSinhVien;
+}
+<div class="row-fluid">
+    <form class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label">Mã sinh viên</label>
+            <div class="controls">
+                <input type="text" value="@sinhvien.Ma_sv" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Họ</label>
+            <div class="controls">
+                <input type="text" value="@sinhvien.Ho_ten" />
+            </div>
+        </div>
+        @*<div class="control-group">
+            <label class="control-label">Tên</label>
+            <div class="controls">
+                <input type="text" value="@sinhvien.Ma_sv" />
+            </div>
+        </div>*@
+        <div class="control-group">
+            <label class="control-label">Email</label>
+            <div class="controls">
+                <input type="text" value="@sinhvien.Email" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Ngày sinh</label>
+            <div class="controls">
+                <input type="text" value="@sinhvien.Ngay_sinh" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Địa chỉ báo tin</label>
+            <div class="controls">
+                <input type="text" value="@sinhvien.Dia_chi_bao_tin" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Họ tên bố</label>
+            <div class="controls">
+                <input type="text" value="@sinhvien.Ho_ten_cha" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Họ tên mẹ</label>
+            <div class="controls">
+                <input type="text" value="@sinhvien.Ho_ten_me" />
+            </div>
+        </div>
+    </form>
+</div>

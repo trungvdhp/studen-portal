@@ -26,7 +26,7 @@ namespace StudentPortal
         private Dictionary<int, List<DiemHocTap>> _bangdiem = new Dictionary<int, List<DiemHocTap>>();
         private Dictionary<int, HocKy> _hocKyTruoc = new Dictionary<int, HocKy>();
         private bool _hetHanDK;
-        private Dictionary<string, List<MARK_MonHoc>> _dicMonDangKy = new Dictionary<string, List<MARK_MonHoc>>();
+        private Dictionary<string, List<PLAN_MonTinChi_TC>> _dicMonDangKy = new Dictionary<string, List<PLAN_MonTinChi_TC>>();
         private int _iD_sv = 0;
         private List<ChuyenNganh> _chuyenNganh;
         private string _fullName;
@@ -139,12 +139,12 @@ namespace StudentPortal
             }
             return _hocKyTruoc[ID_dt];
         }
-        protected List<MARK_MonHoc> getMonDangKy(KieuDangKy KieuDK, int ID_dt)
+        protected List<PLAN_MonTinChi_TC> getMonDangKy(KieuDangKy KieuDK, int ID_dt)
         {
             string key = KieuDK + "_" + ID_dt;
             if (!_dicMonDangKy.ContainsKey(key))
             {
-                _dicMonDangKy[key] = DangKyHocPhan.getMonDangKy(sinhVien[ID_dt], KieuDK, ID_dt).Select(t => t.MARK_MonHoc).ToList();
+                _dicMonDangKy[key] = DangKyHocPhan.getMonDangKy(sinhVien[ID_dt], KieuDK, ID_dt,this.HocKyDangKy.Ky_dang_ky).ToList();
             }
             return _dicMonDangKy[key];
         }

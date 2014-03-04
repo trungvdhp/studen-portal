@@ -153,14 +153,14 @@ namespace StudentPortal.Areas.Admin.Controllers
             return result;
         }
 
-        private List<MARK_MonHoc> listMonTC(int ID_chuyen_nganh, int Ky_dang_ky)
+        private List<PLAN_MonTinChi_TC> listMonTC(int ID_chuyen_nganh, int Ky_dang_ky)
         {
             var idMonChuyenNganhs = db.PLAN_ChuongTrinhDaoTaoChiTiet
                 .Where(t => t.PLAN_ChuongTrinhDaoTao.ID_chuyen_nganh == ID_chuyen_nganh)
                 .Select(t => t.ID_mon).Distinct()
                 .ToList();
-            var monMos = db.PLAN_LopTinChi_TC.Where(t => t.PLAN_MonTinChi_TC.Ky_dang_ky == Ky_dang_ky).Select(t => t.PLAN_MonTinChi_TC.MARK_MonHoc).Distinct().ToList();
-            var monHeDTs = new List<MARK_MonHoc>();
+            var monMos = db.PLAN_MonTinChi_TC.Where(t => t.Ky_dang_ky == Ky_dang_ky).ToList();
+            var monHeDTs = new List<PLAN_MonTinChi_TC>();
             foreach (var mon in monMos)
             {
                 if (idMonChuyenNganhs.Contains(mon.ID_mon))
@@ -173,14 +173,20 @@ namespace StudentPortal.Areas.Admin.Controllers
         {
             JsonResult result = new JsonResult();
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            result.Data = new SelectList(listMonTC(ID_chuyen_nganh,Ky_dang_ky), "ID_mon", "Ten_mon");
+            result.Data = new SelectList(listMonTC(ID_chuyen_nganh,Ky_dang_ky), "ID_mon_tc", "Ten_mon");
             return result;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ID_lop_tc"></param>
+        /// <param name="Ky_dang_ky"></param>
+        /// <returns></returns>
         public ActionResult getLopTCKhac(int ID_lop_tc, int Ky_dang_ky)
         {
             var lopTC = db.PLAN_LopTinChi_TC.Single(t => t.ID_lop_tc == ID_lop_tc);
-            var lopTinChis = DangKyHocPhan.getLopTinChi(lopTC.PLAN_MonTinChi_TC.ID_mon, Ky_dang_ky,false);
+            //var lopTinChis = DangKyHocPhan.getLopTinChi(lopTC.PLAN_MonTinChi_TC.ID_mon, Ky_dang_ky,false);
+            var lopTinChis = DangKyHocPhan.getLopTinChi(ID_lop_tc, false);
             lopTinChis.Remove(lopTinChis.Single(t => t.ID_lop_tc == ID_lop_tc));
             lopTinChis = lopTinChis.Where(t => t.ID_lop_lt == lopTC.ID_lop_lt).ToList();
             JsonResult result = new JsonResult();
@@ -189,18 +195,18 @@ namespace StudentPortal.Areas.Admin.Controllers
             return result;
         }
 
-        public ActionResult getLopTC([DataSourceRequest] DataSourceRequest request, int ID_chuyen_nganh, int? ID_mon, int Ky_dang_ky, bool? Co_SKTC)
+        public ActionResult getLopTC([DataSourceRequest] DataSourceRequest request, int ID_chuyen_nganh, int? ID_mon_tc, int Ky_dang_ky, bool? Co_SKTC)
         {
             var lopTinChis = new List<LopTinChiViewModel>();
-            if (ID_mon != null)
+            if (ID_mon_tc != null)
             {
-                lopTinChis = DangKyHocPhan.getLopTinChi((int)ID_mon, Ky_dang_ky, (bool)Co_SKTC);
+                lopTinChis = DangKyHocPhan.getLopTinChi((int)ID_mon_tc, (bool)Co_SKTC);
             }
             else if(ID_chuyen_nganh!=0 && Ky_dang_ky!=0){
                 var mons = listMonTC(ID_chuyen_nganh, Ky_dang_ky);
                 foreach (var mon in mons)
                 {
-                    lopTinChis.AddRange(DangKyHocPhan.getLopTinChi((int)mon.ID_mon, Ky_dang_ky, (bool)Co_SKTC));
+                    lopTinChis.AddRange(DangKyHocPhan.getLopTinChi((int)mon.ID_mon_tc, (bool)Co_SKTC));
                 }
             }
             return Json(lopTinChis.ToDataSourceResult(request));;

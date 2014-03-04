@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var Ky_dang_ky = (ViewBag.KydangKyHienTai as StudentPortal.PLAN_HocKyDangKy_TC).Ky_dang_ky;
 }
 
 <div class="row-fluid">
@@ -58,6 +59,15 @@
                     e.Change("reloadGrid");
                 })
                 .CascadeFrom("ChuyenNganh")
+            )
+            @(Html.Kendo().DropDownList()
+                .Name("KyDangKy")
+                .OptionLabel("Chọn kỳ đăng ký")
+                .DataTextField("Text")
+                .DataValueField("Value")
+                .HtmlAttributes(new { @style="width: 200px"})
+                .Value(Ky_dang_ky.ToString())
+                .BindTo(ViewBag.KyDangKys)
             )
         </p>
         <div style="overflow: hidden">
@@ -342,6 +352,7 @@ if(Trang_thai_dk!=null)
             Khoa_hoc: $('#KhoaHoc').val(),
             Tu_khoa: $('#MonHoc').val(),
             ID_sv: selectedIDSV,
+            Ky_dang_ky: $('#KyDangKy').val()
         };
     }
 </script>

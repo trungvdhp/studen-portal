@@ -202,6 +202,7 @@
     <Compile Include="Controllers\ChuongTrinhKhungController.cs" />
     <Compile Include="Controllers\DangKyThiController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HoSoController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
@@ -908,6 +909,7 @@
     <Content Include="Views\Shared\EditorTemplates\Number.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
+    <Content Include="Views\HoSo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
