@@ -289,6 +289,7 @@
     <Compile Include="ViewModels\ChuyenNganh.cs" />
     <Compile Include="ViewModels\DiemHocTap.cs" />
     <Compile Include="ViewModels\HocKy.cs" />
+    <Compile Include="ViewModels\HoSoSinhVien.cs" />
     <Compile Include="ViewModels\InboxViewModel.cs" />
     <Compile Include="ViewModels\KieuDangKy.cs" />
     <Compile Include="ViewModels\KyDangKy.cs" />

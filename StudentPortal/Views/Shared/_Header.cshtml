@@ -130,7 +130,7 @@
                         <ul class="dropdown-menu">
                             @if (ViewBag.IsUserLoggedIn)
                             {
-                                <li><a href="#"><i class="icon-user"></i>&nbsp;Hồ sơ</a></li>
+                                <li><a href="@Url.Action("Index", "HoSo", new { Area=""})"><i class="icon-user"></i>&nbsp;Hồ sơ</a></li>
                                 <li><a href="@Url.Action("Manage","Account", new { Area=""})"><i class="icon-lock"></i>&nbsp;Đổi mật khẩu</a></li>
                             }
                             @if(ViewBag.IsSinhVien){

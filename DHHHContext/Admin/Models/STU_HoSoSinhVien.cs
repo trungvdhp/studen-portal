@@ -36,6 +36,7 @@ namespace StudentPortal
         public string Ho_ten { get; set; }
 		
 		[Display(Name = "Ngày sinh")]
+        [Required]
         public Nullable<System.DateTime> Ngay_sinh { get; set; }
         
 		[Display(Name = "ID Giới tính")]
@@ -95,6 +96,7 @@ namespace StudentPortal
         public Nullable<int> ID_nhom_doi_tuong { get; set; }
 		
         [Display(Name = "Địa chỉ báo tin")]
+        [Required]
         public string Dia_chi_bao_tin { get; set; }
 		
 		[Display(Name = "ID Khu vực TS")]
@@ -246,9 +248,11 @@ namespace StudentPortal
         public string Noi_cap { get; set; }
 		
 		[Display(Name = "Điện thoại cá nhân")]
+        [Required]
         public string Dienthoai_canhan { get; set; }
 		
 		[Display(Name = "Email")]
+        [Required]
         public string Email { get; set; }
 		
         [Display(Name = "Nơi ở hiện tại")]
