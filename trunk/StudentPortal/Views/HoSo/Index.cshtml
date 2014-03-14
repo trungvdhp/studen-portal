@@ -1,57 +1,92 @@
 ﻿@{
     ViewBag.Title = "Hồ sơ sinh viên";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    StudentPortal.STU_HoSoSinhVien sinhvien = ViewBag.SinhVien[0] as StudentPortal.STU_HoSoSinhVien;
+
+    StudentPortal.STU_HoSoSinhVien sinhvien = ViewBag.SinhVien as StudentPortal.STU_HoSoSinhVien;
 }
 <div class="row-fluid">
-    <form class="form-horizontal">
-        <div class="control-group">
-            <label class="control-label">Mã sinh viên</label>
-            <div class="controls">
-                <input type="text" value="@sinhvien.Ma_sv" />
-            </div>
+    <div class="portlet box blue">
+        <div class="portlet-title">
+            <h4>
+                <i class="icon-reorder"></i>
+                <span class="hidden-phone">Hồ sơ sinh viên</span>
+            </h4>
         </div>
-        <div class="control-group">
-            <label class="control-label">Họ</label>
-            <div class="controls">
-                <input type="text" value="@sinhvien.Ho_ten" />
-            </div>
+        <div class="portlet-body form">
+            <form class="form-horizontal" id="frmHoSo">
+                <div class="control-group">
+                    <label class="control-label">Mã sinh viên</label>
+                    <div class="controls">
+                        <input type="text" value="@sinhvien.Ma_sv" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Họ</label>
+                    <div class="controls">
+                        <input type="text" value="@sinhvien.Ho_ten" />
+                    </div>
+                </div>
+                <div class="control-group">
+                        <label class="control-label">Điện thoại cá nhân</label>
+                        <div class="controls">
+                            <input type="text" value="@sinhvien.Dienthoai_canhan" name="Dienthoai_canhan" />
+                        </div>
+                    </div>
+                <div class="control-group">
+                    <label class="control-label">Email</label>
+                    <div class="controls">
+                        <input type="text" value="@sinhvien.Email" name="Email"  />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Ngày sinh</label>
+                    <div class="controls">
+                        @(Html.Kendo().DateTimePicker()
+                            .Name("Ngay_sinh")
+                            .Format("dd/MM/yyyy")
+                            .Value(@sinhvien.Ngay_sinh)
+                        )
+                        @*<input type="text" value="@sinhvien.Ngay_sinh" name="Ngay_sinh" />*@
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Địa chỉ báo tin</label>
+                    <div class="controls">
+                        <input type="text" value="@sinhvien.Dia_chi_bao_tin" name="Dia_chi_bao_tin" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Họ tên bố</label>
+                    <div class="controls">
+                        <input type="text" value="@sinhvien.Ho_ten_cha" name="Ho_ten_cha" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Họ tên mẹ</label>
+                    <div class="controls">
+                        <input type="text" value="@sinhvien.Ho_ten_me" name="Ho_ten_me" />
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button id="btnLuu" class="btn blue" type="submit"><i class="icon-ok"></i> Cập nhật</button>
+                    <button id="btnCancel" class="btn" type="button">Cancel</button>
+                </div>
+            </form>
         </div>
-        @*<div class="control-group">
-            <label class="control-label">Tên</label>
-            <div class="controls">
-                <input type="text" value="@sinhvien.Ma_sv" />
-            </div>
-        </div>*@
-        <div class="control-group">
-            <label class="control-label">Email</label>
-            <div class="controls">
-                <input type="text" value="@sinhvien.Email" />
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label">Ngày sinh</label>
-            <div class="controls">
-                <input type="text" value="@sinhvien.Ngay_sinh" />
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label">Địa chỉ báo tin</label>
-            <div class="controls">
-                <input type="text" value="@sinhvien.Dia_chi_bao_tin" />
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label">Họ tên bố</label>
-            <div class="controls">
-                <input type="text" value="@sinhvien.Ho_ten_cha" />
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label">Họ tên mẹ</label>
-            <div class="controls">
-                <input type="text" value="@sinhvien.Ho_ten_me" />
-            </div>
-        </div>
-    </form>
+    </div>
 </div>
+<script>
+    $('#frmHoSo').submit(function () {
+        $.ajax({
+            url: '@Url.Action("Luu", "HoSo", new { Area=""})',
+            type: 'post',
+            dataType: 'json',
+            data: $('#frmHoSo').serialize(),
+            success: function (o) {
+                alert(o.Message);
+            }
+        });
+        return false;
+    });
+    $('#btnCancel')
+</script>

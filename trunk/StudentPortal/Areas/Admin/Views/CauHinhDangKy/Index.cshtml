@@ -107,7 +107,7 @@
         }
     }
     $(document).ready(function () {
-        
+        $('#ddlKyDangKy').data('kendoDropDownList').value('@ViewBag.KyDangKyHienTai');
     });
     $('#btnChonDK').click(function () {
         $.ajax({
