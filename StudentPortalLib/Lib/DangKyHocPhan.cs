@@ -229,7 +229,11 @@ namespace StudentPortal.Lib
                 }
             }
             // Kiem tra mon rang buoc
-            var monRangBuoc = db.PLAN_ChuongTrinhDaoTaoRangBuoc.Where(t => t.ID_dt == ID_dt).ToDictionary(t => t.ID_mon, t => t);
+            var listMonRB = db.PLAN_ChuongTrinhDaoTaoRangBuoc.Where(t => t.ID_dt == ID_dt).ToList();
+            var monRangBuoc = new Dictionary<int, PLAN_ChuongTrinhDaoTaoRangBuoc>();
+            foreach (var monRB in listMonRB) {
+                monRangBuoc[monRB.ID_mon] = monRB;
+            }
             if (monRangBuoc.ContainsKey(lopTC.PLAN_MonTinChi_TC.ID_mon))
             {
                 if (monDaHoc.ContainsKey(monRangBuoc[lopTC.PLAN_MonTinChi_TC.ID_mon].ID_mon_rb) && monRangBuoc[lopTC.PLAN_MonTinChi_TC.ID_mon].Diem_rang_buoc > monDaHoc[monRangBuoc[lopTC.PLAN_MonTinChi_TC.ID_mon].ID_mon_rb].Z)

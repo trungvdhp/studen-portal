@@ -76,8 +76,8 @@ namespace StudentPortal.Areas.Admin.Controllers
         public ActionResult DangKy(int ID_sv, int ID_lop_tc, int ID_dt, int Ky_dang_ky)
         {
             var result = new JsonResult();
-            //try
-            //{
+            try
+            {
                 var lopTC = db.PLAN_LopTinChi_TC.Single(t => t.ID_lop_tc == ID_lop_tc);
 
                 if (lopTC.ID_lop_lt == 0 && db.PLAN_LopTinChi_TC.Count(t => t.ID_lop_lt == ID_lop_tc) > 0)
@@ -131,16 +131,16 @@ namespace StudentPortal.Areas.Admin.Controllers
                 var sv = SinhVien.GetSinhVien(db,ID_sv);
                 var lop = LopTinChi.getDetails(ID_lop_tc);
                 Log.Write(this.userProfile.UserId, "", LogAct.DANGKY, String.Format("{0}, mã sv: {1}, vào lớp {2}", sv.STU_HoSoSinhVien.Ho_ten, sv.STU_HoSoSinhVien.Ma_sv, lop.Ten_lop_tc));
-            //}
-            //catch (Exception e)
-            //{
-            //    result.Data = new AjaxResult
-            //    {
-            //        Status = AjaxStatus.ERROR,
-            //        Title = "Thông báo",
-            //        Message = e.Message,
-            //    };
-            //}
+            }
+            catch (Exception e)
+            {
+                result.Data = new AjaxResult
+                {
+                    Status = AjaxStatus.ERROR,
+                    Title = "Thông báo",
+                    Message = e.Message,
+                };
+            }
 
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return result;

@@ -42,6 +42,7 @@
                 .Events(e =>
                 {
                     e.Change("ddlChuyenNganh_change");
+                    e.DataBound("ddlChuyenNganh_DataBound");
                 })
                 .HtmlAttributes(new { style = "width:300px" })
             )
@@ -252,4 +253,8 @@
             }
         });
     });
+    function ddlChuyenNganh_DataBound(e) {
+        var t = $('#ddlChuyenNganh').data('kendoDropDownList');
+        t.value(t.dataSource._data[0].Value);
+    }
 </script>
