@@ -200,7 +200,6 @@
     <Compile Include="Areas\Admin\Controllers\ThongKeDangKySVController.cs" />
     <Compile Include="Controllers\ChatRoomController.cs" />
     <Compile Include="Controllers\ChuongTrinhKhungController.cs" />
-    <Compile Include="Controllers\DangKyThiController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HoSoController.cs" />
     <Compile Include="Controllers\LogController.cs" />
@@ -890,7 +889,6 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\DangKyHocPhan\Index.cshtml" />
     <Content Include="Views\ThoiKhoaBieu\Index.cshtml" />
-    <Content Include="Views\DangKyThi\Index.cshtml" />
     <Content Include="Views\Message\Inbox.cshtml" />
     <Content Include="Views\Message\Outbox.cshtml" />
     <Content Include="Views\Message\Compose.cshtml" />
