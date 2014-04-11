@@ -57,9 +57,12 @@
                             .ServerFiltering(true)
                             ;
                         })
-                        //.Enable(false)
+                            //.Enable(false)
                         .AutoBind(false)
-                        //.CascadeFrom("TuKhoa")
+                        .Events(e => {
+                            e.DataBound("ID_dt_DataBound");
+                        })
+                            //.CascadeFrom("TuKhoa")
                     )
 
                     @(Html.Kendo().DropDownList()
@@ -211,6 +214,10 @@
             DotThu: $("#DotThu").val(),
             LanThu: $("#LanThu").val()
         };
+    }
+    function ID_dt_DataBound() {
+        var t = $('#ID_dt').data('kendoDropDownList');
+        t.value(t.dataSource._data[0].Value);
     }
     $("#TraCuuButton").click(function () {
         $("#GridBienLai").data("kendoGrid").dataSource.read();
