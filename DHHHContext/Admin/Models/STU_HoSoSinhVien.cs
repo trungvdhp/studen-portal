@@ -84,8 +84,8 @@ namespace StudentPortal
 		
 		[Display(Name = "ID Đối tượng TC")]
         public Nullable<int> ID_doi_tuong_TC { get; set; }
-		
-		[Display(Name = "ID Đối tượng TS")]
+
+        [Display(Name = "ID Đối tượng TS")]
         public Nullable<int> ID_doi_tuong_TS { get; set; }
 		
 		[Display(Name = "Điện thoại NR")]
