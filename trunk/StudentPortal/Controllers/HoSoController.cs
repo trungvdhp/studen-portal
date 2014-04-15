@@ -17,9 +17,10 @@ namespace StudentPortal.Controllers
 
 
         public ActionResult Luu(ViewModels.HoSoSinhVien model) {
-            try
-            {
-                //if(ModelState.IsValid)
+            //try
+            //{
+            //if (ModelState.IsValid)
+            //{
                 var db = new DHHHContext();
                 var sinhvien = this.sinhVien.First();
                 var hoso = db.STU_HoSoSinhVien.Single(t => t.ID_sv == sinhvien.Value.ID_sv);
@@ -40,33 +41,39 @@ namespace StudentPortal.Controllers
                 //hoso.ID_tinh_tt = model.ID_tinh_tt;
                 //hoso.ID_quoc_tich_cha = model.ID_quoc_tich_cha;
                 //hoso.ID_quoc_tich_me = model.ID_quoc_tich_me;
-                hoso.Xa_phuong_tt = model.Xa_phuong_tt;
+
+                //hoso.Xa_phuong_tt = model.Xa_phuong_tt;
                 hoso.NoiO_hiennay = model.NoiO_hiennay;
                 hoso.CMND = model.CMND;
                 hoso.Ngay_cap = model.Ngay_cap;
-                hoso.Ngay_sinh = model.Ngay_sinh;
+                //hoso.Ngay_sinh = model.Ngay_sinh;
+
                 //hoso.Ngay_vao_doan = model.Ngay_vao_doan;
                 ////hoso.Ngay_vao_dang = model.Ngay_vao_dang;
                 //hoso.Ngay_nhap_hoc = model.Ngay_nhap_hoc;
-                hoso.Ho_khau_TT_cha = model.Ho_khau_TT_cha;
-                hoso.Ho_khau_TT_me = model.Ho_khau_TT_me;
-                hoso.Namsinh_cha = model.Namsinh_cha;
-                hoso.Namsinh_me = model.Namsinh_me;
-                hoso.Ton_giao_cha = model.Ton_giao_cha;
-                hoso.Ton_giao_me = model.Ton_giao_me;
-                hoso.Ton_giao = model.Ton_giao;
+
+                //hoso.Ho_khau_TT_cha = model.Ho_khau_TT_cha;
+                //hoso.Ho_khau_TT_me = model.Ho_khau_TT_me;
+                //hoso.Namsinh_cha = model.Namsinh_cha;
+                //hoso.Namsinh_me = model.Namsinh_me;
+                //hoso.Ton_giao_cha = model.Ton_giao_cha;
+                //hoso.Ton_giao_me = model.Ton_giao_me;
+                //hoso.Ton_giao = model.Ton_giao;
+
                 db.SaveChanges();
-                return Json(new AjaxResult { 
+                return Json(new AjaxResult
+                {
                     Status = AjaxStatus.SUCCESS,
                     Message = "Đã cập nhật thông tin",
                 });
-            }
-            catch (Exception ex) {
-                return Json(new AjaxResult { 
-                    Status = AjaxStatus.ERROR,
-                    Message = ex.Message
-                });
-            }
+            //}
+            //}
+            //catch (Exception ex) {
+            //    return Json(new AjaxResult { 
+            //        Status = AjaxStatus.ERROR,
+            //        Message = ex.Message
+            //    });
+            //}
         }
     }
 }
