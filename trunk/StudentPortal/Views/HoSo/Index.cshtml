@@ -139,9 +139,10 @@
                                             <label class="control-label">Ngày cấp</label>
                                             <div class="controls">
                                                 @(Html.Kendo().DateTimePicker()
-                            .Name("Ngay_cap")
-                            .Format("dd/MM/yyyy")
-                            .Value(@sinhvien.Ngay_cap).HtmlAttributes(new { name="Ngay_cap"})
+                                                    .Name("Ngay_cap")
+                                                    .Format("dd/MM/yyyy")
+                                                    .Value(@sinhvien.Ngay_cap)
+                                                    .HtmlAttributes(new { name="Ngay_cap"})
                                                 )
                                             </div>
                                         </div>
@@ -155,9 +156,10 @@
                                             <label class="control-label">Ngày vào Đoàn</label>
                                             <div class="controls">
                                                 @(Html.Kendo().DateTimePicker()
-                                           .Name("Ngay_vao_doan")
-                                            .Format("dd/MM/yyyy")
-                                            .Value(@sinhvien.Ngay_vao_doan).HtmlAttributes(new { name="Ngay_vao_doan"})
+                                                    .Name("Ngay_vao_doan")
+                                                    .Format("dd/MM/yyyy")
+                                                    .Value(@sinhvien.Ngay_vao_doan)
+                                                    .HtmlAttributes(new { name="Ngay_vao_doan"})
                                                 )
                                             </div>
                                         </div>
@@ -165,9 +167,10 @@
                                             <label class="control-label">Ngày vào Đảng</label>
                                             <div class="controls">
                                                 @(Html.Kendo().DateTimePicker()
-                                            .Name("Ngay_vao_dang")
-                                            .Format("dd/MM/yyyy")
-                                            .Value(@sinhvien.Ngay_vao_dang).HtmlAttributes(new { name="Ngay_vao_dang"})
+                                                    .Name("Ngay_vao_dang")
+                                                    .Format("dd/MM/yyyy")
+                                                    .Value(@sinhvien.Ngay_vao_dang)
+                                                    .HtmlAttributes(new { name="Ngay_vao_dang"})
                                                 )
                                             </div>
                                         </div>
@@ -175,9 +178,10 @@
                                             <label class="control-label">Ngày nhập học</label>
                                             <div class="controls">
                                                 @(Html.Kendo().DateTimePicker()
-                                            .Name("Ngay_nhap_hoc")
-                                            .Format("dd/MM/yyyy")
-                                            .Value(@sinhvien.Ngay_nhap_hoc)
+                                                    .Name("Ngay_nhap_hoc")
+                                                    .Format("dd/MM/yyyy")
+                                                    .Value(@sinhvien.Ngay_nhap_hoc)
+                                                    .HtmlAttributes(new { name="Ngay_nhap_hoc"})
                                                 )
                                             </div>
                                         </div>
@@ -368,4 +372,6 @@
         return false;
     });
     $('#btnCancel')
+    $(document).ready(function () {
+    })
 </script>
