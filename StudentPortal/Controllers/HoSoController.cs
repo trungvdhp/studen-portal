@@ -24,8 +24,7 @@ namespace StudentPortal.Controllers
                 var db = new DHHHContext();
                 var sinhvien = this.sinhVien.First();
                 var hoso = db.STU_HoSoSinhVien.Single(t => t.ID_sv == sinhvien.Value.ID_sv);
-                hoso.Ho_ten_cha = model.Ho_ten_cha;
-                hoso.Ho_ten_me = model.Ho_ten_me;
+                
                 hoso.Dia_chi_bao_tin = model.Dia_chi_bao_tin;
                 hoso.Email = model.Email;
                 hoso.Dienthoai_canhan = model.Dienthoai_canhan;
@@ -52,13 +51,15 @@ namespace StudentPortal.Controllers
                 ////hoso.Ngay_vao_dang = model.Ngay_vao_dang;
                 //hoso.Ngay_nhap_hoc = model.Ngay_nhap_hoc;
 
-                //hoso.Ho_khau_TT_cha = model.Ho_khau_TT_cha;
-                //hoso.Ho_khau_TT_me = model.Ho_khau_TT_me;
-                //hoso.Namsinh_cha = model.Namsinh_cha;
-                //hoso.Namsinh_me = model.Namsinh_me;
-                //hoso.Ton_giao_cha = model.Ton_giao_cha;
-                //hoso.Ton_giao_me = model.Ton_giao_me;
-                //hoso.Ton_giao = model.Ton_giao;
+                hoso.Ho_ten_cha = model.Ho_ten_cha;
+                hoso.Ho_ten_me = model.Ho_ten_me;
+                hoso.Ho_khau_TT_cha = model.Ho_khau_TT_cha;
+                hoso.Ho_khau_TT_me = model.Ho_khau_TT_me;
+                hoso.Namsinh_cha = model.Namsinh_cha;
+                hoso.Namsinh_me = model.Namsinh_me;
+                hoso.Ton_giao_cha = model.Ton_giao_cha;
+                hoso.Ton_giao_me = model.Ton_giao_me;
+                hoso.Ton_giao = model.Ton_giao;
 
                 db.SaveChanges();
                 return Json(new AjaxResult
