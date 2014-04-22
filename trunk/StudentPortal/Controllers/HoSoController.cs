@@ -12,13 +12,18 @@ namespace StudentPortal.Controllers
         public ActionResult Index()
         {
             ViewBag.SinhVien = this.sinhVien.First().Value.STU_HoSoSinhVien;
+            ViewBag.QuocTich = new SelectList(db.STU_QuocTich.ToList(), "ID_quoc_tich", "Quoc_tich");
+            ViewBag.DanToc = new SelectList(db.STU_DanToc.ToList(), "ID_dan_toc", "Dan_toc");
+            ViewBag.DoiTuongTC = new SelectList(db.STU_DoiTuong.ToList(), "ID_doi_tuong", "Ten_dt");
+            ViewBag.Huyen = new SelectList(db.STU_Huyen.ToList(), "ID_huyen", "Ten_huyen");
+            ViewBag.Tinh = new SelectList(db.STU_Tinh.ToList(), "ID_tinh", "Ten_tinh");
             return View();
         }
 
 
         public ActionResult Luu(ViewModels.HoSoSinhVien model) {
-            //try
-            //{
+            try
+            {
             //if (ModelState.IsValid)
             //{
                 var db = new DHHHContext();
@@ -68,13 +73,15 @@ namespace StudentPortal.Controllers
                     Message = "Đã cập nhật thông tin",
                 });
             //}
-            //}
-            //catch (Exception ex) {
-            //    return Json(new AjaxResult { 
-            //        Status = AjaxStatus.ERROR,
-            //        Message = ex.Message
-            //    });
-            //}
+            }
+            catch (Exception ex)
+            {
+                return Json(new AjaxResult
+                {
+                    Status = AjaxStatus.ERROR,
+                    Message = ex.Message
+                });
+            }
         }
     }
 }
