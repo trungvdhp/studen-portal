@@ -42,6 +42,18 @@ namespace StudentPortal.Controllers
                     ViewBag.Ngay_thoi_gian = cauhinhThoigian.Ngay_thoi_gian;
                     List<string> thoiGianBatDau = cauhinhThoigian.Thoi_gian_bat_dau.Split(new char[] { ',' }).ToList();
                     ViewBag.Tong_so_tiet = thoiGianBatDau.Count - thoiGianBatDau.Count(t => t == "0000");
+
+
+                    //dieu kien ho so
+
+                    var hoso = sinhVien.First().Value.STU_HoSoSinhVien;
+                    if (hoso.Dia_chi_bao_tin == null || hoso.Dia_chi_bao_tin.Length == 0 || 
+                        hoso.Dienthoai_canhan == null || hoso.Dienthoai_canhan.Length == 0 || 
+                        hoso.Email == null || hoso.Email.Length == 0)
+                    {
+                        ViewBag.Error = true;
+                        ViewBag.ErrorMessage = "Bạn phải hoàn thành các trường sau trong hồ sơ cá nhân mới có thể đăng ký: địa chỉ báo tin, điện thoại cá nhân, email.";
+                    }
                 }
                 else
                 {
@@ -54,6 +66,7 @@ namespace StudentPortal.Controllers
                 ViewBag.Error = true;
                 ViewBag.ErrorMessage = "Không có kỳ đăng ký nào đang mở!";
             }
+
 
         }
         public ActionResult Index()

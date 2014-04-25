@@ -20,6 +20,11 @@ namespace StudentPortal.Controllers
             return View();
         }
 
+        public ActionResult GetHuyen(string ID_tinh)
+        {
+            var huyen = db.STU_Huyen.Where(t => t.ID_tinh == ID_tinh).ToList();
+            return Json(new SelectList(huyen,"ID_huyen","Ten_huyen"),JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult Luu(ViewModels.HoSoSinhVien model) {
             try
