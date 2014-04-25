@@ -53,9 +53,9 @@
                                             <label class="control-label">Ngày sinh</label>
                                             <div class="controls">
                                                 @(Html.Kendo().DateTimePicker()
-                            .Name("Ngay_sinh")
-                            .Format("dd/MM/yyyy")
-                            .Value(@sinhvien.Ngay_sinh).HtmlAttributes(new { name="Ngay_sinh"})
+                                                    .Name("Ngay_sinh")
+                                                    .Format("dd/MM/yyyy")
+                                                    .Value(@sinhvien.Ngay_sinh).HtmlAttributes(new { name="Ngay_sinh"})
                                                 )
                                             </div>
                                         </div>
@@ -120,6 +120,7 @@
                                                     .DataTextField("Text")
                                                     .DataValueField("Value")
                                                     .HtmlAttributes(new { name="ID_quoc_tich" })
+                                                    .Value(sinhvien.ID_quoc_tich.ToString())
                                                     .BindTo(ViewBag.QuocTich)
                                                 )
                                             </div>
@@ -133,6 +134,7 @@
                                                     .DataTextField("Text")
                                                     .DataValueField("Value")
                                                     .HtmlAttributes(new { name="ID_dan_toc" })
+                                                    .Value(sinhvien.ID_dan_toc.ToString())
                                                     .BindTo(ViewBag.DanToc)
                                                 )
                                             </div>
@@ -226,7 +228,11 @@
                                                     .Name("ID_tinh_tt")
                                                     .DataTextField("Text")
                                                     .DataValueField("Value")
-                                                    .HtmlAttributes(new { name="ID_tinh_tt"})
+                                                    .HtmlAttributes(new { name = "ID_tinh_tt" })
+                                                    .Value(sinhvien.ID_tinh_tt.ToString())
+                                                    .Events(e => {
+                                                        e.DataBound("ID_tinh_tt_DataBound");
+                                                    })
                                                     .BindTo(ViewBag.Tinh)
                                                 )
                                             </div>
@@ -237,10 +243,17 @@
                                                 @*<input type="text" value="@sinhvien.ID_huyen_tt" name="ID_huyen_tt" />*@
                                                 @(Html.Kendo().DropDownList()
                                                     .Name("ID_huyen_tt")
+                                                    .OptionLabel("Chọn quận/huyện")
                                                     .DataTextField("Text")
                                                     .DataValueField("Value")
-                                                    .HtmlAttributes(new { name="ID_huyen_tt"})
-                                                    .BindTo(ViewBag.Huyen)
+                                                    .HtmlAttributes(new { name = "ID_huyen_tt" })
+                                                    .Value(sinhvien.ID_huyen_tt.ToString())
+                                                    .CascadeFrom("ID_tinh_tt")
+                                                    .DataSource(source => {
+                                                        source.Read(read => {
+                                                            read.Action("GetHuyen", "HoSo", new { Area="" }).Data("getTinhFilter");
+                                                        }).ServerFiltering(true);
+                                                    })
                                                 )
                                             </div>
                                         </div>
@@ -288,6 +301,7 @@
                                                     .DataTextField("Text")
                                                     .DataValueField("Value")
                                                     .HtmlAttributes(new { name="ID_dan_toc_cha" })
+                                                    .Value(sinhvien.ID_dan_toc_cha.ToString())
                                                     .BindTo(ViewBag.DanToc)
                                                 )
                                             </div>
@@ -307,6 +321,7 @@
                                                     .DataTextField("Text")
                                                     .DataValueField("Value")
                                                     .HtmlAttributes(new { name="ID_quoc_tich_cha" })
+                                                    .Value(sinhvien.ID_quoc_tich_cha.ToString())
                                                     .BindTo(ViewBag.QuocTich)
                                                 )
                                             </div>
@@ -357,6 +372,7 @@
                                                     .DataTextField("Text")
                                                     .DataValueField("Value")
                                                     .HtmlAttributes(new { name="ID_dan_toc_me" })
+                                                    .Value(sinhvien.ID_dan_toc_me.ToString())
                                                     .BindTo(ViewBag.DanToc)
                                                 )
                                             </div>
@@ -375,6 +391,7 @@
                                                     .Name("ID_quoc_tich_me")
                                                     .DataTextField("Text")
                                                     .DataValueField("Value")
+                                                    .Value(sinhvien.ID_quoc_tich_me.ToString())
                                                     .BindTo(ViewBag.QuocTich)
                                                 )
                                             </div>
@@ -426,29 +443,16 @@
         });
         return false;
     });
-    $('#btnCancel')
+    //$('#btnCancel')
     $(document).ready(function () {
     })
-    //input
-    //    N = 5
-    //{1, 2, 3, 4, 5}
-    //{1, 3, 2}
-    //{1, 4, 3, 2, 9}
-    //{2, 3, 4, 7, 9}
-    //{3, 4, 5, 9, 10}
-    
-    //output
-    //    1. In case K = 3, L = 2
-    //{1, 2}
-    //{1, 3}
-    //{2, 3}
-    //{2, 4}
-    //{3, 4}
-    //{3, 9}
-    //{4, 9}
 
-    //2. In case K = 3, L = 3
-    //{1, 2, 3}
-    //{2, 3, 4}
-    //{3, 4, 9}
+    function getTinhFilter() {
+        return {
+            ID_tinh: $('#ID_tinh_tt').val()
+        };
+    }
+    function ID_tinh_tt_DataBound() {
+
+    }
 </script>
