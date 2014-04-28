@@ -5,7 +5,7 @@
     StudentPortal.STU_HoSoSinhVien sinhvien = ViewBag.SinhVien as StudentPortal.STU_HoSoSinhVien;
 }
 <form class="form-horizontal" id="frmHoSo">
-    <div class="portlet box blue">
+    <div class="portlet box red">
         <div class="portlet-title">
             <h4>
                 <i class="icon-reorder"></i>
@@ -22,7 +22,7 @@
                     <div class="tab-pane active" id="tab_1_1">
                         <div class="row-fluid">
                             <div class="span6">
-                                <div class="portlet box blue">
+                                <div class="portlet box red">
                                     <div class="portlet-title">
                                         <h4>
                                             <i class="icon-reorder"></i>
@@ -34,13 +34,13 @@
                                         <div class="control-group">
                                             <label class="control-label">Mã sinh viên</label>
                                             <div class="controls">
-                                                <input type="text" value="@sinhvien.Ma_sv" />
+                                                <input type="text" value="@sinhvien.Ma_sv" readonly="true" />
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label">Họ tên</label>
                                             <div class="controls">
-                                                <input type="text" value="@sinhvien.Ho_ten" />
+                                                <input type="text" value="@sinhvien.Ho_ten" readonly="true"  />
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -55,6 +55,7 @@
                                                 @(Html.Kendo().DateTimePicker()
                                                     .Name("Ngay_sinh")
                                                     .Format("dd/MM/yyyy")
+                                                    .Enable(false)
                                                     .Value(@sinhvien.Ngay_sinh).HtmlAttributes(new { name="Ngay_sinh"})
                                                 )
                                             </div>
@@ -64,7 +65,7 @@
                             </div>
                             
                             <div class="span6">
-                                <div class="portlet box blue">
+                                <div class="portlet box red">
                                     <div class="portlet-title">
                                         <h4>
                                             <i class="icon-reorder"></i>
@@ -74,7 +75,7 @@
                                     <div class="portlet-body form">
 
                                         <div class="control-group">
-                                            <label class="control-label">Điện thoại NR</label>
+                                            <label class="control-label">Điện thoại nhà riêng</label>
                                             <div class="controls">
                                                 <input type="text" value="@sinhvien.Dien_thoai_NR" name="Dien_thoai_NR" />
                                             </div>
@@ -103,7 +104,7 @@
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
-                                <div class="portlet box blue">
+                                <div class="portlet box red">
                                     <div class="portlet-title">
                                         <h4>
                                             <i class="icon-reorder"></i>
@@ -205,7 +206,7 @@
                                 </div>
                             </div>
                             <div class="span6">
-                                <div class="portlet box blue">
+                                <div class="portlet box red">
                                     <div class="portlet-title">
                                         <h4>
                                             <i class="icon-reorder"></i>
@@ -277,7 +278,7 @@
                     <div class="tab-pane" id="tab_1_2">
                         <div class="row-fluid">
                             <div class="span6">
-                                <div class="portlet box blue">
+                                <div class="portlet box red">
                                     <div class="portlet-title">
                                         <h4>
                                             <i class="icon-reorder"></i>
@@ -348,7 +349,7 @@
                                 </div>
                             </div>
                             <div class="span6">
-                                <div class="portlet box blue">
+                                <div class="portlet box red">
                                     <div class="portlet-title">
                                         <h4>
                                             <i class="icon-reorder"></i>
@@ -424,7 +425,7 @@
 
             </div>
             <div class="form-actions">
-                <button class="btn blue" type="submit"><i class="icon-ok"></i> Lưu</button>
+                <button class="btn red" type="submit"><i class="icon-ok"></i> Lưu</button>
                 <button class="btn" type="button">Hủy</button>
             </div>
         </div>
