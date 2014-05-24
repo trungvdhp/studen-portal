@@ -156,6 +156,7 @@ namespace StudentPortal.Controllers
 				: "";
 			ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
 			ViewBag.ReturnUrl = Url.Action("Manage");
+            WebSecurity.Logout();
 			return View();
 		}
 

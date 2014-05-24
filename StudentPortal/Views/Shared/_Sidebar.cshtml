@@ -93,7 +93,7 @@
 					<span class="arrow"></span>
 					</a>
 					<ul class="sub">
-						@if(User.IsInRole("Role")){<li><a class="" href="@Url.Action("Index","Roles", new { Area = "Admin" })">Quyền</a></li>}
+						@if(User.IsInRole("Roles")){<li><a class="" href="@Url.Action("Index","Roles", new { Area = "Admin" })">Quyền</a></li>}
 						@if(User.IsInRole("Group")){<li><a class="" href="@Url.Action("Index","Group", new { Area = "Admin" })">Nhóm</a></li>}
 						@if(User.IsInRole("User")){<li><a class="" href="@Url.Action("Index","User", new { Area = "Admin" })">Người dùng</a></li>}
                         @*@if(User.IsInRole("CauHinh")){*@
