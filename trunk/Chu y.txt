@@ -1,0 +1,6 @@
+﻿- Đồng bộ mật khẩu đăng nhập của cán bộ phòng đào tạo.
+- Thoát sau khi thay đổi mật khẩu.
+- Sửa dữ liệu đăng ký
+- Kiểm tra trình duyệt
+- Xuất excel
+- Kiểm tra thời gian đăng ký trước khi vào đăng ký học
